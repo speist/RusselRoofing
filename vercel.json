@@ -1,14 +1,8 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "apps/web/package.json",
-      "use": "@vercel/next@latest",
-      "config": {
-        "installCommand": "npm install -g pnpm@8.15.5 && cd ../.. && npx pnpm@8.15.5 install --no-frozen-lockfile"
-      }
-    }
-  ],
+  "installCommand": "npm install -g pnpm@8.15.5 && npx pnpm@8.15.5 install --no-frozen-lockfile",
+  "buildCommand": "npx pnpm@8.15.5 --filter=web build",
+  "outputDirectory": "apps/web/.next",
+  "framework": "nextjs",
   "functions": {
     "apps/web/src/pages/api/**/*.js": {
       "runtime": "nodejs20.x"
