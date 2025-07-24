@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Light mode colors */
+  --color-primary-burgundy: 139 21 56;
+  --color-primary-charcoal: 45 45 45;
+  --color-secondary-warm-gray: 107 107 107;
+  --color-secondary-light-warm-gray: 245 243 240;
+  --color-secondary-cream-white: 250 250 248;
+  --color-accent-trust-blue: 30 95 142;
+  --color-accent-success-green: 45 122 62;
+  --color-accent-alert-gold: 212 160 23;
+  --color-functional-error-red: 211 47 47;
+  --color-functional-info-blue: 2 136 209;
+  --color-functional-warning-orange: 245 124 0;
+  --color-functional-disabled-gray: 189 189 189;
+  --color-background-white: 255 255 255;
+  --color-background-light: 251 251 249;
+  --color-background-dark: 26 26 26;
+  
+  /* Text colors */
+  --color-text-primary: 45 45 45;
+  --color-text-secondary: 107 107 107;
+  --color-text-inverse: 255 255 255;
+}
+
+.dark {
+  /* Dark mode colors */
+  --color-primary-burgundy: 160 48 80;
+  --color-primary-charcoal: 45 45 45;
+  --color-secondary-warm-gray: 107 107 107;
+  --color-secondary-light-warm-gray: 51 51 51;
+  --color-secondary-cream-white: 38 38 38;
+  --color-accent-trust-blue: 30 95 142;
+  --color-accent-success-green: 45 122 62;
+  --color-accent-alert-gold: 212 160 23;
+  --color-functional-error-red: 211 47 47;
+  --color-functional-info-blue: 2 136 209;
+  --color-functional-warning-orange: 245 124 0;
+  --color-functional-disabled-gray: 117 117 117;
+  --color-background-white: 26 26 26;
+  --color-background-light: 26 26 26;
+  --color-background-dark: 26 26 26;
+  
+  /* Dark mode text colors */
+  --color-text-primary: 255 255 255;
+  --color-text-secondary: 189 189 189;
+  --color-text-inverse: 45 45 45;
+}
+
+@layer base {
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  body {
+    color: rgb(var(--color-text-primary));
+    background-color: rgb(var(--color-background-white));
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    line-height: 1.2;
+    color: rgb(var(--color-text-primary));
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-in-out forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@layer components {
+  /* Custom range slider styling */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-track {
+    height: 8px;
+    border-radius: 4px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: rgb(var(--color-primary-burgundy));
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  input[type="range"]::-moz-range-track {
+    height: 8px;
+    border-radius: 4px;
+    border: none;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: rgb(var(--color-primary-burgundy));
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
