@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install -g pnpm@8.15.5 && npx pnpm@8.15.5 install",
+  "installCommand": "npm install -g pnpm@8.15.5 && npx pnpm@8.15.5 install --no-frozen-lockfile",
   "buildCommand": "npx pnpm@8.15.5 build",
   "framework": "nextjs",
   "outputDirectory": "apps/web/.next",
