@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "apps/web/package.json",
-      "use": "@vercel/next",
+      "use": "@vercel/next@latest",
       "config": {
         "installCommand": "npm install -g pnpm@8.15.5 && cd ../.. && npx pnpm@8.15.5 install --no-frozen-lockfile"
       }
