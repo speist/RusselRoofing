@@ -1,6 +1,6 @@
 {
-  "installCommand": "npm install -g pnpm@8.15.5 && pnpm install",
-  "buildCommand": "pnpm build",
+  "installCommand": "npm install -g pnpm@8.15.5 && npx pnpm@8.15.5 install",
+  "buildCommand": "npx pnpm@8.15.5 build",
   "framework": "nextjs",
   "outputDirectory": "apps/web/.next",
   "functions": {
