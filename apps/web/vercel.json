@@ -1,13 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "cd ../.. && npx pnpm@8.15.5 --filter=web build",
-  "devCommand": "cd ../.. && npx pnpm@8.15.5 --filter=web dev",
+  "devCommand": "cd ../.. && npx pnpm@8.15.5 --filter=web dev", 
   "installCommand": "npm install -g pnpm@8.15.5 && npx pnpm@8.15.5 install --no-frozen-lockfile",
   "outputDirectory": ".next",
-  "framework": "nextjs",
-  "functions": {
-    "src/app/api/**/*.ts": {
-      "runtime": "nodejs20.x"
-    }
-  }
+  "framework": "nextjs"
 }
