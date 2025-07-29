@@ -365,11 +365,11 @@ export function createRateLimiter() {
     const windowStart = now - config.rateLimitConfig.windowMs;
     
     // Clean up old entries
-    for (const [key, value] of requests.entries()) {
+    requests.forEach((value, key) => {
       if (value.resetTime < now) {
         requests.delete(key);
       }
-    }
+    });
     
     // Get current request data
     const currentData = requests.get(identifier) || { 
