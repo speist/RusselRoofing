@@ -6,11 +6,17 @@ import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background Placeholder */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary-charcoal via-secondary-warm-gray to-primary-charcoal">
-        {/* Future video background will go here */}
-        <div className="absolute inset-0 bg-black/40" />
+    <section className="relative min-h-screen flex items-center justify-center hero-rounded-bottom">
+      {/* Hero Background Image Card */}
+      <div className="absolute inset-0">
+        {/* TODO: Replace with actual hero image once provided
+            Should use Next.js Image component for optimization:
+            <Image src="/images/hero-bg.jpg" alt="Roofing hero" fill priority />
+        */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-charcoal via-secondary-warm-gray to-primary-charcoal">
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
       </div>
 
       {/* Content Overlay */}
@@ -19,7 +25,7 @@ export function Hero() {
           {/* Main Headline */}
           <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
             <span className="block">Expert Roofing</span>
-            <span className="block text-primary-burgundy">You Can Trust</span>
+            <span className="block text-white">You Can Trust</span>
           </h1>
 
           {/* Subheadline */}
@@ -40,7 +46,7 @@ export function Hero() {
             <Button
               variant="secondary"
               size="lg"
-              className="w-full sm:w-auto text-lg px-8 py-4 min-h-[56px] border-white text-white hover:bg-white hover:text-primary-charcoal"
+              className="w-full sm:w-auto text-lg px-8 py-4 min-h-[56px] bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-burgundy transition-all duration-300"
             >
               View Our Work
             </Button>
