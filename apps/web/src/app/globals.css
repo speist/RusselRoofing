@@ -130,10 +130,48 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  
+  .font-inter {
+    font-family: var(--font-inter);
+  }
+
+  .font-skolar {
+    font-family: var(--font-lora);
+  }
 
   .animate-fade-in {
     opacity: 0;
     animation: fadeIn 0.6s ease-in-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   @keyframes fadeIn {
@@ -218,5 +256,68 @@
   input[type="range"]::-moz-range-thumb:hover {
     transform: scale(1.1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Swiper customizations */
+  .swiper {
+    @apply w-full;
+  }
+
+  .swiper-pagination {
+    @apply !bottom-4;
+  }
+
+  .swiper-pagination-bullet {
+    @apply !bg-white/50 !opacity-100;
+  }
+
+  .swiper-pagination-bullet-active {
+    @apply !bg-white;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    @apply !text-white hover:!text-white/80 transition-colors;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    @apply !text-3xl;
+  }
+
+  /* Custom navigation button styles */
+  .custom-swiper-nav {
+    @apply absolute top-1/2 -translate-y-1/2 z-10 bg-white/10 backdrop-blur-sm rounded-full p-3 transition-all hover:bg-white/20;
+  }
+
+  .custom-swiper-nav.prev {
+    @apply left-4;
+  }
+
+  .custom-swiper-nav.next {
+    @apply right-4;
+  }
+
+  /* Service card hover effects */
+  .service-card {
+    @apply transition-all duration-300 hover:shadow-xl;
+  }
+
+  /* Testimonial card styles */
+  .testimonial-card {
+    @apply bg-white rounded-lg p-8 shadow-lg;
+  }
+
+  /* Instagram grid */
+  .instagram-grid {
+    @apply grid grid-cols-2 md:grid-cols-3 gap-2;
+  }
+
+  .instagram-item {
+    @apply relative aspect-square overflow-hidden group;
+  }
+
+  .instagram-overlay {
+    @apply absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center;
   }
 }

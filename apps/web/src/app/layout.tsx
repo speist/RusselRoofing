@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Lora } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -29,6 +29,12 @@ const playfairDisplay = Playfair_Display({
   weight: ["400", "500", "600", "700"],
 });
 
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-lora",
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Russell Roofing & Exteriors",
   description: "Expert roofing services with quality craftsmanship and reliable solutions. GAF Master Elite certified contractor serving your local area.",
@@ -51,19 +57,8 @@ export default function RootLayout({
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY}&libraries=places`}
         />
       </head>
-      <body className={`${inter.variable} ${playfairDisplay.variable} font-body floating-page-bg`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={true}
-          disableTransitionOnChange={false}
-        >
-          <Header />
-          <main className="floating-page-container pt-16 md:pt-20">
-            {children}
-          </main>
-          <Footer />
-        </ThemeProvider>
+      <body className={`${inter.variable} ${playfairDisplay.variable} ${lora.variable} antialiased`}>
+        {children}
       </body>
     </html>
   );

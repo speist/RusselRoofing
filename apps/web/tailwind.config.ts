@@ -46,13 +46,22 @@ const config: Config = {
           surface: "rgb(var(--color-primary-charcoal))",
           background: "rgb(var(--color-background-dark))",
         },
+        // V0 Design Colors
+        "primary-red": "#960120",
+        "dark-grey": "#2D2D2D",
+        "accent-yellow": "#D4A017",
+        "light-grey": "#F5F3F0",
+        "cream": "#FAFAF8",
+        "accent-blue": "#1E5F8E",
+        "accent-green": "#2D7A3E",
       },
       fontFamily: {
         inter: ["var(--font-inter)", "Inter", "sans-serif"],
         playfair: ["var(--font-playfair)", "Playfair Display", "serif"],
-        skolar: ["Skolar Latin", "Merriweather", "serif"],
+        skolar: ["var(--font-lora)", "Lora", "Merriweather", "serif"],
+        lora: ["var(--font-lora)", "Lora", "serif"],
         body: ["var(--font-inter)", "Inter", "sans-serif"],
-        display: ["Skolar Latin", "Merriweather", "serif"],
+        display: ["var(--font-lora)", "Lora", "Merriweather", "serif"],
       },
       fontSize: {
         // Typography scale matching style guide

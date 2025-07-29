@@ -169,7 +169,7 @@ export default function HomePage() {
             {/* Logo - Perfectly aligned with hero headline */}
             <div className="flex-shrink-0">
               <Image
-                src="/rrlogo-white.svg"
+                src="/rrlogo.PNG"
                 alt="Russell Roofing & Exteriors"
                 width={180}
                 height={40}
@@ -523,7 +523,7 @@ export default function HomePage() {
                             <Star key={i} className="w-5 h-5 text-accent-yellow fill-current" />
                           ))}
                         </div>
-                        <p className="font-inter text-gray-600 text-lg mb-6 italic">&ldquo;{testimonial.text}&rdquo;</p>
+                        <p className="font-inter text-gray-600 text-lg mb-6 italic">"{testimonial.text}"</p>
                         <div className="flex items-center">
                           <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
                           <div>
@@ -653,7 +653,7 @@ export default function HomePage() {
         {/* Hiring Section */}
         <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey mb-6">We&rsquo;re Hiring!</h2>
+            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey mb-6">We're Hiring!</h2>
             <p className="font-inter text-gray-600 text-lg mb-8 md:mb-12 max-w-4xl mx-auto">
               Interested in a new career opportunity? Are you looking for a rewarding position with longevity and
               growth? Please email your resume to info@russellroofing.com!
@@ -759,7 +759,7 @@ export default function HomePage() {
               {/* Column 1 - Company Info */}
               <div>
                 <Image
-                  src="/rrlogo-white.svg"
+                  src="/rrlogo.PNG"
                   alt="Russell Roofing & Exteriors"
                   width={180}
                   height={40}
