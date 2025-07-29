@@ -3,6 +3,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
+// Ensure Google Maps types are available
+/// <reference types="google.maps" />
+
 export interface AddressInputProps {
   value?: string;
   onChange: (address: string, placeDetails?: google.maps.places.PlaceResult) => void;

@@ -24,14 +24,12 @@ export function Hero() {
         <div className="max-w-4xl mx-auto">
           {/* Main Headline */}
           <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
-            <span className="block">Expert Roofing</span>
-            <span className="block text-white">You Can Trust</span>
+            Russell Roofing & Exteriors
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Quality craftsmanship and reliable solutions for your home. 
-            GAF Master Elite certified with over 20 years of experience.
+            Professional roofing services with quality craftsmanship and reliable solutions for your home.
           </p>
 
           {/* Call to Action Buttons */}

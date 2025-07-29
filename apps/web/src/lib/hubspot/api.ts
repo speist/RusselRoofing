@@ -2,6 +2,7 @@ import ContactsService from './contacts';
 import DealsService from './deals';
 import { ContactInput, DealInput, Contact, Deal, ContactProfile, HubSpotApiResponse, HUBSPOT_ERROR_CODES } from './types';
 import { extractKnownFields, validateContactInput, validateDealInput } from './utils';
+import { getServiceConfig, isServiceConfigured } from '../config';
 
 interface HubSpotService {
   // Contact operations
@@ -23,10 +24,10 @@ class HubSpotApiService implements HubSpotService {
   private isConfigured: boolean;
 
   constructor() {
-    const apiKey = process.env.HUBSPOT_API_KEY;
+    const hubspotConfig = getServiceConfig('hubspot');
     
-    if (!apiKey) {
-      console.warn('[HubSpot] API key not configured. Service will operate in mock mode.');
+    if (!isServiceConfigured('hubspot') || hubspotConfig.mockMode) {
+      console.warn('[HubSpot] API not configured or running in mock mode. Service will operate in mock mode.');
       this.isConfigured = false;
       this.contactsService = null as any;
       this.dealsService = null as any;
@@ -34,10 +35,10 @@ class HubSpotApiService implements HubSpotService {
     }
 
     this.isConfigured = true;
-    this.contactsService = new ContactsService(apiKey);
-    this.dealsService = new DealsService(apiKey);
+    this.contactsService = new ContactsService(hubspotConfig.apiKey);
+    this.dealsService = new DealsService(hubspotConfig.apiKey);
     
-    console.log('[HubSpot] Service initialized successfully');
+    console.log('[HubSpot] Service initialized successfully with production configuration');
   }
 
   /**

@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { hubspotService } from '@/lib/hubspot/api';
 import { ContactInput } from '@/lib/hubspot/types';
+import { envMiddleware } from '@/lib/middleware/env-check';
 
 export async function POST(request: NextRequest) {
+  // Validate environment variables required for HubSpot API
+  const envCheck = envMiddleware.hubspot(request);
+  if (envCheck) {
+    return envCheck; // Return error response if validation fails
+  }
+
   try {
     const data = await request.json() as ContactInput;
 

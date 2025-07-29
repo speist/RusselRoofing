@@ -7,18 +7,26 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { MobileMenu } from "./MobileMenu";
 import { cn } from "@/lib/utils";
 
-export function Header() {
+export interface HeaderProps {
+  scrollThreshold?: number;
+}
+
+export function Header({ scrollThreshold = 100 }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      // Trigger scroll when user scrolls past hero section
+      setIsScrolled(window.scrollY > scrollThreshold);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    // Check initial scroll position
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [scrollThreshold]);
 
   const navigationItems = [
     { href: "/", label: "Home" },
@@ -34,18 +42,28 @@ export function Header() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-background-white/95 backdrop-blur-sm shadow-lg"
-            : "bg-transparent"
+            ? "bg-primary-burgundy shadow-lg" // Solid red background when scrolled
+            : "bg-transparent" // Transparent initially
         )}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo/Brand */}
             <Link href="/" className="flex items-center space-x-2">
-              <div className="font-display font-bold text-xl md:text-2xl text-primary-charcoal dark:text-text-primary">
+              <div className={cn(
+                "font-display font-bold text-xl md:text-2xl transition-colors duration-300",
+                isScrolled
+                  ? "text-text-inverse" // White text when scrolled
+                  : "text-text-inverse" // White text on transparent header too
+              )}>
                 Russell Roofing
               </div>
-              <div className="hidden sm:block text-sm text-secondary-warm-gray">
+              <div className={cn(
+                "hidden sm:block text-sm transition-colors duration-300",
+                isScrolled
+                  ? "text-text-inverse/80" // Slightly transparent white
+                  : "text-text-inverse/80"
+              )}>
                 & Exteriors
               </div>
             </Link>
@@ -57,11 +75,11 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary-burgundy",
-                    "focus:outline-none focus:ring-2 focus:ring-primary-burgundy/20 focus:ring-offset-2 rounded-sm px-2 py-1",
+                    "text-sm font-medium transition-colors",
+                    "focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 rounded-sm px-2 py-1",
                     isScrolled
-                      ? "text-text-primary"
-                      : "text-text-inverse"
+                      ? "text-text-inverse hover:text-white/80" // White text on red bg
+                      : "text-text-inverse hover:text-white/80" // White text on transparent
                   )}
                 >
                   {item.label}
@@ -73,26 +91,30 @@ export function Header() {
             <div className="flex items-center space-x-4">
               <div className="hidden md:block">
                 <Button
-                  variant="primary"
+                  variant={isScrolled ? "secondary" : "primary"}
                   size="default"
-                  className="whitespace-nowrap"
+                  className={cn(
+                    "whitespace-nowrap transition-all duration-300",
+                    !isScrolled && "bg-white text-primary-burgundy hover:bg-white/90"
+                  )}
                 >
                   Get Instant Estimate
                 </Button>
               </div>
               
-              <ThemeToggle />
+              <ThemeToggle className={cn(
+                isScrolled ? "text-text-inverse hover:bg-white/10" : "text-text-inverse hover:bg-white/10"
+              )} />
               
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 className={cn(
                   "md:hidden p-2 rounded-lg transition-colors",
-                  "focus:outline-none focus:ring-2 focus:ring-primary-burgundy/20 focus:ring-offset-2",
-                  "hover:bg-primary-burgundy/10",
+                  "focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2",
                   isScrolled
-                    ? "text-text-primary"
-                    : "text-text-inverse"
+                    ? "text-text-inverse hover:bg-white/10" // White icon on red bg
+                    : "text-text-inverse hover:bg-white/10" // White icon on transparent
                 )}
                 aria-label="Open mobile menu"
               >

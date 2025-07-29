@@ -3,8 +3,15 @@ import { hubspotService } from '@/lib/hubspot/api';
 import { DealInput } from '@/lib/hubspot/types';
 import { leadRoutingEngine } from '@/lib/lead-routing/routing-engine';
 import { notificationService } from '@/lib/lead-routing/notifications';
+import { envMiddleware } from '@/lib/middleware/env-check';
 
 export async function POST(request: NextRequest) {
+  // Validate environment variables required for HubSpot API
+  const envCheck = envMiddleware.hubspot(request);
+  if (envCheck) {
+    return envCheck; // Return error response if validation fails
+  }
+
   try {
     const data = await request.json() as DealInput;
 

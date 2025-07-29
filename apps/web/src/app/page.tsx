@@ -1,18 +1,19 @@
 import { Hero } from "@/components/sections/Hero";
-import { InstagramFeed, HiringSection, TestimonialsCarousel } from "@/components/home";
+import { ServicesSection } from "@/components/home/services-section";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
+import { InstagramSection } from "@/components/home/instagram-section";
+import { LatestArticlesSection } from "@/components/home/latest-articles-section";
+import { CTASection } from "@/components/home/cta-section";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <InstagramFeed />
-      <HiringSection />
-      <section className="py-16 lg:py-24 bg-background-secondary">
-        <div className="container mx-auto px-4">
-          <TestimonialsCarousel />
-        </div>
-      </section>
-      {/* Future sections will be added here */}
+      <ServicesSection />
+      <TestimonialsSection />
+      <InstagramSection />
+      <LatestArticlesSection />
+      <CTASection />
     </>
   );
 }

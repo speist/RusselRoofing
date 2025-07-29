@@ -50,8 +50,9 @@ const config: Config = {
       fontFamily: {
         inter: ["var(--font-inter)", "Inter", "sans-serif"],
         playfair: ["var(--font-playfair)", "Playfair Display", "serif"],
+        skolar: ["Skolar Latin", "Merriweather", "serif"],
         body: ["var(--font-inter)", "Inter", "sans-serif"],
-        display: ["var(--font-playfair)", "Playfair Display", "serif"],
+        display: ["Skolar Latin", "Merriweather", "serif"],
       },
       fontSize: {
         // Typography scale matching style guide
