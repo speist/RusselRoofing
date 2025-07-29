@@ -146,12 +146,16 @@
   .floating-page-bg {
     background-color: rgb(var(--color-secondary-light-warm-gray));
     min-height: 100vh;
+    padding: 0;
   }
   
   .floating-page-container {
     background-color: rgb(var(--color-background-white));
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
     position: relative;
+    margin: 0 auto;
+    max-width: 1400px;
+    min-height: 100vh;
   }
   
   /* Hero specific rounding for V6 */

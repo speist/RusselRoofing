@@ -59,7 +59,7 @@ export default function RootLayout({
           disableTransitionOnChange={false}
         >
           <Header />
-          <main className="floating-page-container">
+          <main className="floating-page-container pt-16 md:pt-20">
             {children}
           </main>
           <Footer />
