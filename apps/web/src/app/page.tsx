@@ -286,17 +286,26 @@ export default function HomePage() {
               muted
               loop
               playsInline
+              preload="metadata"
               className="absolute inset-0 w-full h-full object-cover"
+              onError={(e) => {
+                console.error('Video failed to load:', e);
+                // Hide video element and show fallback
+                e.currentTarget.style.display = 'none';
+              }}
             >
-              <source src="/videos/hero-video.mp4" type="video/mp4" />
-              {/* Fallback image if video doesn't load */}
-              <Image
-                src="/placeholder.svg?height=600&width=1280"
-                alt="Beautiful residential home roofline"
-                fill
-                className="object-cover"
-              />
+              <source src="/videos/russell-v2-full.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
             </video>
+            
+            {/* Fallback image - always present in case video fails */}
+            <Image
+              src="/placeholder.svg?height=600&width=1280"
+              alt="Beautiful residential home roofline"
+              fill
+              className="object-cover"
+              style={{ zIndex: -1 }}
+            />
             
             {/* Dark overlay for better text readability */}
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
