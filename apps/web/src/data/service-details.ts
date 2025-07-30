@@ -41,7 +41,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
   roofing: {
     id: "1",
     slug: "roofing",
-    title: "Roofing Services",
+    title: "Roofing",
     shortDescription: "Complete roof installations, repairs, and maintenance",
     description: "Professional roofing services including new installations, repairs, and preventive maintenance. We specialize in all roofing materials from asphalt shingles to slate and metal roofing systems.",
     icon: "/images/icons/roofing.svg",
@@ -145,13 +145,13 @@ Every project begins with a thorough inspection to assess your roof's condition 
   siding: {
     id: "2",
     slug: "siding",
-    title: "Siding Services",
+    title: "Siding and Gutters",
     shortDescription: "Exterior siding installation and repair",
     description: "Transform your home's exterior with our professional siding services. We work with vinyl, fiber cement, wood, and composite materials to enhance both beauty and protection.",
     icon: "/images/icons/siding.svg",
     image: "/images/gallery/siding/full/siding-colonial-renovation-princeton-2023-12-08.jpg",
     features: ["Vinyl Siding", "Fiber Cement", "Wood Siding", "Siding Repairs"],
-    category: "Siding",
+    category: "Siding and Gutters",
     popular: true,
     hero: {
       title: "Expert Siding Installation",
@@ -250,13 +250,13 @@ Every siding project begins with a detailed consultation where we assess your ho
   gutters: {
     id: "3",
     slug: "gutters",
-    title: "Gutter Services",
+    title: "Siding and Gutters",
     shortDescription: "Gutter installation, cleaning, and maintenance",
     description: "Protect your home's foundation and landscape with our comprehensive gutter services. From seamless installations to cleaning and repair, we keep water flowing where it should.",
     icon: "/images/icons/gutters.svg",
     image: "/images/gallery/gutters/full/gutters-seamless-installation-summit-2024-01-22.jpg",
     features: ["Seamless Gutters", "Gutter Guards", "Cleaning Services", "Repairs & Maintenance"],
-    category: "Gutters",
+    category: "Siding and Gutters",
     hero: {
       title: "Professional Gutter Services",
       subtitle: "Protecting Your Home from Water Damage",
@@ -275,7 +275,7 @@ Every siding project begins with a detailed consultation where we assess your ho
   windows: {
     id: "4",
     slug: "windows",
-    title: "Window Services",
+    title: "Windows",
     shortDescription: "Window installation and replacement",
     description: "Improve your home's energy efficiency and curb appeal with our professional window installation and replacement services. We work with all major window brands and styles.",
     icon: "/images/icons/windows.svg",
@@ -300,13 +300,13 @@ Every siding project begins with a detailed consultation where we assess your ho
   chimneys: {
     id: "5",
     slug: "chimneys",
-    title: "Chimney Services",
+    title: "Masonry",
     shortDescription: "Chimney repair and maintenance",
     description: "Keep your chimney safe and functional with our comprehensive chimney services. From repairs and cleaning to complete rebuilds, we ensure your chimney operates safely.",
     icon: "/images/icons/chimneys.svg",
     image: "/images/gallery/chimneys/full/chimneys-restoration-repair-madison-2023-12-15.jpg",
     features: ["Chimney Repairs", "Cleaning Services", "Crown Replacement", "Liner Installation"],
-    category: "Chimneys",
+    category: "Masonry",
     hero: {
       title: "Expert Chimney Services",
       subtitle: "Safety and Performance You Can Trust",
@@ -325,7 +325,7 @@ Every siding project begins with a detailed consultation where we assess your ho
   commercial: {
     id: "6",
     slug: "commercial",
-    title: "Commercial Services",
+    title: "Commercial",
     shortDescription: "Large-scale commercial projects",
     description: "Professional commercial roofing and exterior services for businesses, schools, and institutions. We handle projects of all sizes with minimal disruption to your operations.",
     icon: "/images/icons/commercial.svg",
@@ -348,19 +348,19 @@ Every siding project begins with a detailed consultation where we assess your ho
     emergencyAvailable: true,
     certifications: []
   },
-  "storm-damage": {
-    id: "7",
-    slug: "storm-damage",
-    title: "Storm Damage Repair",
-    shortDescription: "Emergency repairs and insurance work",
-    description: "When storms strike, we're here to help. Our emergency repair services and insurance claim assistance get your home protected quickly and properly.",
-    icon: "/images/icons/storm-damage.svg",
+  "historical-restoration": {
+    id: "5",
+    slug: "historical-restoration",
+    title: "Historical Restoration",
+    shortDescription: "Preserving historic buildings with authentic materials and techniques",
+    description: "Specialized restoration services for historic properties. We use traditional materials and techniques while meeting modern performance standards to preserve the character and integrity of historic buildings.",
+    icon: "/images/icons/restoration.svg",
     image: "/images/gallery/roofing/full/roofing-slate-restoration-chatham-2023-10-28.jpg",
-    features: ["Emergency Repairs", "Insurance Claims", "24/7 Response", "Temporary Protection"],
-    category: "Storm Damage",
+    features: ["Slate Restoration", "Historic Materials", "Preservation Techniques", "Period-Appropriate Methods"],
+    category: "Historical Restoration",
     hero: {
-      title: "Storm Damage Repair",
-      subtitle: "Fast Response When You Need It Most",
+      title: "Historical Restoration",
+      subtitle: "Preserving History with Expert Craftsmanship",
       backgroundImage: "/images/gallery/roofing/full/roofing-slate-restoration-chatham-2023-10-28.jpg"
     },
     overview: "When severe weather damages your home, Russell Roofing responds quickly with emergency repairs and insurance claim assistance to restore your property.",
@@ -373,16 +373,16 @@ Every siding project begins with a detailed consultation where we assess your ho
     emergencyAvailable: true,
     certifications: []
   },
-  maintenance: {
+  skylights: {
     id: "8",
-    slug: "maintenance",
-    title: "Maintenance Services",
-    shortDescription: "Preventive maintenance services",
-    description: "Protect your investment with our comprehensive maintenance services. Regular inspections and preventive care extend the life of your roof and exterior systems.",
-    icon: "/images/icons/maintenance.svg",
-    image: "/images/gallery/siding/full/siding-mixed-material-contemporary-short-hills-2024-01-10.jpg",
-    features: ["Regular Inspections", "Preventive Care", "Maintenance Plans", "Early Problem Detection"],
-    category: "Maintenance",
+    slug: "skylights",
+    title: "Skylights",
+    shortDescription: "Skylight installation and repair services",
+    description: "Bring natural light into your home with professional skylight installation and repair services. We work with all major skylight brands and provide expert waterproofing to prevent leaks.",
+    icon: "/images/icons/skylights.svg",
+    image: "/images/gallery/windows/full/windows-replacement-victorian-morristown-2024-01-05.jpg",
+    features: ["New Installations", "Skylight Repairs", "Leak Prevention", "Energy Efficient Models"],
+    category: "Skylights",
     hero: {
       title: "Preventive Maintenance Services",
       subtitle: "Protect Your Investment Year-Round",
@@ -396,6 +396,56 @@ Every siding project begins with a detailed consultation where we assess your ho
     relatedServices: ["roofing", "gutters", "siding"],
     testimonials: [],
     emergencyAvailable: false,
+    certifications: []
+  },
+  "churches-institutions": {
+    id: "4",
+    slug: "churches-institutions",
+    title: "Churches & Institutions",
+    shortDescription: "Specialized services for religious and institutional buildings",
+    description: "Expert roofing and exterior services for churches, schools, hospitals, and other institutional buildings. We understand the unique requirements and architectural considerations of these important structures.",
+    icon: "/images/icons/commercial.svg",
+    image: "/images/gallery/roofing/full/roofing-slate-restoration-chatham-2023-10-28.jpg",
+    features: ["Church Roofing", "School Buildings", "Hospital Projects", "Historic Preservation"],
+    category: "Churches & Institutions",
+    hero: {
+      title: "Churches & Institutions",
+      subtitle: "Specialized Services for Important Buildings",
+      backgroundImage: "/images/gallery/roofing/full/roofing-slate-restoration-chatham-2023-10-28.jpg"
+    },
+    overview: "Russell Roofing provides specialized services for churches, schools, hospitals, and other institutional buildings with unique architectural and operational requirements.",
+    detailedDescription: "Content to be provided by Analyst",
+    process: [],
+    featureDetails: [],
+    faqs: [],
+    relatedServices: ["roofing", "commercial", "historical-restoration"],
+    testimonials: [],
+    emergencyAvailable: true,
+    certifications: []
+  },
+  masonry: {
+    id: "6",
+    slug: "masonry",
+    title: "Masonry",
+    shortDescription: "Stone and brick work for chimneys and exterior walls",
+    description: "Professional masonry services including chimney repairs, stone work, and brick restoration. We restore and repair masonry structures to ensure both safety and aesthetic appeal.",
+    icon: "/images/icons/masonry.svg",
+    image: "/images/gallery/chimneys/full/chimneys-restoration-repair-madison-2023-12-15.jpg",
+    features: ["Chimney Repairs", "Stone Work", "Brick Restoration", "Pointing and Repointing"],
+    category: "Masonry",
+    hero: {
+      title: "Masonry Services",
+      subtitle: "Expert Stone and Brick Work",
+      backgroundImage: "/images/gallery/chimneys/full/chimneys-restoration-repair-madison-2023-12-15.jpg"
+    },
+    overview: "Professional masonry services including chimney repairs, stone work, and brick restoration to ensure both safety and aesthetic appeal.",
+    detailedDescription: "Content to be provided by Analyst",
+    process: [],
+    featureDetails: [],
+    faqs: [],
+    relatedServices: ["roofing", "chimneys", "historical-restoration"],
+    testimonials: [],
+    emergencyAvailable: true,
     certifications: []
   }
 };
