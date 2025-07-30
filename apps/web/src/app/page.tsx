@@ -277,16 +277,29 @@ export default function HomePage() {
 
       {/* Main Content Container */}
       <div className="max-w-[1280px] mx-auto bg-white shadow-lg">
-        {/* Hero Section - Flush with top, perfect alignment with header */}
+        {/* Hero Section - Video Background */}
         <section className="pt-16 md:pt-0 px-4 sm:px-6 lg:px-8 pb-6">
           <div className="relative h-[500px] md:h-[600px] rounded-b-xl overflow-hidden shadow-xl">
-            <Image
-              src="/placeholder.svg?height=600&width=1280"
-              alt="Beautiful residential home roofline"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+            {/* Video Background */}
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/videos/hero-video.mp4" type="video/mp4" />
+              {/* Fallback image if video doesn't load */}
+              <Image
+                src="/placeholder.svg?height=600&width=1280"
+                alt="Beautiful residential home roofline"
+                fill
+                className="object-cover"
+              />
+            </video>
+            
+            {/* Dark overlay for better text readability */}
+            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
             {/* Content positioned at bottom with perfect alignment */}
             <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8 flex flex-col md:flex-row justify-between items-end gap-4">
