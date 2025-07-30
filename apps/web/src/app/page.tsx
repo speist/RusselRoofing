@@ -166,8 +166,8 @@ export default function HomePage() {
         }`}
       >
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo - Perfectly aligned with hero headline */}
+          <div className="flex items-center h-16">
+            {/* Logo - Aligned with hero headline */}
             <div className="flex-shrink-0">
               <Image
                 src="/rrlogo-white.svg"
@@ -178,8 +178,8 @@ export default function HomePage() {
               />
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
+            {/* Desktop Navigation - Centered with flex-grow */}
+            <nav className="hidden md:flex space-x-8 flex-grow justify-center">
               <a href="#" className="text-white font-inter hover:text-accent-yellow transition-colors">
                 Home
               </a>
@@ -212,7 +212,7 @@ export default function HomePage() {
             {/* Desktop Request Estimate Button - Aligned with hero CTA */}
             <Link
               href="/estimate"
-              className={`hidden md:block px-6 py-2 rounded-full font-inter font-medium transition-all duration-300 ${
+              className={`hidden md:block px-6 py-2 rounded-full font-inter font-medium transition-all duration-300 flex-shrink-0 ${
                 isScrolled
                   ? "bg-white text-primary-red hover:bg-gray-100"
                   : "border-2 border-white text-white hover:bg-white hover:text-primary-red"
