@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Autoplay } from "swiper/modules"
 import {
@@ -182,59 +183,43 @@ export default function HomePage() {
               <a href="#" className="text-white font-inter hover:text-accent-yellow transition-colors">
                 Home
               </a>
-              <a
-                href="#about"
-                onClick={(e) => {
-                  e.preventDefault()
-                  smoothScrollTo("about")
-                }}
+              <Link
+                href="/about"
                 className="text-white font-inter hover:text-accent-yellow transition-colors"
               >
                 About Us
-              </a>
-              <a
-                href="#services"
-                onClick={(e) => {
-                  e.preventDefault()
-                  smoothScrollTo("services")
-                }}
+              </Link>
+              <Link
+                href="/services"
                 className="text-white font-inter hover:text-accent-yellow transition-colors"
               >
-                Service
-              </a>
-              <a
-                href="#articles"
-                onClick={(e) => {
-                  e.preventDefault()
-                  smoothScrollTo("articles")
-                }}
+                Services
+              </Link>
+              <Link
+                href="/news"
                 className="text-white font-inter hover:text-accent-yellow transition-colors"
               >
                 News
-              </a>
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault()
-                  smoothScrollTo("contact")
-                }}
+              </Link>
+              <Link
+                href="/contact"
                 className="text-white font-inter hover:text-accent-yellow transition-colors"
               >
                 Contact
-              </a>
+              </Link>
             </nav>
 
-            {/* Desktop Contact Button - Aligned with hero CTA */}
-            <button
-              onClick={() => smoothScrollTo("contact")}
+            {/* Desktop Request Estimate Button - Aligned with hero CTA */}
+            <Link
+              href="/estimate"
               className={`hidden md:block px-6 py-2 rounded-full font-inter font-medium transition-all duration-300 ${
                 isScrolled
                   ? "bg-white text-primary-red hover:bg-gray-100"
                   : "border-2 border-white text-white hover:bg-white hover:text-primary-red"
               }`}
             >
-              Contact
-            </button>
+              Request Estimate
+            </Link>
 
             {/* Mobile Menu Button */}
             <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -249,59 +234,41 @@ export default function HomePage() {
                 <a href="#" className="block px-3 py-2 text-white font-inter hover:bg-red-800 rounded">
                   Home
                 </a>
-                <a
-                  href="#about"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    smoothScrollTo("about")
-                    setIsMobileMenuOpen(false)
-                  }}
+                <Link
+                  href="/about"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-2 text-white font-inter hover:bg-red-800 rounded"
                 >
                   About Us
-                </a>
-                <a
-                  href="#services"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    smoothScrollTo("services")
-                    setIsMobileMenuOpen(false)
-                  }}
+                </Link>
+                <Link
+                  href="/services"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-2 text-white font-inter hover:bg-red-800 rounded"
                 >
-                  Service
-                </a>
-                <a
-                  href="#articles"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    smoothScrollTo("articles")
-                    setIsMobileMenuOpen(false)
-                  }}
+                  Services
+                </Link>
+                <Link
+                  href="/news"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-2 text-white font-inter hover:bg-red-800 rounded"
                 >
                   News
-                </a>
-                <a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    smoothScrollTo("contact")
-                    setIsMobileMenuOpen(false)
-                  }}
+                </Link>
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-2 text-white font-inter hover:bg-red-800 rounded"
                 >
                   Contact
-                </a>
-                <button
-                  onClick={() => {
-                    smoothScrollTo("contact")
-                    setIsMobileMenuOpen(false)
-                  }}
-                  className="w-full mt-2 bg-white text-primary-red px-6 py-2 rounded-full font-inter font-medium"
+                </Link>
+                <Link
+                  href="/estimate"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full mt-2 bg-white text-primary-red px-6 py-2 rounded-full font-inter font-medium block text-center"
                 >
-                  Contact
-                </button>
+                  Request Estimate
+                </Link>
               </div>
             </div>
           )}
@@ -334,13 +301,13 @@ export default function HomePage() {
               </div>
 
               {/* CTA Button - bottom right, aligned with header contact button */}
-              <button
-                onClick={() => smoothScrollTo("contact")}
+              <Link
+                href="/estimate"
                 className="bg-primary-red text-white px-6 md:px-8 py-3 rounded-full font-inter font-medium inline-flex items-center gap-2 hover:bg-opacity-90 transition-colors whitespace-nowrap shadow-lg"
               >
                 Request Estimate
                 <ArrowRight className="w-5 h-5" />
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -673,22 +640,22 @@ export default function HomePage() {
               </div>
             ) : (
               <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-                <div className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300">
+                <Link href="/careers" className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300 block">
                   <h3 className="font-inter font-bold text-dark-grey text-xl mb-2">FOREMAN</h3>
                   <p className="font-inter text-gray-600">
                     Lead construction teams and ensure project quality standards.
                   </p>
-                </div>
-                <div className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300">
+                </Link>
+                <Link href="/careers" className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300 block">
                   <h3 className="font-inter font-bold text-dark-grey text-xl mb-2">SUPERINTENDENT</h3>
                   <p className="font-inter text-gray-600">
                     Oversee multiple projects and coordinate with clients and teams.
                   </p>
-                </div>
-                <div className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300">
+                </Link>
+                <Link href="/careers" className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300 block">
                   <h3 className="font-inter font-bold text-dark-grey text-xl mb-2">ROOFING LABORER</h3>
                   <p className="font-inter text-gray-600">Join our skilled team and learn the roofing trade.</p>
-                </div>
+                </Link>
               </div>
             )}
           </div>
@@ -800,45 +767,33 @@ export default function HomePage() {
                 <h3 className="font-inter font-semibold text-white text-lg mb-4">Quick Links</h3>
                 <ul className="space-y-2">
                   <li>
-                    <a
-                      href="#about"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        smoothScrollTo("about")
-                      }}
+                    <Link
+                      href="/about"
                       className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                     >
                       About Us
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                    <Link href="/gallery" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
                       Gallery
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#contact"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        smoothScrollTo("contact")
-                      }}
+                    <Link
+                      href="/contact"
                       className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                     >
                       Contact
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="#contact"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        smoothScrollTo("contact")
-                      }}
+                    <Link
+                      href="/estimate"
                       className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                     >
                       Get Estimate
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a
