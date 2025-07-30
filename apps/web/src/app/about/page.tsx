@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import FloatingPageLayout from '@/components/layout/FloatingPageLayout';
 import AboutHero from '@/components/about/AboutHero';
 import CompanyHistory from '@/components/about/CompanyHistory';
 import TeamSection from '@/components/about/TeamSection';
@@ -20,15 +21,13 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#F5F3F0]">
-      <main className="pb-16">
-        <AboutHero />
-        <CompanyHistory />
-        <TeamSection />
-        <ValuesSection />
-        <CertificationsSection />
-        <CommunitySection />
-      </main>
-    </div>
+    <FloatingPageLayout>
+      <AboutHero />
+      <CompanyHistory />
+      <TeamSection />
+      <ValuesSection />
+      <CertificationsSection />
+      <CommunitySection />
+    </FloatingPageLayout>
   );
 }

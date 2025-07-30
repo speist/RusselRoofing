@@ -1,10 +1,11 @@
 import React from "react";
+import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import { ProjectGallery } from "@/components/gallery";
 import { sampleProjects } from "@/data/gallery";
 
 export default function GalleryPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <FloatingPageLayout>
       {/* Hero Section */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -57,7 +58,7 @@ export default function GalleryPage() {
           </div>
         </div>
       </div>
-    </div>
+    </FloatingPageLayout>
   );
 }
 

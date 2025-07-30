@@ -1,10 +1,11 @@
 import React from "react";
+import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import { ServicesGrid } from "@/components/services";
 import { services } from "@/data/services";
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <FloatingPageLayout>
       {/* Hero Section */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -119,7 +120,7 @@ export default function ServicesPage() {
           </div>
         </div>
       </div>
-    </div>
+    </FloatingPageLayout>
   );
 }
 

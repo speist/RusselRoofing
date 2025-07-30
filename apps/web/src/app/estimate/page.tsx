@@ -1,5 +1,6 @@
 "use client";
 
+import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import { EstimateForm, EstimateFormData } from "@/components/estimate/EstimateForm";
 import { useRouter } from "next/navigation";
 
@@ -12,10 +13,12 @@ export default function EstimatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background-warm-white dark:bg-dark-background py-8 px-4">
-      <div className="container mx-auto">
-        <EstimateForm onComplete={handleFormComplete} />
+    <FloatingPageLayout>
+      <div className="py-8 px-4">
+        <div className="container mx-auto">
+          <EstimateForm onComplete={handleFormComplete} />
+        </div>
       </div>
-    </div>
+    </FloatingPageLayout>
   );
 }

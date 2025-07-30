@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import { MapPin, Clock, DollarSign, Users, Mail, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -141,7 +142,7 @@ const benefits = [
 
 export default function CareersPage() {
   return (
-    <div className="min-h-screen bg-background-light">
+    <FloatingPageLayout>
       {/* Hero Section */}
       <section className="relative bg-primary-burgundy text-white py-20 md:py-24">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>
@@ -348,6 +349,6 @@ export default function CareersPage() {
           </div>
         </div>
       </section>
-    </div>
+    </FloatingPageLayout>
   );
 }

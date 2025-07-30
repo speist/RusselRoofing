@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 
 export const metadata: Metadata = {
   title: "News & Articles | Russell Roofing & Exteriors",
@@ -96,7 +97,7 @@ const categories = ["All", "Maintenance", "Materials", "Storm Damage", "Energy E
 
 export default function NewsPage() {
   return (
-    <div className="min-h-screen bg-background-light">
+    <FloatingPageLayout>
       {/* Header Section */}
       <section className="bg-primary-burgundy text-white py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -211,6 +212,6 @@ export default function NewsPage() {
           </form>
         </div>
       </section>
-    </div>
+    </FloatingPageLayout>
   );
 }
