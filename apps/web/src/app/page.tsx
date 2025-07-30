@@ -311,25 +311,29 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
             {/* Content positioned at bottom with perfect alignment */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8 flex flex-col md:flex-row justify-between items-end gap-4">
-              {/* Text content - bottom left, perfectly aligned with header logo */}
-              <div className="flex-1">
-                <h1 className="font-skolar text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 drop-shadow-lg">
-                  Russell Roofing & Exteriors
-                </h1>
-                <p className="font-inter text-lg md:text-xl text-white max-w-2xl drop-shadow-md">
-                  Trusted, Hassle-Free Property Solutions Tailored For You.
-                </p>
-              </div>
+            <div className="absolute bottom-0 left-0 right-0">
+              <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8">
+                <div className="flex flex-col md:flex-row justify-between items-end gap-4">
+                  {/* Text content - bottom left, perfectly aligned with header logo */}
+                  <div className="flex-1">
+                    <h1 className="font-skolar text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 drop-shadow-lg">
+                      Russell Roofing & Exteriors
+                    </h1>
+                    <p className="font-inter text-lg md:text-xl text-white max-w-2xl drop-shadow-md">
+                      Trusted, Hassle-Free Property Solutions Tailored For You.
+                    </p>
+                  </div>
 
-              {/* CTA Button - bottom right, aligned with header contact button */}
-              <Link
-                href="/estimate"
-                className="bg-primary-red text-white px-6 md:px-8 py-3 rounded-full font-inter font-medium inline-flex items-center gap-2 hover:bg-opacity-90 transition-colors whitespace-nowrap shadow-lg"
-              >
-                Request Estimate
-                <ArrowRight className="w-5 h-5" />
-              </Link>
+                  {/* CTA Button - bottom right, aligned with header contact button */}
+                  <Link
+                    href="/estimate"
+                    className="bg-primary-red text-white px-6 py-2 rounded-full font-inter font-medium inline-flex items-center gap-2 hover:bg-opacity-90 transition-colors whitespace-nowrap shadow-lg"
+                  >
+                    Request Estimate
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
