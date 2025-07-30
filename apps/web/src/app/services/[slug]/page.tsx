@@ -5,6 +5,7 @@ import Image from "next/image";
 import { services } from "@/data/services";
 import { getServiceDetailsBySlug } from "@/data/service-details";
 import Link from "next/link";
+import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import ServiceDetailTemplate from "@/components/services/ServiceDetailTemplate";
 import ServiceGallery from "@/components/services/ServiceGallery";
 import ServiceFAQ from "@/components/services/ServiceFAQ";
@@ -70,7 +71,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background-light-grey">
+    <FloatingPageLayout>
       {/* Breadcrumb Navigation */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -150,6 +151,6 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
           </div>
         </section>
       )}
-    </div>
+    </FloatingPageLayout>
   );
 }

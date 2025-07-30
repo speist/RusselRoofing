@@ -142,9 +142,9 @@ Every project begins with a thorough inspection to assess your roof's condition 
     emergencyAvailable: true,
     certifications: ["GAF Master Elite", "CertainTeed SELECT ShingleMaster", "NRCA Member", "BBB A+ Rated"]
   },
-  siding: {
+  "siding-and-gutters": {
     id: "2",
-    slug: "siding",
+    slug: "siding-and-gutters",
     title: "Siding and Gutters",
     shortDescription: "Exterior siding installation and repair",
     description: "Transform your home's exterior with our professional siding services. We work with vinyl, fiber cement, wood, and composite materials to enhance both beauty and protection.",
@@ -247,31 +247,6 @@ Every siding project begins with a detailed consultation where we assess your ho
     certifications: ["James Hardie Elite Preferred", "VSI Certified Installer", "EPA RRP Certified"]
   },
   // Placeholder for remaining services - to be populated with full details
-  gutters: {
-    id: "3",
-    slug: "gutters",
-    title: "Siding and Gutters",
-    shortDescription: "Gutter installation, cleaning, and maintenance",
-    description: "Protect your home's foundation and landscape with our comprehensive gutter services. From seamless installations to cleaning and repair, we keep water flowing where it should.",
-    icon: "/images/icons/gutters.svg",
-    image: "/images/gallery/gutters/full/gutters-seamless-installation-summit-2024-01-22.jpg",
-    features: ["Seamless Gutters", "Gutter Guards", "Cleaning Services", "Repairs & Maintenance"],
-    category: "Siding and Gutters",
-    hero: {
-      title: "Professional Gutter Services",
-      subtitle: "Protecting Your Home from Water Damage",
-      backgroundImage: "/images/gallery/gutters/full/gutters-seamless-installation-summit-2024-01-22.jpg"
-    },
-    overview: "Properly functioning gutters are essential for protecting your home from water damage. Russell Roofing provides complete gutter solutions to keep your property safe and dry.",
-    detailedDescription: "Content to be provided by Analyst",
-    process: [],
-    featureDetails: [],
-    faqs: [],
-    relatedServices: ["roofing", "siding"],
-    testimonials: [],
-    emergencyAvailable: true,
-    certifications: []
-  },
   windows: {
     id: "4",
     slug: "windows",
@@ -295,31 +270,6 @@ Every siding project begins with a detailed consultation where we assess your ho
     relatedServices: ["siding", "roofing"],
     testimonials: [],
     emergencyAvailable: false,
-    certifications: []
-  },
-  chimneys: {
-    id: "5",
-    slug: "chimneys",
-    title: "Masonry",
-    shortDescription: "Chimney repair and maintenance",
-    description: "Keep your chimney safe and functional with our comprehensive chimney services. From repairs and cleaning to complete rebuilds, we ensure your chimney operates safely.",
-    icon: "/images/icons/chimneys.svg",
-    image: "/images/gallery/chimneys/full/chimneys-restoration-repair-madison-2023-12-15.jpg",
-    features: ["Chimney Repairs", "Cleaning Services", "Crown Replacement", "Liner Installation"],
-    category: "Masonry",
-    hero: {
-      title: "Expert Chimney Services",
-      subtitle: "Safety and Performance You Can Trust",
-      backgroundImage: "/images/gallery/chimneys/full/chimneys-restoration-repair-madison-2023-12-15.jpg"
-    },
-    overview: "Ensure your chimney operates safely and efficiently with our professional chimney services. From routine maintenance to complete rebuilds, we protect your home and family.",
-    detailedDescription: "Content to be provided by Analyst",
-    process: [],
-    featureDetails: [],
-    faqs: [],
-    relatedServices: ["roofing", "maintenance"],
-    testimonials: [],
-    emergencyAvailable: true,
     certifications: []
   },
   commercial: {

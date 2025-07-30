@@ -97,6 +97,18 @@ export default function HomePage() {
     "Skylights",
   ]
 
+  // Map service names to slugs for navigation
+  const serviceSlugMap: Record<string, string> = {
+    "Roofing": "roofing",
+    "Siding and Gutters": "siding-and-gutters",
+    "Commercial": "commercial",
+    "Churches & Institutions": "churches-institutions",
+    "Historical Restoration": "historical-restoration",
+    "Masonry": "masonry",
+    "Windows": "windows",
+    "Skylights": "skylights",
+  }
+
   const testimonials = [
     {
       text: "Russell Roofing exceeded our expectations. The team was professional, efficient, and the quality of work was outstanding. Our new roof looks amazing and we couldn't be happier with the service.",
@@ -455,16 +467,18 @@ export default function HomePage() {
                             isActive ? "transform scale-110" : "transform scale-100"
                           }`}
                         >
-                          <div className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-lg transition-shadow duration-300">
-                            <Image
-                              src={`/placeholder.svg?height=150&width=200&query=${service} professional roofing service`}
-                              alt={`${service} services`}
-                              width={200}
-                              height={150}
-                              className="rounded-lg mb-4 mx-auto w-full h-32 object-cover"
-                            />
-                            <h3 className="font-inter font-semibold text-dark-grey text-lg">{service}</h3>
-                          </div>
+                          <Link href={`/services/${serviceSlugMap[service]}`}>
+                            <div className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                              <Image
+                                src={`/placeholder.svg?height=150&width=200&query=${service} professional roofing service`}
+                                alt={`${service} services`}
+                                width={200}
+                                height={150}
+                                className="rounded-lg mb-4 mx-auto w-full h-32 object-cover"
+                              />
+                              <h3 className="font-inter font-semibold text-dark-grey text-lg">{service}</h3>
+                            </div>
+                          </Link>
                         </div>
                       )}
                     </SwiperSlide>
