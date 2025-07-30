@@ -109,6 +109,18 @@ export default function HomePage() {
     "Skylights": "skylights",
   }
 
+  // Map service names to card images
+  const serviceImageMap: Record<string, string> = {
+    "Roofing": "/images/services/service cards/roofing-card.jpg",
+    "Siding and Gutters": "/images/services/service cards/siding-gutters-card.jpg",
+    "Commercial": "/images/services/service cards/commercial-card.jpg",
+    "Churches & Institutions": "/images/services/service cards/church-institutions-card.jpg",
+    "Historical Restoration": "/images/services/service cards/historical-restoration-card.jpg",
+    "Masonry": "/images/services/service cards/masonry-card.jpg",
+    "Windows": "/images/services/service cards/windows-card.jpg",
+    "Skylights": "/images/services/service cards/skylight-card.jpg",
+  }
+
   const testimonials = [
     {
       text: "Russell Roofing exceeded our expectations. The team was professional, efficient, and the quality of work was outstanding. Our new roof looks amazing and we couldn't be happier with the service.",
@@ -470,7 +482,7 @@ export default function HomePage() {
                           <Link href={`/services/${serviceSlugMap[service]}`}>
                             <div className="bg-white rounded-lg shadow-md p-4 md:p-6 hover:shadow-lg transition-shadow duration-300 cursor-pointer">
                               <Image
-                                src={`/placeholder.svg?height=150&width=200&query=${service} professional roofing service`}
+                                src={serviceImageMap[service]}
                                 alt={`${service} services`}
                                 width={200}
                                 height={150}

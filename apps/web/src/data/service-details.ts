@@ -45,14 +45,14 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     shortDescription: "Complete roof installations, repairs, and maintenance",
     description: "Professional roofing services including new installations, repairs, and preventive maintenance. We specialize in all roofing materials from asphalt shingles to slate and metal roofing systems.",
     icon: "/images/icons/roofing.svg",
-    image: "/images/gallery/roofing/full/roofing-complete-replacement-westfield-2024-01-15.jpg",
+    image: "/images/services/ServiceHeroImages/roofing-hero.jpg",
     features: ["New Installations", "Roof Repairs", "Preventive Maintenance", "Emergency Services"],
     category: "Roofing",
     popular: true,
     hero: {
       title: "Professional Roofing Services",
       subtitle: "Protecting Your Home with Quality Craftsmanship Since 1985",
-      backgroundImage: "/images/gallery/roofing/full/roofing-complete-replacement-westfield-2024-01-15.jpg"
+      backgroundImage: "/images/services/ServiceHeroImages/roofing-hero.jpg"
     },
     overview: "With over 35 years of experience, Russell Roofing has been the trusted choice for homeowners throughout New Jersey. Our comprehensive roofing services ensure your home stays protected through every season.",
     detailedDescription: `Russell Roofing specializes in complete roofing solutions tailored to your home's specific needs. Whether you need a full roof replacement, emergency repairs, or regular maintenance, our certified professionals deliver exceptional results.
@@ -149,14 +149,14 @@ Every project begins with a thorough inspection to assess your roof's condition 
     shortDescription: "Exterior siding installation and repair",
     description: "Transform your home's exterior with our professional siding services. We work with vinyl, fiber cement, wood, and composite materials to enhance both beauty and protection.",
     icon: "/images/icons/siding.svg",
-    image: "/images/gallery/siding/full/siding-colonial-renovation-princeton-2023-12-08.jpg",
+    image: "/images/services/ServiceHeroImages/siding-gutters-hero.jpg",
     features: ["Vinyl Siding", "Fiber Cement", "Wood Siding", "Siding Repairs"],
     category: "Siding and Gutters",
     popular: true,
     hero: {
       title: "Expert Siding Installation",
       subtitle: "Enhance Your Home's Beauty and Protection",
-      backgroundImage: "/images/gallery/siding/full/siding-colonial-renovation-princeton-2023-12-08.jpg"
+      backgroundImage: "/images/services/ServiceHeroImages/siding-gutters-hero.jpg"
     },
     overview: "Russell Roofing's siding services combine aesthetic appeal with superior protection. Our expert installers work with premium materials to transform your home's exterior while improving energy efficiency.",
     detailedDescription: `Quality siding does more than beautify your home - it provides essential protection against the elements while improving energy efficiency and property value. Russell Roofing offers comprehensive siding services using the industry's best materials and installation practices.
@@ -254,13 +254,13 @@ Every siding project begins with a detailed consultation where we assess your ho
     shortDescription: "Window installation and replacement",
     description: "Improve your home's energy efficiency and curb appeal with our professional window installation and replacement services. We work with all major window brands and styles.",
     icon: "/images/icons/windows.svg",
-    image: "/images/gallery/windows/full/windows-replacement-victorian-morristown-2024-01-05.jpg",
+    image: "/images/services/ServiceHeroImages/windows-hero.jpg",
     features: ["Window Replacement", "New Installations", "Energy Efficient", "Custom Sizes"],
     category: "Windows",
     hero: {
       title: "Quality Window Installation",
       subtitle: "Energy Efficiency and Beauty Combined",
-      backgroundImage: "/images/gallery/windows/full/windows-replacement-victorian-morristown-2024-01-05.jpg"
+      backgroundImage: "/images/services/ServiceHeroImages/windows-hero.jpg"
     },
     overview: "Upgrade your home with energy-efficient windows that enhance comfort, reduce utility costs, and improve curb appeal. Our expert installers ensure perfect fit and function.",
     detailedDescription: "Content to be provided by Analyst",
@@ -279,14 +279,14 @@ Every siding project begins with a detailed consultation where we assess your ho
     shortDescription: "Large-scale commercial projects",
     description: "Professional commercial roofing and exterior services for businesses, schools, and institutions. We handle projects of all sizes with minimal disruption to your operations.",
     icon: "/images/icons/commercial.svg",
-    image: "/images/gallery/commercial/full/commercial-roof-restoration-newark-2023-11-30.jpg",
+    image: "/images/services/ServiceHeroImages/commercial-hero.jpg",
     features: ["Commercial Roofing", "Building Maintenance", "Large Scale Projects", "Minimal Disruption"],
     category: "Commercial",
     popular: true,
     hero: {
       title: "Commercial Roofing Solutions",
       subtitle: "Protecting Your Business Investment",
-      backgroundImage: "/images/gallery/commercial/full/commercial-roof-restoration-newark-2023-11-30.jpg"
+      backgroundImage: "/images/services/ServiceHeroImages/commercial-hero.jpg"
     },
     overview: "Russell Roofing provides comprehensive commercial roofing and exterior services designed to protect your investment while minimizing disruption to your operations.",
     detailedDescription: "Content to be provided by Analyst",
@@ -305,13 +305,13 @@ Every siding project begins with a detailed consultation where we assess your ho
     shortDescription: "Preserving historic buildings with authentic materials and techniques",
     description: "Specialized restoration services for historic properties. We use traditional materials and techniques while meeting modern performance standards to preserve the character and integrity of historic buildings.",
     icon: "/images/icons/restoration.svg",
-    image: "/images/gallery/roofing/full/roofing-slate-restoration-chatham-2023-10-28.jpg",
+    image: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg",
     features: ["Slate Restoration", "Historic Materials", "Preservation Techniques", "Period-Appropriate Methods"],
     category: "Historical Restoration",
     hero: {
       title: "Historical Restoration",
       subtitle: "Preserving History with Expert Craftsmanship",
-      backgroundImage: "/images/gallery/roofing/full/roofing-slate-restoration-chatham-2023-10-28.jpg"
+      backgroundImage: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg"
     },
     overview: "When severe weather damages your home, Russell Roofing responds quickly with emergency repairs and insurance claim assistance to restore your property.",
     detailedDescription: "Content to be provided by Analyst",
@@ -330,13 +330,13 @@ Every siding project begins with a detailed consultation where we assess your ho
     shortDescription: "Skylight installation and repair services",
     description: "Bring natural light into your home with professional skylight installation and repair services. We work with all major skylight brands and provide expert waterproofing to prevent leaks.",
     icon: "/images/icons/skylights.svg",
-    image: "/images/gallery/windows/full/windows-replacement-victorian-morristown-2024-01-05.jpg",
+    image: "/images/services/ServiceHeroImages/skylight-hero.jpg",
     features: ["New Installations", "Skylight Repairs", "Leak Prevention", "Energy Efficient Models"],
     category: "Skylights",
     hero: {
-      title: "Preventive Maintenance Services",
-      subtitle: "Protect Your Investment Year-Round",
-      backgroundImage: "/images/gallery/siding/full/siding-mixed-material-contemporary-short-hills-2024-01-10.jpg"
+      title: "Skylights",
+      subtitle: "Bring Natural Light Into Your Home",
+      backgroundImage: "/images/services/ServiceHeroImages/skylight-hero.jpg"
     },
     overview: "Regular maintenance is the key to maximizing the life of your roof and exterior systems. Our comprehensive maintenance programs help prevent costly repairs.",
     detailedDescription: "Content to be provided by Analyst",
@@ -355,13 +355,13 @@ Every siding project begins with a detailed consultation where we assess your ho
     shortDescription: "Specialized services for religious and institutional buildings",
     description: "Expert roofing and exterior services for churches, schools, hospitals, and other institutional buildings. We understand the unique requirements and architectural considerations of these important structures.",
     icon: "/images/icons/commercial.svg",
-    image: "/images/gallery/roofing/full/roofing-slate-restoration-chatham-2023-10-28.jpg",
+    image: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg",
     features: ["Church Roofing", "School Buildings", "Hospital Projects", "Historic Preservation"],
     category: "Churches & Institutions",
     hero: {
       title: "Churches & Institutions",
       subtitle: "Specialized Services for Important Buildings",
-      backgroundImage: "/images/gallery/roofing/full/roofing-slate-restoration-chatham-2023-10-28.jpg"
+      backgroundImage: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg"
     },
     overview: "Russell Roofing provides specialized services for churches, schools, hospitals, and other institutional buildings with unique architectural and operational requirements.",
     detailedDescription: "Content to be provided by Analyst",
@@ -380,13 +380,13 @@ Every siding project begins with a detailed consultation where we assess your ho
     shortDescription: "Stone and brick work for chimneys and exterior walls",
     description: "Professional masonry services including chimney repairs, stone work, and brick restoration. We restore and repair masonry structures to ensure both safety and aesthetic appeal.",
     icon: "/images/icons/masonry.svg",
-    image: "/images/gallery/chimneys/full/chimneys-restoration-repair-madison-2023-12-15.jpg",
+    image: "/images/services/ServiceHeroImages/masonry-hero.jpg",
     features: ["Chimney Repairs", "Stone Work", "Brick Restoration", "Pointing and Repointing"],
     category: "Masonry",
     hero: {
       title: "Masonry Services",
       subtitle: "Expert Stone and Brick Work",
-      backgroundImage: "/images/gallery/chimneys/full/chimneys-restoration-repair-madison-2023-12-15.jpg"
+      backgroundImage: "/images/services/ServiceHeroImages/masonry-hero.jpg"
     },
     overview: "Professional masonry services including chimney repairs, stone work, and brick restoration to ensure both safety and aesthetic appeal.",
     detailedDescription: "Content to be provided by Analyst",
