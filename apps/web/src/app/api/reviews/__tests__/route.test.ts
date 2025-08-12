@@ -1,13 +1,21 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { NextRequest } from 'next/server';
-import { GET } from '../route';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { NextRequest, NextResponse } from 'next/server';
+import { GET, resetCache } from '../route';
 import { sampleReviews } from '@/data/reviews';
+import { Review } from '@/types/review';
 
-// Mock environment variables
-const mockEnv = {
-  GOOGLE_PLACES_API_KEY: 'test-api-key',
-  RUSSELL_ROOFING_PLACE_ID: 'test-place-id'
-};
+// Mock dependencies
+vi.mock('@/lib/middleware/env-check', () => ({
+  envMiddleware: {
+    googlePlaces: vi.fn(),
+  },
+}));
+
+vi.mock('@/lib/config', () => ({
+  getConfig: vi.fn(),
+  getServiceConfig: vi.fn(),
+  isServiceConfigured: vi.fn(),
+}));
 
 // Mock Google Places API response
 const mockGooglePlacesResponse = {
@@ -43,23 +51,33 @@ const mockGooglePlacesResponse = {
 // Mock fetch globally
 global.fetch = vi.fn();
 
+// Import the mocked modules so we can manipulate them
+import { envMiddleware } from '@/lib/middleware/env-check';
+import { getConfig, getServiceConfig, isServiceConfigured } from '@/lib/config';
+
 describe('/api/reviews', () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    
-    // Mock environment variables
-    Object.entries(mockEnv).forEach(([key, value]) => {
-      vi.stubEnv(key, value);
-    });
-  });
+    resetCache();
 
-  afterEach(() => {
-    vi.unstubAllEnvs();
+    // Default mock for middleware: success
+    (envMiddleware.googlePlaces as vi.Mock).mockReturnValue(undefined);
+    
+    // Default mock for config
+    (getConfig as vi.Mock).mockReturnValue({
+      features: { enableRateLimiting: false },
+      cache: { reviewsCacheDuration: 3600 * 1000 },
+    });
+    (isServiceConfigured as vi.Mock).mockReturnValue(true);
+    (getServiceConfig as vi.Mock).mockReturnValue({
+        serverPlacesApiKey: 'test-key',
+        russellRoofingPlaceId: 'test-place-id'
+    });
   });
 
   it('should return live reviews from Google Places API', async () => {
     // Mock successful API response
-    (global.fetch as any).mockResolvedValueOnce({
+    (global.fetch as vi.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => mockGooglePlacesResponse
     });
@@ -86,8 +104,13 @@ describe('/api/reviews', () => {
     });
   });
 
-  it('should fallback to sample reviews when API key is missing', async () => {
-    vi.stubEnv('GOOGLE_PLACES_API_KEY', '');
+  it('should fallback to sample reviews when env validation fails', async () => {
+    const errorResponse = NextResponse.json({
+        reviews: sampleReviews,
+        source: 'fallback',
+        error: 'Google Places API not configured'
+    });
+    (envMiddleware.googlePlaces as vi.Mock).mockReturnValue(errorResponse);
 
     const request = new NextRequest('http://localhost:3000/api/reviews');
     const response = await GET(request);
@@ -96,25 +119,12 @@ describe('/api/reviews', () => {
     expect(response.status).toBe(200);
     expect(data.source).toBe('fallback');
     expect(data.reviews).toEqual(sampleReviews);
-    expect(data.error).toBe('Google Places API key not configured');
-  });
-
-  it('should fallback to sample reviews when Place ID is missing', async () => {
-    vi.stubEnv('RUSSELL_ROOFING_PLACE_ID', '');
-
-    const request = new NextRequest('http://localhost:3000/api/reviews');
-    const response = await GET(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(200);
-    expect(data.source).toBe('fallback');
-    expect(data.reviews).toEqual(sampleReviews);
-    expect(data.error).toBe('Russell Roofing Place ID not configured');
+    expect(data.error).toBe('Google Places API not configured');
   });
 
   it('should fallback to sample reviews when API request fails', async () => {
     // Mock failed API response
-    (global.fetch as any).mockRejectedValueOnce(new Error('Network error'));
+    (global.fetch as vi.Mock).mockRejectedValueOnce(new Error('Network error'));
 
     const request = new NextRequest('http://localhost:3000/api/reviews');
     const response = await GET(request);
@@ -128,7 +138,7 @@ describe('/api/reviews', () => {
 
   it('should fallback to sample reviews when API returns error status', async () => {
     // Mock API error response
-    (global.fetch as any).mockResolvedValueOnce({
+    (global.fetch as vi.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({
         ...mockGooglePlacesResponse,
@@ -148,7 +158,7 @@ describe('/api/reviews', () => {
 
   it('should fallback to sample reviews when no reviews found', async () => {
     // Mock empty reviews response
-    (global.fetch as any).mockResolvedValueOnce({
+    (global.fetch as vi.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({
         ...mockGooglePlacesResponse,
@@ -177,7 +187,7 @@ describe('/api/reviews', () => {
       time: 1640995200, // 2022-01-01
     };
 
-    (global.fetch as any).mockResolvedValueOnce({
+    (global.fetch as vi.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({
         ...mockGooglePlacesResponse,
@@ -216,7 +226,7 @@ describe('/api/reviews', () => {
       }
     };
 
-    (global.fetch as any).mockResolvedValueOnce({
+    (global.fetch as vi.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => mixedRatingsResponse
     });
@@ -226,7 +236,7 @@ describe('/api/reviews', () => {
     const data = await response.json();
 
     expect(data.reviews).toHaveLength(2);
-    expect(data.reviews.every((review: { rating: number }) => review.rating === 5)).toBe(true);
+    expect(data.reviews.every((review: Review) => review.rating === 5)).toBe(true);
     expect(data.reviews[0].customerName).toBe('User 1');
     expect(data.reviews[1].customerName).toBe('User 4');
   });

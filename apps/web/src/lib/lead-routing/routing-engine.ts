@@ -27,6 +27,7 @@ import {
  */
 export class LeadRoutingEngine {
   private rules: RoutingRule[] = [];
+  private standardRepIndex = 0;
 
   constructor() {
     this.initializeDefaultRules();
@@ -185,6 +186,15 @@ export class LeadRoutingEngine {
         workflowsTriggered: []
       };
 
+      // Apply routing actions from the highest-priority rule
+      if (matchedRules.length > 0) {
+        const rule = matchedRules[0]; // Highest priority rule
+        for (const action of rule.actions) {
+          await this.executeAction(action, result, leadData);
+        }
+        result.workflowsTriggered.push(rule.name);
+      }
+
       // Use config-based assignment if no rules matched or for enhanced assignment
       if (!result.assignedRep) {
         result.assignedRep = getAssignmentByConfig(
@@ -193,14 +203,6 @@ export class LeadRoutingEngine {
           propertyType || 'single_family',
           leadScore
         );
-      }
-
-      // Apply routing actions
-      for (const rule of matchedRules) {
-        for (const action of rule.actions) {
-          await this.executeAction(action, result, leadData);
-        }
-        result.workflowsTriggered.push(rule.name);
       }
 
       console.log(`[Lead Routing] Processed lead ${dealId}:`, {
@@ -317,23 +319,26 @@ export class LeadRoutingEngine {
   private getStandardSalesRep(): string {
     const config = getRoutingConfig();
     const reps = config.assignmentRules.standardSalesReps;
-    
+
     if (reps.length === 0) {
       return 'default-sales-rep';
     }
-    
-    // Simple round-robin using timestamp for better distribution than pure random
-    const index = Date.now() % reps.length;
-    return reps[index];
+
+    const rep = reps[this.standardRepIndex];
+    this.standardRepIndex = (this.standardRepIndex + 1) % reps.length;
+    return rep;
   }
 
   /**
    * Add a custom routing rule
    */
   addRule(rule: RoutingRule): void {
-    this.rules.push(rule);
-    // Re-sort by priority
-    this.rules.sort((a, b) => a.priority - b.priority);
+    const index = this.rules.findIndex(r => r.priority >= rule.priority);
+    if (index === -1) {
+      this.rules.push(rule);
+    } else {
+      this.rules.splice(index, 0, rule);
+    }
   }
 
   /**

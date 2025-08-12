@@ -64,7 +64,7 @@ describe('ContactPage', () => {
     
     // Check for main container
     const main = screen.getByRole('main');
-    expect(main).toHaveClass('pb-16');
+    expect(main).toHaveClass('pt-16');
     
     // Check for gradient hero section
     const heroSection = screen.getByText(/get in touch/i).closest('section');

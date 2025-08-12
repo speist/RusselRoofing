@@ -37,8 +37,8 @@ let lastRequestTime = 0;
 // Constants for better maintainability
 const SHORT_TEXT_MAX_LENGTH = 100;
 
-// Reset function for tests (not exported from route - only for internal use)
-function resetCache() {
+// Reset function for tests
+export function resetCache() {
   cachedReviews = null;
   lastRequestTime = 0;
 }

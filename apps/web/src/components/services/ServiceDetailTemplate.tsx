@@ -214,12 +214,12 @@ export default function ServiceDetailTemplate({ service }: ServiceDetailTemplate
       </div>
 
       {/* Social Sharing */}
-      <div className="fixed left-8 top-1/2 -translate-y-1/2 z-30 hidden lg:block">
+      <div className="fixed left-8 top-1/2 -translate-y-1/2 z-30 hidden lg:block" data-testid="social-share-container">
         <div className="flex flex-col gap-4">
           <button
             onClick={() => window.open(`https://facebook.com/sharer/sharer.php?u=${window.location.href}`, '_blank')}
             className="w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
-            aria-label={`Share ${service.title} service on Facebook`}
+            aria-label={`Share ${service.title} on Facebook`}
             title="Share on Facebook"
           >
             <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
@@ -227,9 +227,9 @@ export default function ServiceDetailTemplate({ service }: ServiceDetailTemplate
             </svg>
           </button>
           <button
-            onClick={() => window.open(`https://twitter.com/intent/tweet?url=${window.location.href}&text=Check out ${service.title} services from Russell Roofing`, '_blank')}
+            onClick={() => window.open(`https://twitter.com/intent/tweet?url=${window.location.href}&text=Check out ${service.title} from Russell Roofing`, '_blank')}
             className="w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
-            aria-label={`Share ${service.title} service on Twitter`}
+            aria-label={`Share ${service.title} on Twitter`}
             title="Share on Twitter"
           >
             <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">

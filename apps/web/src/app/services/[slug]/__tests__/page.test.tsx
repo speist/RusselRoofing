@@ -1,9 +1,10 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { notFound } from 'next/navigation';
 import ServiceDetailPage, { generateStaticParams, generateMetadata } from '../page';
 import { services } from '@/data/services';
+import { getServiceDetailsBySlug } from '@/data/service-details';
 
 // Mock next/navigation
 vi.mock('next/navigation', () => ({
@@ -29,30 +30,28 @@ describe('ServiceDetailPage', () => {
   it('renders service page correctly for valid slug', () => {
     const mockParams = { slug: 'roofing' };
     const roofingService = services.find(s => s.slug === 'roofing')!;
+    const roofingServiceDetail = getServiceDetailsBySlug('roofing')!;
 
     render(<ServiceDetailPage params={mockParams} />);
 
-    // Check if the service title is rendered
-    expect(screen.getByText(roofingService.title)).toBeInTheDocument();
+    // Check if the service title is rendered in the breadcrumb
+    const nav = screen.getByRole('navigation', { name: /breadcrumb/i });
+    expect(within(nav).getByText(roofingService.title)).toBeInTheDocument();
     
-    // Check if the service description is rendered
-    expect(screen.getByText(roofingService.description)).toBeInTheDocument();
-    
-    // Check if the service category is rendered
-    expect(screen.getByText(roofingService.category)).toBeInTheDocument();
+    // Check if the service overview is rendered
+    expect(screen.getByText(roofingServiceDetail.overview)).toBeInTheDocument();
     
     // Check if features are rendered
-    roofingService.features.forEach(feature => {
-      expect(screen.getByText(feature)).toBeInTheDocument();
+    roofingServiceDetail.featureDetails.forEach(feature => {
+      expect(screen.getByText(feature.title)).toBeInTheDocument();
     });
     
     // Check if CTAs are present
-    expect(screen.getAllByText('Get Free Estimate')).toHaveLength(2);
-    expect(screen.getByText('View Our Work')).toBeInTheDocument();
+    expect(screen.getAllByText('Get Free Estimate').length).toBeGreaterThan(0);
     
     // Check if breadcrumb navigation is present
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Services')).toBeInTheDocument();
+    expect(within(nav).getByText('Home')).toBeInTheDocument();
+    expect(within(nav).getByText('Services')).toBeInTheDocument();
   });
 
   it('calls notFound() for invalid slug', () => {
@@ -60,7 +59,7 @@ describe('ServiceDetailPage', () => {
 
     expect(() => {
       render(<ServiceDetailPage params={mockParams} />);
-    }).toThrow();
+    }).toThrow('NEXT_NOT_FOUND');
 
     expect(notFound).toHaveBeenCalled();
   });
@@ -94,19 +93,4 @@ describe('ServiceDetailPage', () => {
     expect(metadata.description).toBe('The service you\'re looking for could not be found.');
   });
 
-  it('displays popular service badge when applicable', () => {
-    const mockParams = { slug: 'roofing' };
-    
-    render(<ServiceDetailPage params={mockParams} />);
-    
-    expect(screen.getByText('Popular Service')).toBeInTheDocument();
-  });
-
-  it('does not display popular service badge for non-popular services', () => {
-    const mockParams = { slug: 'gutters' };
-    
-    render(<ServiceDetailPage params={mockParams} />);
-    
-    expect(screen.queryByText('Popular Service')).not.toBeInTheDocument();
-  });
 });

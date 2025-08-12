@@ -75,7 +75,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
       {/* Breadcrumb Navigation */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center text-sm">
+          <nav className="flex items-center text-sm" aria-label="Breadcrumb">
             <Link 
               href="/" 
               className="text-gray-500 hover:text-primary-burgundy transition-colors"

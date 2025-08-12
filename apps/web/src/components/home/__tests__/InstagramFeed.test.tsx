@@ -60,12 +60,12 @@ describe('InstagramFeed', () => {
     render(<InstagramFeed />);
 
     await waitFor(() => {
-      expect(screen.getByText('Great roofing project completed!')).toBeInTheDocument();
+      expect(screen.getByAltText(mockInstagramPosts[0].caption!)).toBeInTheDocument();
     });
 
     // Should show the posts
-    expect(screen.getByAltText('Instagram post 1')).toBeInTheDocument();
-    expect(screen.getByAltText('Instagram post 2')).toBeInTheDocument();
+    expect(screen.getByAltText(mockInstagramPosts[0].caption!)).toBeInTheDocument();
+    expect(screen.getByAltText(mockInstagramPosts[1].caption!)).toBeInTheDocument();
   });
 
   test('shows fallback content when API fails', async () => {
@@ -82,7 +82,7 @@ describe('InstagramFeed', () => {
     });
 
     // Should show fallback images
-    const images = screen.getAllByAltText(/instagram post/i);
+    const images = screen.getAllByRole('img');
     expect(images.length).toBe(6);
   });
 
@@ -105,7 +105,7 @@ describe('InstagramFeed', () => {
     render(<InstagramFeed />);
 
     await waitFor(() => {
-      expect(screen.getByText('Great roofing project completed!')).toBeInTheDocument();
+      expect(screen.getByAltText(mockInstagramPosts[0].caption!)).toBeInTheDocument();
     });
 
     // Find the first post container
@@ -116,8 +116,10 @@ describe('InstagramFeed', () => {
     fireEvent.mouseEnter(firstPost);
 
     // Should show the Instagram icon and caption overlay
-    const instagramIcon = document.querySelector('svg');
-    expect(instagramIcon).toBeInTheDocument();
+    await waitFor(() => {
+      const instagramIcon = document.querySelector('svg');
+      expect(instagramIcon).toBeInTheDocument();
+    });
   });
 
   test('opens Instagram links when clicked', async () => {
@@ -129,7 +131,7 @@ describe('InstagramFeed', () => {
     render(<InstagramFeed />);
 
     await waitFor(() => {
-      expect(screen.getByText('Great roofing project completed!')).toBeInTheDocument();
+      expect(screen.getByAltText(mockInstagramPosts[0].caption!)).toBeInTheDocument();
     });
 
     // Click on the first post
@@ -200,6 +202,7 @@ describe('InstagramFeed', () => {
   test('handles posts without captions', async () => {
     const postWithoutCaption = {
       ...mockInstagramPosts[0],
+      id: 'post-no-caption',
       caption: undefined,
     };
 
@@ -247,9 +250,14 @@ describe('InstagramFeed', () => {
     render(<InstagramFeed />);
 
     await waitFor(() => {
-      // Should only show 6 images maximum (videos filtered out)
-      const images = screen.getAllByAltText(/instagram post/i);
-      expect(images.length).toBeLessThanOrEqual(6);
+      // Should only show 6 images maximum (videos and extra posts filtered out)
+      const images = screen.getAllByRole('img');
+      const imageAlts = images.map(img => img.getAttribute('alt'));
+
+      expect(imageAlts).toHaveLength(6);
+      expect(imageAlts).toContain('Great roofing project completed!');
+      expect(imageAlts).toContain('Another successful installation');
+      expect(imageAlts).not.toContain('Video post');
     });
   });
 
