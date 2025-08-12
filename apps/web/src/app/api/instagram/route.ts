@@ -36,6 +36,11 @@ interface InstagramApiResponse {
 
 let cachedData: { posts: InstagramPost[]; timestamp: number } | null = null;
 
+// Exported for testing purposes
+export function resetCache() {
+  cachedData = null;
+}
+
 export async function GET(request: NextRequest): Promise<NextResponse<InstagramResponse>> {
   // Validate environment variables for Instagram API (with graceful degradation)
   const envCheck = envMiddleware.instagram(request);

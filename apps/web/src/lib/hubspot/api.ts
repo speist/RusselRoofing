@@ -45,11 +45,7 @@ class HubSpotApiService implements HubSpotService {
    * Create a new contact
    */
   async createContact(contactData: ContactInput): Promise<HubSpotApiResponse<Contact>> {
-    if (!this.isConfigured) {
-      return this.mockCreateContact(contactData);
-    }
-
-    // Validate input
+    // Validate input first
     const validatedData = validateContactInput(contactData);
     if (!validatedData) {
       return {
@@ -59,6 +55,10 @@ class HubSpotApiService implements HubSpotService {
           message: 'Invalid contact data provided',
         },
       };
+    }
+
+    if (!this.isConfigured) {
+      return this.mockCreateContact(validatedData);
     }
 
     return await this.contactsService.createContact(validatedData);
@@ -93,10 +93,6 @@ class HubSpotApiService implements HubSpotService {
    * Create a new deal
    */
   async createDeal(dealData: DealInput): Promise<HubSpotApiResponse<Deal>> {
-    if (!this.isConfigured) {
-      return this.mockCreateDeal(dealData);
-    }
-
     // Validate input
     const validatedData = validateDealInput(dealData);
     if (!validatedData) {
@@ -107,6 +103,10 @@ class HubSpotApiService implements HubSpotService {
           message: 'Invalid deal data provided',
         },
       };
+    }
+
+    if (!this.isConfigured) {
+      return this.mockCreateDeal(validatedData);
     }
 
     return await this.dealsService.createDeal(validatedData);
@@ -289,9 +289,9 @@ class HubSpotApiService implements HubSpotService {
         dealstage: dealData.dealstage,
         services_requested: dealData.services_requested,
         property_square_footage: dealData.property_square_footage?.toString(),
-        estimate_min: dealData.estimate_min.toString(),
-        estimate_max: dealData.estimate_max.toString(),
-        is_emergency: dealData.is_emergency.toString(),
+        estimate_min: dealData.estimate_min?.toString(),
+        estimate_max: dealData.estimate_max?.toString(),
+        is_emergency: dealData.is_emergency?.toString() ?? 'false',
         project_timeline: dealData.project_timeline,
         createdate: new Date().toISOString(),
         // New lead routing properties

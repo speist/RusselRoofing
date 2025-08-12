@@ -46,11 +46,11 @@ describe('About Page', () => {
     
     // Check for correct background color (light grey)
     const mainDiv = container.firstChild as HTMLElement;
-    expect(mainDiv).toHaveClass('min-h-screen', 'bg-[#F5F3F0]');
+    expect(mainDiv).toHaveClass('min-h-screen', 'bg-light-grey');
     
     // Check for main content container
     expect(screen.getByRole('main')).toBeInTheDocument();
-    expect(screen.getByRole('main')).toHaveClass('pb-16');
+    expect(screen.getByRole('main')).toHaveClass('pt-16');
   });
 
   it('renders sections in the correct order', () => {

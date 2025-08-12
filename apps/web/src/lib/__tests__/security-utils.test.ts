@@ -179,7 +179,7 @@ describe('Security Utilities', () => {
 
   describe('validateAPIKeyFormat', () => {
     it('should validate HubSpot API key format', () => {
-      const validKey = 'pat-test-sample-key-for-validation-test';
+      const validKey = 'pat-test-sample-key-for-validation-test-a';
       const invalidKey = 'invalid-key';
       
       const validResult = validateAPIKeyFormat(validKey, 'hubspot');
@@ -321,20 +321,27 @@ describe('Security Utilities', () => {
       expect(user1Result.remainingRequests).toBe(user2Result.remainingRequests);
     });
 
-    it('should reset window after time passes', (done) => {
+    it('should reset window after time passes', async () => {
+      vi.useFakeTimers();
       const rateLimiter = createRateLimiter();
       const userId = 'test-user';
       
-      // Make a request
-      const result1 = rateLimiter(userId);
-      expect(result1.allowed).toBe(true);
+      // Exhaust the limit
+      for (let i = 0; i < 100; i++) {
+        rateLimiter(userId);
+      }
+      let result = rateLimiter(userId);
+      expect(result.allowed).toBe(false);
+
+      // Advance time past the window
+      const config = getSecurityConfig();
+      vi.advanceTimersByTime(config.rateLimitConfig.windowMs + 1);
+
+      const result2 = rateLimiter(userId);
+      expect(result2.allowed).toBe(true);
+      expect(result2.remainingRequests).toBe(99);
       
-      // Wait for window to reset (this is a simplified test)
-      setTimeout(() => {
-        const result2 = rateLimiter(userId);
-        expect(result2.allowed).toBe(true);
-        done();
-      }, 10);
+      vi.useRealTimers();
     });
   });
 });

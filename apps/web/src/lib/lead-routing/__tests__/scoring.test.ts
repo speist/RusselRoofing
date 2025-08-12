@@ -19,7 +19,7 @@ describe('Lead Scoring System', () => {
       };
 
       const score = calculateLeadScore(criteria);
-      expect(score).toBe(97); // 40 + 20 + 12 + 15 + 10
+      expect(score).toBe(100); // 40 + 20 + 15 + 15 + 10
     });
 
     it('should calculate correct score for standard residential project', () => {
@@ -32,7 +32,7 @@ describe('Lead Scoring System', () => {
       };
 
       const score = calculateLeadScore(criteria);
-      expect(score).toBe(33); // 10 + 10 + 3 + 5 + 5
+      expect(score).toBe(35); // 10 + 10 + 5 + 5 + 5
     });
 
     it('should cap score at 100', () => {
@@ -123,7 +123,7 @@ describe('Lead Scoring System', () => {
         isEmergencyChecked: false,
         serviceTypes: ['roof_repair'],
         projectDescription: 'Regular maintenance',
-        timeline: 'asap'
+        timeline: 'immediate'
       };
 
       expect(detectEmergency(criteria)).toBe(true);

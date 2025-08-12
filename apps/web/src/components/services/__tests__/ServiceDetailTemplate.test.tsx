@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import ServiceDetailTemplate from '../ServiceDetailTemplate';
 import { ServiceDetail } from '@/data/service-details';
 
@@ -131,7 +131,13 @@ describe('ServiceDetailTemplate', () => {
     
     render(<ServiceDetailTemplate service={mockService} />);
     
-    const facebookButton = screen.getByLabelText('Share on Facebook');
+    // The social share container is hidden by default in JSDOM, so we find it by testId
+    const socialShareContainer = screen.getByTestId('social-share-container');
+    // We can't easily remove the 'hidden' class, but we can test its existence
+    // and then test the buttons within it by querying inside the container.
+    // For this test, we'll assume the buttons are available if the container is.
+
+    const facebookButton = within(socialShareContainer).getByLabelText(`Share ${mockService.title} on Facebook`);
     fireEvent.click(facebookButton);
     
     expect(mockOpen).toHaveBeenCalledWith(

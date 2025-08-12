@@ -6,9 +6,12 @@ import { LeadScoringCriteria, LeadPriority, EmergencyDetectionCriteria } from '.
  */
 export function calculateLeadScore(criteria: LeadScoringCriteria): number {
   let score = 0;
+  const estimateAmount = typeof criteria.estimateAmount === 'number' && !isNaN(criteria.estimateAmount)
+    ? criteria.estimateAmount
+    : 0;
   
   // Estimate amount scoring (0-40 points, 40% weight)
-  score += Math.min(40, Math.floor(criteria.estimateAmount / 500));
+  score += Math.min(40, Math.floor(estimateAmount / 500));
   
   // Property type scoring (0-20 points, 20% weight)
   const propertyScores: Record<string, number> = {
@@ -19,7 +22,7 @@ export function calculateLeadScore(criteria: LeadScoringCriteria): number {
   score += propertyScores[criteria.propertyType] || 0;
   
   // Service count scoring (0-15 points, 15% weight)
-  score += Math.min(15, criteria.serviceCount * 3);
+  score += Math.min(15, criteria.serviceCount * 5);
   
   // Timeline urgency scoring (0-15 points, 15% weight)
   const timelineScores: Record<string, number> = {
@@ -90,17 +93,19 @@ export function detectEmergency(criteria: EmergencyDetectionCriteria): boolean {
   
   // 2. Check for emergency service types
   const emergencyServices = ['storm_damage', 'leak_repair', 'emergency_repair'];
-  const hasEmergencyService = criteria.serviceTypes.some(service => 
-    emergencyServices.includes(service)
-  );
-  
-  if (hasEmergencyService) {
-    return true;
+  if (Array.isArray(criteria.serviceTypes)) {
+    const hasEmergencyService = criteria.serviceTypes.some(service =>
+      emergencyServices.includes(service)
+    );
+
+    if (hasEmergencyService) {
+      return true;
+    }
   }
   
   // 3. Check for emergency keywords in project description
   if (criteria.projectDescription) {
-    const emergencyKeywords = ['urgent', 'emergency', 'asap', 'immediate', 'leak', 'storm', 'damage'];
+    const emergencyKeywords = ['urgent', 'emergency', 'immediate', 'leak', 'storm', 'damage'];
     const descriptionLower = criteria.projectDescription.toLowerCase();
     
     const hasEmergencyKeywords = emergencyKeywords.some(keyword => 
@@ -113,7 +118,7 @@ export function detectEmergency(criteria: EmergencyDetectionCriteria): boolean {
   }
   
   // 4. Check for immediate timeline requirements
-  const urgentTimelines = ['asap', 'same_day', 'next_day', 'immediate'];
+  const urgentTimelines = ['same_day', 'next_day', 'immediate'];
   if (urgentTimelines.includes(criteria.timeline)) {
     return true;
   }

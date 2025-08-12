@@ -98,8 +98,9 @@ export function InstagramFeed() {
           setPosts(FALLBACK_IMAGES);
           setError('Using demo content');
         } else {
-          // If we have fewer than 6 posts, pad with fallback images
-          const allPosts = [...data.posts];
+          // Filter for images and carousels, then pad with fallbacks
+          const filteredPosts = data.posts.filter(p => p.media_type === 'IMAGE' || p.media_type === 'CAROUSEL_ALBUM');
+          const allPosts = [...filteredPosts];
           if (allPosts.length < 6) {
             const fallbacksNeeded = FALLBACK_IMAGES.slice(allPosts.length);
             allPosts.push(...fallbacksNeeded);

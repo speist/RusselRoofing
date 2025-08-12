@@ -4,11 +4,11 @@ import '@testing-library/jest-dom';
 import { LazyImage } from '../LazyImage';
 
 // Mock IntersectionObserver
-const mockIntersectionObserver = jest.fn();
+const mockIntersectionObserver = vi.fn();
 mockIntersectionObserver.mockReturnValue({
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
 });
 global.IntersectionObserver = mockIntersectionObserver;
 
@@ -20,7 +20,7 @@ describe('LazyImage', () => {
   };
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('renders with proper aspect ratio', () => {
@@ -83,13 +83,13 @@ describe('LazyImage', () => {
   test('shows loading spinner when image is in view but not loaded', () => {
     // Mock intersection observer to trigger in view
     const mockObserver = {
-      observe: jest.fn((element) => {
+      observe: vi.fn((element) => {
         // Simulate image coming into view
         const callback = mockIntersectionObserver.mock.calls[0][0];
         callback([{ isIntersecting: true, target: element }]);
       }),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     };
     mockIntersectionObserver.mockReturnValue(mockObserver);
 
@@ -103,12 +103,12 @@ describe('LazyImage', () => {
   test('shows error fallback when image fails to load', async () => {
     // Mock intersection observer to trigger in view
     const mockObserver = {
-      observe: jest.fn((element) => {
+      observe: vi.fn((element) => {
         const callback = mockIntersectionObserver.mock.calls[0][0];
         callback([{ isIntersecting: true, target: element }]);
       }),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     };
     mockIntersectionObserver.mockReturnValue(mockObserver);
 
@@ -124,16 +124,16 @@ describe('LazyImage', () => {
   });
 
   test('calls onLoad callback when image loads successfully', async () => {
-    const mockOnLoad = jest.fn();
+    const mockOnLoad = vi.fn();
     
     // Mock intersection observer to trigger in view
     const mockObserver = {
-      observe: jest.fn((element) => {
+      observe: vi.fn((element) => {
         const callback = mockIntersectionObserver.mock.calls[0][0];
         callback([{ isIntersecting: true, target: element }]);
       }),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     };
     mockIntersectionObserver.mockReturnValue(mockObserver);
 
@@ -147,16 +147,16 @@ describe('LazyImage', () => {
   });
 
   test('calls onError callback when image fails to load', async () => {
-    const mockOnError = jest.fn();
+    const mockOnError = vi.fn();
     
     // Mock intersection observer to trigger in view
     const mockObserver = {
-      observe: jest.fn((element) => {
+      observe: vi.fn((element) => {
         const callback = mockIntersectionObserver.mock.calls[0][0];
         callback([{ isIntersecting: true, target: element }]);
       }),
-      unobserve: jest.fn(),
-      disconnect: jest.fn(),
+      unobserve: vi.fn(),
+      disconnect: vi.fn(),
     };
     mockIntersectionObserver.mockReturnValue(mockObserver);
 
