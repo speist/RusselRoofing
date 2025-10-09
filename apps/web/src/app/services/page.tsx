@@ -7,20 +7,27 @@ export default function ServicesPage() {
   return (
     <FloatingPageLayout>
       {/* Hero Section */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section
+        className="relative py-16 md:py-20"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/services/services-hero.jpeg)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
               Our Services
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              From complete roof replacements to minor repairs, Russell Roofing provides 
-              comprehensive exterior home services with unmatched quality and reliability. 
+            <p className="text-xl text-white max-w-3xl mx-auto leading-relaxed">
+              From complete roof replacements to minor repairs, Russell Roofing provides
+              comprehensive exterior home services with unmatched quality and reliability.
               Discover how we can enhance and protect your most valuable investment.
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Services Grid Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
