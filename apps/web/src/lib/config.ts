@@ -177,7 +177,7 @@ export function getAppConfig(): AppConfig {
         publicPortalId: getEnvironmentVariable('NEXT_PUBLIC_HUBSPOT_PORTAL_ID') || undefined,
         baseUrl: getEnvironmentVariable('HUBSPOT_BASE_URL', 'https://app.hubspot.com'),
         webhookSecret: getEnvironmentVariable('HUBSPOT_WEBHOOK_SECRET') || undefined,
-        mockMode: !getEnvironmentVariable('HUBSPOT_API_KEY') || isDevelopment(),
+        mockMode: !getEnvironmentVariable('HUBSPOT_API_KEY'),
       },
       google: {
         placesApiKey: getEnvironmentVariable('NEXT_PUBLIC_GOOGLE_PLACES_API_KEY'),
@@ -190,7 +190,7 @@ export function getAppConfig(): AppConfig {
         userId: getEnvironmentVariable('INSTAGRAM_USER_ID'),
         facebookAppId: getEnvironmentVariable('FACEBOOK_APP_ID') || undefined,
         facebookAppSecret: getEnvironmentVariable('FACEBOOK_APP_SECRET') || undefined,
-        mockMode: !getEnvironmentVariable('INSTAGRAM_ACCESS_TOKEN') || isDevelopment(),
+        mockMode: !getEnvironmentVariable('INSTAGRAM_ACCESS_TOKEN'),
       },
     },
     
