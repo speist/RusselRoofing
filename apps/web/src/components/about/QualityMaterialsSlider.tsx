@@ -170,6 +170,7 @@ export default function QualityMaterialsSlider() {
                       width={150}
                       height={75}
                       className="max-w-full max-h-full object-contain"
+                      unoptimized
                     />
                   </div>
                 </Link>
