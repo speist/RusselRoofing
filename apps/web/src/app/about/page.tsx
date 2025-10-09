@@ -4,7 +4,6 @@ import FloatingPageLayout from '@/components/layout/FloatingPageLayout';
 import AboutHero from '@/components/about/AboutHero';
 import CompanyHistory from '@/components/about/CompanyHistory';
 import TeamSection from '@/components/about/TeamSection';
-import ValuesSection from '@/components/about/ValuesSection';
 import CertificationsSection from '@/components/about/CertificationsSection';
 import CommunitySection from '@/components/about/CommunitySection';
 
@@ -25,7 +24,6 @@ export default function AboutPage() {
       <AboutHero />
       <CompanyHistory />
       <TeamSection />
-      <ValuesSection />
       <CertificationsSection />
       <CommunitySection />
     </FloatingPageLayout>
