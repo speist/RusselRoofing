@@ -890,7 +890,7 @@ export default function HomePage() {
               {/* Column 5 - Follow Us */}
               <div>
                 <h3 className="font-inter font-semibold text-white text-lg mb-4">Follow Us</h3>
-                <div className="flex gap-4 mb-6">
+                <div className="flex gap-4 mb-6 w-fit">
                   <a
                     href="https://twitter.com/russellroofing?lang=en"
                     target="_blank"
@@ -928,13 +928,15 @@ export default function HomePage() {
                     <Instagram className="w-6 h-6" />
                   </a>
                 </div>
-                <Image
-                  src="/images/about/RR-33-years-on-transparent-white.png"
-                  alt="Russell Roofing - 33 Years of Excellence"
-                  width={150}
-                  height={150}
-                  className="w-auto h-20"
-                />
+                <div className="w-[120px]">
+                  <Image
+                    src="/images/about/RR-33-years-on-transparent-white.png"
+                    alt="Russell Roofing - 33 Years of Excellence"
+                    width={150}
+                    height={150}
+                    className="w-full h-auto"
+                  />
+                </div>
               </div>
             </div>
           </div>
