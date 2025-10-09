@@ -231,23 +231,23 @@ export default function HomePage() {
                 News
               </Link>
               <Link
-                href="/contact"
+                href="/careers"
                 className="text-white font-inter hover:text-accent-yellow transition-colors"
               >
-                Contact
+                Careers
               </Link>
             </nav>
 
-            {/* Desktop Request Estimate Button - Aligned with hero CTA */}
+            {/* Desktop Contact Us Button - Aligned with hero CTA */}
             <Link
-              href="/estimate"
+              href="/contact"
               className={`hidden md:block px-6 py-2 rounded-full font-inter font-medium transition-all duration-300 flex-shrink-0 ${
                 isScrolled
                   ? "bg-white text-primary-red hover:bg-gray-100"
                   : "border-2 border-white text-white hover:bg-white hover:text-primary-red"
               }`}
             >
-              Request Estimate
+              Contact Us
             </Link>
 
             {/* Mobile Menu Button */}
@@ -285,18 +285,18 @@ export default function HomePage() {
                   News
                 </Link>
                 <Link
-                  href="/contact"
+                  href="/careers"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block px-3 py-2 text-white font-inter hover:bg-red-800 rounded"
                 >
-                  Contact
+                  Careers
                 </Link>
                 <Link
-                  href="/estimate"
+                  href="/contact"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full mt-2 bg-white text-primary-red px-6 py-2 rounded-full font-inter font-medium block text-center"
                 >
-                  Request Estimate
+                  Contact Us
                 </Link>
               </div>
             </div>
