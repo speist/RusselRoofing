@@ -6,6 +6,7 @@ import CompanyHistory from '@/components/about/CompanyHistory';
 import TeamSection from '@/components/about/TeamSection';
 import CertificationsSection from '@/components/about/CertificationsSection';
 import CommunitySection from '@/components/about/CommunitySection';
+import QualityMaterialsSlider from '@/components/about/QualityMaterialsSlider';
 
 export const metadata: Metadata = {
   title: 'About Us - Russell Roofing | Expert Roofing Services in New Jersey',
@@ -26,6 +27,7 @@ export default function AboutPage() {
       <TeamSection />
       <CertificationsSection />
       <CommunitySection />
+      <QualityMaterialsSlider />
     </FloatingPageLayout>
   );
 }
