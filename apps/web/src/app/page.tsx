@@ -21,6 +21,9 @@ import {
   Instagram,
   Menu,
   X,
+  Facebook,
+  Linkedin,
+  Twitter,
 } from "lucide-react"
 
 // Import Swiper styles
@@ -785,7 +788,7 @@ export default function HomePage() {
         {/* Main Footer Section */}
         <footer className="bg-[#1A1A1A] py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
               {/* Column 1 - Company Info */}
               <div>
                 <Image
@@ -873,21 +876,67 @@ export default function HomePage() {
                 </ul>
               </div>
 
-              {/* Column 4 - Service Areas & Certifications */}
+              {/* Column 4 - Service Areas */}
               <div>
                 <h3 className="font-inter font-semibold text-white text-lg mb-4">Service Areas</h3>
-                <ul className="space-y-2 mb-6">
-                  <li className="font-inter text-gray-300 text-sm">Philadelphia</li>
+                <ul className="space-y-2">
+                  <li className="font-inter text-gray-300 text-sm">Greater Philadelphia Area</li>
+                  <li className="font-inter text-gray-300 text-sm">South Jersey</li>
+                  <li className="font-inter text-gray-300 text-sm">Central Jersey</li>
                   <li className="font-inter text-gray-300 text-sm">Montgomery County</li>
                   <li className="font-inter text-gray-300 text-sm">Bucks County</li>
                   <li className="font-inter text-gray-300 text-sm">Delaware County</li>
                 </ul>
+              </div>
 
-                <h4 className="font-inter font-semibold text-white text-md mb-3">Certifications</h4>
-                <div className="flex flex-wrap gap-2">
-                  <div className="bg-accent-blue text-white px-3 py-1 rounded text-xs font-inter">Licensed</div>
-                  <div className="bg-accent-green text-white px-3 py-1 rounded text-xs font-inter">Insured</div>
+              {/* Column 5 - Follow Us */}
+              <div>
+                <h3 className="font-inter font-semibold text-white text-lg mb-4">Follow Us</h3>
+                <div className="flex gap-4 mb-6">
+                  <a
+                    href="https://twitter.com/russellroofing?lang=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-300 hover:text-white transition-colors"
+                    aria-label="Follow us on Twitter"
+                  >
+                    <Twitter className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/RussellRoofing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-300 hover:text-white transition-colors"
+                    aria-label="Follow us on Facebook"
+                  >
+                    <Facebook className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/company/russell-roofing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-300 hover:text-white transition-colors"
+                    aria-label="Follow us on LinkedIn"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/russellroofingcompany/?hl=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-300 hover:text-white transition-colors"
+                    aria-label="Follow us on Instagram"
+                  >
+                    <Instagram className="w-6 h-6" />
+                  </a>
                 </div>
+                <Image
+                  src="/images/about/RR-33-years-on-transparent-white.png"
+                  alt="Russell Roofing - 33 Years of Excellence"
+                  width={150}
+                  height={150}
+                  className="w-auto h-20"
+                />
               </div>
             </div>
           </div>
