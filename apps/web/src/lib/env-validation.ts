@@ -57,7 +57,7 @@ const ENV_VARIABLES: EnvConfig[] = [
   // Google Services
   {
     name: 'NEXT_PUBLIC_GOOGLE_PLACES_API_KEY',
-    required: true,
+    required: false,
     clientSide: true,
     description: 'Google Places API Key for maps and places autocomplete',
     category: 'google',
@@ -66,7 +66,7 @@ const ENV_VARIABLES: EnvConfig[] = [
   },
   {
     name: 'GOOGLE_PLACES_API_KEY',
-    required: true,
+    required: false,
     clientSide: false,
     description: 'Google Places API Key for server-side reviews API',
     category: 'google',
@@ -75,7 +75,7 @@ const ENV_VARIABLES: EnvConfig[] = [
   },
   {
     name: 'RUSSELL_ROOFING_PLACE_ID',
-    required: true,
+    required: false,
     clientSide: false,
     description: 'Russell Roofing Business Place ID from Google My Business',
     category: 'google',
@@ -86,7 +86,7 @@ const ENV_VARIABLES: EnvConfig[] = [
   // Instagram Integration
   {
     name: 'INSTAGRAM_ACCESS_TOKEN',
-    required: true,
+    required: false,
     clientSide: false,
     description: 'Instagram Long-Lived Access Token for Basic Display API',
     category: 'instagram',
@@ -95,7 +95,7 @@ const ENV_VARIABLES: EnvConfig[] = [
   },
   {
     name: 'INSTAGRAM_USER_ID',
-    required: true,
+    required: false,
     clientSide: false,
     description: 'Instagram User ID for Russell Roofing Company account',
     category: 'instagram',
