@@ -61,7 +61,7 @@ export interface CompanyInfo {
 
 // Placeholder data for the About page
 export const companyInfo: CompanyInfo = {
-  foundedYear: 2015,
+  foundedYear: 1992,
   missionStatement: "To provide exceptional roofing services that protect what matters most to our customers - their homes and families - while building lasting relationships based on trust, quality, and reliability.",
   visionStatement: "To be New Jersey's most trusted roofing company, known for our unwavering commitment to quality craftsmanship and customer satisfaction.",
   coreValues: [
@@ -72,7 +72,7 @@ export const companyInfo: CompanyInfo = {
     "Environmental Responsibility",
     "Continuous Innovation"
   ],
-  companyStory: "Russell Roofing was founded with a simple yet powerful vision: to provide homeowners in New Jersey with roofing services they can trust completely. What started as a small family business has grown into one of the region's most respected roofing companies, built on a foundation of quality work, honest communication, and genuine care for our customers and community.",
+  companyStory: "Russell Roofing & Exteriors was founded in 1992 by Russell \"Kip\" Kaller, who developed his expertise working in his family's roofing business with his Father and Brothers. This hands-on experience fostered an appreciation for true craftsmanship and quality, leading to the company's commitment to traditional installation methods following both best trade practices and following the manufacturers specifications, ensuring excellence in finish and durability.\n\nKaller's dedication to honest and respectful customer service helped Russell Roofing earn a reputation for quality, professionalism and reliability, establishing it as one of the industry's most trusted roofing and exterior contractors. The company stands out for its commitment to both high standards of workmanship and customer relations, building long-term trust throughout the Philadelphia region.\n\nRussell Roofing is a veteran owned operation. Upon High School Graduation Kip Kaller enlisted with the United States Navy where he served as an Aviation Electrician.",
   team: [
     {
       id: "founder-ceo",

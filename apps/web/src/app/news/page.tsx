@@ -1,110 +1,87 @@
-import type { Metadata } from "next";
+"use client"
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 
-export const metadata: Metadata = {
-  title: "News & Articles | Russell Roofing & Exteriors",
-  description: "Stay up to date with the latest roofing news, tips, and insights from Russell Roofing & Exteriors experts.",
-  keywords: "roofing news, roofing tips, home improvement articles, roofing maintenance, storm damage",
-};
-
-const articles = [
-  {
-    id: 1,
-    title: "Expert Tips for Roof Maintenance",
-    description: "Learn essential maintenance tips to extend your roof's lifespan and prevent costly repairs. Our comprehensive guide covers seasonal inspections, cleaning procedures, and early warning signs.",
-    category: "Maintenance",
-    date: "December 15, 2024",
-    readTime: "5 min read",
-    image: "/placeholder.svg?height=300&width=400&query=roof maintenance professional inspection"
-  },
-  {
-    id: 2,
-    title: "Choosing the Right Siding Material",
-    description: "Compare different siding materials and find the perfect option for your home's style and budget. We break down vinyl, fiber cement, wood, and metal options.",
-    category: "Materials",
-    date: "December 12, 2024",
-    readTime: "7 min read",
-    image: "/placeholder.svg?height=300&width=400&query=home siding materials comparison"
-  },
-  {
-    id: 3,
-    title: "Storm Damage: What to Look For",
-    description: "Identify signs of storm damage and understand the insurance claim process for roof repairs. Know when to call professionals and how to document damage properly.",
-    category: "Storm Damage",
-    date: "December 10, 2024",
-    readTime: "6 min read",
-    image: "/placeholder.svg?height=300&width=400&query=storm damage roof assessment"
-  },
-  {
-    id: 4,
-    title: "Energy-Efficient Roofing Solutions",
-    description: "Discover how modern roofing materials can help reduce your energy costs and environmental impact. From cool roofs to solar integration options.",
-    category: "Energy Efficiency",
-    date: "December 8, 2024",
-    readTime: "8 min read",
-    image: "/placeholder.svg?height=300&width=400&query=energy efficient roofing solar panels"
-  },
-  {
-    id: 5,
-    title: "Historic Home Restoration Guide",
-    description: "Specialized techniques and materials for preserving the character of historic properties while meeting modern performance standards.",
-    category: "Restoration",
-    date: "December 5, 2024",
-    readTime: "10 min read",
-    image: "/placeholder.svg?height=300&width=400&query=historic home roof restoration preservation"
-  },
-  {
-    id: 6,
-    title: "Commercial Roofing Best Practices",
-    description: "Understanding the unique requirements and solutions for commercial roofing projects, from flat roof systems to maintenance programs.",
-    category: "Commercial",
-    date: "December 3, 2024",
-    readTime: "9 min read",
-    image: "/placeholder.svg?height=300&width=400&query=commercial roofing flat roof systems"
-  },
-  {
-    id: 7,
-    title: "Winter Roof Preparation Checklist",
-    description: "Essential steps to prepare your roof for winter weather, including gutter cleaning, ice dam prevention, and insulation checks.",
-    category: "Seasonal",
-    date: "November 28, 2024",
-    readTime: "6 min read",
-    image: "/placeholder.svg?height=300&width=400&query=winter roof preparation snow ice"
-  },
-  {
-    id: 8,
-    title: "Understanding Roof Warranties",
-    description: "Navigate the different types of roofing warranties and what they cover. Learn the difference between manufacturer and workmanship warranties.",
-    category: "Education",
-    date: "November 25, 2024",
-    readTime: "7 min read",
-    image: "/placeholder.svg?height=300&width=400&query=roof warranty documentation coverage"
-  },
-  {
-    id: 9,
-    title: "Sustainable Roofing Materials Guide",
-    description: "Explore eco-friendly roofing options that reduce environmental impact while providing excellent performance and durability.",
-    category: "Sustainability",
-    date: "November 22, 2024",
-    readTime: "8 min read",
-    image: "/placeholder.svg?height=300&width=400&query=sustainable roofing materials green eco friendly"
-  }
-];
-
-const categories = ["All", "Maintenance", "Materials", "Storm Damage", "Energy Efficiency", "Restoration", "Commercial", "Seasonal", "Education", "Sustainability"];
+interface BlogPost {
+  id: string;
+  name: string;
+  slug: string;
+  featuredImage: string;
+  postSummary: string;
+  publishDate: string;
+  category?: {
+    id: string;
+    name: string;
+  };
+}
 
 export default function NewsPage() {
+  const [articles, setArticles] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [displayCount, setDisplayCount] = useState(9);
+  const [totalArticles, setTotalArticles] = useState(0);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/hubspot/blog?limit=50');
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          setArticles(data.data.results);
+          setTotalArticles(data.data.total);
+        }
+      } catch (error) {
+        console.error('Failed to fetch blog posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  // Extract unique categories from articles
+  const categories: string[] = ["All", ...Array.from(new Set(articles.map(article => article.category?.name).filter((name): name is string => Boolean(name))))];
+
+  // Filter articles by category
+  const filteredArticles = selectedCategory === "All"
+    ? articles
+    : articles.filter(article => article.category?.name === selectedCategory);
+
+  // Display limited articles
+  const displayedArticles = filteredArticles.slice(0, displayCount);
+
+  // Format date
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  };
+
+  const handleLoadMore = () => {
+    setDisplayCount(prevCount => prevCount + 9);
+  };
   return (
     <FloatingPageLayout>
       {/* Header Section */}
-      <section className="bg-primary-burgundy text-white py-16 md:py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+      <section
+        className="relative py-16 md:py-20"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/news/news-hero.jpeg)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
             News & Articles
           </h1>
-          <p className="font-body text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+          <p className="font-body text-lg md:text-xl text-white max-w-3xl mx-auto">
             Stay informed with the latest roofing industry insights, maintenance tips, and expert advice from our experienced team.
           </p>
         </div>
@@ -114,77 +91,108 @@ export default function NewsPage() {
       <section className="py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Category Filter */}
-          <div className="mb-12">
-            <div className="flex flex-wrap justify-center gap-3 mb-8">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  className={`px-4 py-2 rounded-full font-body text-sm font-medium transition-all duration-200 ${
-                    category === "All"
-                      ? "bg-primary-burgundy text-white"
-                      : "bg-white text-text-primary border border-gray-200 hover:bg-primary-burgundy hover:text-white"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+          {!loading && (
+            <div className="mb-12">
+              <div className="flex flex-wrap justify-center gap-3 mb-8">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      setDisplayCount(9);
+                    }}
+                    className={`px-4 py-2 rounded-full font-body text-sm font-medium transition-all duration-200 ${
+                      category === selectedCategory
+                        ? "bg-primary-burgundy text-white"
+                        : "bg-white text-text-primary border border-gray-200 hover:bg-primary-burgundy hover:text-white"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Articles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {articles.map((article) => (
-              <article key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div className="relative">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    width={400}
-                    height={300}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-block bg-primary-burgundy text-white px-3 py-1 rounded-full text-xs font-medium">
-                      {article.category}
-                    </span>
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {[...Array(9)].map((_, i) => (
+                <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
+                  <div className="w-full h-48 bg-gray-300"></div>
+                  <div className="p-6">
+                    <div className="h-4 bg-gray-300 rounded w-1/3 mb-3"></div>
+                    <div className="h-6 bg-gray-300 rounded w-3/4 mb-3"></div>
+                    <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-5/6 mb-4"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/4"></div>
                   </div>
                 </div>
-                
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-text-secondary mb-3">
-                    <span>{article.date}</span>
-                    <span className="mx-2">•</span>
-                    <span>{article.readTime}</span>
-                  </div>
-                  
-                  <h2 className="font-display text-xl font-semibold text-text-primary mb-3 line-clamp-2">
-                    {article.title}
-                  </h2>
-                  
-                  <p className="font-body text-text-secondary mb-4 line-clamp-3">
-                    {article.description}
-                  </p>
-                  
-                  <Link
-                    href={`/news/${article.id}`}
-                    className="inline-flex items-center font-body text-primary-burgundy font-medium hover:text-primary-charcoal transition-colors"
-                  >
-                    Read More
-                    <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : displayedArticles.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {displayedArticles.map((article) => (
+                <Link key={article.id} href={`/news/${article.slug}`}>
+                  <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full cursor-pointer">
+                    <div className="relative">
+                      <Image
+                        src={article.featuredImage}
+                        alt={article.name}
+                        width={400}
+                        height={300}
+                        className="w-full h-48 object-cover"
+                      />
+                      {article.category && (
+                        <div className="absolute top-4 left-4">
+                          <span className="inline-block bg-primary-burgundy text-white px-3 py-1 rounded-full text-xs font-medium">
+                            {article.category.name}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="p-6">
+                      <div className="flex items-center text-sm text-text-secondary mb-3">
+                        <span>{formatDate(article.publishDate)}</span>
+                      </div>
+
+                      <h2 className="font-display text-xl font-semibold text-text-primary mb-3 line-clamp-2">
+                        {article.name}
+                      </h2>
+
+                      <p className="font-body text-text-secondary mb-4 line-clamp-3">
+                        {article.postSummary}
+                      </p>
+
+                      <span className="inline-flex items-center font-body text-primary-burgundy font-medium hover:text-primary-charcoal transition-colors">
+                        Read More
+                        <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </span>
+                    </div>
+                  </article>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="font-body text-text-secondary text-lg">No articles available at this time.</p>
+            </div>
+          )}
 
           {/* Load More Button */}
-          <div className="text-center">
-            <button className="bg-primary-burgundy text-white px-8 py-3 rounded-lg font-body font-medium hover:bg-primary-charcoal transition-colors">
-              Load More Articles
-            </button>
-          </div>
+          {!loading && displayedArticles.length < filteredArticles.length && (
+            <div className="text-center">
+              <button
+                onClick={handleLoadMore}
+                className="bg-primary-burgundy text-white px-8 py-3 rounded-lg font-body font-medium hover:bg-primary-charcoal transition-colors"
+              >
+                Load More Articles
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

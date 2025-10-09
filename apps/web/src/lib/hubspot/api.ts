@@ -1,7 +1,9 @@
 import ContactsService from './contacts';
 import DealsService from './deals';
-import { ContactInput, DealInput, Contact, Deal, ContactProfile, HubSpotApiResponse, HUBSPOT_ERROR_CODES } from './types';
-import { extractKnownFields, validateContactInput, validateDealInput } from './utils';
+import TicketsService from './tickets';
+import BlogService from './blog';
+import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse, HUBSPOT_ERROR_CODES } from './types';
+import { extractKnownFields, validateContactInput, validateDealInput, validateTicketInput } from './utils';
 import { getServiceConfig, isServiceConfigured } from '../config';
 
 interface HubSpotService {
@@ -9,11 +11,20 @@ interface HubSpotService {
   createContact(contactData: ContactInput): Promise<HubSpotApiResponse<Contact>>;
   updateContact(contactId: string, updates: Partial<ContactInput>): Promise<HubSpotApiResponse<Contact>>;
   findContactByEmail(email: string): Promise<HubSpotApiResponse<Contact | null>>;
-  
+
   // Deal operations
   createDeal(dealData: DealInput): Promise<HubSpotApiResponse<Deal>>;
   associateContactToDeal(contactId: string, dealId: string): Promise<HubSpotApiResponse<void>>;
-  
+
+  // Ticket operations
+  createTicket(ticketData: TicketInput): Promise<HubSpotApiResponse<Ticket>>;
+  associateContactToTicket(contactId: string, ticketId: string): Promise<HubSpotApiResponse<void>>;
+
+  // Blog operations
+  getBlogPosts(params?: BlogPostParams): Promise<HubSpotApiResponse<BlogListResponse>>;
+  getBlogPostBySlug(slug: string): Promise<HubSpotApiResponse<BlogPost | null>>;
+  getBlogPostById(id: string): Promise<HubSpotApiResponse<BlogPost | null>>;
+
   // Progressive profiling
   getContactProfile(email: string): Promise<ContactProfile>;
 }
@@ -21,23 +32,29 @@ interface HubSpotService {
 class HubSpotApiService implements HubSpotService {
   private contactsService: ContactsService;
   private dealsService: DealsService;
+  private ticketsService: TicketsService;
+  private blogService: BlogService;
   private isConfigured: boolean;
 
   constructor() {
     const hubspotConfig = getServiceConfig('hubspot');
-    
+
     if (!isServiceConfigured('hubspot') || hubspotConfig.mockMode) {
       console.warn('[HubSpot] API not configured or running in mock mode. Service will operate in mock mode.');
       this.isConfigured = false;
       this.contactsService = null as any;
       this.dealsService = null as any;
+      this.ticketsService = null as any;
+      this.blogService = null as any;
       return;
     }
 
     this.isConfigured = true;
     this.contactsService = new ContactsService(hubspotConfig.apiKey);
     this.dealsService = new DealsService(hubspotConfig.apiKey);
-    
+    this.ticketsService = new TicketsService(hubspotConfig.apiKey);
+    this.blogService = new BlogService(hubspotConfig.apiKey);
+
     console.log('[HubSpot] Service initialized successfully with production configuration');
   }
 
@@ -141,6 +158,43 @@ class HubSpotApiService implements HubSpotService {
   }
 
   /**
+   * Create a new ticket
+   */
+  async createTicket(ticketData: TicketInput): Promise<HubSpotApiResponse<Ticket>> {
+    if (!this.isConfigured) {
+      return this.mockCreateTicket(ticketData);
+    }
+
+    // Validate input
+    const validatedData = validateTicketInput(ticketData);
+    if (!validatedData) {
+      return {
+        success: false,
+        error: {
+          status: HUBSPOT_ERROR_CODES.VALIDATION_ERROR,
+          message: 'Invalid ticket data provided',
+        },
+      };
+    }
+
+    return await this.ticketsService.createTicket(validatedData);
+  }
+
+  /**
+   * Associate a contact with a ticket
+   */
+  async associateContactToTicket(
+    contactId: string,
+    ticketId: string
+  ): Promise<HubSpotApiResponse<void>> {
+    if (!this.isConfigured) {
+      return this.mockAssociateContactToTicket(contactId, ticketId);
+    }
+
+    return await this.ticketsService.associateContactToTicket(contactId, ticketId);
+  }
+
+  /**
    * Get contact profile for progressive profiling
    */
   async getContactProfile(email: string): Promise<ContactProfile> {
@@ -165,13 +219,46 @@ class HubSpotApiService implements HubSpotService {
   }
 
   /**
+   * Get blog posts
+   */
+  async getBlogPosts(params?: BlogPostParams): Promise<HubSpotApiResponse<BlogListResponse>> {
+    if (!this.isConfigured) {
+      return this.mockGetBlogPosts(params);
+    }
+
+    return await this.blogService.getBlogPosts(params);
+  }
+
+  /**
+   * Get a single blog post by slug
+   */
+  async getBlogPostBySlug(slug: string): Promise<HubSpotApiResponse<BlogPost | null>> {
+    if (!this.isConfigured) {
+      return this.mockGetBlogPostBySlug(slug);
+    }
+
+    return await this.blogService.getBlogPostBySlug(slug);
+  }
+
+  /**
+   * Get a single blog post by ID
+   */
+  async getBlogPostById(id: string): Promise<HubSpotApiResponse<BlogPost | null>> {
+    if (!this.isConfigured) {
+      return this.mockGetBlogPostById(id);
+    }
+
+    return await this.blogService.getBlogPostById(id);
+  }
+
+  /**
    * Create or update contact with smart deduplication
    */
   async createOrUpdateContact(contactData: ContactInput): Promise<HubSpotApiResponse<Contact>> {
     try {
       // First, try to find existing contact
       const existingContactResult = await this.findContactByEmail(contactData.email);
-      
+
       if (existingContactResult.success && existingContactResult.data) {
         // Update existing contact
         const contactId = existingContactResult.data.id;
@@ -356,9 +443,146 @@ class HubSpotApiService implements HubSpotService {
   ): Promise<HubSpotApiResponse<void>> {
     console.log('[HubSpot Mock] Associating contact with deal:', { contactId, dealId });
     await new Promise(resolve => setTimeout(resolve, 200));
-    
+
     return {
       success: true,
+    };
+  }
+
+  private async mockCreateTicket(ticketData: TicketInput): Promise<HubSpotApiResponse<Ticket>> {
+    console.log('[HubSpot Mock] Creating ticket:', ticketData.subject);
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    const mockTicket: Ticket = {
+      id: Math.random().toString(36).substring(2, 11),
+      properties: {
+        subject: ticketData.subject,
+        content: ticketData.content,
+        hs_pipeline: ticketData.hs_pipeline,
+        hs_pipeline_stage: ticketData.hs_pipeline_stage,
+        hs_ticket_priority: ticketData.hs_ticket_priority,
+        createdate: new Date().toISOString(),
+        property_address: ticketData.property_address,
+        property_type: ticketData.property_type,
+        services_requested: ticketData.services_requested,
+        estimate_min: ticketData.estimate_min?.toString(),
+        estimate_max: ticketData.estimate_max?.toString(),
+        is_emergency: ticketData.is_emergency?.toString(),
+        project_timeline: ticketData.project_timeline,
+        preferred_contact_method: ticketData.preferred_contact_method,
+        preferred_contact_time: ticketData.preferred_contact_time,
+      },
+    };
+
+    return {
+      success: true,
+      data: mockTicket,
+    };
+  }
+
+  private async mockAssociateContactToTicket(
+    contactId: string,
+    ticketId: string
+  ): Promise<HubSpotApiResponse<void>> {
+    console.log('[HubSpot Mock] Associating contact with ticket:', { contactId, ticketId });
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    return {
+      success: true,
+    };
+  }
+
+  private async mockGetBlogPosts(params?: BlogPostParams): Promise<HubSpotApiResponse<BlogListResponse>> {
+    console.log('[HubSpot Mock] Getting blog posts:', params);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockPosts: BlogPost[] = [
+      {
+        id: '1',
+        name: 'Expert Tips for Roof Maintenance',
+        slug: 'expert-tips-roof-maintenance',
+        state: 'PUBLISHED',
+        featuredImage: '/placeholder.svg?height=300&width=400&query=roof maintenance professional inspection',
+        postBody: '<p>Learn essential maintenance tips to extend your roof\'s lifespan...</p>',
+        postSummary: 'Learn essential maintenance tips to extend your roof\'s lifespan and prevent costly repairs.',
+        publishDate: new Date(Date.now() - 86400000 * 5).toISOString(),
+        created: new Date(Date.now() - 86400000 * 10).toISOString(),
+        updated: new Date(Date.now() - 86400000 * 3).toISOString(),
+        authorName: 'Russell Roofing Team',
+        url: '/news/expert-tips-roof-maintenance',
+      },
+      {
+        id: '2',
+        name: 'Choosing the Right Siding Material',
+        slug: 'choosing-right-siding-material',
+        state: 'PUBLISHED',
+        featuredImage: '/placeholder.svg?height=300&width=400&query=home siding materials comparison',
+        postBody: '<p>Compare different siding materials and find the perfect option...</p>',
+        postSummary: 'Compare different siding materials and find the perfect option for your home\'s style and budget.',
+        publishDate: new Date(Date.now() - 86400000 * 8).toISOString(),
+        created: new Date(Date.now() - 86400000 * 12).toISOString(),
+        updated: new Date(Date.now() - 86400000 * 6).toISOString(),
+        authorName: 'Russell Roofing Team',
+        url: '/news/choosing-right-siding-material',
+      },
+    ];
+
+    return {
+      success: true,
+      data: {
+        total: mockPosts.length,
+        results: mockPosts.slice(0, params?.limit || 10),
+      },
+    };
+  }
+
+  private async mockGetBlogPostBySlug(slug: string): Promise<HubSpotApiResponse<BlogPost | null>> {
+    console.log('[HubSpot Mock] Getting blog post by slug:', slug);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockPost: BlogPost = {
+      id: '1',
+      name: 'Expert Tips for Roof Maintenance',
+      slug: slug,
+      state: 'PUBLISHED',
+      featuredImage: '/placeholder.svg?height=600&width=1200&query=roof maintenance',
+      postBody: '<p>Full blog post content goes here...</p>',
+      postSummary: 'Learn essential maintenance tips to extend your roof\'s lifespan.',
+      publishDate: new Date(Date.now() - 86400000 * 5).toISOString(),
+      created: new Date(Date.now() - 86400000 * 10).toISOString(),
+      updated: new Date(Date.now() - 86400000 * 3).toISOString(),
+      authorName: 'Russell Roofing Team',
+      url: `/news/${slug}`,
+    };
+
+    return {
+      success: true,
+      data: mockPost,
+    };
+  }
+
+  private async mockGetBlogPostById(id: string): Promise<HubSpotApiResponse<BlogPost | null>> {
+    console.log('[HubSpot Mock] Getting blog post by ID:', id);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockPost: BlogPost = {
+      id,
+      name: 'Expert Tips for Roof Maintenance',
+      slug: 'expert-tips-roof-maintenance',
+      state: 'PUBLISHED',
+      featuredImage: '/placeholder.svg?height=600&width=1200&query=roof maintenance',
+      postBody: '<p>Full blog post content goes here...</p>',
+      postSummary: 'Learn essential maintenance tips to extend your roof\'s lifespan.',
+      publishDate: new Date(Date.now() - 86400000 * 5).toISOString(),
+      created: new Date(Date.now() - 86400000 * 10).toISOString(),
+      updated: new Date(Date.now() - 86400000 * 3).toISOString(),
+      authorName: 'Russell Roofing Team',
+      url: '/news/expert-tips-roof-maintenance',
+    };
+
+    return {
+      success: true,
+      data: mockPost,
     };
   }
 }

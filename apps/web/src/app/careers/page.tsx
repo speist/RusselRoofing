@@ -144,13 +144,19 @@ export default function CareersPage() {
   return (
     <FloatingPageLayout>
       {/* Hero Section */}
-      <section className="relative bg-primary-burgundy text-white py-20 md:py-24">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+      <section
+        className="relative py-20 md:py-24"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/careers/careers-hero.jpeg)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
             Join Our Team
           </h1>
-          <p className="font-body text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
+          <p className="font-body text-lg md:text-xl text-white max-w-3xl mx-auto mb-8">
             Build your career with a leading roofing contractor. We offer competitive benefits, growth opportunities, and a supportive work environment where your skills can flourish.
           </p>
           <a

@@ -30,6 +30,24 @@ export interface DealInput {
   location?: string;
 }
 
+export interface TicketInput {
+  subject: string;
+  content: string;
+  hs_pipeline: string;
+  hs_pipeline_stage: string;
+  hs_ticket_priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
+  // Custom properties for estimate requests
+  property_address?: string;
+  property_type?: string;
+  services_requested?: string;
+  estimate_min?: number;
+  estimate_max?: number;
+  is_emergency?: boolean;
+  project_timeline?: string;
+  preferred_contact_method?: string;
+  preferred_contact_time?: string;
+}
+
 export interface Contact {
   id: string;
   properties: {
@@ -71,10 +89,70 @@ export interface Deal {
   };
 }
 
+export interface Ticket {
+  id: string;
+  properties: {
+    subject: string;
+    content: string;
+    hs_pipeline: string;
+    hs_pipeline_stage: string;
+    hs_ticket_priority: string;
+    createdate: string;
+    // Custom properties for estimate requests
+    property_address?: string;
+    property_type?: string;
+    services_requested?: string;
+    estimate_min?: string;
+    estimate_max?: string;
+    is_emergency?: string;
+    project_timeline?: string;
+    preferred_contact_method?: string;
+    preferred_contact_time?: string;
+  };
+}
+
 export interface ContactProfile {
   isReturning: boolean;
   knownFields?: Partial<ContactInput>;
   welcomeMessage?: string;
+}
+
+// Blog Post Types
+export interface BlogPost {
+  id: string;
+  name: string;
+  slug: string;
+  state: 'DRAFT' | 'PUBLISHED' | 'SCHEDULED';
+  featuredImage: string;
+  featuredImageAltText?: string;
+  postBody: string;
+  postSummary: string;
+  metaDescription?: string;
+  htmlTitle?: string;
+  publishDate: string;
+  created: string;
+  updated: string;
+  authorName?: string;
+  blogAuthorId?: string;
+  category?: {
+    id: string;
+    name: string;
+  };
+  tagIds?: string[];
+  url: string;
+}
+
+export interface BlogListResponse {
+  total: number;
+  results: BlogPost[];
+}
+
+export interface BlogPostParams {
+  limit?: number;
+  offset?: number;
+  state?: 'DRAFT' | 'PUBLISHED' | 'SCHEDULED';
+  slug?: string;
+  id?: string;
 }
 
 export interface HubSpotError {

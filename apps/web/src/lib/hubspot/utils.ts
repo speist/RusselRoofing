@@ -1,4 +1,4 @@
-import { ContactInput, Contact, DealInput } from './types';
+import { ContactInput, Contact, DealInput, TicketInput } from './types';
 
 /**
  * Extract known fields from existing contact for progressive profiling
@@ -157,11 +157,11 @@ export function validateDealInput(input: Partial<DealInput>): DealInput | null {
   if (!input.dealname || !input.amount || !input.services_requested) {
     return null;
   }
-  
+
   if (typeof input.estimate_min !== 'number' || typeof input.estimate_max !== 'number') {
     return null;
   }
-  
+
   return {
     dealname: input.dealname.trim(),
     amount: input.amount.trim(),
@@ -172,5 +172,83 @@ export function validateDealInput(input: Partial<DealInput>): DealInput | null {
     estimate_max: input.estimate_max,
     is_emergency: input.is_emergency || false,
     project_timeline: input.project_timeline?.trim(),
+  };
+}
+
+/**
+ * Map ticket input to HubSpot ticket properties format
+ */
+export function mapTicketInputToProperties(input: TicketInput) {
+  const properties: Record<string, string> = {
+    subject: input.subject,
+    content: input.content,
+    hs_pipeline: input.hs_pipeline,
+    hs_pipeline_stage: input.hs_pipeline_stage,
+    hs_ticket_priority: input.hs_ticket_priority,
+  };
+
+  // Only add optional fields if they have values
+  if (input.property_address) {
+    properties.property_address = input.property_address;
+  }
+
+  if (input.property_type) {
+    properties.property_type = input.property_type;
+  }
+
+  if (input.services_requested) {
+    properties.services_requested = input.services_requested;
+  }
+
+  if (input.estimate_min !== undefined) {
+    properties.estimate_min = input.estimate_min.toString();
+  }
+
+  if (input.estimate_max !== undefined) {
+    properties.estimate_max = input.estimate_max.toString();
+  }
+
+  if (input.is_emergency !== undefined) {
+    properties.is_emergency = input.is_emergency.toString();
+  }
+
+  if (input.project_timeline) {
+    properties.project_timeline = input.project_timeline;
+  }
+
+  if (input.preferred_contact_method) {
+    properties.preferred_contact_method = input.preferred_contact_method;
+  }
+
+  if (input.preferred_contact_time) {
+    properties.preferred_contact_time = input.preferred_contact_time;
+  }
+
+  return properties;
+}
+
+/**
+ * Validate ticket input
+ */
+export function validateTicketInput(input: Partial<TicketInput>): TicketInput | null {
+  if (!input.subject || !input.content) {
+    return null;
+  }
+
+  return {
+    subject: input.subject.trim(),
+    content: input.content.trim(),
+    hs_pipeline: input.hs_pipeline || '0',
+    hs_pipeline_stage: input.hs_pipeline_stage || '1',
+    hs_ticket_priority: input.hs_ticket_priority || 'MEDIUM',
+    property_address: input.property_address?.trim(),
+    property_type: input.property_type?.trim(),
+    services_requested: input.services_requested?.trim(),
+    estimate_min: input.estimate_min,
+    estimate_max: input.estimate_max,
+    is_emergency: input.is_emergency || false,
+    project_timeline: input.project_timeline?.trim(),
+    preferred_contact_method: input.preferred_contact_method,
+    preferred_contact_time: input.preferred_contact_time,
   };
 }

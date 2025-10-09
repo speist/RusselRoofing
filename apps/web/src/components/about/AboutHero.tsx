@@ -17,13 +17,15 @@ export default function AboutHero() {
               About{' '}
               <span className="text-[#960120]">Russell Roofing</span>
             </h1>
-            
-            <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-              {companyInfo.companyStory}
-            </p>
+
+            <div className="text-lg text-gray-700 mb-8 leading-relaxed space-y-4">
+              {companyInfo.companyStory.split('\n\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
 
             {/* Key Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="text-3xl font-bold text-[#960120] mb-2">
                   {yearsInBusiness}+
@@ -32,7 +34,7 @@ export default function AboutHero() {
                   Years of Experience
                 </div>
               </div>
-              
+
               <div className="text-center">
                 <div className="text-3xl font-bold text-[#960120] mb-2">
                   {companyInfo.team.length}
@@ -41,7 +43,7 @@ export default function AboutHero() {
                   Expert Team Members
                 </div>
               </div>
-              
+
               <div className="text-center col-span-2 md:col-span-1">
                 <div className="text-3xl font-bold text-[#960120] mb-2">
                   1000+
@@ -51,48 +53,19 @@ export default function AboutHero() {
                 </div>
               </div>
             </div>
-
-            {/* Mission Statement */}
-            <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-[#960120]">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Our Mission</h3>
-              <p className="text-gray-700 italic">
-                &ldquo;{companyInfo.missionStatement}&rdquo;
-              </p>
-            </div>
           </div>
 
           {/* Hero Image */}
           <div className="relative">
             <div className="aspect-[4/3] bg-gray-200 rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/images/about/company-hero.jpg.placeholder"
+                src="/images/about/company-hero.jpg"
                 alt="Russell Roofing team and facility"
                 className="w-full h-full object-cover"
                 width={600}
                 height={450}
                 priority
               />
-            </div>
-            
-            {/* Floating certification badge */}
-            <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg border">
-              <div className="flex items-center space-x-3">
-                <Image
-                  src="/images/certifications/gaf-master-elite.jpg.placeholder"
-                  alt="GAF Master Elite Contractor"
-                  className="w-12 h-12 object-contain"
-                  width={48}
-                  height={48}
-                />
-                <div>
-                  <div className="text-sm font-semibold text-gray-900">
-                    GAF Master Elite
-                  </div>
-                  <div className="text-xs text-gray-600">
-                    Top 3% of Contractors
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

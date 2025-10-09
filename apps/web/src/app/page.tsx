@@ -59,11 +59,22 @@ const TestimonialSkeleton = () => (
   </div>
 )
 
+interface BlogPost {
+  id: string;
+  name: string;
+  slug: string;
+  featuredImage: string;
+  postSummary: string;
+  publishDate: string;
+}
+
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
+  const [articles, setArticles] = useState<BlogPost[]>([])
+  const [articlesLoading, setArticlesLoading] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,6 +88,26 @@ export default function HomePage() {
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000)
     return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setArticlesLoading(true)
+        const response = await fetch('/api/hubspot/blog?limit=6')
+        const data = await response.json()
+
+        if (data.success && data.data) {
+          setArticles(data.data.results)
+        }
+      } catch (error) {
+        console.error('Failed to fetch blog posts:', error)
+      } finally {
+        setArticlesLoading(false)
+      }
+    }
+
+    fetchArticles()
   }, [])
 
   const smoothScrollTo = (elementId: string) => {
@@ -154,32 +185,6 @@ export default function HomePage() {
     },
   ]
 
-  const articles = [
-    {
-      title: "Expert Tips for Roof Maintenance",
-      description: "Learn essential maintenance tips to extend your roof's lifespan and prevent costly repairs.",
-    },
-    {
-      title: "Choosing the Right Siding Material",
-      description: "Compare different siding materials and find the perfect option for your home's style and budget.",
-    },
-    {
-      title: "Storm Damage: What to Look For",
-      description: "Identify signs of storm damage and understand the insurance claim process for roof repairs.",
-    },
-    {
-      title: "Energy-Efficient Roofing Solutions",
-      description: "Discover how modern roofing materials can help reduce your energy costs and environmental impact.",
-    },
-    {
-      title: "Historic Home Restoration Guide",
-      description: "Specialized techniques and materials for preserving the character of historic properties.",
-    },
-    {
-      title: "Commercial Roofing Best Practices",
-      description: "Understanding the unique requirements and solutions for commercial roofing projects.",
-    },
-  ]
 
   return (
     <div className="min-h-screen bg-light-grey">
@@ -565,13 +570,13 @@ export default function HomePage() {
             <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey text-center mb-8 md:mb-12">
               Popular Articles
             </h2>
-            {isLoading ? (
+            {articlesLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[...Array(3)].map((_, i) => (
                   <SkeletonCard key={i} />
                 ))}
               </div>
-            ) : (
+            ) : articles.length > 0 ? (
               <div className="relative">
                 {/* Navigation Buttons */}
                 <button className="articles-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-light-grey hover:bg-gray-300 transition-colors shadow-md">
@@ -602,27 +607,33 @@ export default function HomePage() {
                   }}
                   className="articles-swiper"
                 >
-                  {articles.map((article, index) => (
-                    <SwiperSlide key={index}>
-                      <article className="bg-white rounded-lg shadow-md overflow-hidden h-full hover:shadow-lg transition-shadow duration-300">
-                        <Image
-                          src={`/placeholder.svg?height=200&width=350&query=${article.title} roofing article professional`}
-                          alt={article.title}
-                          width={350}
-                          height={200}
-                          className="w-full h-48 object-cover"
-                        />
-                        <div className="p-6">
-                          <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">{article.title}</h3>
-                          <p className="font-inter text-gray-600 mb-4">{article.description}</p>
-                          <a href="#" className="font-inter text-primary-red font-medium hover:underline">
-                            Learn More →
-                          </a>
-                        </div>
-                      </article>
+                  {articles.map((article) => (
+                    <SwiperSlide key={article.id}>
+                      <Link href={`/news/${article.slug}`}>
+                        <article className="bg-white rounded-lg shadow-md overflow-hidden h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                          <Image
+                            src={article.featuredImage}
+                            alt={article.name}
+                            width={350}
+                            height={200}
+                            className="w-full h-48 object-cover"
+                          />
+                          <div className="p-6">
+                            <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">{article.name}</h3>
+                            <p className="font-inter text-gray-600 mb-4">{article.postSummary}</p>
+                            <span className="font-inter text-primary-red font-medium hover:underline">
+                              Learn More →
+                            </span>
+                          </div>
+                        </article>
+                      </Link>
                     </SwiperSlide>
                   ))}
                 </Swiper>
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="font-inter text-gray-600 text-lg">No articles available at this time.</p>
               </div>
             )}
           </div>
@@ -760,7 +771,7 @@ export default function HomePage() {
               {/* Contact Image */}
               <div className="order-first lg:order-last">
                 <Image
-                  src="/placeholder.svg?height=500&width=600"
+                  src="/images/contact/get-in-touch.jpg"
                   alt="Modern home exterior"
                   width={600}
                   height={500}

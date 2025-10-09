@@ -5,29 +5,41 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
 
-    // Validate required fields
-    if (!data.contactId || !data.dealId) {
+    // Validate required fields - need contactId and either dealId or ticketId
+    if (!data.contactId || (!data.dealId && !data.ticketId)) {
       return NextResponse.json(
-        { error: 'Missing required fields: contactId, dealId' },
+        { error: 'Missing required fields: contactId and either dealId or ticketId' },
         { status: 400 }
       );
     }
 
-    // Associate contact with deal using HubSpot service
-    const result = await hubspotService.associateContactToDeal(data.contactId, data.dealId);
+    let result;
+    let associationType = '';
+    let associatedId = '';
 
-    if (result.success) {
+    // Associate contact with deal or ticket based on provided data
+    if (data.dealId) {
+      result = await hubspotService.associateContactToDeal(data.contactId, data.dealId);
+      associationType = 'deal';
+      associatedId = data.dealId;
+    } else if (data.ticketId) {
+      result = await hubspotService.associateContactToTicket(data.contactId, data.ticketId);
+      associationType = 'ticket';
+      associatedId = data.ticketId;
+    }
+
+    if (result && result.success) {
       return NextResponse.json({
-        dealId: data.dealId,
+        [associationType === 'deal' ? 'dealId' : 'ticketId']: associatedId,
         contactId: data.contactId,
-        message: 'Association created successfully'
+        message: `Contact successfully associated with ${associationType}`
       });
     } else {
-      console.error('[HubSpot API] Association failed:', result.error);
+      console.error('[HubSpot API] Association failed:', result?.error);
       return NextResponse.json(
-        { 
-          error: result.error?.message || 'Failed to associate deal with contact',
-          details: result.error
+        {
+          error: result?.error?.message || `Failed to associate ${associationType} with contact`,
+          details: result?.error
         },
         { status: 500 }
       );

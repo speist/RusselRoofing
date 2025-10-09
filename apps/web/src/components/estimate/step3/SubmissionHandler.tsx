@@ -8,17 +8,19 @@ export interface EstimateSubmissionData {
   contact: ContactFormData;
 }
 
-export interface HubSpotDeal {
-  dealname: string;
-  amount: string;
-  dealstage: string;
-  pipeline?: string;
-  closedate?: number;
-  hubspot_owner_id?: string;
+export interface HubSpotTicket {
+  subject: string;
+  content: string;
+  hs_pipeline: string;
+  hs_pipeline_stage: string;
+  hs_ticket_priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
   property_address?: string;
   property_type?: string;
   services_requested?: string;
+  estimate_min?: number;
+  estimate_max?: number;
   is_emergency?: boolean;
+  project_timeline?: string;
   preferred_contact_method?: string;
   preferred_contact_time?: string;
 }
@@ -37,12 +39,12 @@ export class SubmissionHandler {
       // Create or update contact in HubSpot
       const contactId = await this.createOrUpdateContact(data.contact, data.property);
 
-      // Create deal in HubSpot
-      const dealId = await this.createDeal(data, contactId);
+      // Create ticket in HubSpot
+      const ticketId = await this.createTicket(data, contactId);
 
-      // Associate deal with contact
-      if (contactId && dealId) {
-        await this.associateDealWithContact(dealId, contactId);
+      // Associate ticket with contact
+      if (contactId && ticketId) {
+        await this.associateTicketWithContact(ticketId, contactId);
       }
 
       // Save to local storage for persistence
@@ -51,9 +53,9 @@ export class SubmissionHandler {
       return { success: true };
     } catch (error) {
       console.error('Submission error:', error);
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Failed to submit estimate request' 
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to submit estimate request'
       };
     }
   }
@@ -91,47 +93,57 @@ export class SubmissionHandler {
     }
   }
 
-  private async createDeal(
+  private async createTicket(
     data: EstimateSubmissionData,
     contactId: string | null
   ): Promise<string | null> {
     const { property, project, contact } = data;
-    
-    const dealData: HubSpotDeal = {
-      dealname: `${contact.firstName} ${contact.lastName} - ${property.address}`,
-      amount: project.estimateRange.max.toString(),
-      dealstage: contact.isEmergency ? 'emergency_request' : 'estimate_requested',
+
+    // Build detailed content from project field values
+    const fieldDetails = Object.entries(project.fieldValues)
+      .filter(([_, value]) => value !== undefined && value !== null && value !== '')
+      .map(([key, value]) => `${key}: ${value}`)
+      .join(', ');
+
+    const ticketData: HubSpotTicket = {
+      subject: `Estimate Request - ${contact.firstName} ${contact.lastName}`,
+      content: `Estimate request for ${property.address}. Services: ${project.selectedServices.join(', ')}. ${fieldDetails ? `Details: ${fieldDetails}` : ''}`,
+      hs_pipeline: '0',
+      hs_pipeline_stage: '1',
+      hs_ticket_priority: contact.isEmergency ? 'URGENT' : 'MEDIUM',
       property_address: property.address,
       property_type: property.propertyType,
       services_requested: project.selectedServices.join(', '),
+      estimate_min: project.estimateRange.min,
+      estimate_max: project.estimateRange.max,
       is_emergency: contact.isEmergency,
       preferred_contact_method: contact.preferredContact,
       preferred_contact_time: contact.timePreference,
     };
 
     try {
-      const response = await fetch('/api/hubspot/deal', {
+      const response = await fetch('/api/hubspot/ticket', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(dealData),
+        body: JSON.stringify(ticketData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create deal');
+        throw new Error('Failed to create ticket');
       }
 
       const result = await response.json();
-      return result.dealId;
+      return result.ticketId;
     } catch (error) {
-      console.error('Deal creation error:', error);
+      console.error('Ticket creation error:', error);
       return null;
     }
   }
 
-  private async associateDealWithContact(
-    dealId: string,
+  private async associateTicketWithContact(
+    ticketId: string,
     contactId: string
   ): Promise<void> {
     try {
@@ -141,7 +153,7 @@ export class SubmissionHandler {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          dealId,
+          ticketId,
           contactId,
         }),
       });
