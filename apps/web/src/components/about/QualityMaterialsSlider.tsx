@@ -136,21 +136,21 @@ export default function QualityMaterialsSlider() {
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
-            spaceBetween={30}
-            slidesPerView={2}
+            spaceBetween={15}
+            slidesPerView={3}
             loop={true}
             breakpoints={{
               640: {
-                slidesPerView: 3,
-                spaceBetween: 30,
+                slidesPerView: 4,
+                spaceBetween: 15,
               },
               768: {
-                slidesPerView: 4,
-                spaceBetween: 40,
+                slidesPerView: 5,
+                spaceBetween: 20,
               },
               1024: {
-                slidesPerView: 5,
-                spaceBetween: 40,
+                slidesPerView: 6,
+                spaceBetween: 20,
               },
             }}
             className="materials-swiper py-8"
