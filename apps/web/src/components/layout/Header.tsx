@@ -33,7 +33,7 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
     { href: "/services", label: "Services" },
     { href: "/gallery", label: "Gallery" },
     { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
+    { href: "/careers", label: "Careers" },
   ];
 
   return (
@@ -44,7 +44,7 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
           "bg-primary-burgundy shadow-lg" // Always red background
         )}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo/Brand */}
             <Link href="/" className="flex items-center space-x-2">
@@ -72,13 +72,15 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
             {/* CTA and Actions */}
             <div className="flex items-center space-x-4">
               <div className="hidden md:block">
-                <Button
-                  variant="secondary"
-                  size="default"
-                  className="whitespace-nowrap bg-white text-primary-burgundy hover:bg-white/90"
-                >
-                  Get Instant Estimate
-                </Button>
+                <Link href="/contact">
+                  <Button
+                    variant="secondary"
+                    size="default"
+                    className="whitespace-nowrap bg-white text-primary-burgundy hover:bg-white/90"
+                  >
+                    Contact Us
+                  </Button>
+                </Link>
               </div>
               
               <ThemeToggle className="text-text-inverse hover:bg-white/10" />

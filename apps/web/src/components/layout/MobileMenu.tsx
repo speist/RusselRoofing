@@ -118,14 +118,16 @@ export function MobileMenu({ isOpen, onClose, navigationItems }: MobileMenuProps
 
         {/* CTA Button */}
         <div className="p-6 border-t border-secondary-light-warm-gray dark:border-secondary-warm-gray">
-          <Button
-            variant="primary"
-            size="lg"
-            className="w-full touch-manipulation min-h-[44px]"
-            onClick={onClose}
-          >
-            Get Instant Estimate
-          </Button>
+          <Link href="/contact">
+            <Button
+              variant="primary"
+              size="lg"
+              className="w-full touch-manipulation min-h-[44px]"
+              onClick={onClose}
+            >
+              Contact Us
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
