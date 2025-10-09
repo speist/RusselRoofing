@@ -24,6 +24,9 @@ import {
   Facebook,
   Linkedin,
   Twitter,
+  HardHat,
+  ClipboardCheck,
+  Hammer,
 } from "lucide-react"
 
 // Import Swiper styles
@@ -704,26 +707,84 @@ export default function HomePage() {
               </div>
             ) : (
               <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-                <Link href="/careers" className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300 block">
-                  <h3 className="font-inter font-bold text-dark-grey text-xl mb-2">FOREMAN</h3>
-                  <p className="font-inter text-gray-600">
-                    Lead construction teams and ensure project quality standards.
-                  </p>
-                </Link>
-                <Link href="/careers" className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300 block">
-                  <h3 className="font-inter font-bold text-dark-grey text-xl mb-2">SUPERINTENDENT</h3>
-                  <p className="font-inter text-gray-600">
-                    Oversee multiple projects and coordinate with clients and teams.
-                  </p>
-                </Link>
-                <Link href="/careers" className="bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-primary-red hover:shadow-lg transition-shadow duration-300 block">
-                  <h3 className="font-inter font-bold text-dark-grey text-xl mb-2">ROOFING LABORER</h3>
-                  <p className="font-inter text-gray-600">Join our skilled team and learn the roofing trade.</p>
-                </Link>
+                {/* Foreman Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <HardHat className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">FOREMAN</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center mb-6">
+                        Lead construction teams and ensure project quality standards.
+                      </p>
+                      <Link
+                        href="/careers"
+                        className="px-6 py-2 rounded-full font-inter font-medium bg-white text-primary-red border-2 border-primary-red hover:bg-primary-red hover:text-white transition-all duration-300"
+                      >
+                        Read More
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Superintendent Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <ClipboardCheck className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">SUPERINTENDENT</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center mb-6">
+                        Oversee multiple projects and coordinate with clients and teams.
+                      </p>
+                      <Link
+                        href="/careers"
+                        className="px-6 py-2 rounded-full font-inter font-medium bg-white text-primary-red border-2 border-primary-red hover:bg-primary-red hover:text-white transition-all duration-300"
+                      >
+                        Read More
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Roofing Laborer Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Hammer className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">ROOFING LABORER</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center mb-6">
+                        Join our skilled team and learn the roofing trade.
+                      </p>
+                      <Link
+                        href="/careers"
+                        className="px-6 py-2 rounded-full font-inter font-medium bg-white text-primary-red border-2 border-primary-red hover:bg-primary-red hover:text-white transition-all duration-300"
+                      >
+                        Read More
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
         </section>
+
+        <style jsx>{`
+          .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+          }
+        `}</style>
 
         {/* Get In Touch Section */}
         <section id="contact" className="bg-cream py-12 md:py-16 px-4 sm:px-6 lg:px-8">
