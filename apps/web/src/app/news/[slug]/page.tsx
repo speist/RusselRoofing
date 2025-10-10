@@ -47,6 +47,22 @@ const stripHtml = (html: string): string => {
   return decoded.trim();
 };
 
+// Utility function to clean post body by removing duplicate content
+const cleanPostBody = (html: string): string => {
+  if (!html) return '';
+
+  // Remove the first paragraph (likely duplicate summary)
+  let cleaned = html.replace(/<p[^>]*>.*?<\/p>/i, '');
+
+  // Remove the first image (likely duplicate featured image)
+  cleaned = cleaned.replace(/<img[^>]*>/i, '');
+
+  // Remove any leading whitespace or empty paragraphs
+  cleaned = cleaned.replace(/^\s*(<p[^>]*>\s*<\/p>\s*)*/, '');
+
+  return cleaned.trim();
+};
+
 export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;
@@ -205,7 +221,7 @@ export default function BlogPostPage() {
               prose-ul:font-body prose-ol:font-body
               prose-img:rounded-lg prose-img:shadow-md
               mb-12"
-            dangerouslySetInnerHTML={{ __html: post.postBody }}
+            dangerouslySetInnerHTML={{ __html: cleanPostBody(post.postBody) }}
           />
 
           {/* Article Footer */}
