@@ -31,6 +31,22 @@ interface BlogPost {
   url: string;
 }
 
+// Utility function to strip HTML tags and decode entities
+const stripHtml = (html: string): string => {
+  if (!html) return '';
+  // Remove HTML tags
+  const withoutTags = html.replace(/<[^>]*>/g, '');
+  // Decode common HTML entities
+  const decoded = withoutTags
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+  return decoded.trim();
+};
+
 export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;
@@ -142,7 +158,7 @@ export default function BlogPostPage() {
 
             {post.postSummary && (
               <p className="font-body text-xl text-text-secondary mb-6">
-                {post.postSummary}
+                {stripHtml(post.postSummary)}
               </p>
             )}
 
@@ -163,15 +179,18 @@ export default function BlogPostPage() {
           </header>
 
           {/* Featured Image */}
-          {post.featuredImage && (
-            <div className="mb-8 rounded-lg overflow-hidden">
+          {post.featuredImage && post.featuredImage !== '/placeholder.svg?height=600&width=1200' && (
+            <div className="mb-8 rounded-lg overflow-hidden relative w-full" style={{ aspectRatio: '2/1' }}>
               <Image
                 src={post.featuredImage}
                 alt={post.featuredImageAltText || post.name}
-                width={1200}
-                height={600}
-                className="w-full h-auto"
+                fill
+                className="object-cover"
                 priority
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
               />
             </div>
           )}
