@@ -47,7 +47,7 @@ class BlogService {
         const results: BlogPost[] = (data.results || []).map((post: any) => ({
           id: post.id,
           name: post.name,
-          slug: post.slug,
+          slug: this.normalizeSlug(post.slug),
           state: post.state,
           featuredImage: post.featuredImage || '/placeholder.svg?height=300&width=400',
           featuredImageAltText: post.featuredImageAltText,
@@ -114,10 +114,16 @@ class BlogService {
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
+        // HubSpot stores slugs with blog prefix (e.g., "russell-roofing-blog/post-title")
+        // If the slug doesn't contain a slash, add the prefix
+        const hubspotSlug = slug.includes('/') ? slug : `russell-roofing-blog/${slug}`;
+
+        console.log(`[HubSpot] Searching for blog post with slug: ${slug} (HubSpot slug: ${hubspotSlug})`);
+
         // Use direct API request with slug filter
         const queryParams = new URLSearchParams({
           limit: '1',
-          slug: slug,
+          slug: hubspotSlug,
           state: 'PUBLISHED',
         });
 
@@ -133,13 +139,15 @@ class BlogService {
 
           console.log(`[HubSpot] Retrieved blog post by slug: ${slug}`, {
             postId: post.id,
+            originalSlug: post.slug,
+            normalizedSlug: this.normalizeSlug(post.slug),
             timestamp: new Date().toISOString(),
           });
 
           const blogPost: BlogPost = {
             id: post.id,
             name: post.name,
-            slug: post.slug,
+            slug: this.normalizeSlug(post.slug),
             state: post.state,
             featuredImage: post.featuredImage || '/placeholder.svg?height=600&width=1200',
             featuredImageAltText: post.featuredImageAltText,
@@ -164,7 +172,7 @@ class BlogService {
         }
 
         // No post found with this slug
-        console.log(`[HubSpot] No blog post found with slug: ${slug}`);
+        console.log(`[HubSpot] No blog post found with slug: ${slug} (searched HubSpot with: ${hubspotSlug})`);
         return {
           success: true,
           data: null,
@@ -228,7 +236,7 @@ class BlogService {
         const blogPost: BlogPost = {
           id: post.id,
           name: post.name,
-          slug: post.slug,
+          slug: this.normalizeSlug(post.slug),
           state: post.state,
           featuredImage: post.featuredImage || '/placeholder.svg?height=600&width=1200',
           featuredImageAltText: post.featuredImageAltText,
@@ -283,6 +291,19 @@ class BlogService {
         category: lastError?.category,
       },
     };
+  }
+
+  /**
+   * Normalize blog post slug by removing the blog prefix
+   * HubSpot returns slugs like: "russell-roofing-blog/post-title"
+   * We need just: "post-title"
+   */
+  private normalizeSlug(slug: string): string {
+    if (!slug) return slug;
+
+    // Remove blog prefix (e.g., "russell-roofing-blog/")
+    const parts = slug.split('/');
+    return parts.length > 1 ? parts.slice(1).join('/') : slug;
   }
 
   /**
