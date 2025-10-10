@@ -24,28 +24,27 @@ class BlogService {
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
-        // HubSpot Blog Posts API v3
-        // Note: Using type assertion due to SDK typing limitations
-        const response = await (this.client.cms.blogs.blogPosts as any).getPage(
-          limit,
-          undefined, // after (for pagination cursor)
-          undefined, // archived
-          undefined, // property list to return
-          undefined, // name filter
-          undefined, // slug filter
-          state, // state filter
-          undefined, // before
-          undefined // language filter
-        );
+        // Use direct API request since SDK doesn't have cms.blogs.blogPosts
+        const queryParams = new URLSearchParams({
+          limit: limit.toString(),
+          ...(state && { state }),
+        });
 
-        console.log(`[HubSpot] Retrieved ${response.results.length} blog posts`, {
-          total: response.total,
+        const response = await this.client.apiRequest({
+          method: 'GET',
+          path: `/cms/v3/blogs/posts?${queryParams.toString()}`,
+        });
+
+        const data = await response.json();
+
+        console.log(`[HubSpot] Retrieved ${data.results?.length || 0} blog posts`, {
+          total: data.total,
           limit,
           timestamp: new Date().toISOString(),
         });
 
         // Transform HubSpot blog post format to our format
-        const results: BlogPost[] = response.results.map((post: any) => ({
+        const results: BlogPost[] = (data.results || []).map((post: any) => ({
           id: post.id,
           name: post.name,
           slug: post.slug,
@@ -69,7 +68,7 @@ class BlogService {
         return {
           success: true,
           data: {
-            total: response.total || 0,
+            total: data.total || 0,
             results,
           },
         };
@@ -115,22 +114,22 @@ class BlogService {
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
-        // Get blog posts filtered by slug
-        // Note: Using type assertion due to SDK typing limitations
-        const response = await (this.client.cms.blogs.blogPosts as any).getPage(
-          1, // limit - we only need one
-          undefined, // after
-          undefined, // archived
-          undefined, // properties
-          undefined, // name
-          slug, // slug filter
-          'PUBLISHED', // state
-          undefined, // before
-          undefined // language
-        );
+        // Use direct API request with slug filter
+        const queryParams = new URLSearchParams({
+          limit: '1',
+          slug: slug,
+          state: 'PUBLISHED',
+        });
 
-        if (response.results && response.results.length > 0) {
-          const post = response.results[0];
+        const response = await this.client.apiRequest({
+          method: 'GET',
+          path: `/cms/v3/blogs/posts?${queryParams.toString()}`,
+        });
+
+        const data = await response.json();
+
+        if (data.results && data.results.length > 0) {
+          const post = data.results[0];
 
           console.log(`[HubSpot] Retrieved blog post by slug: ${slug}`, {
             postId: post.id,
@@ -213,33 +212,38 @@ class BlogService {
 
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
-        // Note: Using type assertion due to SDK typing limitations
-        const response = await (this.client.cms.blogs.blogPosts as any).getById(id);
+        // Use direct API request to get blog post by ID
+        const response = await this.client.apiRequest({
+          method: 'GET',
+          path: `/cms/v3/blogs/posts/${id}`,
+        });
+
+        const post = await response.json();
 
         console.log(`[HubSpot] Retrieved blog post by ID: ${id}`, {
-          postName: response.name,
+          postName: post.name,
           timestamp: new Date().toISOString(),
         });
 
         const blogPost: BlogPost = {
-          id: response.id,
-          name: response.name,
-          slug: response.slug,
-          state: response.state,
-          featuredImage: response.featuredImage || '/placeholder.svg?height=600&width=1200',
-          featuredImageAltText: response.featuredImageAltText,
-          postBody: response.postBody,
-          postSummary: response.postSummary || '',
-          metaDescription: response.metaDescription,
-          htmlTitle: response.htmlTitle || response.name,
-          publishDate: response.publishDate,
-          created: response.created,
-          updated: response.updated,
-          authorName: response.authorName,
-          blogAuthorId: response.blogAuthorId,
-          category: response.category,
-          tagIds: response.tagIds,
-          url: response.url,
+          id: post.id,
+          name: post.name,
+          slug: post.slug,
+          state: post.state,
+          featuredImage: post.featuredImage || '/placeholder.svg?height=600&width=1200',
+          featuredImageAltText: post.featuredImageAltText,
+          postBody: post.postBody,
+          postSummary: post.postSummary || '',
+          metaDescription: post.metaDescription,
+          htmlTitle: post.htmlTitle || post.name,
+          publishDate: post.publishDate,
+          created: post.created,
+          updated: post.updated,
+          authorName: post.authorName,
+          blogAuthorId: post.blogAuthorId,
+          category: post.category,
+          tagIds: post.tagIds,
+          url: post.url,
         };
 
         return {

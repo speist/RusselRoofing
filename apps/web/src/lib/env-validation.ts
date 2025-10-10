@@ -210,6 +210,10 @@ export function validateEnvironment(): ValidationResult {
   const missing: string[] = [];
   const configured: string[] = [];
 
+  // Debug: Log the HUBSPOT_API_KEY specifically
+  console.log('[DEBUG] HUBSPOT_API_KEY value:', process.env.HUBSPOT_API_KEY ? '✅ FOUND' : '❌ MISSING');
+  console.log('[DEBUG] All process.env keys:', Object.keys(process.env).filter(k => k.includes('HUBSPOT') || k.includes('NODE') || k.includes('VERCEL')).join(', '));
+
   ENV_VARIABLES.forEach(envVar => {
     const value = process.env[envVar.name];
     const hasValue = value && value.trim() !== '';
