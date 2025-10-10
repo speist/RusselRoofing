@@ -18,6 +18,22 @@ interface BlogPost {
   };
 }
 
+// Utility function to strip HTML tags and decode entities
+const stripHtml = (html: string): string => {
+  if (!html) return '';
+  // Remove HTML tags
+  const withoutTags = html.replace(/<[^>]*>/g, '');
+  // Decode common HTML entities
+  const decoded = withoutTags
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+  return decoded.trim();
+};
+
 export default function NewsPage() {
   const [articles, setArticles] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -135,13 +151,17 @@ export default function NewsPage() {
               {displayedArticles.map((article) => (
                 <Link key={article.id} href={`/news/${article.slug}`}>
                   <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full cursor-pointer">
-                    <div className="relative">
+                    <div className="relative w-full h-48">
                       <Image
-                        src={article.featuredImage}
+                        src={article.featuredImage || '/placeholder.svg?height=300&width=400'}
                         alt={article.name}
-                        width={400}
-                        height={300}
-                        className="w-full h-48 object-cover"
+                        fill
+                        className="object-cover"
+                        onError={(e) => {
+                          // Fallback to placeholder if image fails to load
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/placeholder.svg?height=300&width=400';
+                        }}
                       />
                       {article.category && (
                         <div className="absolute top-4 left-4">
@@ -162,7 +182,7 @@ export default function NewsPage() {
                       </h2>
 
                       <p className="font-body text-text-secondary mb-4 line-clamp-3">
-                        {article.postSummary}
+                        {stripHtml(article.postSummary)}
                       </p>
 
                       <span className="inline-flex items-center font-body text-primary-burgundy font-medium hover:text-primary-charcoal transition-colors">

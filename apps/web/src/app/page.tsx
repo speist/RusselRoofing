@@ -74,6 +74,22 @@ interface BlogPost {
   publishDate: string;
 }
 
+// Utility function to strip HTML tags and decode entities
+const stripHtml = (html: string): string => {
+  if (!html) return '';
+  // Remove HTML tags
+  const withoutTags = html.replace(/<[^>]*>/g, '');
+  // Decode common HTML entities
+  const decoded = withoutTags
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+  return decoded.trim();
+}
+
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -615,18 +631,27 @@ export default function HomePage() {
                     <SwiperSlide key={article.id}>
                       <Link href={`/news/${article.slug}`}>
                         <article className="bg-white rounded-lg shadow-md overflow-hidden h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-                          <Image
-                            src={article.featuredImage}
-                            alt={article.name}
-                            width={350}
-                            height={200}
-                            className="w-full h-48 object-cover"
-                          />
+                          <div className="relative w-full h-48">
+                            <Image
+                              src={article.featuredImage || '/placeholder.svg?height=200&width=350'}
+                              alt={article.name}
+                              fill
+                              className="object-cover"
+                              onError={(e) => {
+                                // Fallback to placeholder if image fails to load
+                                const target = e.target as HTMLImageElement;
+                                target.src = '/placeholder.svg?height=200&width=350';
+                              }}
+                            />
+                          </div>
                           <div className="p-6">
-                            <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">{article.name}</h3>
-                            <p className="font-inter text-gray-600 mb-4">{article.postSummary}</p>
-                            <span className="font-inter text-primary-red font-medium hover:underline">
-                              Learn More →
+                            <h3 className="font-display text-xl font-semibold text-text-primary mb-3 line-clamp-2">{article.name}</h3>
+                            <p className="font-body text-text-secondary mb-4 line-clamp-3">{stripHtml(article.postSummary)}</p>
+                            <span className="inline-flex items-center font-body text-primary-burgundy font-medium hover:text-primary-charcoal transition-colors">
+                              Read More
+                              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
                             </span>
                           </div>
                         </article>
