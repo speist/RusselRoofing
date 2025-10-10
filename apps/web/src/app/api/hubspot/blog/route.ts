@@ -14,14 +14,24 @@ export async function GET(request: NextRequest) {
 
     // If slug is provided, get single post by slug
     if (slug) {
+      console.log('[Blog API] Fetching post by slug:', slug);
       const result = await hubspotService.getBlogPostBySlug(slug);
 
       if (result.success && result.data) {
+        console.log('[Blog API] Post found:', {
+          id: result.data.id,
+          name: result.data.name,
+          slug: result.data.slug,
+          featuredImage: result.data.featuredImage,
+          hasFeaturedImage: !!result.data.featuredImage,
+          featuredImageLength: result.data.featuredImage?.length,
+        });
         return NextResponse.json({
           success: true,
           data: result.data,
         });
       } else if (result.success && !result.data) {
+        console.log('[Blog API] Post not found for slug:', slug);
         return NextResponse.json(
           {
             success: false,
@@ -30,6 +40,7 @@ export async function GET(request: NextRequest) {
           { status: 404 }
         );
       } else {
+        console.error('[Blog API] Error fetching post by slug:', result.error);
         return NextResponse.json(
           {
             success: false,
@@ -76,6 +87,19 @@ export async function GET(request: NextRequest) {
     });
 
     if (result.success && result.data) {
+      // Log sample of what we're returning to help debug image and slug issues
+      console.log('[Blog API] Returning blog posts:', {
+        total: result.data.total,
+        count: result.data.results.length,
+        sample: result.data.results.slice(0, 2).map(post => ({
+          id: post.id,
+          name: post.name,
+          slug: post.slug,
+          featuredImage: post.featuredImage,
+          hasFeaturedImage: !!post.featuredImage,
+          postSummaryLength: post.postSummary?.length,
+        })),
+      });
       return NextResponse.json({
         success: true,
         data: result.data,
