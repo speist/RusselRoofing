@@ -63,6 +63,8 @@ export async function GET(request: NextRequest) {
           title: career.properties.job_title,
           department: career.properties.department,
           location: career.properties.location,
+          employment_type: career.properties.employment_type,
+          salary_range: career.properties.salary_range,
           live: career.properties.live,
         })),
       });

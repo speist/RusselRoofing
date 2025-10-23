@@ -58,11 +58,32 @@ export default function JobListings({ initialJobs = [] }: JobListingsProps) {
     fetchJobs();
   }, [initialJobs.length]);
 
+  // Helper function to strip HTML tags from text
+  const stripHtml = (html: string): string => {
+    // Replace common HTML entities
+    let text = html
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#039;/g, "'");
+
+    // Remove HTML tags
+    text = text.replace(/<[^>]*>/g, '');
+
+    return text;
+  };
+
   // Helper function to parse comma or newline separated strings into arrays
   const parseList = (text?: string): string[] => {
     if (!text) return [];
+
+    // First strip any HTML tags
+    const cleanText = stripHtml(text);
+
     // Split by newline or comma, trim whitespace, filter empty strings
-    return text
+    return cleanText
       .split(/[\n,]/)
       .map(item => item.trim())
       .filter(item => item.length > 0);
