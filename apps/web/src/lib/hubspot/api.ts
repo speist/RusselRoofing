@@ -2,7 +2,9 @@ import ContactsService from './contacts';
 import DealsService from './deals';
 import TicketsService from './tickets';
 import BlogService from './blog';
+import CareersService from './careers';
 import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse, HUBSPOT_ERROR_CODES } from './types';
+import { Career, CareersListResponse, CareersParams } from './careers';
 import { extractKnownFields, validateContactInput, validateDealInput, validateTicketInput } from './utils';
 import { getServiceConfig, isServiceConfigured } from '../config';
 
@@ -25,6 +27,10 @@ interface HubSpotService {
   getBlogPostBySlug(slug: string): Promise<HubSpotApiResponse<BlogPost | null>>;
   getBlogPostById(id: string): Promise<HubSpotApiResponse<BlogPost | null>>;
 
+  // Careers operations
+  getCareers(params?: CareersParams): Promise<HubSpotApiResponse<CareersListResponse>>;
+  getCareerById(id: string): Promise<HubSpotApiResponse<Career | null>>;
+
   // Progressive profiling
   getContactProfile(email: string): Promise<ContactProfile>;
 }
@@ -34,6 +40,7 @@ class HubSpotApiService implements HubSpotService {
   private dealsService: DealsService;
   private ticketsService: TicketsService;
   private blogService: BlogService;
+  private careersService: CareersService;
   private isConfigured: boolean;
 
   constructor() {
@@ -46,6 +53,7 @@ class HubSpotApiService implements HubSpotService {
       this.dealsService = null as any;
       this.ticketsService = null as any;
       this.blogService = null as any;
+      this.careersService = null as any;
       return;
     }
 
@@ -54,6 +62,7 @@ class HubSpotApiService implements HubSpotService {
     this.dealsService = new DealsService(hubspotConfig.apiKey);
     this.ticketsService = new TicketsService(hubspotConfig.apiKey);
     this.blogService = new BlogService(hubspotConfig.apiKey);
+    this.careersService = new CareersService(hubspotConfig.apiKey);
 
     console.log('[HubSpot] Service initialized successfully with production configuration');
   }
@@ -249,6 +258,28 @@ class HubSpotApiService implements HubSpotService {
     }
 
     return await this.blogService.getBlogPostById(id);
+  }
+
+  /**
+   * Get all career postings
+   */
+  async getCareers(params?: CareersParams): Promise<HubSpotApiResponse<CareersListResponse>> {
+    if (!this.isConfigured) {
+      return this.mockGetCareers(params);
+    }
+
+    return await this.careersService.getCareers(params);
+  }
+
+  /**
+   * Get a single career posting by ID
+   */
+  async getCareerById(id: string): Promise<HubSpotApiResponse<Career | null>> {
+    if (!this.isConfigured) {
+      return this.mockGetCareerById(id);
+    }
+
+    return await this.careersService.getCareerById(id);
   }
 
   /**
@@ -583,6 +614,67 @@ class HubSpotApiService implements HubSpotService {
     return {
       success: true,
       data: mockPost,
+    };
+  }
+
+  private async mockGetCareers(params?: CareersParams): Promise<HubSpotApiResponse<CareersListResponse>> {
+    console.log('[HubSpot Mock] Getting careers with params:', params);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockCareers: Career[] = [
+      {
+        id: '1',
+        properties: {
+          job_title: 'Roofing Foreman',
+          department: 'Field Operations',
+          location: 'Oreland, PA',
+          employment_type: 'Full-time',
+          experience_level: '5+ years',
+          salary_range: '$65,000 - $85,000',
+          job_description: 'Lead construction teams and ensure project quality standards.',
+          key_responsibilities: 'Supervise crews, Ensure quality standards, Communicate with clients, Train team members, Maintain documentation, Enforce safety protocols',
+          requirements: '5+ years experience, Previous supervisory experience, Strong roofing knowledge, Excellent communication skills, Valid driver\'s license, OSHA 10 certification preferred',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 30).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 2).toISOString(),
+        }
+      }
+    ];
+
+    return {
+      success: true,
+      data: {
+        total: mockCareers.length,
+        results: mockCareers,
+      },
+    };
+  }
+
+  private async mockGetCareerById(id: string): Promise<HubSpotApiResponse<Career | null>> {
+    console.log('[HubSpot Mock] Getting career by ID:', id);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockCareer: Career = {
+      id,
+      properties: {
+        job_title: 'Roofing Foreman',
+        department: 'Field Operations',
+        location: 'Oreland, PA',
+        employment_type: 'Full-time',
+        experience_level: '5+ years',
+        salary_range: '$65,000 - $85,000',
+        job_description: 'Lead construction teams and ensure project quality standards.',
+        key_responsibilities: 'Supervise crews, Ensure quality standards, Communicate with clients, Train team members, Maintain documentation, Enforce safety protocols',
+        requirements: '5+ years experience, Previous supervisory experience, Strong roofing knowledge, Excellent communication skills, Valid driver\'s license, OSHA 10 certification preferred',
+        live: 'true',
+        createdate: new Date(Date.now() - 86400000 * 30).toISOString(),
+        hs_lastmodifieddate: new Date(Date.now() - 86400000 * 2).toISOString(),
+      }
+    };
+
+    return {
+      success: true,
+      data: mockCareer,
     };
   }
 }

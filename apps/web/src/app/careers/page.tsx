@@ -1,119 +1,13 @@
 import type { Metadata } from "next";
 import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
-import { MapPin, Clock, DollarSign, Mail, Phone } from "lucide-react";
+import JobListings from "@/components/careers/JobListings";
+import { Mail, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Careers | Russell Roofing & Exteriors",
   description: "Join the Russell Roofing team! Explore career opportunities with a leading roofing contractor. We offer competitive benefits, growth opportunities, and a supportive work environment.",
   keywords: "roofing jobs, construction careers, foreman jobs, roofing laborer, superintendent positions, Pennsylvania jobs",
 };
-
-const jobOpenings = [
-  {
-    id: 1,
-    title: "FOREMAN",
-    department: "Field Operations",
-    location: "Oreland, PA",
-    type: "Full-time",
-    experience: "5+ years",
-    salary: "$65,000 - $85,000",
-    description: "Lead construction teams and ensure project quality standards. Oversee daily operations, manage crew schedules, and maintain safety protocols on residential and commercial roofing projects.",
-    responsibilities: [
-      "Supervise and coordinate work crews on roofing projects",
-      "Ensure all work meets company quality standards and safety requirements",
-      "Communicate with project managers and clients regarding progress",
-      "Train and mentor junior team members",
-      "Maintain accurate project documentation and reports",
-      "Enforce safety protocols and OSHA compliance"
-    ],
-    requirements: [
-      "5+ years of roofing or construction experience",
-      "Previous supervisory or leadership experience",
-      "Strong knowledge of roofing materials and techniques",
-      "Excellent communication and organizational skills",
-      "Valid driver's license and reliable transportation",
-      "OSHA 10 certification preferred"
-    ]
-  },
-  {
-    id: 2,
-    title: "SUPERINTENDENT",
-    department: "Project Management",
-    location: "Oreland, PA",
-    type: "Full-time",
-    experience: "7+ years",
-    salary: "$75,000 - $95,000",
-    description: "Oversee multiple projects and coordinate with clients and teams. Manage project timelines, budgets, and ensure successful completion of roofing and exterior projects.",
-    responsibilities: [
-      "Manage multiple construction projects simultaneously",
-      "Coordinate with clients, suppliers, and subcontractors",
-      "Develop and maintain project schedules and budgets",
-      "Conduct quality inspections and ensure compliance",
-      "Resolve project issues and client concerns",
-      "Prepare progress reports and documentation"
-    ],
-    requirements: [
-      "7+ years of construction management experience",
-      "Strong project management and organizational skills",
-      "Experience with commercial and residential projects",
-      "Proficiency in project management software",
-      "Excellent client communication skills",
-      "Bachelor's degree in Construction Management preferred"
-    ]
-  },
-  {
-    id: 3,
-    title: "ROOFING LABORER",
-    department: "Field Operations",
-    location: "Oreland, PA",
-    type: "Full-time",
-    experience: "Entry Level",
-    salary: "$18 - $25/hour",
-    description: "Join our skilled team and learn the roofing trade. Work alongside experienced professionals on residential and commercial roofing projects while developing your skills.",
-    responsibilities: [
-      "Assist with roofing installation and repair projects",
-      "Load and unload materials and equipment",
-      "Maintain clean and organized work sites",
-      "Follow safety protocols and wear required PPE",
-      "Support foremen and experienced crew members",
-      "Participate in ongoing training and skill development"
-    ],
-    requirements: [
-      "Physical ability to work outdoors in various weather conditions",
-      "Willingness to learn roofing techniques and safety procedures",
-      "Reliable attendance and strong work ethic",
-      "Ability to lift 50+ pounds and work at heights",
-      "Valid driver's license preferred",
-      "Previous construction experience helpful but not required"
-    ]
-  },
-  {
-    id: 4,
-    title: "ESTIMATOR",
-    department: "Sales & Estimating",
-    location: "Oreland, PA",
-    type: "Full-time",
-    experience: "3+ years",
-    salary: "$55,000 - $70,000",
-    description: "Prepare accurate project estimates and proposals for residential and commercial roofing projects. Work closely with sales team and project managers to ensure profitable project execution.",
-    responsibilities: [
-      "Conduct on-site measurements and assessments",
-      "Prepare detailed project estimates and proposals",
-      "Research material costs and labor requirements",
-      "Collaborate with sales team on customer presentations",
-      "Maintain accurate records and documentation",
-      "Support project managers during execution phase"
-    ],
-    requirements: [
-      "3+ years of construction estimating experience",
-      "Strong mathematical and analytical skills",
-      "Proficiency in estimating software and Microsoft Office",
-      "Knowledge of roofing materials and installation methods",
-      "Excellent attention to detail and accuracy",
-      "Strong communication and presentation skills"
-    ]
-  }
-];
 
 export default function CareersPage() {
   return (
@@ -146,88 +40,8 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Open Positions */}
-      <section id="open-positions" className="py-16 md:py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-text-primary mb-4">
-              Current Openings
-            </h2>
-            <p className="font-body text-text-secondary max-w-3xl mx-auto">
-              Explore our current job opportunities and take the next step in your career with Russell Roofing & Exteriors.
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {jobOpenings.map((job) => (
-              <div key={job.id} className="bg-background-light rounded-lg p-6 md:p-8 shadow-md hover:shadow-lg transition-shadow">
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
-                  <div className="flex-1">
-                    <h3 className="font-display text-2xl font-bold text-text-primary mb-2">
-                      {job.title}
-                    </h3>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-text-secondary mb-4">
-                      <span className="flex items-center">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        {job.location}
-                      </span>
-                      <span className="flex items-center">
-                        <Clock className="w-4 h-4 mr-1" />
-                        {job.type}
-                      </span>
-                      <span className="flex items-center">
-                        <DollarSign className="w-4 h-4 mr-1" />
-                        {job.salary}
-                      </span>
-                    </div>
-                    <p className="font-body text-text-secondary mb-6">
-                      {job.description}
-                    </p>
-                  </div>
-                  <div className="lg:ml-8">
-                    <a
-                      href="mailto:info@russellroofing.com?subject=Job Application - ${job.title}"
-                      className="inline-flex items-center bg-primary-burgundy text-white px-6 py-3 rounded-lg font-body font-medium hover:bg-primary-charcoal transition-colors whitespace-nowrap"
-                    >
-                      Apply Now
-                      <Mail className="ml-2 w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="font-display text-lg font-semibold text-text-primary mb-3">
-                      Key Responsibilities
-                    </h4>
-                    <ul className="font-body text-text-secondary space-y-2">
-                      {job.responsibilities.map((responsibility, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="inline-block w-2 h-2 bg-primary-burgundy rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                          {responsibility}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-display text-lg font-semibold text-text-primary mb-3">
-                      Requirements
-                    </h4>
-                    <ul className="font-body text-text-secondary space-y-2">
-                      {job.requirements.map((requirement, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="inline-block w-2 h-2 bg-primary-burgundy rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                          {requirement}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Job Listings from HubSpot */}
+      <JobListings />
 
       {/* Application Process */}
       <section className="py-16 md:py-20">
