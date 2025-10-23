@@ -5,7 +5,6 @@ import AboutHero from '@/components/about/AboutHero';
 import CompanyHistory from '@/components/about/CompanyHistory';
 import TeamSection from '@/components/about/TeamSection';
 import CertificationsSection from '@/components/about/CertificationsSection';
-import CommunitySection from '@/components/about/CommunitySection';
 import QualityMaterialsSlider from '@/components/about/QualityMaterialsSlider';
 
 export const metadata: Metadata = {
@@ -23,10 +22,9 @@ export default function AboutPage() {
   return (
     <FloatingPageLayout>
       <AboutHero />
-      <CompanyHistory />
       <TeamSection />
+      <CompanyHistory />
       <CertificationsSection />
-      <CommunitySection />
       <QualityMaterialsSlider />
     </FloatingPageLayout>
   );

@@ -33,6 +33,7 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
     { href: "/services", label: "Services" },
     { href: "/gallery", label: "Gallery" },
     { href: "/about", label: "About" },
+    { href: "/community", label: "Community" },
     { href: "/careers", label: "Careers" },
   ];
 

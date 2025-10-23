@@ -3,8 +3,10 @@ import DealsService from './deals';
 import TicketsService from './tickets';
 import BlogService from './blog';
 import CareersService from './careers';
+import CommunityService from './community';
 import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse, HUBSPOT_ERROR_CODES } from './types';
 import { Career, CareersListResponse, CareersParams } from './careers';
+import { CommunityActivity, CommunityListResponse, CommunityParams } from './community';
 import { extractKnownFields, validateContactInput, validateDealInput, validateTicketInput } from './utils';
 import { getServiceConfig, isServiceConfigured } from '../config';
 
@@ -31,6 +33,10 @@ interface HubSpotService {
   getCareers(params?: CareersParams): Promise<HubSpotApiResponse<CareersListResponse>>;
   getCareerById(id: string): Promise<HubSpotApiResponse<Career | null>>;
 
+  // Community operations
+  getCommunityActivities(params?: CommunityParams): Promise<HubSpotApiResponse<CommunityListResponse>>;
+  getCommunityActivityById(id: string): Promise<HubSpotApiResponse<CommunityActivity | null>>;
+
   // Progressive profiling
   getContactProfile(email: string): Promise<ContactProfile>;
 }
@@ -41,6 +47,7 @@ class HubSpotApiService implements HubSpotService {
   private ticketsService: TicketsService;
   private blogService: BlogService;
   private careersService: CareersService;
+  private communityService: CommunityService;
   private isConfigured: boolean;
 
   constructor() {
@@ -54,6 +61,7 @@ class HubSpotApiService implements HubSpotService {
       this.ticketsService = null as any;
       this.blogService = null as any;
       this.careersService = null as any;
+      this.communityService = null as any;
       return;
     }
 
@@ -63,6 +71,7 @@ class HubSpotApiService implements HubSpotService {
     this.ticketsService = new TicketsService(hubspotConfig.apiKey);
     this.blogService = new BlogService(hubspotConfig.apiKey);
     this.careersService = new CareersService(hubspotConfig.apiKey);
+    this.communityService = new CommunityService(hubspotConfig.apiKey);
 
     console.log('[HubSpot] Service initialized successfully with production configuration');
   }
@@ -280,6 +289,28 @@ class HubSpotApiService implements HubSpotService {
     }
 
     return await this.careersService.getCareerById(id);
+  }
+
+  /**
+   * Get all community activities
+   */
+  async getCommunityActivities(params?: CommunityParams): Promise<HubSpotApiResponse<CommunityListResponse>> {
+    if (!this.isConfigured) {
+      return this.mockGetCommunityActivities(params);
+    }
+
+    return await this.communityService.getCommunityActivities(params);
+  }
+
+  /**
+   * Get a single community activity by ID
+   */
+  async getCommunityActivityById(id: string): Promise<HubSpotApiResponse<CommunityActivity | null>> {
+    if (!this.isConfigured) {
+      return this.mockGetCommunityActivityById(id);
+    }
+
+    return await this.communityService.getCommunityActivityById(id);
   }
 
   /**
@@ -675,6 +706,85 @@ class HubSpotApiService implements HubSpotService {
     return {
       success: true,
       data: mockCareer,
+    };
+  }
+
+  private async mockGetCommunityActivities(params?: CommunityParams): Promise<HubSpotApiResponse<CommunityListResponse>> {
+    console.log('[HubSpot Mock] Getting community activities with params:', params);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockActivities: CommunityActivity[] = [
+      {
+        id: '1',
+        properties: {
+          name: 'Habitat for Humanity Partnership',
+          description: 'Annual volunteer work providing roofing services for Habitat for Humanity home builds.',
+          year: 2018,
+          impact: 'Helped roof 12+ homes for families in need',
+          image_url: '',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 365).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 30).toISOString(),
+        }
+      },
+      {
+        id: '2',
+        properties: {
+          name: 'Local Schools Support Program',
+          description: 'Sponsoring local high school sports teams and providing scholarships for trade education.',
+          year: 2019,
+          impact: 'Supported 25+ students in pursuing construction education',
+          image_url: '',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 300).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 20).toISOString(),
+        }
+      },
+      {
+        id: '3',
+        properties: {
+          name: 'Emergency Storm Relief',
+          description: 'Providing free emergency roof repairs for elderly and disabled community members after severe weather.',
+          year: 2020,
+          impact: 'Completed 50+ emergency repairs at no cost',
+          image_url: '',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 200).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 10).toISOString(),
+        }
+      }
+    ];
+
+    return {
+      success: true,
+      data: {
+        total: mockActivities.length,
+        results: mockActivities,
+      },
+    };
+  }
+
+  private async mockGetCommunityActivityById(id: string): Promise<HubSpotApiResponse<CommunityActivity | null>> {
+    console.log('[HubSpot Mock] Getting community activity by ID:', id);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockActivity: CommunityActivity = {
+      id,
+      properties: {
+        name: 'Habitat for Humanity Partnership',
+        description: 'Annual volunteer work providing roofing services for Habitat for Humanity home builds.',
+        year: 2018,
+        impact: 'Helped roof 12+ homes for families in need',
+        image_url: '',
+        live: 'true',
+        createdate: new Date(Date.now() - 86400000 * 365).toISOString(),
+        hs_lastmodifieddate: new Date(Date.now() - 86400000 * 30).toISOString(),
+      }
+    };
+
+    return {
+      success: true,
+      data: mockActivity,
     };
   }
 }

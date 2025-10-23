@@ -253,6 +253,12 @@ export default function HomePage() {
                 News
               </Link>
               <Link
+                href="/community"
+                className="text-white font-inter hover:text-accent-yellow transition-colors"
+              >
+                Community
+              </Link>
+              <Link
                 href="/careers"
                 className="text-white font-inter hover:text-accent-yellow transition-colors"
               >
@@ -305,6 +311,13 @@ export default function HomePage() {
                   className="block px-3 py-2 text-white font-inter hover:bg-red-800 rounded"
                 >
                   News
+                </Link>
+                <Link
+                  href="/community"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-white font-inter hover:bg-red-800 rounded"
+                >
+                  Community
                 </Link>
                 <Link
                   href="/careers"

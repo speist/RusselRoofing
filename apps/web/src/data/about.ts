@@ -121,29 +121,40 @@ export const companyInfo: CompanyInfo = {
   ],
   milestones: [
     {
-      year: 2015,
+      year: 1992,
       title: "Russell Roofing Founded",
-      description: "John Russell established the company with a commitment to quality and customer service."
+      description: "Russell Kaller founded Russell Roofing with a goal to serve honorably and provide exceptional roofing services.",
+      image: "/images/about/timeline/1992-founded.jpg.placeholder"
     },
     {
-      year: 2017,
-      title: "GAF Master Elite Certification",
-      description: "Achieved GAF Master Elite status, joining less than 3% of roofing contractors nationwide."
+      year: 1993,
+      title: "First Major Project",
+      description: "Completed our first major project - a cedar reroof for six figures on a prestigious Main Line property.",
+      image: "/images/about/timeline/1993-first-project.jpg.placeholder"
     },
     {
-      year: 2019,
-      title: "Team Expansion",
-      description: "Grew to a full-service team of certified professionals and expanded service areas."
+      year: 1999,
+      title: "NRCA Award Finalist - Outstanding Workmanship",
+      description: "Recognized as NRCA Award Finalist for Outstanding Workmanship on the Chambers Memorial Presbyterian Church project.",
+      image: "/images/about/timeline/1999-chambers-church.jpg.placeholder"
     },
     {
-      year: 2021,
-      title: "Community Recognition",
-      description: "Received the Chamber of Commerce Excellence in Service Award for outstanding community contribution."
+      year: 1999,
+      title: "NRCA Award Finalist - Community Service",
+      description: "Second NRCA Award Finalist recognition for Community Service on the Tabernacle of Faith Church Camden project.",
+      image: "/images/about/timeline/1999-tabernacle-church.jpg.placeholder"
     },
     {
-      year: 2023,
-      title: "Technology Integration",
-      description: "Implemented advanced project management and customer communication systems for enhanced service delivery."
+      year: 2009,
+      title: "NRCA Award Finalist",
+      description: "Continued excellence recognized with another NRCA Award Finalist nomination.",
+      image: "/images/about/timeline/2009-nrca-finalist.jpg.placeholder"
+    },
+    {
+      year: 2014,
+      title: "NRCA Award Finalist - Outstanding Workmanship",
+      description: "NRCA Award Finalist for Outstanding Workmanship on the historic Overbrook School for the Blind project.",
+      image: "/images/about/timeline/2014-overbrook-school.jpg.placeholder"
     }
   ],
   certifications: [

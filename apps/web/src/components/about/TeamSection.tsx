@@ -28,7 +28,7 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
         <h3 className="text-xl font-bold text-gray-900 mb-2">
           {member.name}
         </h3>
-        
+
         <p className="text-[#960120] font-semibold mb-4">
           {member.title}
         </p>
@@ -36,50 +36,6 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
         <p className="text-gray-700 mb-4 leading-relaxed">
           {member.bio}
         </p>
-
-        {/* Experience */}
-        <div className="mb-4">
-          <div className="text-sm font-semibold text-gray-900 mb-1">
-            Experience
-          </div>
-          <div className="text-sm text-gray-600">
-            {member.experience}
-          </div>
-        </div>
-
-        {/* Specialties */}
-        <div className="mb-4">
-          <div className="text-sm font-semibold text-gray-900 mb-2">
-            Specialties
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {member.specialties.map((specialty, index) => (
-              <span
-                key={index}
-                className="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs"
-              >
-                {specialty}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Certifications */}
-        {member.certifications.length > 0 && (
-          <div className="mb-4">
-            <div className="text-sm font-semibold text-gray-900 mb-2">
-              Certifications
-            </div>
-            <ul className="text-sm text-gray-600 space-y-1">
-              {member.certifications.map((cert, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="text-[#960120] mr-2">•</span>
-                  {cert}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         {/* Contact Info */}
         {(member.email || member.phone) && (
@@ -125,7 +81,7 @@ export default function TeamSection() {
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {companyInfo.team.map((member) => (
             <TeamMemberCard key={member.id} member={member} />
           ))}
