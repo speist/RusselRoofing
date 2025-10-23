@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import JobListings from "@/components/careers/JobListings";
 import { Mail, Phone } from "lucide-react";
+import { hubspotService } from "@/lib/hubspot/api";
 
 export const metadata: Metadata = {
   title: "Careers | Russell Roofing & Exteriors",
@@ -9,7 +10,13 @@ export const metadata: Metadata = {
   keywords: "roofing jobs, construction careers, foreman jobs, roofing laborer, superintendent positions, Pennsylvania jobs",
 };
 
-export default function CareersPage() {
+// Revalidate every 5 minutes
+export const revalidate = 300;
+
+export default async function CareersPage() {
+  // Fetch careers on the server
+  const careersResponse = await hubspotService.getCareers({ liveOnly: true });
+  const initialJobs = careersResponse.success && careersResponse.data ? careersResponse.data.results : [];
   return (
     <FloatingPageLayout>
       {/* Hero Section */}
@@ -41,7 +48,7 @@ export default function CareersPage() {
       </section>
 
       {/* Job Listings from HubSpot */}
-      <JobListings />
+      <JobListings initialJobs={initialJobs} />
 
       {/* Application Process */}
       <section className="py-16 md:py-20">
