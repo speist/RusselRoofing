@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -97,6 +97,9 @@ const materialPartners: MaterialPartner[] = [
 ];
 
 export default function QualityMaterialsSlider() {
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+
   return (
     <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -117,10 +120,18 @@ export default function QualityMaterialsSlider() {
         {/* Slider */}
         <div className="relative">
           {/* Navigation Buttons */}
-          <button className="materials-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md">
+          <button
+            ref={prevRef}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
+            aria-label="Previous slide"
+          >
             <ChevronLeft className="w-6 h-6 text-primary-charcoal" />
           </button>
-          <button className="materials-next absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md">
+          <button
+            ref={nextRef}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md"
+            aria-label="Next slide"
+          >
             <ChevronRight className="w-6 h-6 text-primary-charcoal" />
           </button>
 
@@ -128,8 +139,14 @@ export default function QualityMaterialsSlider() {
           <Swiper
             modules={[Navigation, Autoplay]}
             navigation={{
-              prevEl: ".materials-prev",
-              nextEl: ".materials-next",
+              prevEl: prevRef.current,
+              nextEl: nextRef.current,
+            }}
+            onBeforeInit={(swiper: any) => {
+              if (swiper.params.navigation && typeof swiper.params.navigation !== 'boolean') {
+                swiper.params.navigation.prevEl = prevRef.current;
+                swiper.params.navigation.nextEl = nextRef.current;
+              }
             }}
             autoplay={{
               delay: 3000,
