@@ -111,9 +111,7 @@ export default function QualityMaterialsSlider() {
             <span className="text-primary-burgundy">Plus Quality Craftsmanship</span>
           </h2>
           <p className="font-body text-lg text-gray-600 max-w-4xl mx-auto">
-            Russell Roofing & Exteriors are commercial and home exterior contractors that have made a
-            commitment to using only the highest quality products and materials, professionally installed
-            and backed by the industry&rsquo;s best warranties.
+            Russell Roofing and Exteriors is a factory-certified installer for the best manufacturers in the industry. To gain factory certification from a roofing manufacturer or maker of other building components, certified roofing contractors must demonstrate superior product knowledge, financial stability, proven commitment to staff training and education, and a high level of customer service. Being a factory-certified installer allows us to provide our customers with a material and workmanship warranty through the manufacturer.
           </p>
         </div>
 
