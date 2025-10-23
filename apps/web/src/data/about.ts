@@ -175,18 +175,95 @@ export const companyInfo: CompanyInfo = {
   ],
   awards: [
     {
-      id: "chamber-excellence-2021",
-      name: "Excellence in Service Award",
-      issuer: "Greater Newark Chamber of Commerce",
-      year: 2021,
-      description: "Recognized for outstanding service to the community and excellence in business practices."
+      id: "gaf-presidents-award",
+      name: "GAF President's Award",
+      issuer: "GAF",
+      year: 2023,
+      description: "Elite recognition for exceptional performance and customer satisfaction."
     },
     {
-      id: "angie-list-super-service-2022",
-      name: "Angie's List Super Service Award",
-      issuer: "Angie's List",
-      year: 2022,
-      description: "Awarded to businesses that provide exceptional service and maintain excellent customer reviews."
+      id: "gaf-triple-excellence",
+      name: "GAF Triple Excellence Award",
+      issuer: "GAF",
+      year: 2023,
+      description: "Awarded for excellence in installation, customer service, and business practices."
+    },
+    {
+      id: "best-pick-reports",
+      name: "Best Pick Reports - 99.6% Customer Approval Rating",
+      issuer: "Best Pick Reports",
+      year: 2023,
+      description: "Recognized for maintaining the highest customer satisfaction standards."
+    },
+    {
+      id: "remodeling-550",
+      name: "Remodeling 550 Award",
+      issuer: "Remodeling Magazine",
+      year: 2023,
+      description: "Top 550 remodeling contractors in the nation."
+    },
+    {
+      id: "neri-safety",
+      name: "Neri Safety Excellence Award",
+      issuer: "NERI",
+      year: 2023,
+      description: "Recognition for outstanding commitment to workplace safety."
+    },
+    {
+      id: "qualified-remodeler",
+      name: "Qualified Remodeler Award",
+      issuer: "Qualified Remodeler",
+      year: 2023,
+      description: "Top-tier recognition in the remodeling industry."
+    },
+    {
+      id: "pella-certified",
+      name: "Pella Certified Contractors Award",
+      issuer: "Pella",
+      year: 2023,
+      description: "Certified excellence in window and door installation."
+    },
+    {
+      id: "nrca-gold-circle",
+      name: "NRCA Gold Circle Award",
+      issuer: "NRCA",
+      year: 2023,
+      description: "National Roofing Contractors Association's highest honor."
+    },
+    {
+      id: "robert-levy",
+      name: "Robert Levy Award for Historic Preservation",
+      issuer: "Preservation Alliance",
+      year: 2023,
+      description: "Excellence in historic building preservation and restoration."
+    },
+    {
+      id: "grand-jury",
+      name: "Grand Jury Award for Historic Preservation",
+      issuer: "Philadelphia Historical Commission",
+      year: 2023,
+      description: "Recognition for outstanding historic preservation work."
+    },
+    {
+      id: "gulfeagle-presidents-club",
+      name: "Gulfeagle Supply President's Club Award",
+      issuer: "Gulfeagle Supply",
+      year: 2023,
+      description: "Elite partnership recognition for excellence in business."
+    },
+    {
+      id: "inquirer-family-business",
+      name: "The Inquirer Family-Owned Business Award",
+      issuer: "Philadelphia Inquirer",
+      year: 2023,
+      description: "Celebrating excellence in family-owned businesses."
+    },
+    {
+      id: "top-100-roofing",
+      name: "Top 100 Roofing Contractors",
+      issuer: "Roofing Contractor Magazine",
+      year: 2023,
+      description: "Ranked among the nation's top roofing contractors."
     }
   ],
   communityInvolvement: [
