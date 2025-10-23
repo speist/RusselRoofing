@@ -180,13 +180,13 @@ export default function QualityMaterialsSlider() {
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-primary-burgundy hover:shadow-lg transition-all duration-300 h-32 flex items-center justify-center">
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 hover:border-primary-burgundy hover:shadow-lg transition-all duration-300 aspect-square flex items-center justify-center">
                     <Image
                       src={partner.image}
                       alt={partner.name}
-                      width={150}
-                      height={75}
-                      className="max-w-full max-h-full object-contain"
+                      width={200}
+                      height={200}
+                      className="w-full h-full object-contain p-2"
                       unoptimized
                     />
                   </div>
