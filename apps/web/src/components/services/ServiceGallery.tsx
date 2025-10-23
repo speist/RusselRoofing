@@ -307,7 +307,9 @@ export default function ServiceGallery({ serviceSlug, serviceTitle }: ServiceGal
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const images = getServiceGalleryImages(serviceSlug);
+  const imagesPerView = 3;
 
   // Simulate loading state for gallery initialization
   React.useEffect(() => {
@@ -322,6 +324,20 @@ export default function ServiceGallery({ serviceSlug, serviceTitle }: ServiceGal
       setIsLoading(false);
     }
   }, [serviceSlug]);
+
+  // Navigation functions
+  const handlePrevious = () => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => Math.min(images.length - imagesPerView, prev + 1));
+  };
+
+  // Get visible images based on current index
+  const visibleImages = images.slice(currentIndex, currentIndex + imagesPerView);
+  const canGoPrevious = currentIndex > 0;
+  const canGoNext = currentIndex < images.length - imagesPerView;
 
   if (error) {
     return (
@@ -373,34 +389,70 @@ export default function ServiceGallery({ serviceSlug, serviceTitle }: ServiceGal
           </p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {images.map((image, index) => (
+        {/* Gallery Carousel */}
+        <div className="relative">
+          {/* Previous Arrow */}
+          {canGoPrevious && (
             <button
-              key={index}
-              onClick={() => setSelectedImage(image)}
-              className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200"
+              onClick={handlePrevious}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors duration-200"
+              aria-label="Previous images"
             >
-              <div className="aspect-w-16 aspect-h-12">
-                <Image
-                  src={image.thumbnail || image.src}
-                  alt={image.alt}
-                  width={400}
-                  height={300}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                  <h3 className="font-semibold text-lg">{image.title}</h3>
-                  {image.location && (
-                    <p className="text-sm text-gray-200">{image.location}</p>
-                  )}
-                </div>
-              </div>
+              <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
             </button>
-          ))}
+          )}
+
+          {/* Gallery Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {visibleImages.map((image, index) => (
+              <button
+                key={currentIndex + index}
+                onClick={() => setSelectedImage(image)}
+                className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200"
+              >
+                <div className="aspect-w-16 aspect-h-12">
+                  <Image
+                    src={image.thumbnail || image.src}
+                    alt={image.alt}
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <h3 className="font-semibold text-lg">{image.title}</h3>
+                    {image.location && (
+                      <p className="text-sm text-gray-200">{image.location}</p>
+                    )}
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Next Arrow */}
+          {canGoNext && (
+            <button
+              onClick={handleNext}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors duration-200"
+              aria-label="Next images"
+            >
+              <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
         </div>
+
+        {/* Image Counter */}
+        {images.length > imagesPerView && (
+          <div className="text-center mt-6 text-gray-600">
+            Showing {currentIndex + 1}-{Math.min(currentIndex + imagesPerView, images.length)} of {images.length} images
+          </div>
+        )}
 
         {/* View More Button */}
         <div className="mt-12 text-center">
