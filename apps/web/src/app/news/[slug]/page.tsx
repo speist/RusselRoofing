@@ -51,15 +51,13 @@ const stripHtml = (html: string): string => {
 const cleanPostBody = (html: string): string => {
   if (!html) return '';
 
-  // Remove the first paragraph (likely duplicate summary)
-  let cleaned = html.replace(/<p[^>]*>.*?<\/p>/i, '');
+  // Remove all <img> tags since we display the featured image separately
+  let cleaned = html.replace(/<img[^>]*>/gi, '');
 
-  // Remove the first image (likely duplicate featured image)
-  cleaned = cleaned.replace(/<img[^>]*>/i, '');
+  // Remove any empty paragraphs
+  cleaned = cleaned.replace(/<p[^>]*>\s*<\/p>/gi, '');
 
-  // Remove any leading whitespace or empty paragraphs
-  cleaned = cleaned.replace(/^\s*(<p[^>]*>\s*<\/p>\s*)*/, '');
-
+  // Remove any leading/trailing whitespace
   return cleaned.trim();
 };
 
@@ -172,10 +170,21 @@ export default function BlogPostPage() {
               {post.name}
             </h1>
 
-            {post.postSummary && (
-              <p className="font-body text-xl text-text-secondary mb-6">
-                {stripHtml(post.postSummary)}
-              </p>
+            {/* Featured Image - Moved here, between title and meta */}
+            {post.featuredImage && post.featuredImage !== '/placeholder.svg?height=600&width=1200' && (
+              <div className="mb-6 rounded-lg overflow-hidden relative w-full" style={{ aspectRatio: '2/1' }}>
+                <Image
+                  src={post.featuredImage}
+                  alt={post.featuredImageAltText || post.name}
+                  fill
+                  className="object-cover"
+                  priority
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
+              </div>
             )}
 
             {/* Article Meta */}
@@ -194,32 +203,20 @@ export default function BlogPostPage() {
             </div>
           </header>
 
-          {/* Featured Image */}
-          {post.featuredImage && post.featuredImage !== '/placeholder.svg?height=600&width=1200' && (
-            <div className="mb-8 rounded-lg overflow-hidden relative w-full" style={{ aspectRatio: '2/1' }}>
-              <Image
-                src={post.featuredImage}
-                alt={post.featuredImageAltText || post.name}
-                fill
-                className="object-cover"
-                priority
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                }}
-              />
-            </div>
-          )}
-
           {/* Article Content */}
           <div
             className="prose prose-lg max-w-none
-              prose-headings:font-display prose-headings:text-text-primary
-              prose-p:font-body prose-p:text-text-secondary prose-p:leading-relaxed
+              prose-headings:font-display prose-headings:text-text-primary prose-headings:font-bold
+              prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
+              prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+              prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
+              prose-p:font-body prose-p:text-text-secondary prose-p:leading-relaxed prose-p:mb-6
               prose-a:text-primary-burgundy prose-a:no-underline hover:prose-a:underline
               prose-strong:text-text-primary prose-strong:font-semibold
-              prose-ul:font-body prose-ol:font-body
-              prose-img:rounded-lg prose-img:shadow-md
+              prose-ul:font-body prose-ul:my-6 prose-ul:space-y-2
+              prose-ol:font-body prose-ol:my-6 prose-ol:space-y-2
+              prose-li:text-text-secondary
+              prose-img:hidden
               mb-12"
             dangerouslySetInnerHTML={{ __html: cleanPostBody(post.postBody) }}
           />

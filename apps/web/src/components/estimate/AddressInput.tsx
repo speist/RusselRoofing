@@ -20,6 +20,12 @@ const AddressInput = React.forwardRef<HTMLInputElement, AddressInputProps>(
     const [error, setError] = useState<string | null>(null);
     const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const onChangeRef = useRef(onChange);
+
+    // Keep the onChange ref up to date
+    useEffect(() => {
+      onChangeRef.current = onChange;
+    }, [onChange]);
 
     useEffect(() => {
       // Check if Google Maps is loaded
@@ -42,9 +48,9 @@ const AddressInput = React.forwardRef<HTMLInputElement, AddressInputProps>(
         // Handle place selection
         const handlePlaceChanged = () => {
           const place = autocompleteRef.current?.getPlace();
-          
+
           if (place?.formatted_address) {
-            onChange(place.formatted_address, place);
+            onChangeRef.current(place.formatted_address, place);
             setError(null);
           } else {
             setError("Please select a valid address from the dropdown");
@@ -63,12 +69,12 @@ const AddressInput = React.forwardRef<HTMLInputElement, AddressInputProps>(
         setError("Failed to initialize address autocomplete");
         // TODO: Implement proper error reporting service for production
       }
-    }, [onChange]);
+    }, []); // Remove onChange from dependencies to prevent re-initialization
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
-      onChange(newValue);
-      
+      onChangeRef.current(newValue);
+
       // Clear error when user starts typing
       if (error) {
         setError(null);

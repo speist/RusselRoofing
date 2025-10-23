@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Lora } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import Script from "next/script";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { validateEnvironmentOrThrow } from "@/lib/env-validation";
@@ -50,14 +51,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          async
-          defer
-          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY}&libraries=places`}
-        />
-      </head>
       <body className={`${inter.variable} ${playfairDisplay.variable} ${lora.variable} antialiased`}>
+        <Script
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY}&libraries=places`}
+          strategy="beforeInteractive"
+        />
         {children}
       </body>
     </html>
