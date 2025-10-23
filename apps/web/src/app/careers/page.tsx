@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
-import { MapPin, Clock, DollarSign, Users, Mail, Phone } from "lucide-react";
+import { MapPin, Clock, DollarSign, Mail, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Careers | Russell Roofing & Exteriors",
@@ -117,29 +115,6 @@ const jobOpenings = [
   }
 ];
 
-const benefits = [
-  {
-    icon: DollarSign,
-    title: "Competitive Compensation",
-    description: "We offer competitive salaries and performance-based bonuses to reward your hard work and dedication."
-  },
-  {
-    icon: Users,
-    title: "Health & Wellness",
-    description: "Comprehensive health insurance, dental, vision, and wellness programs for you and your family."
-  },
-  {
-    icon: Clock,
-    title: "Work-Life Balance",
-    description: "Paid time off, holidays, and flexible scheduling to help you maintain a healthy work-life balance."
-  },
-  {
-    icon: MapPin,
-    title: "Career Growth",
-    description: "Opportunities for advancement, ongoing training, and professional development within our organization."
-  }
-];
-
 export default function CareersPage() {
   return (
     <FloatingPageLayout>
@@ -168,36 +143,6 @@ export default function CareersPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </a>
-        </div>
-      </section>
-
-      {/* Why Work With Us */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-text-primary mb-4">
-              Why Choose Russell Roofing?
-            </h2>
-            <p className="font-body text-text-secondary max-w-3xl mx-auto">
-              We believe our employees are our greatest asset. That&rsquo;s why we&rsquo;re committed to providing a work environment where you can grow, learn, and succeed.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-burgundy text-white rounded-full mb-4">
-                  <benefit.icon className="w-8 h-8" />
-                </div>
-                <h3 className="font-display text-xl font-semibold text-text-primary mb-3">
-                  {benefit.title}
-                </h3>
-                <p className="font-body text-text-secondary">
-                  {benefit.description}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
