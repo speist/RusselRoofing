@@ -138,10 +138,10 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
           </>
         )}
 
-        {/* Main image - centered with proper spacing for bottom UI */}
-        <div className="flex-1 flex items-center justify-center p-4 sm:p-8 pb-48">
+        {/* Main image - centered and scaled to fit */}
+        <div className="flex-1 flex items-center justify-center p-4">
           <div
-            className="relative max-w-[95vw] max-h-[calc(100vh-250px)] flex items-center justify-center"
+            className="relative flex items-center justify-center"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -157,21 +157,20 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
               src={currentImage.src}
               alt={currentImage.alt}
               className={cn(
-                "max-w-full max-h-full w-auto h-auto object-contain transition-opacity duration-300",
+                "max-w-[90vw] max-h-[85vh] w-auto h-auto object-contain transition-opacity duration-300",
                 isImageLoaded ? "opacity-100" : "opacity-0"
               )}
               onLoad={handleImageLoad}
-              style={{ maxWidth: '100%', maxHeight: '100%' }}
             />
           </div>
         </div>
 
         {/* Image info */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-6 pt-12">
           <div className="max-w-4xl mx-auto text-white">
             <h3 className="text-xl font-semibold mb-2">{currentImage.projectTitle}</h3>
             <p className="text-gray-300 mb-3">{currentImage.description}</p>
-            
+
             <div className="flex flex-wrap items-center gap-4 text-sm">
               {currentImage.location && (
                 <div className="flex items-center gap-1">
@@ -182,7 +181,7 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
                   <span>{currentImage.location}</span>
                 </div>
               )}
-              
+
               {currentImage.completedDate && (
                 <div className="flex items-center gap-1">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,7 +190,7 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
                   <span>{new Date(currentImage.completedDate).toLocaleDateString()}</span>
                 </div>
               )}
-              
+
               <div className="flex gap-2">
                 {currentImage.serviceTypes.map((service) => (
                   <span
@@ -205,32 +204,6 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
             </div>
           </div>
         </div>
-
-        {/* Thumbnail strip */}
-        {images.length > 1 && (
-          <div className="absolute bottom-24 left-0 right-0 px-6">
-            <div className="flex gap-2 justify-center overflow-x-auto max-w-full">
-              {images.map((image, index) => (
-                <button
-                  key={image.id}
-                  onClick={() => onImageChange(index)}
-                  className={cn(
-                    "flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200",
-                    index === currentIndex
-                      ? "border-white scale-110"
-                      : "border-transparent opacity-60 hover:opacity-80"
-                  )}
-                >
-                  <img
-                    src={image.thumbnailSrc}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </Modal>
   );
