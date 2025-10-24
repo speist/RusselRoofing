@@ -15,11 +15,13 @@ export interface ProjectImage {
 export const serviceCategories = [
   'All',
   'Roofing',
-  'Siding', 
-  'Gutters',
+  'Siding',
   'Windows',
-  'Chimneys',
-  'Commercial'
+  'Skylights',
+  'Masonry',
+  'Commercial',
+  'Churches & Institutions',
+  'Historical Restoration'
 ] as const;
 
 export type ServiceCategory = typeof serviceCategories[number];
