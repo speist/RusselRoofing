@@ -6,6 +6,7 @@ class BlogService {
   private client: Client;
   private maxRetries = 3;
   private tagsCache: Map<string, string> = new Map(); // Cache tag ID -> name mapping
+  private authorsCache: Map<string, string> = new Map(); // Cache author ID -> name mapping
 
   constructor(apiKey: string) {
     this.client = new Client({ accessToken: apiKey });
@@ -41,6 +42,35 @@ class BlogService {
   }
 
   /**
+   * Fetch all blog authors from HubSpot and cache them
+   */
+  private async fetchBlogAuthors(): Promise<Map<string, string>> {
+    if (this.authorsCache.size > 0) {
+      return this.authorsCache;
+    }
+
+    try {
+      const response = await this.client.apiRequest({
+        method: 'GET',
+        path: '/cms/v3/blogs/authors',
+      });
+
+      const data = await response.json() as any;
+
+      // Build author ID -> full name mapping
+      (data.results || []).forEach((author: any) => {
+        this.authorsCache.set(author.id.toString(), author.fullName || author.displayName || 'Unknown Author');
+      });
+
+      console.log(`[HubSpot] Cached ${this.authorsCache.size} blog authors`);
+    } catch (error: any) {
+      console.error('[HubSpot] Failed to fetch blog authors:', error.message);
+    }
+
+    return this.authorsCache;
+  }
+
+  /**
    * Convert tag IDs to tag names
    */
   private async resolveTagNames(tagIds?: string[]): Promise<string[]> {
@@ -53,6 +83,19 @@ class BlogService {
     return tagIds
       .map(id => this.tagsCache.get(id.toString()))
       .filter((name): name is string => name !== undefined);
+  }
+
+  /**
+   * Get blog author name from author ID
+   */
+  private async resolveAuthorName(blogAuthorId?: string): Promise<string | undefined> {
+    if (!blogAuthorId) {
+      return undefined;
+    }
+
+    await this.fetchBlogAuthors();
+
+    return this.authorsCache.get(blogAuthorId.toString());
   }
 
   /**
@@ -104,7 +147,7 @@ class BlogService {
             publishDate: post.publishDate,
             created: post.created,
             updated: post.updated,
-            authorName: post.authorName,
+            authorName: await this.resolveAuthorName(post.blogAuthorId),
             blogAuthorId: post.blogAuthorId,
             category: post.category,
             tagIds: post.tagIds,
@@ -206,7 +249,7 @@ class BlogService {
             publishDate: post.publishDate,
             created: post.created,
             updated: post.updated,
-            authorName: post.authorName,
+            authorName: await this.resolveAuthorName(post.blogAuthorId),
             blogAuthorId: post.blogAuthorId,
             category: post.category,
             tagIds: post.tagIds,
@@ -296,7 +339,7 @@ class BlogService {
           publishDate: post.publishDate,
           created: post.created,
           updated: post.updated,
-          authorName: post.authorName,
+          authorName: await this.resolveAuthorName(post.blogAuthorId),
           blogAuthorId: post.blogAuthorId,
           category: post.category,
           tagIds: post.tagIds,
