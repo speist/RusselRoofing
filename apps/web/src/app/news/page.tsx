@@ -40,6 +40,7 @@ export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [displayCount, setDisplayCount] = useState(9);
   const [totalArticles, setTotalArticles] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -65,10 +66,22 @@ export default function NewsPage() {
   // Extract unique categories from articles
   const categories: string[] = ["All", ...Array.from(new Set(articles.map(article => article.category?.name).filter((name): name is string => Boolean(name))))];
 
-  // Filter articles by category
-  const filteredArticles = selectedCategory === "All"
-    ? articles
-    : articles.filter(article => article.category?.name === selectedCategory);
+  // Filter articles by category and search query
+  const filteredArticles = articles.filter(article => {
+    // Category filter
+    const matchesCategory = selectedCategory === "All" || article.category?.name === selectedCategory;
+
+    // Search filter
+    if (!searchQuery.trim()) {
+      return matchesCategory;
+    }
+
+    const query = searchQuery.toLowerCase();
+    const titleMatch = article.name.toLowerCase().includes(query);
+    const summaryMatch = stripHtml(article.postSummary).toLowerCase().includes(query);
+
+    return matchesCategory && (titleMatch || summaryMatch);
+  });
 
   // Display limited articles
   const displayedArticles = filteredArticles.slice(0, displayCount);
@@ -106,6 +119,53 @@ export default function NewsPage() {
       {/* Main Content */}
       <section className="py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Search Bar */}
+          {!loading && (
+            <div className="mb-8">
+              <div className="max-w-2xl mx-auto">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setDisplayCount(9);
+                    }}
+                    className="w-full px-5 py-3 pl-12 pr-12 border border-gray-300 rounded-lg font-body focus:outline-none focus:ring-2 focus:ring-primary-burgundy focus:border-transparent"
+                  />
+                  {/* Search Icon */}
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  {/* Clear Button */}
+                  {searchQuery && (
+                    <button
+                      onClick={() => {
+                        setSearchQuery("");
+                        setDisplayCount(9);
+                      }}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                      aria-label="Clear search"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+                {/* Results count */}
+                {searchQuery && (
+                  <p className="mt-3 text-sm text-text-secondary text-center">
+                    Found {filteredArticles.length} {filteredArticles.length === 1 ? 'article' : 'articles'}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Category Filter */}
           {!loading && (
             <div className="mb-12">
