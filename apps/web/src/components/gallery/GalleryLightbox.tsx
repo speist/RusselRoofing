@@ -93,9 +93,9 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      className="!p-0 !max-w-none !w-full !h-full !m-0 !rounded-none bg-black"
+      className="!p-0 !max-w-none !w-screen !h-screen !m-0 !rounded-none bg-black !overflow-hidden"
     >
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative w-full h-full flex flex-col">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -105,6 +105,13 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
+
+        {/* Image counter */}
+        {images.length > 1 && (
+          <div className="absolute top-4 left-4 z-20 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+            {currentIndex + 1} / {images.length}
+          </div>
+        )}
 
         {/* Navigation buttons */}
         {images.length > 1 && (
@@ -118,7 +125,7 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            
+
             <button
               onClick={onNext}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition-all duration-200 disabled:opacity-30"
@@ -131,29 +138,31 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
           </>
         )}
 
-        {/* Main image */}
-        <div
-          className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center"
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
-          {/* Loading spinner */}
-          {!isImageLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full" />
-            </div>
-          )}
-
-          <img
-            src={currentImage.src}
-            alt={currentImage.alt}
-            className={cn(
-              "max-w-full max-h-full object-contain transition-opacity duration-300",
-              isImageLoaded ? "opacity-100" : "opacity-0"
+        {/* Main image - centered with proper spacing for bottom UI */}
+        <div className="flex-1 flex items-center justify-center p-4 pb-48">
+          <div
+            className="relative w-full h-full flex items-center justify-center"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            {/* Loading spinner */}
+            {!isImageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full" />
+              </div>
             )}
-            onLoad={handleImageLoad}
-          />
+
+            <img
+              src={currentImage.src}
+              alt={currentImage.alt}
+              className={cn(
+                "max-w-full max-h-full w-auto h-auto object-contain transition-opacity duration-300",
+                isImageLoaded ? "opacity-100" : "opacity-0"
+              )}
+              onLoad={handleImageLoad}
+            />
+          </div>
         </div>
 
         {/* Image info */}
@@ -195,13 +204,6 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
             </div>
           </div>
         </div>
-
-        {/* Image counter */}
-        {images.length > 1 && (
-          <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
-            {currentIndex + 1} / {images.length}
-          </div>
-        )}
 
         {/* Thumbnail strip */}
         {images.length > 1 && (
