@@ -139,9 +139,9 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
         )}
 
         {/* Main image - centered with proper spacing for bottom UI */}
-        <div className="flex-1 flex items-center justify-center p-4 pb-48">
+        <div className="flex-1 flex items-center justify-center p-4 sm:p-8 pb-48">
           <div
-            className="relative w-full h-full flex items-center justify-center"
+            className="relative max-w-[95vw] max-h-[calc(100vh-250px)] flex items-center justify-center"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -161,6 +161,7 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
                 isImageLoaded ? "opacity-100" : "opacity-0"
               )}
               onLoad={handleImageLoad}
+              style={{ maxWidth: '100%', maxHeight: '100%' }}
             />
           </div>
         </div>
