@@ -28,6 +28,7 @@ interface BlogPost {
     name: string;
   };
   tagIds?: string[];
+  tags?: string[];
   url: string;
 }
 
@@ -160,10 +161,14 @@ export default function BlogPostPage() {
 
           {/* Article Header */}
           <header className="mb-8">
-            {post.category && (
-              <span className="inline-block bg-primary-burgundy text-white px-3 py-1 rounded-full text-sm font-medium mb-4">
-                {post.category.name}
-              </span>
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {post.tags.map((tag) => (
+                  <span key={tag} className="inline-block bg-primary-burgundy text-white px-3 py-1 rounded-full text-sm font-medium">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             )}
 
             <h1 className="font-display text-4xl md:text-5xl font-bold text-text-primary mb-6">

@@ -16,6 +16,7 @@ interface BlogPost {
     id: string;
     name: string;
   };
+  tags?: string[];
 }
 
 // Utility function to strip HTML tags and decode entities
@@ -37,7 +38,7 @@ const stripHtml = (html: string): string => {
 export default function NewsPage() {
   const [articles, setArticles] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedTag, setSelectedTag] = useState("All");
   const [displayCount, setDisplayCount] = useState(9);
   const [totalArticles, setTotalArticles] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
@@ -63,24 +64,33 @@ export default function NewsPage() {
     fetchArticles();
   }, []);
 
-  // Extract unique categories from articles
-  const categories: string[] = ["All", ...Array.from(new Set(articles.map(article => article.category?.name).filter((name): name is string => Boolean(name))))];
+  // Extract unique tags from articles
+  const allTags: string[] = ["All"];
+  articles.forEach(article => {
+    if (article.tags) {
+      article.tags.forEach(tag => {
+        if (!allTags.includes(tag)) {
+          allTags.push(tag);
+        }
+      });
+    }
+  });
 
-  // Filter articles by category and search query
+  // Filter articles by tag and search query
   const filteredArticles = articles.filter(article => {
-    // Category filter
-    const matchesCategory = selectedCategory === "All" || article.category?.name === selectedCategory;
+    // Tag filter
+    const matchesTag = selectedTag === "All" || (article.tags && article.tags.includes(selectedTag));
 
     // Search filter
     if (!searchQuery.trim()) {
-      return matchesCategory;
+      return matchesTag;
     }
 
     const query = searchQuery.toLowerCase();
     const titleMatch = article.name.toLowerCase().includes(query);
     const summaryMatch = stripHtml(article.postSummary).toLowerCase().includes(query);
 
-    return matchesCategory && (titleMatch || summaryMatch);
+    return matchesTag && (titleMatch || summaryMatch);
   });
 
   // Display limited articles
@@ -166,24 +176,24 @@ export default function NewsPage() {
             </div>
           )}
 
-          {/* Category Filter */}
+          {/* Tag Filter */}
           {!loading && (
             <div className="mb-12">
               <div className="flex flex-wrap justify-center gap-3 mb-8">
-                {categories.map((category) => (
+                {allTags.map((tag) => (
                   <button
-                    key={category}
+                    key={tag}
                     onClick={() => {
-                      setSelectedCategory(category);
+                      setSelectedTag(tag);
                       setDisplayCount(9);
                     }}
                     className={`px-4 py-2 rounded-full font-body text-sm font-medium transition-all duration-200 ${
-                      category === selectedCategory
+                      tag === selectedTag
                         ? "bg-primary-burgundy text-white"
                         : "bg-white text-text-primary border border-gray-200 hover:bg-primary-burgundy hover:text-white"
                     }`}
                   >
-                    {category}
+                    {tag}
                   </button>
                 ))}
               </div>
@@ -223,10 +233,10 @@ export default function NewsPage() {
                           target.src = '/placeholder.svg?height=300&width=400';
                         }}
                       />
-                      {article.category && (
+                      {article.tags && article.tags.length > 0 && (
                         <div className="absolute top-4 left-4">
                           <span className="inline-block bg-primary-burgundy text-white px-3 py-1 rounded-full text-xs font-medium">
-                            {article.category.name}
+                            {article.tags[0]}
                           </span>
                         </div>
                       )}

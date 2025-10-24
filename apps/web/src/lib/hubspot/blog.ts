@@ -5,9 +5,54 @@ import { calculateBackoffDelay } from './utils';
 class BlogService {
   private client: Client;
   private maxRetries = 3;
+  private tagsCache: Map<string, string> = new Map(); // Cache tag ID -> name mapping
 
   constructor(apiKey: string) {
     this.client = new Client({ accessToken: apiKey });
+  }
+
+  /**
+   * Fetch all blog tags from HubSpot and cache them
+   */
+  private async fetchBlogTags(): Promise<Map<string, string>> {
+    if (this.tagsCache.size > 0) {
+      return this.tagsCache;
+    }
+
+    try {
+      const response = await this.client.apiRequest({
+        method: 'GET',
+        path: '/cms/v3/blogs/tags',
+      });
+
+      const data = await response.json() as any;
+
+      // Build tag ID -> name mapping
+      (data.results || []).forEach((tag: any) => {
+        this.tagsCache.set(tag.id.toString(), tag.name);
+      });
+
+      console.log(`[HubSpot] Cached ${this.tagsCache.size} blog tags`);
+    } catch (error: any) {
+      console.error('[HubSpot] Failed to fetch blog tags:', error.message);
+    }
+
+    return this.tagsCache;
+  }
+
+  /**
+   * Convert tag IDs to tag names
+   */
+  private async resolveTagNames(tagIds?: string[]): Promise<string[]> {
+    if (!tagIds || tagIds.length === 0) {
+      return [];
+    }
+
+    await this.fetchBlogTags();
+
+    return tagIds
+      .map(id => this.tagsCache.get(id.toString()))
+      .filter((name): name is string => name !== undefined);
   }
 
   /**
@@ -44,26 +89,29 @@ class BlogService {
         });
 
         // Transform HubSpot blog post format to our format
-        const results: BlogPost[] = (data.results || []).map((post: any) => ({
-          id: post.id,
-          name: post.name,
-          slug: this.normalizeSlug(post.slug),
-          state: post.state,
-          featuredImage: post.featuredImage || '/placeholder.svg?height=300&width=400',
-          featuredImageAltText: post.featuredImageAltText,
-          postBody: post.postBody,
-          postSummary: post.postSummary || '',
-          metaDescription: post.metaDescription,
-          htmlTitle: post.htmlTitle || post.name,
-          publishDate: post.publishDate,
-          created: post.created,
-          updated: post.updated,
-          authorName: post.authorName,
-          blogAuthorId: post.blogAuthorId,
-          category: post.category,
-          tagIds: post.tagIds,
-          url: post.url,
-        }));
+        const results: BlogPost[] = await Promise.all(
+          (data.results || []).map(async (post: any) => ({
+            id: post.id,
+            name: post.name,
+            slug: this.normalizeSlug(post.slug),
+            state: post.state,
+            featuredImage: post.featuredImage || '/placeholder.svg?height=300&width=400',
+            featuredImageAltText: post.featuredImageAltText,
+            postBody: post.postBody,
+            postSummary: post.postSummary || '',
+            metaDescription: post.metaDescription,
+            htmlTitle: post.htmlTitle || post.name,
+            publishDate: post.publishDate,
+            created: post.created,
+            updated: post.updated,
+            authorName: post.authorName,
+            blogAuthorId: post.blogAuthorId,
+            category: post.category,
+            tagIds: post.tagIds,
+            tags: await this.resolveTagNames(post.tagIds),
+            url: post.url,
+          }))
+        );
 
         return {
           success: true,
@@ -162,6 +210,7 @@ class BlogService {
             blogAuthorId: post.blogAuthorId,
             category: post.category,
             tagIds: post.tagIds,
+            tags: await this.resolveTagNames(post.tagIds),
             url: post.url,
           };
 
@@ -251,6 +300,7 @@ class BlogService {
           blogAuthorId: post.blogAuthorId,
           category: post.category,
           tagIds: post.tagIds,
+          tags: await this.resolveTagNames(post.tagIds),
           url: post.url,
         };
 

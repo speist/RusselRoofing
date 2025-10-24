@@ -139,6 +139,7 @@ export interface BlogPost {
     name: string;
   };
   tagIds?: string[];
+  tags?: string[]; // Array of tag names for filtering
   url: string;
 }
 
