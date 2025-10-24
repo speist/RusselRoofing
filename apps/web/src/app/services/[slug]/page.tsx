@@ -150,7 +150,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                         {post.name}
                       </h3>
                       <p className="text-gray-600 text-sm line-clamp-2">
-                        {stripHtmlTags(post.postSummary || post.metaDescription)}
+                        {stripHtmlTags(post.postSummary || post.metaDescription || '')}
                       </p>
                       {post.publishDate && (
                         <p className="text-xs text-gray-500 mt-2">

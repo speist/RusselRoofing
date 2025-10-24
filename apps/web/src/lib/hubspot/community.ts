@@ -99,8 +99,8 @@ class CommunityService {
       return {
         success: false,
         error: {
+          status: 'error',
           message: error.message || 'Failed to fetch community activities',
-          statusCode: 500,
         },
       };
     }
@@ -152,8 +152,8 @@ class CommunityService {
       return {
         success: false,
         error: {
+          status: 'error',
           message: error.message || 'Failed to fetch community activity',
-          statusCode: 500,
         },
       };
     }

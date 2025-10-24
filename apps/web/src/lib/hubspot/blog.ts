@@ -35,7 +35,7 @@ class BlogService {
           path: `/cms/v3/blogs/posts?${queryParams.toString()}`,
         });
 
-        const data = await response.json();
+        const data = await response.json() as any;
 
         console.log(`[HubSpot] Retrieved ${data.results?.length || 0} blog posts`, {
           total: data.total,
@@ -132,7 +132,7 @@ class BlogService {
           path: `/cms/v3/blogs/posts?${queryParams.toString()}`,
         });
 
-        const data = await response.json();
+        const data = await response.json() as any;
 
         if (data.results && data.results.length > 0) {
           const post = data.results[0];
@@ -226,7 +226,7 @@ class BlogService {
           path: `/cms/v3/blogs/posts/${id}`,
         });
 
-        const post = await response.json();
+        const post = await response.json() as any;
 
         console.log(`[HubSpot] Retrieved blog post by ID: ${id}`, {
           postName: post.name,
