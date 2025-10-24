@@ -479,7 +479,7 @@ export default function HomePage() {
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {/* Licensed & Insured Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
@@ -496,7 +496,7 @@ export default function HomePage() {
                 </div>
 
                 {/* On-Time Service Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
@@ -513,7 +513,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Expert Team Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
@@ -530,7 +530,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Quality Materials Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
@@ -547,7 +547,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Warranty Backed Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
@@ -564,7 +564,7 @@ export default function HomePage() {
                 </div>
 
                 {/* 5-Star Service Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
@@ -870,7 +870,7 @@ export default function HomePage() {
             ) : (
               <div className="grid md:grid-cols-3 gap-6 md:gap-8">
                 {/* Foreman Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
@@ -893,7 +893,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Superintendent Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
@@ -916,7 +916,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Roofing Laborer Card */}
-                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     {/* Front */}
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
