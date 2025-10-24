@@ -15,12 +15,14 @@ import {
 
 export function Footer() {
   const services = [
-    "Roofing",
-    "Siding and Gutters",
-    "Commercial",
-    "Churches & Institutions",
-    "Historical Restoration",
-    "Masonry",
+    { title: "Roofing", slug: "roofing" },
+    { title: "Siding and Gutters", slug: "siding-and-gutters" },
+    { title: "Commercial", slug: "commercial" },
+    { title: "Churches & Institutions", slug: "churches-institutions" },
+    { title: "Historical Restoration", slug: "historical-restoration" },
+    { title: "Masonry", slug: "masonry" },
+    { title: "Windows", slug: "windows" },
+    { title: "Skylights", slug: "skylights" },
   ];
 
   return (
@@ -57,10 +59,13 @@ export function Footer() {
             <h3 className="font-inter font-semibold text-white text-lg mb-4">Our Services</h3>
             <ul className="space-y-2">
               {services.map((service) => (
-                <li key={service}>
-                  <a href="#" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
-                    {service}
-                  </a>
+                <li key={service.slug}>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
+                  >
+                    {service.title}
+                  </Link>
                 </li>
               ))}
             </ul>
