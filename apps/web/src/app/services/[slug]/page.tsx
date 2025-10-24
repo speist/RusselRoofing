@@ -61,6 +61,12 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   };
 }
 
+// Helper function to strip HTML tags from text
+function stripHtmlTags(html: string): string {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, '').trim();
+}
+
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const serviceDetail = getServiceDetailsBySlug(params.slug);
   const service = services.find(s => s.slug === params.slug);
@@ -144,7 +150,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                         {post.name}
                       </h3>
                       <p className="text-gray-600 text-sm line-clamp-2">
-                        {post.postSummary || post.metaDescription}
+                        {stripHtmlTags(post.postSummary || post.metaDescription)}
                       </p>
                       {post.publishDate && (
                         <p className="text-xs text-gray-500 mt-2">
