@@ -320,4 +320,9 @@
   .instagram-overlay {
     @apply absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center;
   }
+
+  /* Flip card styles */
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
 }

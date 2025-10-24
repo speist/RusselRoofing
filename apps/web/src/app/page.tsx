@@ -478,41 +478,106 @@ export default function HomePage() {
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <div className="bg-white p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                  <Shield className="w-12 h-12 text-primary-red mx-auto mb-4" />
-                  <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">Licensed & Insured</h3>
-                  <p className="font-inter text-gray-600">
-                    Fully licensed and insured for your peace of mind and protection.
-                  </p>
+                {/* Licensed & Insured Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Shield className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">Licensed & Insured</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        Fully licensed and insured for your peace of mind and protection. Your investment is secure with us.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-white p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                  <Clock className="w-12 h-12 text-primary-red mx-auto mb-4" />
-                  <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">On-Time Service</h3>
-                  <p className="font-inter text-gray-600">
-                    We respect your time and always deliver projects on schedule.
-                  </p>
+
+                {/* On-Time Service Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Clock className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">On-Time Service</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        We respect your time and always deliver projects on schedule. Punctuality is part of our commitment to excellence.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-white p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                  <Users className="w-12 h-12 text-primary-red mx-auto mb-4" />
-                  <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">Expert Team</h3>
-                  <p className="font-inter text-gray-600">Skilled professionals with years of industry experience.</p>
+
+                {/* Expert Team Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Users className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">Expert Team</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        Skilled professionals with years of industry experience. Our team brings expertise to every project.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-white p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                  <Award className="w-12 h-12 text-primary-red mx-auto mb-4" />
-                  <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">Quality Materials</h3>
-                  <p className="font-inter text-gray-600">
-                    We use only the highest quality materials for lasting results.
-                  </p>
+
+                {/* Quality Materials Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Award className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">Quality Materials</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        We use only the highest quality materials for lasting results. Your project deserves the best.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-white p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                  <Wrench className="w-12 h-12 text-primary-red mx-auto mb-4" />
-                  <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">Warranty Backed</h3>
-                  <p className="font-inter text-gray-600">All work comes with comprehensive warranty coverage.</p>
+
+                {/* Warranty Backed Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Wrench className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">Warranty Backed</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        All work comes with comprehensive warranty coverage. We stand behind every project we complete.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-white p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                  <Star className="w-12 h-12 text-primary-red mx-auto mb-4" />
-                  <h3 className="font-inter font-semibold text-dark-grey text-xl mb-3">5-Star Service</h3>
-                  <p className="font-inter text-gray-600">Consistently rated 5 stars by satisfied customers.</p>
+
+                {/* 5-Star Service Card */}
+                <div className="flip-card h-[280px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    {/* Front */}
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Star className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">5-Star Service</h3>
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        Consistently rated 5 stars by satisfied customers. Your satisfaction is our top priority.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
