@@ -72,10 +72,18 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/about"
+                  href="/"
                   className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                 >
-                  About Us
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services"
+                  className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
+                >
+                  Services
                 </Link>
               </li>
               <li>
@@ -85,27 +93,27 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="/about"
                   className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                 >
-                  Contact
+                  About
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/estimate"
+                  href="/community"
                   className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                 >
-                  Get Estimate
+                  Community
                 </Link>
               </li>
               <li>
-                <a
-                  href="#testimonials"
+                <Link
+                  href="/careers"
                   className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                 >
-                  Reviews
-                </a>
+                  Careers
+                </Link>
               </li>
             </ul>
           </div>
