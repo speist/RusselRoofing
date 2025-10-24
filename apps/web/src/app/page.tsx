@@ -98,6 +98,17 @@ export default function HomePage() {
   const [articles, setArticles] = useState<BlogPost[]>([])
   const [articlesLoading, setArticlesLoading] = useState(true)
 
+  // Contact form state
+  const [contactForm, setContactForm] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    phone: '',
+    message: '',
+  })
+  const [contactFormSubmitting, setContactFormSubmitting] = useState(false)
+  const [contactFormMessage, setContactFormMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -136,6 +147,54 @@ export default function HomePage() {
     const element = document.getElementById(elementId)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  const handleContactFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    // Clear any previous messages
+    setContactFormMessage(null)
+    setContactFormSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactForm),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setContactFormMessage({
+          type: 'success',
+          text: 'Thank you for contacting us! We\'ll be in touch soon.',
+        })
+        // Reset form
+        setContactForm({
+          firstname: '',
+          lastname: '',
+          email: '',
+          phone: '',
+          message: '',
+        })
+      } else {
+        setContactFormMessage({
+          type: 'error',
+          text: data.error || 'Failed to submit form. Please try again.',
+        })
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setContactFormMessage({
+        type: 'error',
+        text: 'An error occurred. Please try again later.',
+      })
+    } finally {
+      setContactFormSubmitting(false)
     }
   }
 
@@ -831,39 +890,78 @@ export default function HomePage() {
               {/* Contact Form */}
               <div>
                 <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey mb-8">Get In Touch</h2>
-                <form className="space-y-6">
+
+                {/* Success/Error Message */}
+                {contactFormMessage && (
+                  <div
+                    className={`mb-6 p-4 rounded-lg ${
+                      contactFormMessage.type === 'success'
+                        ? 'bg-green-100 text-green-800 border border-green-300'
+                        : 'bg-red-100 text-red-800 border border-red-300'
+                    }`}
+                  >
+                    {contactFormMessage.text}
+                  </div>
+                )}
+
+                <form onSubmit={handleContactFormSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <input
                       type="text"
+                      name="firstname"
                       placeholder="First Name"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300"
+                      value={contactForm.firstname}
+                      onChange={(e) => setContactForm({ ...contactForm, firstname: e.target.value })}
+                      required
+                      disabled={contactFormSubmitting}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                     <input
                       type="text"
+                      name="lastname"
                       placeholder="Last Name"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300"
+                      value={contactForm.lastname}
+                      onChange={(e) => setContactForm({ ...contactForm, lastname: e.target.value })}
+                      required
+                      disabled={contactFormSubmitting}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
                   <input
                     type="email"
+                    name="email"
                     placeholder="Email Address"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    required
+                    disabled={contactFormSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                   <input
                     type="tel"
+                    name="phone"
                     placeholder="Phone Number"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300"
+                    value={contactForm.phone}
+                    onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                    required
+                    disabled={contactFormSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                   <textarea
+                    name="message"
                     placeholder="Message"
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red resize-none transition-all duration-300"
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    disabled={contactFormSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red resize-none transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   ></textarea>
                   <button
                     type="submit"
-                    className="bg-dark-grey text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-opacity-90 transition-colors transform hover:scale-105 duration-300"
+                    disabled={contactFormSubmitting}
+                    className="bg-dark-grey text-white px-8 py-3 rounded-lg font-inter font-medium hover:bg-opacity-90 transition-colors transform hover:scale-105 duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
-                    Send Message
+                    {contactFormSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               </div>
