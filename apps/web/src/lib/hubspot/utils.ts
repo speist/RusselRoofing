@@ -200,6 +200,7 @@ export function validateContactInput(input: Partial<ContactInput>): ContactInput
     address: input.address?.trim() || '',
     property_type: input.property_type || 'single_family',
     preferred_contact_method: input.preferred_contact_method || 'email',
+    preferred_contact_time: input.preferred_contact_time,
     lead_source: input.lead_source || 'RR Website',
     lead_source_category: input.lead_source_category,
   };
@@ -220,6 +221,7 @@ export function validateDealInput(input: Partial<DealInput>): DealInput | null {
   return {
     dealname: input.dealname.trim(),
     amount: input.amount.trim(),
+    pipeline: input.pipeline,
     dealstage: input.dealstage || 'estimate_submitted',
     services_requested: input.services_requested || '',
     property_square_footage: input.property_square_footage,
@@ -227,6 +229,12 @@ export function validateDealInput(input: Partial<DealInput>): DealInput | null {
     estimate_max: input.estimate_max || 0,
     is_emergency: input.is_emergency || false,
     project_timeline: input.project_timeline?.trim(),
+    project_description: input.project_description?.trim(),
+    property_type: input.property_type,
+    preferred_contact_method: input.preferred_contact_method,
+    preferred_contact_time: input.preferred_contact_time,
+    lead_priority: input.lead_priority,
+    lead_score: input.lead_score,
   };
 }
 
