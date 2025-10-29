@@ -15,11 +15,18 @@ class ContactsService {
    */
   async createContact(contactData: ContactInput): Promise<HubSpotApiResponse<Contact>> {
     let lastError: any;
-    
+
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
         const properties = mapContactInputToProperties(contactData);
-        
+
+        // Log the properties being sent to HubSpot for debugging
+        console.log('[HubSpot] Creating contact with properties:', {
+          properties,
+          contactData,
+          timestamp: new Date().toISOString(),
+        });
+
         const response = await this.client.crm.contacts.basicApi.create({
           properties,
         });
@@ -144,7 +151,7 @@ class ContactsService {
    */
   async findContactByEmail(email: string): Promise<HubSpotApiResponse<Contact | null>> {
     let lastError: any;
-    
+
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
         const response = await this.client.crm.contacts.searchApi.doSearch({
@@ -167,6 +174,7 @@ class ContactsService {
             'address',
             'property_type',
             'preferred_contact_method',
+            'preferred_contact_time',
             'lead_source',
             'createdate',
             'lastmodifieddate',
@@ -239,16 +247,132 @@ class ContactsService {
   }
 
   /**
+   * Find a contact by email and name
+   */
+  async findContactByEmailAndName(email: string, firstname: string, lastname: string): Promise<HubSpotApiResponse<Contact | null>> {
+    let lastError: any;
+
+    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+      try {
+        const response = await this.client.crm.contacts.searchApi.doSearch({
+          filterGroups: [
+            {
+              filters: [
+                {
+                  propertyName: 'email',
+                  operator: 'EQ' as any,
+                  value: email.toLowerCase().trim(),
+                },
+                {
+                  propertyName: 'firstname',
+                  operator: 'EQ' as any,
+                  value: firstname.trim(),
+                },
+                {
+                  propertyName: 'lastname',
+                  operator: 'EQ' as any,
+                  value: lastname.trim(),
+                },
+              ],
+            },
+          ],
+          properties: [
+            'email',
+            'firstname',
+            'lastname',
+            'phone',
+            'address',
+            'property_type',
+            'preferred_contact_method',
+            'preferred_contact_time',
+            'lead_source',
+            'createdate',
+            'lastmodifieddate',
+          ],
+          limit: 1,
+        });
+
+        if (response.results && response.results.length > 0) {
+          const contact = response.results[0];
+
+          // Log successful contact found
+          console.log(`[HubSpot] Contact found by email and name: ${email}`, {
+            email,
+            firstname,
+            lastname,
+            contactId: contact.id,
+            timestamp: new Date().toISOString(),
+          });
+
+          return {
+            success: true,
+            data: {
+              id: contact.id!,
+              properties: contact.properties as Contact['properties'],
+            },
+          };
+        }
+
+        // Log no contact found
+        console.log(`[HubSpot] No contact found for email and name: ${email}`, {
+          email,
+          firstname,
+          lastname,
+          timestamp: new Date().toISOString(),
+        });
+
+        return {
+          success: true,
+          data: null,
+        };
+      } catch (error: any) {
+        lastError = error;
+
+        // Log the error
+        console.error(`[HubSpot] Contact search by email and name attempt ${attempt + 1} failed:`, {
+          email,
+          firstname,
+          lastname,
+          error: error.message,
+          statusCode: error.code,
+          attempt: attempt + 1,
+          timestamp: new Date().toISOString(),
+        });
+
+        // Check if we should retry
+        if (attempt < this.maxRetries && this.shouldRetry(error)) {
+          const delay = calculateBackoffDelay(attempt);
+          console.log(`[HubSpot] Retrying contact search in ${delay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    return {
+      success: false,
+      error: {
+        status: lastError?.code || 'UNKNOWN_ERROR',
+        message: lastError?.message || 'Failed to search for contact',
+        correlationId: lastError?.correlationId,
+        category: lastError?.category,
+      },
+    };
+  }
+
+  /**
    * Determine if an error is retryable
    */
   private shouldRetry(error: any): boolean {
     // Retry on rate limiting (429) and server errors (5xx)
     const retryableCodes = [429, 500, 502, 503, 504];
-    
+
     if (error.code && retryableCodes.includes(error.code)) {
       return true;
     }
-    
+
     // Retry on network errors
     if (error.message && (
       error.message.includes('ENOTFOUND') ||
@@ -257,7 +381,7 @@ class ContactsService {
     )) {
       return true;
     }
-    
+
     return false;
   }
 }

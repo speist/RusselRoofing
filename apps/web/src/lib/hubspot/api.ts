@@ -19,6 +19,7 @@ interface HubSpotService {
   createContact(contactData: ContactInput): Promise<HubSpotApiResponse<Contact>>;
   updateContact(contactId: string, updates: Partial<ContactInput>): Promise<HubSpotApiResponse<Contact>>;
   findContactByEmail(email: string): Promise<HubSpotApiResponse<Contact | null>>;
+  findContactByEmailAndName(email: string, firstname: string, lastname: string): Promise<HubSpotApiResponse<Contact | null>>;
 
   // Deal operations
   createDeal(dealData: DealInput): Promise<HubSpotApiResponse<Deal>>;
@@ -134,6 +135,17 @@ class HubSpotApiService implements HubSpotService {
     }
 
     return await this.contactsService.findContactByEmail(email);
+  }
+
+  /**
+   * Find a contact by email and name
+   */
+  async findContactByEmailAndName(email: string, firstname: string, lastname: string): Promise<HubSpotApiResponse<Contact | null>> {
+    if (!this.isConfigured) {
+      return this.mockFindContactByEmail(email); // Use same mock for now
+    }
+
+    return await this.contactsService.findContactByEmailAndName(email, firstname, lastname);
   }
 
   /**

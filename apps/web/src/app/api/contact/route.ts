@@ -25,33 +25,46 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create contact data
-    const contactData: ContactInput = {
-      email,
-      firstname,
-      lastname,
-      phone,
-      address: '', // Not collected in Get in Touch form
-      property_type: 'single_family', // Default value (note: property_type is not sent to HubSpot)
-      preferred_contact_method: preferredContact || 'email',
-      preferred_contact_time: timePreference,
-      lead_source: 'RR Website',
-      lead_source_category: 'Digital Marketing / Online Presence',
-    };
+    // First, search for existing contact by email and name
+    console.log('[Contact API] Searching for existing contact:', { email, firstname, lastname });
+    const searchResult = await hubspotService.findContactByEmailAndName(email, firstname, lastname);
 
-    // Create or update contact in HubSpot
-    const contactResult = await hubspotService.createOrUpdateContact(contactData);
+    let contact: { id: string };
 
-    if (!contactResult.success) {
-      console.error('[Contact API] Failed to create contact:', contactResult.error);
-      return NextResponse.json(
-        { success: false, error: 'Failed to create contact in HubSpot' },
-        { status: 500 }
-      );
+    if (searchResult.success && searchResult.data) {
+      // Contact found - use existing contact
+      contact = searchResult.data;
+      console.log('[Contact API] Using existing contact:', contact.id);
+    } else {
+      // No contact found - create new contact
+      console.log('[Contact API] Creating new contact');
+      const contactData: ContactInput = {
+        email,
+        firstname,
+        lastname,
+        phone,
+        address: '', // Not collected in Get in Touch form
+        property_type: 'single_family', // Default value (note: property_type is not sent to HubSpot)
+        preferred_contact_method: preferredContact || 'email',
+        preferred_contact_time: timePreference,
+        lead_source: 'RR Website',
+        lead_source_category: 'Digital Marketing / Online Presence',
+      };
+
+      // Create or update contact in HubSpot
+      const contactResult = await hubspotService.createOrUpdateContact(contactData);
+
+      if (!contactResult.success) {
+        console.error('[Contact API] Failed to create contact:', contactResult.error);
+        return NextResponse.json(
+          { success: false, error: 'Failed to create contact in HubSpot' },
+          { status: 500 }
+        );
+      }
+
+      contact = contactResult.data!;
+      console.log('[Contact API] Contact created/updated:', contact.id);
     }
-
-    const contact = contactResult.data!;
-    console.log('[Contact API] Contact created/updated:', contact.id);
 
     // Create deal data with "Lead (5%)" stage in Sales Pipeline
     // Pipeline ID: 765276511 (Sales Pipeline)

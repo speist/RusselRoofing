@@ -15,11 +15,18 @@ class DealsService {
    */
   async createDeal(dealData: DealInput): Promise<HubSpotApiResponse<Deal>> {
     let lastError: any;
-    
+
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
         const properties = mapDealInputToProperties(dealData);
-        
+
+        // Log the properties being sent to HubSpot for debugging
+        console.log('[HubSpot] Creating deal with properties:', {
+          properties,
+          dealData,
+          timestamp: new Date().toISOString(),
+        });
+
         const response = await this.client.crm.deals.basicApi.create({
           properties,
         });
