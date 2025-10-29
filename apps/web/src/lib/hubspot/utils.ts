@@ -209,22 +209,22 @@ export function validateContactInput(input: Partial<ContactInput>): ContactInput
  * Validate deal input
  */
 export function validateDealInput(input: Partial<DealInput>): DealInput | null {
-  if (!input.dealname || !input.amount || !input.services_requested) {
+  // Basic required fields - dealname and amount must be present
+  if (!input.dealname || !input.amount) {
     return null;
   }
 
-  if (typeof input.estimate_min !== 'number' || typeof input.estimate_max !== 'number') {
-    return null;
-  }
+  // services_requested is optional for contact forms (will be empty string)
+  // estimate_min and estimate_max are optional (will be 0 for contact forms)
 
   return {
     dealname: input.dealname.trim(),
     amount: input.amount.trim(),
     dealstage: input.dealstage || 'estimate_submitted',
-    services_requested: input.services_requested.trim(),
+    services_requested: input.services_requested || '',
     property_square_footage: input.property_square_footage,
-    estimate_min: input.estimate_min,
-    estimate_max: input.estimate_max,
+    estimate_min: input.estimate_min || 0,
+    estimate_max: input.estimate_max || 0,
     is_emergency: input.is_emergency || false,
     project_timeline: input.project_timeline?.trim(),
   };
