@@ -190,7 +190,7 @@ export function validateContactInput(input: Partial<ContactInput>): ContactInput
     address: input.address?.trim() || '',
     property_type: input.property_type || 'single_family',
     preferred_contact_method: input.preferred_contact_method || 'email',
-    lead_source: input.lead_source || 'RR Website',
+    lead_source: input.lead_source || 'Other',
     lead_source_category: input.lead_source_category,
   };
 }
