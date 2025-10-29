@@ -53,11 +53,12 @@ export async function POST(request: NextRequest) {
     const contact = contactResult.data!;
     console.log('[Contact API] Contact created/updated:', contact.id);
 
-    // Create deal data with "5% Lead" stage
+    // Create deal data with "Lead (5%)" stage in Sales Pipeline
     const dealData: DealInput = {
       dealname: `${firstname} ${lastname} - RR Website`,
       amount: '0', // No amount provided in contact form
-      dealstage: 'qualifiedtobuy', // HubSpot stage for "5% Lead"
+      pipeline: 'default', // Sales Pipeline
+      dealstage: 'qualifiedtobuy', // Lead (5%) stage
       services_requested: 'general_inquiry',
       estimate_min: 0,
       estimate_max: 0,

@@ -93,11 +93,16 @@ export function mapDealInputToProperties(input: DealInput) {
     is_emergency: booleanToHubSpotDropdown(input.is_emergency),
   };
 
+  // Add pipeline if provided
+  if (input.pipeline) {
+    properties.pipeline = input.pipeline;
+  }
+
   // Only add optional fields if they have values
   if (input.property_square_footage !== undefined) {
     properties.property_square_footage = input.property_square_footage.toString();
   }
-  
+
   if (input.project_timeline) {
     properties.project_timeline = input.project_timeline;
   }

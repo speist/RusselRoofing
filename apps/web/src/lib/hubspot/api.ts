@@ -496,6 +496,7 @@ class HubSpotApiService implements HubSpotService {
       properties: {
         dealname: dealData.dealname,
         amount: dealData.amount,
+        pipeline: dealData.pipeline,
         dealstage: dealData.dealstage,
         services_requested: dealData.services_requested,
         property_square_footage: dealData.property_square_footage?.toString(),
@@ -504,8 +505,8 @@ class HubSpotApiService implements HubSpotService {
         is_emergency: dealData.is_emergency ? 'Yes' : 'No',
         project_timeline: dealData.project_timeline,
         // Contact preferences
-        preferred_contact_method: dealData.preferred_contact_method ? dealData.preferred_contact_method.charAt(0).toUpperCase() + dealData.preferred_contact_method.slice(1).toLowerCase() : undefined,
-        preferred_contact_time: dealData.preferred_contact_time ? dealData.preferred_contact_time.charAt(0).toUpperCase() + dealData.preferred_contact_time.slice(1).toLowerCase() : undefined,
+        preferred_contact_method: dealData.preferred_contact_method,
+        preferred_contact_time: dealData.preferred_contact_time,
         createdate: new Date().toISOString(),
         // New lead routing properties
         lead_priority: dealData.lead_priority,
@@ -537,6 +538,7 @@ class HubSpotApiService implements HubSpotService {
       properties: {
         dealname: updates.dealname || 'Updated Deal',
         amount: updates.amount || '1000',
+        pipeline: updates.pipeline,
         dealstage: updates.dealstage || 'estimate_submitted',
         services_requested: updates.services_requested || 'roof_repair',
         property_square_footage: updates.property_square_footage?.toString(),
@@ -544,9 +546,9 @@ class HubSpotApiService implements HubSpotService {
         estimate_max: updates.estimate_max?.toString() || '1500',
         is_emergency: updates.is_emergency !== undefined ? (updates.is_emergency ? 'Yes' : 'No') : 'No',
         project_timeline: updates.project_timeline,
-        // Contact preferences
-        preferred_contact_method: updates.preferred_contact_method ? updates.preferred_contact_method.charAt(0).toUpperCase() + updates.preferred_contact_method.slice(1).toLowerCase() : undefined,
-        preferred_contact_time: updates.preferred_contact_time ? updates.preferred_contact_time.charAt(0).toUpperCase() + updates.preferred_contact_time.slice(1).toLowerCase() : undefined,
+        // Contact preferences - pass through as-is, capitalization happens in utils.ts
+        preferred_contact_method: updates.preferred_contact_method,
+        preferred_contact_time: updates.preferred_contact_time,
         createdate: new Date(Date.now() - 86400000).toISOString(),
         // New lead routing properties
         lead_priority: updates.lead_priority,

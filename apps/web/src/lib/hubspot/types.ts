@@ -14,6 +14,7 @@ export interface ContactInput {
 export interface DealInput {
   dealname: string;
   amount: string;
+  pipeline?: string;
   dealstage: string;
   services_requested: string;
   property_square_footage?: number;
@@ -76,6 +77,7 @@ export interface Deal {
   properties: {
     dealname: string;
     amount: string;
+    pipeline?: string;
     dealstage: string;
     services_requested: string;
     property_square_footage?: string;
