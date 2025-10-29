@@ -4,11 +4,15 @@ import TicketsService from './tickets';
 import BlogService from './blog';
 import CareersService from './careers';
 import CommunityService from './community';
+import NotesService, { NoteInput, Note } from './notes';
 import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse, HUBSPOT_ERROR_CODES } from './types';
 import { Career, CareersListResponse, CareersParams } from './careers';
 import { CommunityActivity, CommunityListResponse, CommunityParams } from './community';
 import { extractKnownFields, validateContactInput, validateDealInput, validateTicketInput } from './utils';
 import { getServiceConfig, isServiceConfigured } from '../config';
+
+// Re-export types for convenience
+export type { NoteInput, Note } from './notes';
 
 interface HubSpotService {
   // Contact operations
@@ -19,6 +23,11 @@ interface HubSpotService {
   // Deal operations
   createDeal(dealData: DealInput): Promise<HubSpotApiResponse<Deal>>;
   associateContactToDeal(contactId: string, dealId: string): Promise<HubSpotApiResponse<void>>;
+
+  // Note operations
+  createNote(noteData: NoteInput): Promise<HubSpotApiResponse<Note>>;
+  associateNoteToDeal(noteId: string, dealId: string): Promise<HubSpotApiResponse<void>>;
+  associateNoteToContact(noteId: string, contactId: string): Promise<HubSpotApiResponse<void>>;
 
   // Ticket operations
   createTicket(ticketData: TicketInput): Promise<HubSpotApiResponse<Ticket>>;
@@ -45,6 +54,7 @@ class HubSpotApiService implements HubSpotService {
   private contactsService: ContactsService;
   private dealsService: DealsService;
   private ticketsService: TicketsService;
+  private notesService: NotesService;
   private blogService: BlogService;
   private careersService: CareersService;
   private communityService: CommunityService;
@@ -59,6 +69,7 @@ class HubSpotApiService implements HubSpotService {
       this.contactsService = null as any;
       this.dealsService = null as any;
       this.ticketsService = null as any;
+      this.notesService = null as any;
       this.blogService = null as any;
       this.careersService = null as any;
       this.communityService = null as any;
@@ -69,6 +80,7 @@ class HubSpotApiService implements HubSpotService {
     this.contactsService = new ContactsService(hubspotConfig.apiKey);
     this.dealsService = new DealsService(hubspotConfig.apiKey);
     this.ticketsService = new TicketsService(hubspotConfig.apiKey);
+    this.notesService = new NotesService(hubspotConfig.apiKey);
     this.blogService = new BlogService(hubspotConfig.apiKey);
     this.careersService = new CareersService(hubspotConfig.apiKey);
     this.communityService = new CommunityService(hubspotConfig.apiKey);
@@ -173,6 +185,45 @@ class HubSpotApiService implements HubSpotService {
     }
 
     return await this.dealsService.associateContactToDeal(contactId, dealId);
+  }
+
+  /**
+   * Create a new note
+   */
+  async createNote(noteData: NoteInput): Promise<HubSpotApiResponse<Note>> {
+    if (!this.isConfigured) {
+      return this.mockCreateNote(noteData);
+    }
+
+    return await this.notesService.createNote(noteData);
+  }
+
+  /**
+   * Associate a note with a deal
+   */
+  async associateNoteToDeal(
+    noteId: string,
+    dealId: string
+  ): Promise<HubSpotApiResponse<void>> {
+    if (!this.isConfigured) {
+      return this.mockAssociateNoteToDeal(noteId, dealId);
+    }
+
+    return await this.notesService.associateNoteToDeal(noteId, dealId);
+  }
+
+  /**
+   * Associate a note with a contact
+   */
+  async associateNoteToContact(
+    noteId: string,
+    contactId: string
+  ): Promise<HubSpotApiResponse<void>> {
+    if (!this.isConfigured) {
+      return this.mockAssociateNoteToContact(noteId, contactId);
+    }
+
+    return await this.notesService.associateNoteToContact(noteId, contactId);
   }
 
   /**
@@ -520,6 +571,48 @@ class HubSpotApiService implements HubSpotService {
     dealId: string
   ): Promise<HubSpotApiResponse<void>> {
     console.log('[HubSpot Mock] Associating contact with deal:', { contactId, dealId });
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    return {
+      success: true,
+    };
+  }
+
+  private async mockCreateNote(noteData: NoteInput): Promise<HubSpotApiResponse<Note>> {
+    console.log('[HubSpot Mock] Creating note:', noteData.note.substring(0, 50));
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockNote: Note = {
+      id: Math.random().toString(36).substring(2, 11),
+      properties: {
+        hs_note_body: noteData.note,
+        hs_timestamp: (noteData.timestamp || Date.now()).toString(),
+      },
+    };
+
+    return {
+      success: true,
+      data: mockNote,
+    };
+  }
+
+  private async mockAssociateNoteToDeal(
+    noteId: string,
+    dealId: string
+  ): Promise<HubSpotApiResponse<void>> {
+    console.log('[HubSpot Mock] Associating note with deal:', { noteId, dealId });
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    return {
+      success: true,
+    };
+  }
+
+  private async mockAssociateNoteToContact(
+    noteId: string,
+    contactId: string
+  ): Promise<HubSpotApiResponse<void>> {
+    console.log('[HubSpot Mock] Associating note with contact:', { noteId, contactId });
     await new Promise(resolve => setTimeout(resolve, 200));
 
     return {

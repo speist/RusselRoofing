@@ -61,10 +61,14 @@ export function mapContactInputToProperties(input: ContactInput) {
     // Note: property_type is not a standard HubSpot contact property
     // It should be added as a custom property if needed
     preferred_contact_method: input.preferred_contact_method, // HubSpot expects lowercase
-    lead_source: 'Other', // Use 'Other' as it's in the allowed options list
+    lead_source: input.lead_source,
   };
 
   // Only add optional fields if they have values
+  if (input.lead_source_category) {
+    properties.lead_source_category = input.lead_source_category;
+  }
+
   if (input.preferred_contact_time) {
     const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
     if (capitalizedTime) {
@@ -186,7 +190,8 @@ export function validateContactInput(input: Partial<ContactInput>): ContactInput
     address: input.address?.trim() || '',
     property_type: input.property_type || 'single_family',
     preferred_contact_method: input.preferred_contact_method || 'email',
-    lead_source: 'Other', // Use 'Other' as it's in HubSpot's allowed options list
+    lead_source: input.lead_source || 'RR Website',
+    lead_source_category: input.lead_source_category,
   };
 }
 

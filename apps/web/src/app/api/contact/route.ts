@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { hubspotService } from '@/lib/hubspot/api';
+import { hubspotService, NoteInput } from '@/lib/hubspot/api';
 import { ContactInput, DealInput } from '@/lib/hubspot/types';
 
 export async function POST(request: NextRequest) {
@@ -35,7 +35,8 @@ export async function POST(request: NextRequest) {
       property_type: 'single_family', // Default value (note: property_type is not sent to HubSpot)
       preferred_contact_method: preferredContact || 'email',
       preferred_contact_time: timePreference,
-      lead_source: 'Other', // Use 'Other' as it's in HubSpot's allowed options list
+      lead_source: 'RR Website',
+      lead_source_category: 'Digital Marketing / Online Presence',
     };
 
     // Create or update contact in HubSpot
@@ -54,7 +55,7 @@ export async function POST(request: NextRequest) {
 
     // Create deal data with "5% Lead" stage
     const dealData: DealInput = {
-      dealname: `${firstname} ${lastname} - Website Contact`,
+      dealname: `${firstname} ${lastname} - RR Website`,
       amount: '0', // No amount provided in contact form
       dealstage: 'qualifiedtobuy', // HubSpot stage for "5% Lead"
       services_requested: 'general_inquiry',
@@ -94,6 +95,47 @@ export async function POST(request: NextRequest) {
       // Don't fail the request if association fails - contact and deal are created
     } else {
       console.log('[Contact API] Successfully associated contact with deal');
+    }
+
+    // Create note with message if provided
+    if (message && message.trim()) {
+      const noteData: NoteInput = {
+        note: message.trim(),
+        timestamp: Date.now(),
+      };
+
+      const noteResult = await hubspotService.createNote(noteData);
+
+      if (noteResult.success && noteResult.data) {
+        const note = noteResult.data;
+        console.log('[Contact API] Note created:', note.id);
+
+        // Associate note with deal
+        const noteDealAssocResult = await hubspotService.associateNoteToDeal(
+          note.id,
+          deal.id
+        );
+
+        if (!noteDealAssocResult.success) {
+          console.error('[Contact API] Failed to associate note with deal:', noteDealAssocResult.error);
+        } else {
+          console.log('[Contact API] Successfully associated note with deal');
+        }
+
+        // Associate note with contact
+        const noteContactAssocResult = await hubspotService.associateNoteToContact(
+          note.id,
+          contact.id
+        );
+
+        if (!noteContactAssocResult.success) {
+          console.error('[Contact API] Failed to associate note with contact:', noteContactAssocResult.error);
+        } else {
+          console.log('[Contact API] Successfully associated note with contact');
+        }
+      } else {
+        console.error('[Contact API] Failed to create note:', noteResult.error);
+      }
     }
 
     return NextResponse.json({
