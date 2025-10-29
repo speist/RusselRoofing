@@ -72,7 +72,7 @@ class NotesService {
           inputs: [{
             _from: { id: noteId },
             to: { id: dealId },
-            type: { associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 214 }
+            type: 'note_to_deal'
           }]
         }
       );
@@ -103,7 +103,7 @@ class NotesService {
           inputs: [{
             _from: { id: noteId },
             to: { id: contactId },
-            type: { associationCategory: 'HUBSPOT_DEFINED', associationTypeId: 202 }
+            type: 'note_to_contact'
           }]
         }
       );
