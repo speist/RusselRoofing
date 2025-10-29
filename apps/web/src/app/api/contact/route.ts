@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       property_type: 'single_family', // Default value (note: property_type is not sent to HubSpot)
       preferred_contact_method: preferredContact || 'email',
       preferred_contact_time: timePreference,
-      lead_source: 'Other', // Using 'Other' from allowed options list
+      lead_source: 'RR Website',
       lead_source_category: 'Digital Marketing / Online Presence',
     };
 
