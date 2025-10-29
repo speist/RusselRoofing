@@ -6,6 +6,12 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
+    // Log the raw body from the form
+    console.log('[Contact API] Received form data:', {
+      body,
+      timestamp: new Date().toISOString(),
+    });
+
     // Validate required fields
     const {
       firstname,
