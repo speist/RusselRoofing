@@ -111,14 +111,14 @@ export function mapDealInputToProperties(input: DealInput) {
     properties.project_timeline = input.project_timeline;
   }
 
-  // New lead routing properties
-  if (input.lead_priority) {
-    properties.lead_priority = input.lead_priority;
-  }
+  // New lead routing properties - commented out until created in HubSpot
+  // if (input.lead_priority) {
+  //   properties.lead_priority = input.lead_priority;
+  // }
 
-  if (input.lead_score !== undefined) {
-    properties.lead_score = input.lead_score.toString();
-  }
+  // if (input.lead_score !== undefined) {
+  //   properties.lead_score = input.lead_score.toString();
+  // }
 
   if (input.services_count !== undefined) {
     properties.services_count = input.services_count.toString();
@@ -132,22 +132,23 @@ export function mapDealInputToProperties(input: DealInput) {
     properties.notification_sent = input.notification_sent.toString();
   }
 
-  if (input.project_description) {
-    properties.project_description = input.project_description;
-  }
+  // Comment out until created in HubSpot
+  // if (input.project_description) {
+  //   properties.project_description = input.project_description;
+  // }
 
-  if (input.property_type) {
-    properties.property_type = input.property_type;
-  }
+  // if (input.property_type) {
+  //   properties.property_type = input.property_type;
+  // }
 
   if (input.location) {
     properties.location = input.location;
   }
 
   // Contact preferences
-  // Note: HubSpot expects lowercase for preferred_contact_method (phone, email, text)
+  // Note: HubSpot expects capitalized for preferred_contact_method (Phone, Email, Text)
   if (input.preferred_contact_method) {
-    properties.preferred_contact_method = input.preferred_contact_method.toLowerCase();
+    properties.preferred_contact_method = capitalizeFirstLetter(input.preferred_contact_method) || 'Email';
   }
 
   // Add preferred_contact_time if provided (custom property created in HubSpot)
