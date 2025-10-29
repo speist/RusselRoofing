@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { hubspotService, NoteInput } from '@/lib/hubspot/api';
 import { ContactInput, DealInput } from '@/lib/hubspot/types';
 
+// Contact form API endpoint - handles HubSpot integration
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
