@@ -45,6 +45,11 @@ export async function POST(request: NextRequest) {
     } else {
       // No contact found - create new contact
       console.log('[Contact API] Creating new contact');
+      console.log('[Contact API] Raw form values before contactData:', {
+        preferredContact,
+        timePreference,
+        isEmergency,
+      });
       const contactData: ContactInput = {
         email,
         firstname,
@@ -57,6 +62,7 @@ export async function POST(request: NextRequest) {
         lead_source: 'RR Website',
         lead_source_category: 'Digital Marketing / Online Presence',
       };
+      console.log('[Contact API] ContactData object created:', contactData);
 
       // Create or update contact in HubSpot
       const contactResult = await hubspotService.createOrUpdateContact(contactData);
