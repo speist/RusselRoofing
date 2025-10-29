@@ -69,14 +69,13 @@ export function mapContactInputToProperties(input: ContactInput) {
     properties.lead_source_category = input.lead_source_category;
   }
 
-  // Note: preferred_contact_time is a custom property that needs to be created in HubSpot
-  // Temporarily commented out until the property is created
-  // if (input.preferred_contact_time) {
-  //   const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
-  //   if (capitalizedTime) {
-  //     properties.preferred_contact_time = capitalizedTime;
-  //   }
-  // }
+  // Add preferred_contact_time if provided (custom property created in HubSpot)
+  if (input.preferred_contact_time) {
+    const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
+    if (capitalizedTime) {
+      properties.preferred_contact_time = capitalizedTime;
+    }
+  }
 
   return properties;
 }
@@ -151,15 +150,14 @@ export function mapDealInputToProperties(input: DealInput) {
     properties.preferred_contact_method = input.preferred_contact_method.toLowerCase();
   }
 
-  // Note: preferred_contact_time is a custom property that needs to be created in HubSpot
-  // Temporarily commented out until the property is created
+  // Add preferred_contact_time if provided (custom property created in HubSpot)
   // Note: HubSpot expects capitalized for preferred_contact_time (Morning, Afternoon, Evening, Anytime)
-  // if (input.preferred_contact_time) {
-  //   const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
-  //   if (capitalizedTime) {
-  //     properties.preferred_contact_time = capitalizedTime;
-  //   }
-  // }
+  if (input.preferred_contact_time) {
+    const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
+    if (capitalizedTime) {
+      properties.preferred_contact_time = capitalizedTime;
+    }
+  }
 
   return properties;
 }

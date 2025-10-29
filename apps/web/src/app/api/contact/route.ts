@@ -54,14 +54,16 @@ export async function POST(request: NextRequest) {
     console.log('[Contact API] Contact created/updated:', contact.id);
 
     // Create deal data with "Lead (5%)" stage in Sales Pipeline
+    // Pipeline ID: 765276511 (Sales Pipeline)
+    // Stage ID: 1114664036 (Lead 5%)
     const dealData: DealInput = {
       dealname: `${firstname} ${lastname} - RR Website`,
       amount: '0', // No amount provided in contact form
-      pipeline: 'default', // Sales Pipeline
-      dealstage: 'qualifiedtobuy', // Lead (5%) stage
-      services_requested: 'general_inquiry',
-      estimate_min: 0,
-      estimate_max: 0,
+      pipeline: '765276511', // Sales Pipeline (internal ID)
+      dealstage: '1114664036', // Lead (5%) stage (internal ID)
+      services_requested: '', // Not used in contact form
+      estimate_min: 0, // Not used in contact form
+      estimate_max: 0, // Not used in contact form
       is_emergency: isEmergency || false,
       project_description: message || 'Contact form inquiry',
       property_type: 'single_family',
