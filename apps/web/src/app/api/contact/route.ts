@@ -32,10 +32,10 @@ export async function POST(request: NextRequest) {
       lastname,
       phone,
       address: '', // Not collected in Get in Touch form
-      property_type: 'single_family', // Default value
+      property_type: 'single_family', // Default value (note: property_type is not sent to HubSpot)
       preferred_contact_method: preferredContact || 'email',
       preferred_contact_time: timePreference,
-      lead_source: 'instant_estimate',
+      lead_source: 'Other', // Use 'Other' as it's in HubSpot's allowed options list
     };
 
     // Create or update contact in HubSpot

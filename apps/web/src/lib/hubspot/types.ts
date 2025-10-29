@@ -7,7 +7,7 @@ export interface ContactInput {
   property_type: 'single_family' | 'multi_family' | 'commercial';
   preferred_contact_method: 'phone' | 'email' | 'text';
   preferred_contact_time?: string;
-  lead_source: 'instant_estimate';
+  lead_source: string; // HubSpot has specific allowed values, using 'Other' for website contacts
 }
 
 export interface DealInput {

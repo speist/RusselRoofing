@@ -58,9 +58,10 @@ export function mapContactInputToProperties(input: ContactInput) {
     lastname: input.lastname,
     phone: input.phone,
     address: input.address,
-    property_type: input.property_type,
-    preferred_contact_method: capitalizeFirstLetter(input.preferred_contact_method) || 'Email',
-    lead_source: input.lead_source,
+    // Note: property_type is not a standard HubSpot contact property
+    // It should be added as a custom property if needed
+    preferred_contact_method: input.preferred_contact_method, // HubSpot expects lowercase
+    lead_source: 'Other', // Use 'Other' as it's in the allowed options list
   };
 
   // Only add optional fields if they have values
@@ -131,13 +132,12 @@ export function mapDealInputToProperties(input: DealInput) {
   }
 
   // Contact preferences
+  // Note: HubSpot expects lowercase for preferred_contact_method (phone, email, text)
   if (input.preferred_contact_method) {
-    const capitalizedMethod = capitalizeFirstLetter(input.preferred_contact_method);
-    if (capitalizedMethod) {
-      properties.preferred_contact_method = capitalizedMethod;
-    }
+    properties.preferred_contact_method = input.preferred_contact_method.toLowerCase();
   }
 
+  // Note: HubSpot expects capitalized for preferred_contact_time (Morning, Afternoon, Evening, Anytime)
   if (input.preferred_contact_time) {
     const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
     if (capitalizedTime) {
@@ -186,7 +186,7 @@ export function validateContactInput(input: Partial<ContactInput>): ContactInput
     address: input.address?.trim() || '',
     property_type: input.property_type || 'single_family',
     preferred_contact_method: input.preferred_contact_method || 'email',
-    lead_source: 'instant_estimate',
+    lead_source: 'Other', // Use 'Other' as it's in HubSpot's allowed options list
   };
 }
 
