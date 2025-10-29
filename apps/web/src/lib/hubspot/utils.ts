@@ -69,12 +69,14 @@ export function mapContactInputToProperties(input: ContactInput) {
     properties.lead_source_category = input.lead_source_category;
   }
 
-  if (input.preferred_contact_time) {
-    const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
-    if (capitalizedTime) {
-      properties.preferred_contact_time = capitalizedTime;
-    }
-  }
+  // Note: preferred_contact_time is a custom property that needs to be created in HubSpot
+  // Temporarily commented out until the property is created
+  // if (input.preferred_contact_time) {
+  //   const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
+  //   if (capitalizedTime) {
+  //     properties.preferred_contact_time = capitalizedTime;
+  //   }
+  // }
 
   return properties;
 }
@@ -87,9 +89,12 @@ export function mapDealInputToProperties(input: DealInput) {
     dealname: input.dealname,
     amount: input.amount,
     dealstage: input.dealstage,
-    services_requested: input.services_requested,
-    estimate_min: input.estimate_min.toString(),
-    estimate_max: input.estimate_max.toString(),
+    // Note: services_requested, estimate_min, estimate_max are custom properties
+    // that need to be created in HubSpot before they can be used
+    // Temporarily commented out to allow deals to be created
+    // services_requested: input.services_requested,
+    // estimate_min: input.estimate_min.toString(),
+    // estimate_max: input.estimate_max.toString(),
     is_emergency: booleanToHubSpotDropdown(input.is_emergency),
   };
 
@@ -146,13 +151,15 @@ export function mapDealInputToProperties(input: DealInput) {
     properties.preferred_contact_method = input.preferred_contact_method.toLowerCase();
   }
 
+  // Note: preferred_contact_time is a custom property that needs to be created in HubSpot
+  // Temporarily commented out until the property is created
   // Note: HubSpot expects capitalized for preferred_contact_time (Morning, Afternoon, Evening, Anytime)
-  if (input.preferred_contact_time) {
-    const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
-    if (capitalizedTime) {
-      properties.preferred_contact_time = capitalizedTime;
-    }
-  }
+  // if (input.preferred_contact_time) {
+  //   const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
+  //   if (capitalizedTime) {
+  //     properties.preferred_contact_time = capitalizedTime;
+  //   }
+  // }
 
   return properties;
 }
