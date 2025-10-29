@@ -65,7 +65,10 @@ export function mapContactInputToProperties(input: ContactInput) {
 
   // Only add optional fields if they have values
   if (input.preferred_contact_time) {
-    properties.preferred_contact_time = capitalizeFirstLetter(input.preferred_contact_time);
+    const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
+    if (capitalizedTime) {
+      properties.preferred_contact_time = capitalizedTime;
+    }
   }
 
   return properties;
@@ -129,11 +132,17 @@ export function mapDealInputToProperties(input: DealInput) {
 
   // Contact preferences
   if (input.preferred_contact_method) {
-    properties.preferred_contact_method = capitalizeFirstLetter(input.preferred_contact_method);
+    const capitalizedMethod = capitalizeFirstLetter(input.preferred_contact_method);
+    if (capitalizedMethod) {
+      properties.preferred_contact_method = capitalizedMethod;
+    }
   }
 
   if (input.preferred_contact_time) {
-    properties.preferred_contact_time = capitalizeFirstLetter(input.preferred_contact_time);
+    const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
+    if (capitalizedTime) {
+      properties.preferred_contact_time = capitalizedTime;
+    }
   }
 
   return properties;
@@ -248,11 +257,17 @@ export function mapTicketInputToProperties(input: TicketInput) {
   }
 
   if (input.preferred_contact_method) {
-    properties.preferred_contact_method = capitalizeFirstLetter(input.preferred_contact_method);
+    const capitalizedMethod = capitalizeFirstLetter(input.preferred_contact_method);
+    if (capitalizedMethod) {
+      properties.preferred_contact_method = capitalizedMethod;
+    }
   }
 
   if (input.preferred_contact_time) {
-    properties.preferred_contact_time = capitalizeFirstLetter(input.preferred_contact_time);
+    const capitalizedTime = capitalizeFirstLetter(input.preferred_contact_time);
+    if (capitalizedTime) {
+      properties.preferred_contact_time = capitalizedTime;
+    }
   }
 
   return properties;
