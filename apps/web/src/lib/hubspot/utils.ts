@@ -1,6 +1,21 @@
 import { ContactInput, Contact, DealInput, TicketInput } from './types';
 
 /**
+ * Capitalize first letter of a string to match HubSpot dropdown values
+ */
+function capitalizeFirstLetter(str: string | undefined): string | undefined {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+/**
+ * Convert boolean to HubSpot dropdown format (Yes/No)
+ */
+function booleanToHubSpotDropdown(value: boolean): string {
+  return value ? 'Yes' : 'No';
+}
+
+/**
  * Extract known fields from existing contact for progressive profiling
  */
 export function extractKnownFields(contact: Contact): Partial<ContactInput> {
@@ -37,16 +52,23 @@ export function extractKnownFields(contact: Contact): Partial<ContactInput> {
  * Map form data to HubSpot contact properties format
  */
 export function mapContactInputToProperties(input: ContactInput) {
-  return {
+  const properties: Record<string, string> = {
     email: input.email,
     firstname: input.firstname,
     lastname: input.lastname,
     phone: input.phone,
     address: input.address,
     property_type: input.property_type,
-    preferred_contact_method: input.preferred_contact_method,
+    preferred_contact_method: capitalizeFirstLetter(input.preferred_contact_method) || 'Email',
     lead_source: input.lead_source,
   };
+
+  // Only add optional fields if they have values
+  if (input.preferred_contact_time) {
+    properties.preferred_contact_time = capitalizeFirstLetter(input.preferred_contact_time);
+  }
+
+  return properties;
 }
 
 /**
@@ -60,7 +82,7 @@ export function mapDealInputToProperties(input: DealInput) {
     services_requested: input.services_requested,
     estimate_min: input.estimate_min.toString(),
     estimate_max: input.estimate_max.toString(),
-    is_emergency: input.is_emergency.toString(),
+    is_emergency: booleanToHubSpotDropdown(input.is_emergency),
   };
 
   // Only add optional fields if they have values
@@ -103,6 +125,15 @@ export function mapDealInputToProperties(input: DealInput) {
 
   if (input.location) {
     properties.location = input.location;
+  }
+
+  // Contact preferences
+  if (input.preferred_contact_method) {
+    properties.preferred_contact_method = capitalizeFirstLetter(input.preferred_contact_method);
+  }
+
+  if (input.preferred_contact_time) {
+    properties.preferred_contact_time = capitalizeFirstLetter(input.preferred_contact_time);
   }
 
   return properties;
@@ -209,7 +240,7 @@ export function mapTicketInputToProperties(input: TicketInput) {
   }
 
   if (input.is_emergency !== undefined) {
-    properties.is_emergency = input.is_emergency.toString();
+    properties.is_emergency = booleanToHubSpotDropdown(input.is_emergency);
   }
 
   if (input.project_timeline) {
@@ -217,11 +248,11 @@ export function mapTicketInputToProperties(input: TicketInput) {
   }
 
   if (input.preferred_contact_method) {
-    properties.preferred_contact_method = input.preferred_contact_method;
+    properties.preferred_contact_method = capitalizeFirstLetter(input.preferred_contact_method);
   }
 
   if (input.preferred_contact_time) {
-    properties.preferred_contact_time = input.preferred_contact_time;
+    properties.preferred_contact_time = capitalizeFirstLetter(input.preferred_contact_time);
   }
 
   return properties;

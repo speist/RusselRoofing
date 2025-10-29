@@ -6,6 +6,7 @@ export interface ContactInput {
   address: string;
   property_type: 'single_family' | 'multi_family' | 'commercial';
   preferred_contact_method: 'phone' | 'email' | 'text';
+  preferred_contact_time?: string;
   lead_source: 'instant_estimate';
 }
 
@@ -19,6 +20,9 @@ export interface DealInput {
   estimate_max: number;
   is_emergency: boolean;
   project_timeline?: string;
+  // Contact preferences
+  preferred_contact_method?: 'phone' | 'email' | 'text';
+  preferred_contact_time?: string;
   // New lead routing properties
   lead_priority?: 'emergency' | 'high' | 'medium' | 'low';
   lead_score?: number;
@@ -58,6 +62,7 @@ export interface Contact {
     address: string;
     property_type: string;
     preferred_contact_method: string;
+    preferred_contact_time?: string;
     lead_source: string;
     createdate: string;
     lastmodifieddate: string;
@@ -76,6 +81,9 @@ export interface Deal {
     estimate_max: string;
     is_emergency: string;
     project_timeline?: string;
+    // Contact preferences
+    preferred_contact_method?: string;
+    preferred_contact_time?: string;
     createdate: string;
     // New lead routing properties
     lead_priority?: string;

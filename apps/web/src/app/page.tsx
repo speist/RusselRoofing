@@ -105,6 +105,9 @@ export default function HomePage() {
     email: '',
     phone: '',
     message: '',
+    preferredContact: 'email' as 'phone' | 'email' | 'text',
+    timePreference: '',
+    isEmergency: false,
   })
   const [contactFormSubmitting, setContactFormSubmitting] = useState(false)
   const [contactFormMessage, setContactFormMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
@@ -180,6 +183,9 @@ export default function HomePage() {
           email: '',
           phone: '',
           message: '',
+          preferredContact: 'email',
+          timePreference: '',
+          isEmergency: false,
         })
       } else {
         setContactFormMessage({
@@ -1021,6 +1027,80 @@ export default function HomePage() {
                     disabled={contactFormSubmitting}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red resize-none transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   ></textarea>
+
+                  {/* Preferred Contact Method */}
+                  <div>
+                    <label className="block text-sm font-medium text-dark-grey mb-2 font-inter">
+                      Preferred Contact Method
+                    </label>
+                    <div className="flex gap-4">
+                      {['phone', 'email', 'text'].map((method) => (
+                        <label key={method} className="flex items-center cursor-pointer">
+                          <input
+                            type="radio"
+                            name="preferredContact"
+                            value={method}
+                            checked={contactForm.preferredContact === method}
+                            onChange={(e) => setContactForm({ ...contactForm, preferredContact: e.target.value as 'phone' | 'email' | 'text' })}
+                            disabled={contactFormSubmitting}
+                            className="mr-2 text-primary-red focus:ring-primary-red disabled:opacity-50"
+                          />
+                          <span className="font-inter capitalize">{method}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Time Preference */}
+                  <div>
+                    <label htmlFor="timePreference" className="block text-sm font-medium text-dark-grey mb-2 font-inter">
+                      Best Time to Contact
+                    </label>
+                    <select
+                      id="timePreference"
+                      name="timePreference"
+                      value={contactForm.timePreference}
+                      onChange={(e) => setContactForm({ ...contactForm, timePreference: e.target.value })}
+                      disabled={contactFormSubmitting}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <option value="">Select a time</option>
+                      <option value="morning">Morning (8AM - 12PM)</option>
+                      <option value="afternoon">Afternoon (12PM - 5PM)</option>
+                      <option value="evening">Evening (5PM - 8PM)</option>
+                      <option value="anytime">Anytime</option>
+                    </select>
+                  </div>
+
+                  {/* Emergency Checkbox */}
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="isEmergency"
+                      name="isEmergency"
+                      checked={contactForm.isEmergency}
+                      onChange={(e) => setContactForm({ ...contactForm, isEmergency: e.target.checked })}
+                      disabled={contactFormSubmitting}
+                      className="w-4 h-4 text-primary-red border-gray-300 rounded focus:ring-primary-red disabled:opacity-50"
+                    />
+                    <label htmlFor="isEmergency" className="ml-2 text-sm font-inter text-dark-grey">
+                      This is an emergency repair request
+                    </label>
+                  </div>
+
+                  {contactForm.isEmergency && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                      <div className="flex items-center">
+                        <svg className="w-5 h-5 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-red-800 font-medium font-inter">
+                          Emergency Request - We&apos;ll prioritize your message and respond ASAP
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
                   <button
                     type="submit"
                     disabled={contactFormSubmitting}

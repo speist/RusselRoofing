@@ -351,7 +351,15 @@ class HubSpotApiService implements HubSpotService {
     const mockContact: Contact = {
       id: Math.random().toString(36).substring(2, 11),
       properties: {
-        ...contactData,
+        email: contactData.email,
+        firstname: contactData.firstname,
+        lastname: contactData.lastname,
+        phone: contactData.phone,
+        address: contactData.address,
+        property_type: contactData.property_type,
+        preferred_contact_method: contactData.preferred_contact_method.charAt(0).toUpperCase() + contactData.preferred_contact_method.slice(1).toLowerCase(),
+        preferred_contact_time: contactData.preferred_contact_time ? contactData.preferred_contact_time.charAt(0).toUpperCase() + contactData.preferred_contact_time.slice(1).toLowerCase() : undefined,
+        lead_source: contactData.lead_source,
         createdate: new Date().toISOString(),
         lastmodifieddate: new Date().toISOString(),
       },
@@ -369,7 +377,7 @@ class HubSpotApiService implements HubSpotService {
   ): Promise<HubSpotApiResponse<Contact>> {
     console.log('[HubSpot Mock] Updating contact:', contactId);
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     const mockContact: Contact = {
       id: contactId,
       properties: {
@@ -379,7 +387,8 @@ class HubSpotApiService implements HubSpotService {
         phone: updates.phone || '',
         address: updates.address || '',
         property_type: updates.property_type || 'single_family',
-        preferred_contact_method: updates.preferred_contact_method || 'email',
+        preferred_contact_method: updates.preferred_contact_method ? updates.preferred_contact_method.charAt(0).toUpperCase() + updates.preferred_contact_method.slice(1).toLowerCase() : 'Email',
+        preferred_contact_time: updates.preferred_contact_time ? updates.preferred_contact_time.charAt(0).toUpperCase() + updates.preferred_contact_time.slice(1).toLowerCase() : undefined,
         lead_source: 'instant_estimate',
         createdate: new Date(Date.now() - 86400000).toISOString(),
         lastmodifieddate: new Date().toISOString(),
@@ -395,7 +404,7 @@ class HubSpotApiService implements HubSpotService {
   private async mockFindContactByEmail(email: string): Promise<HubSpotApiResponse<Contact | null>> {
     console.log('[HubSpot Mock] Finding contact by email:', email);
     await new Promise(resolve => setTimeout(resolve, 300));
-    
+
     // Mock: return null for new emails, existing contact for known emails
     if (email.includes('existing')) {
       const mockContact: Contact = {
@@ -407,7 +416,8 @@ class HubSpotApiService implements HubSpotService {
           phone: '555-0123',
           address: '123 Main St',
           property_type: 'single_family',
-          preferred_contact_method: 'phone',
+          preferred_contact_method: 'Phone',
+          preferred_contact_time: 'Morning',
           lead_source: 'instant_estimate',
           createdate: new Date(Date.now() - 86400000).toISOString(),
           lastmodifieddate: new Date().toISOString(),
@@ -429,7 +439,7 @@ class HubSpotApiService implements HubSpotService {
   private async mockCreateDeal(dealData: DealInput): Promise<HubSpotApiResponse<Deal>> {
     console.log('[HubSpot Mock] Creating deal:', dealData.dealname);
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     const mockDeal: Deal = {
       id: Math.random().toString(36).substring(2, 11),
       properties: {
@@ -440,8 +450,11 @@ class HubSpotApiService implements HubSpotService {
         property_square_footage: dealData.property_square_footage?.toString(),
         estimate_min: dealData.estimate_min.toString(),
         estimate_max: dealData.estimate_max.toString(),
-        is_emergency: dealData.is_emergency.toString(),
+        is_emergency: dealData.is_emergency ? 'Yes' : 'No',
         project_timeline: dealData.project_timeline,
+        // Contact preferences
+        preferred_contact_method: dealData.preferred_contact_method ? dealData.preferred_contact_method.charAt(0).toUpperCase() + dealData.preferred_contact_method.slice(1).toLowerCase() : undefined,
+        preferred_contact_time: dealData.preferred_contact_time ? dealData.preferred_contact_time.charAt(0).toUpperCase() + dealData.preferred_contact_time.slice(1).toLowerCase() : undefined,
         createdate: new Date().toISOString(),
         // New lead routing properties
         lead_priority: dealData.lead_priority,
@@ -467,7 +480,7 @@ class HubSpotApiService implements HubSpotService {
   ): Promise<HubSpotApiResponse<Deal>> {
     console.log('[HubSpot Mock] Updating deal:', dealId);
     await new Promise(resolve => setTimeout(resolve, 300));
-    
+
     const mockDeal: Deal = {
       id: dealId,
       properties: {
@@ -478,8 +491,11 @@ class HubSpotApiService implements HubSpotService {
         property_square_footage: updates.property_square_footage?.toString(),
         estimate_min: updates.estimate_min?.toString() || '500',
         estimate_max: updates.estimate_max?.toString() || '1500',
-        is_emergency: updates.is_emergency?.toString() || 'false',
+        is_emergency: updates.is_emergency !== undefined ? (updates.is_emergency ? 'Yes' : 'No') : 'No',
         project_timeline: updates.project_timeline,
+        // Contact preferences
+        preferred_contact_method: updates.preferred_contact_method ? updates.preferred_contact_method.charAt(0).toUpperCase() + updates.preferred_contact_method.slice(1).toLowerCase() : undefined,
+        preferred_contact_time: updates.preferred_contact_time ? updates.preferred_contact_time.charAt(0).toUpperCase() + updates.preferred_contact_time.slice(1).toLowerCase() : undefined,
         createdate: new Date(Date.now() - 86400000).toISOString(),
         // New lead routing properties
         lead_priority: updates.lead_priority,

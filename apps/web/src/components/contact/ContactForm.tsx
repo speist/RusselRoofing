@@ -145,8 +145,8 @@ export function ContactForm({ className }: ContactFormProps) {
     setIsSubmitting(true);
 
     try {
-      // TODO: Integrate with HubSpot API
-      const response = await fetch('/api/hubspot/contact', {
+      // Integrate with HubSpot API
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -156,12 +156,8 @@ export function ContactForm({ className }: ContactFormProps) {
           firstname: formData.firstName,
           lastname: formData.lastName,
           phone: formData.phone,
-          address: '', // Optional field for contact form
-          property_type: 'single_family', // Default value
-          preferred_contact_method: formData.preferredContact,
-          lead_source: 'contact_page',
-          subject: formData.subject,
-          message: formData.message,
+          message: `Subject: ${formData.subject}\n\n${formData.message}`,
+          preferredContact: formData.preferredContact,
           timePreference: formData.timePreference,
           isEmergency: formData.isEmergency,
         }),

@@ -7,7 +7,16 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     // Validate required fields
-    const { firstname, lastname, email, phone, message } = body;
+    const {
+      firstname,
+      lastname,
+      email,
+      phone,
+      message,
+      preferredContact,
+      timePreference,
+      isEmergency
+    } = body;
 
     if (!firstname || !lastname || !email || !phone) {
       return NextResponse.json(
@@ -24,7 +33,8 @@ export async function POST(request: NextRequest) {
       phone,
       address: '', // Not collected in Get in Touch form
       property_type: 'single_family', // Default value
-      preferred_contact_method: 'email', // Default to email
+      preferred_contact_method: preferredContact || 'email',
+      preferred_contact_time: timePreference,
       lead_source: 'instant_estimate',
     };
 
@@ -50,11 +60,13 @@ export async function POST(request: NextRequest) {
       services_requested: 'general_inquiry',
       estimate_min: 0,
       estimate_max: 0,
-      is_emergency: false,
+      is_emergency: isEmergency || false,
       project_description: message || 'Contact form inquiry',
       property_type: 'single_family',
-      lead_priority: 'low',
-      lead_score: 5,
+      preferred_contact_method: preferredContact || 'email',
+      preferred_contact_time: timePreference,
+      lead_priority: isEmergency ? 'high' : 'low',
+      lead_score: isEmergency ? 15 : 5,
     };
 
     // Create deal in HubSpot
