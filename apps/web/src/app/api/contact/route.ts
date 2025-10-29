@@ -86,6 +86,15 @@ export async function POST(request: NextRequest) {
       lead_score: isEmergency ? 15 : 5,
     };
 
+    // Log deal data before sending to HubSpot
+    console.log('[Contact API] Deal data before createDeal:', {
+      dealData,
+      preferredContact,
+      timePreference,
+      isEmergency,
+      timestamp: new Date().toISOString(),
+    });
+
     // Create deal in HubSpot
     const dealResult = await hubspotService.createDeal(dealData);
 
