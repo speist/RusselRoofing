@@ -161,12 +161,15 @@ export function mapDealInputToProperties(input: DealInput) {
   }
 
   // Lead source fields - these are direct Deal properties (not sync properties)
-  if (input.lead_source__) {
+  // Always include these if they exist in the input
+  if (input.lead_source__ !== undefined && input.lead_source__ !== null) {
     properties.lead_source__ = input.lead_source__;
+    console.log('[DEBUG] Adding lead_source__ to properties:', input.lead_source__);
   }
 
-  if (input.lead_source_category__) {
+  if (input.lead_source_category__ !== undefined && input.lead_source_category__ !== null) {
     properties.lead_source_category__ = input.lead_source_category__;
+    console.log('[DEBUG] Adding lead_source_category__ to properties:', input.lead_source_category__);
   }
 
   // Note: Contact information fields (contact_first_name_, contact_email_, contact_lead_source, etc.) are
