@@ -160,7 +160,16 @@ export function mapDealInputToProperties(input: DealInput) {
     }
   }
 
-  // Note: Contact information fields (contact_first_name_, contact_email_, etc.) are
+  // Lead source fields on Deal (these are direct properties, not sync properties)
+  if (input.contact_lead_source__) {
+    properties.contact_lead_source__ = input.contact_lead_source__;
+  }
+
+  if (input.contact_lead_source) {
+    properties.contact_lead_source = input.contact_lead_source;
+  }
+
+  // Note: Other contact information fields (contact_first_name_, contact_email_, etc.) are
   // calculated/sync properties in HubSpot that auto-populate from the associated Contact.
   // They cannot be set manually and are read-only.
 

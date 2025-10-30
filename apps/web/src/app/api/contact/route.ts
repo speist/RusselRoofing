@@ -95,6 +95,8 @@ export async function POST(request: NextRequest) {
       is_emergency: isEmergency || false,
       preferred_contact_method: preferredContact || 'email',
       preferred_contact_time: timePreference,
+      contact_lead_source__: 'RR Website', // Deal lead source
+      contact_lead_source: 'Digital Marketing / Online Presence', // Deal lead source category
     };
 
     // Log deal data before sending to HubSpot
