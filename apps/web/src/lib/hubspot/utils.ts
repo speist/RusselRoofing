@@ -61,12 +61,13 @@ export function mapContactInputToProperties(input: ContactInput) {
     // Note: property_type is not a standard HubSpot contact property
     // It should be added as a custom property if needed
     preferred_contact_method: input.preferred_contact_method, // HubSpot expects lowercase
-    lead_source: input.lead_source,
+    // Lead source fields - these will sync to Deal's contact_lead_source__ and contact_lead_source
+    lead_source__: input.lead_source, // Maps to Deal's contact_lead_source__
   };
 
   // Only add optional fields if they have values
   if (input.lead_source_category) {
-    properties.lead_source_category = input.lead_source_category;
+    properties.lead_source = input.lead_source_category; // Maps to Deal's contact_lead_source
   }
 
   // Add preferred_contact_time if provided (custom property created in HubSpot)
