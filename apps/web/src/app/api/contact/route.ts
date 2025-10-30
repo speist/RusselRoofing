@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     // Stage ID: 1114664036 (Lead 5%)
     // Note: Most contact fields (contact_first_name_, contact_email_, etc.) are sync/calculated
     // properties in HubSpot and will auto-populate from the associated Contact.
-    // However, contact_lead_source and contact_lead_source__ are direct Deal properties.
+    // However, lead_source__ and lead_source_category__ are direct Deal properties.
     const dealData: DealInput = {
       dealname: `${firstname} ${lastname} - RR Website`,
       amount: '0', // No amount provided in contact form
@@ -96,8 +96,8 @@ export async function POST(request: NextRequest) {
       is_emergency: isEmergency || false,
       preferred_contact_method: preferredContact || 'email',
       preferred_contact_time: timePreference,
-      contact_lead_source: 'Digital Marketing / Online Presence', // Contact Lead Source Category (on Deal)
-      contact_lead_source__: 'RR Website', // Contact Lead Source (on Deal)
+      lead_source_category__: 'Digital Marketing / Online Presence', // Lead Source Category (on Deal)
+      lead_source__: 'RR Website', // Lead Source (on Deal)
     };
 
     // Log deal data before sending to HubSpot

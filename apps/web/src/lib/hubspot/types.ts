@@ -25,6 +25,9 @@ export interface DealInput {
   // Contact preferences
   preferred_contact_method?: 'phone' | 'email' | 'text';
   preferred_contact_time?: string;
+  // Lead source properties (direct Deal properties)
+  lead_source__?: string; // Lead Source
+  lead_source_category__?: string; // Lead Source Category
   // New lead routing properties
   lead_priority?: 'emergency' | 'high' | 'medium' | 'low';
   lead_score?: number;
@@ -34,7 +37,7 @@ export interface DealInput {
   project_description?: string;
   property_type?: string;
   location?: string;
-  // Contact information fields on Deal
+  // Contact information fields on Deal (sync/calculated properties)
   contact_first_name_?: string;
   contact_last_name_?: string;
   contact_street_address?: string;
@@ -43,8 +46,8 @@ export interface DealInput {
   contact_email_?: string;
   contact_phone_?: string;
   contact_mobile_phone?: string;
-  contact_lead_source?: string; // Contact Lead Source Category
-  contact_lead_source__?: string; // Contact Lead Source
+  contact_lead_source?: string; // Contact Lead Source Category (sync property)
+  contact_lead_source__?: string; // Contact Lead Source (sync property)
   contact_lead_source_other?: string;
 }
 
