@@ -61,13 +61,12 @@ export function mapContactInputToProperties(input: ContactInput) {
     // Note: property_type is not a standard HubSpot contact property
     // It should be added as a custom property if needed
     preferred_contact_method: input.preferred_contact_method, // HubSpot expects lowercase
-    // Lead source fields - these will sync to Deal's contact_lead_source__ and contact_lead_source
-    lead_source__: input.lead_source, // Maps to Deal's contact_lead_source__
+    lead_source: input.lead_source,
   };
 
   // Only add optional fields if they have values
   if (input.lead_source_category) {
-    properties.lead_source = input.lead_source_category; // Maps to Deal's contact_lead_source
+    properties.lead_source_category = input.lead_source_category;
   }
 
   // Add preferred_contact_time if provided (custom property created in HubSpot)
@@ -161,10 +160,18 @@ export function mapDealInputToProperties(input: DealInput) {
     }
   }
 
-  // Note: All contact information fields (contact_first_name_, contact_email_, contact_lead_source, etc.)
-  // are calculated/sync properties in HubSpot that auto-populate from the associated Contact.
+  // Lead source fields - these are direct Deal properties (not sync properties)
+  if (input.contact_lead_source) {
+    properties.contact_lead_source = input.contact_lead_source;
+  }
+
+  if (input.contact_lead_source__) {
+    properties.contact_lead_source__ = input.contact_lead_source__;
+  }
+
+  // Note: Other contact information fields (contact_first_name_, contact_email_, etc.) are
+  // calculated/sync properties in HubSpot that auto-populate from the associated Contact.
   // They cannot be set manually and are read-only.
-  // Lead source should be set on the Contact record and will sync to Deal automatically.
 
   return properties;
 }
