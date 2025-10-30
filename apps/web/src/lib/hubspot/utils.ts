@@ -267,6 +267,9 @@ export function validateDealInput(input: Partial<DealInput>): DealInput | null {
     preferred_contact_time: input.preferred_contact_time,
     lead_priority: input.lead_priority,
     lead_score: input.lead_score,
+    // Lead source properties (direct Deal properties)
+    lead_source__: input.lead_source__,
+    lead_source_category__: input.lead_source_category__,
     // Contact information fields on Deal
     contact_first_name_: input.contact_first_name_,
     contact_last_name_: input.contact_last_name_,
