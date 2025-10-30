@@ -160,50 +160,9 @@ export function mapDealInputToProperties(input: DealInput) {
     }
   }
 
-  // Contact information fields on Deal
-  if (input.contact_first_name_) {
-    properties.contact_first_name_ = input.contact_first_name_;
-  }
-
-  if (input.contact_last_name_) {
-    properties.contact_last_name_ = input.contact_last_name_;
-  }
-
-  if (input.contact_street_address) {
-    properties.contact_street_address = input.contact_street_address;
-  }
-
-  if (input.contact_city) {
-    properties.contact_city = input.contact_city;
-  }
-
-  if (input.contact_zip) {
-    properties.contact_zip = input.contact_zip;
-  }
-
-  if (input.contact_email_) {
-    properties.contact_email_ = input.contact_email_;
-  }
-
-  if (input.contact_phone_) {
-    properties.contact_phone_ = input.contact_phone_;
-  }
-
-  if (input.contact_mobile_phone) {
-    properties.contact_mobile_phone = input.contact_mobile_phone;
-  }
-
-  if (input.contact_lead_source) {
-    properties.contact_lead_source = input.contact_lead_source;
-  }
-
-  if (input.contact_lead_source__) {
-    properties.contact_lead_source__ = input.contact_lead_source__;
-  }
-
-  if (input.contact_lead_source_other) {
-    properties.contact_lead_source_other = input.contact_lead_source_other;
-  }
+  // Note: Contact information fields (contact_first_name_, contact_email_, etc.) are
+  // calculated/sync properties in HubSpot that auto-populate from the associated Contact.
+  // They cannot be set manually and are read-only.
 
   return properties;
 }

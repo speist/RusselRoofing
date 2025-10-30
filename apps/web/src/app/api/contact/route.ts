@@ -82,6 +82,8 @@ export async function POST(request: NextRequest) {
     // Create deal data with "Lead (5%)" stage in Sales Pipeline
     // Pipeline ID: 765276511 (Sales Pipeline)
     // Stage ID: 1114664036 (Lead 5%)
+    // Note: Contact fields (contact_first_name_, contact_email_, etc.) are sync/calculated
+    // properties in HubSpot and will auto-populate from the associated Contact
     const dealData: DealInput = {
       dealname: `${firstname} ${lastname} - RR Website`,
       amount: '0', // No amount provided in contact form
@@ -91,24 +93,8 @@ export async function POST(request: NextRequest) {
       estimate_min: 0, // Not used in contact form
       estimate_max: 0, // Not used in contact form
       is_emergency: isEmergency || false,
-      project_description: message || 'Contact form inquiry',
-      property_type: 'single_family',
       preferred_contact_method: preferredContact || 'email',
       preferred_contact_time: timePreference,
-      lead_priority: isEmergency ? 'high' : 'low',
-      lead_score: isEmergency ? 15 : 5,
-      // Copy contact information to Deal fields
-      contact_first_name_: firstname,
-      contact_last_name_: lastname,
-      contact_street_address: '', // Not collected in contact form
-      contact_city: '', // Not collected in contact form
-      contact_zip: '', // Not collected in contact form
-      contact_email_: email,
-      contact_phone_: phone,
-      contact_mobile_phone: phone, // Use same phone for mobile
-      contact_lead_source: 'Digital Marketing / Online Presence', // Contact Lead Source Category
-      contact_lead_source__: 'RR Website', // Contact Lead Source
-      contact_lead_source_other: '', // Not used
     };
 
     // Log deal data before sending to HubSpot

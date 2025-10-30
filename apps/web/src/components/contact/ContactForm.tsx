@@ -14,7 +14,6 @@ export interface ContactFormData {
   firstName: string;
   lastName: string;
   phone: string;
-  subject: string;
   message: string;
   preferredContact: 'phone' | 'email' | 'text';
   timePreference: string;
@@ -62,23 +61,12 @@ const timeOptions: SelectOption[] = [
   { value: 'anytime', label: 'Anytime' }
 ];
 
-const subjectOptions: SelectOption[] = [
-  { value: 'estimate', label: 'Request an Estimate' },
-  { value: 'roofing', label: 'Roofing Services' },
-  { value: 'siding', label: 'Siding Services' },
-  { value: 'gutters', label: 'Gutter Services' },
-  { value: 'windows', label: 'Window Services' },
-  { value: 'emergency', label: 'Emergency Repair' },
-  { value: 'other', label: 'Other' }
-];
-
 export function ContactForm({ className }: ContactFormProps) {
   const [formData, setFormData] = useState<ContactFormData>({
     email: '',
     firstName: '',
     lastName: '',
     phone: '',
-    subject: '',
     message: '',
     preferredContact: 'phone',
     timePreference: '',
@@ -119,10 +107,6 @@ export function ContactForm({ className }: ContactFormProps) {
       newErrors.phone = 'Please enter a valid 10-digit phone number';
     }
 
-    if (!formData.subject) {
-      newErrors.subject = 'Please select a subject';
-    }
-
     if (!formData.message) {
       newErrors.message = 'Message is required';
     }
@@ -156,7 +140,7 @@ export function ContactForm({ className }: ContactFormProps) {
           firstname: formData.firstName,
           lastname: formData.lastName,
           phone: formData.phone,
-          message: `Subject: ${formData.subject}\n\n${formData.message}`,
+          message: formData.message,
           preferredContact: formData.preferredContact,
           timePreference: formData.timePreference,
           isEmergency: formData.isEmergency,
@@ -171,7 +155,6 @@ export function ContactForm({ className }: ContactFormProps) {
           firstName: '',
           lastName: '',
           phone: '',
-          subject: '',
           message: '',
           preferredContact: 'phone',
           timePreference: '',
@@ -282,18 +265,6 @@ export function ContactForm({ className }: ContactFormProps) {
           required
         />
       </div>
-
-      {/* Subject */}
-      <Select
-        id="subject"
-        label="Subject"
-        options={subjectOptions}
-        placeholder="What can we help you with?"
-        value={formData.subject}
-        onChange={(e) => updateField('subject', e.target.value)}
-        error={errors.subject}
-        required
-      />
 
       {/* Message */}
       <div>
