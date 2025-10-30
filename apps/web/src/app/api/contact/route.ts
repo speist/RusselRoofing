@@ -82,8 +82,9 @@ export async function POST(request: NextRequest) {
     // Create deal data with "Lead (5%)" stage in Sales Pipeline
     // Pipeline ID: 765276511 (Sales Pipeline)
     // Stage ID: 1114664036 (Lead 5%)
-    // Note: Contact fields (contact_first_name_, contact_email_, etc.) are sync/calculated
-    // properties in HubSpot and will auto-populate from the associated Contact
+    // Note: Contact fields (contact_first_name_, contact_email_, contact_lead_source, etc.)
+    // are sync/calculated properties in HubSpot and will auto-populate from the associated Contact
+    // Lead source is set on the Contact (lines 62-63) and syncs to Deal automatically
     const dealData: DealInput = {
       dealname: `${firstname} ${lastname} - RR Website`,
       amount: '0', // No amount provided in contact form
@@ -95,8 +96,6 @@ export async function POST(request: NextRequest) {
       is_emergency: isEmergency || false,
       preferred_contact_method: preferredContact || 'email',
       preferred_contact_time: timePreference,
-      contact_lead_source__: 'RR Website', // Deal lead source
-      contact_lead_source: 'Digital Marketing / Online Presence', // Deal lead source category
     };
 
     // Log deal data before sending to HubSpot
