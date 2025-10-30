@@ -84,6 +84,13 @@ export function mapContactInputToProperties(input: ContactInput) {
  * Map deal input to HubSpot deal properties format
  */
 export function mapDealInputToProperties(input: DealInput) {
+  console.log('[DEBUG mapDealInputToProperties] Input received:', {
+    lead_source__: input.lead_source__,
+    lead_source_category__: input.lead_source_category__,
+    hasLeadSource: 'lead_source__' in input,
+    hasLeadSourceCategory: 'lead_source_category__' in input,
+  });
+
   const properties: Record<string, string> = {
     dealname: input.dealname,
     amount: input.amount,
@@ -175,6 +182,14 @@ export function mapDealInputToProperties(input: DealInput) {
   // Note: Contact information fields (contact_first_name_, contact_email_, contact_lead_source, etc.) are
   // calculated/sync properties in HubSpot that auto-populate from the associated Contact.
   // They cannot be set manually and are read-only.
+
+  console.log('[DEBUG mapDealInputToProperties] Final properties object:', {
+    hasLeadSource: 'lead_source__' in properties,
+    hasLeadSourceCategory: 'lead_source_category__' in properties,
+    lead_source__: properties.lead_source__,
+    lead_source_category__: properties.lead_source_category__,
+    allKeys: Object.keys(properties),
+  });
 
   return properties;
 }
