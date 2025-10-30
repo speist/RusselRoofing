@@ -34,6 +34,18 @@ export interface DealInput {
   project_description?: string;
   property_type?: string;
   location?: string;
+  // Contact information fields on Deal
+  contact_first_name_?: string;
+  contact_last_name_?: string;
+  contact_street_address?: string;
+  contact_city?: string;
+  contact_zip?: string;
+  contact_email_?: string;
+  contact_phone_?: string;
+  contact_mobile_phone?: string;
+  contact_lead_source?: string; // Contact Lead Source Category
+  contact_lead_source__?: string; // Contact Lead Source
+  contact_lead_source_other?: string;
 }
 
 export interface TicketInput {
