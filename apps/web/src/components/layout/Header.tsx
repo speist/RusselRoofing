@@ -46,9 +46,8 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
           "bg-primary-burgundy shadow-lg" // Always red background
         )}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between h-16 md:h-20 px-8 sm:px-12 lg:px-16">
               {/* Logo/Brand */}
               <Link href="/" className="flex items-center space-x-3">
               <Image
@@ -110,7 +109,6 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
                 </button>
               </div>
           </div>
-        </div>
         </div>
       </header>
 
