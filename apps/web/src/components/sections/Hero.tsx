@@ -16,7 +16,7 @@ export function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-white px-4 max-w-7xl mx-auto w-full">
+      <div className="relative z-10 text-white px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           {/* Left Side: Headline and Subheadline */}
           <div className="flex-1 text-center md:text-left">
