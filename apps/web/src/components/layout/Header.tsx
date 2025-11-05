@@ -47,9 +47,9 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20 px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo/Brand */}
-            <Link href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3 ml-4 sm:ml-6 lg:ml-8">
               <Image
                 src="/rrlogo-white.svg"
                 alt="Russell Roofing"
@@ -74,7 +74,7 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
             </nav>
 
             {/* CTA and Actions */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 mr-4 sm:mr-6 lg:mr-8">
               <div className="hidden md:block">
                 <Link href="/contact">
                   <Button
