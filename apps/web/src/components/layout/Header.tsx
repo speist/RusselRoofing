@@ -47,9 +47,10 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo/Brand */}
-            <Link href="/" className="flex items-center space-x-3 ml-4 sm:ml-6 lg:ml-8">
+          <div className="px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16 md:h-20">
+              {/* Logo/Brand */}
+              <Link href="/" className="flex items-center space-x-3">
               <Image
                 src="/rrlogo-white.svg"
                 alt="Russell Roofing"
@@ -58,57 +59,58 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
                 className="h-8 md:h-10 w-auto"
                 priority
               />
-            </Link>
+              </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-sm font-medium text-text-inverse hover:text-white/80 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 rounded-sm px-2 py-1"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* CTA and Actions */}
-            <div className="flex items-center space-x-4 mr-4 sm:mr-6 lg:mr-8">
-              <div className="hidden md:block">
-                <Link href="/contact">
-                  <Button
-                    variant="secondary"
-                    size="default"
-                    className="whitespace-nowrap bg-white text-primary-burgundy hover:bg-white/90"
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex items-center space-x-8">
+                {navigationItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-sm font-medium text-text-inverse hover:text-white/80 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 rounded-sm px-2 py-1"
                   >
-                    Contact Us
-                  </Button>
-                </Link>
-              </div>
-              
-              <ThemeToggle className="text-text-inverse hover:bg-white/10" />
-              
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMobileMenuOpen(true)}
-                className="md:hidden p-2 rounded-lg text-text-inverse hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2"
-                aria-label="Open mobile menu"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+
+              {/* CTA and Actions */}
+              <div className="flex items-center space-x-4">
+                <div className="hidden md:block">
+                  <Link href="/contact">
+                    <Button
+                      variant="secondary"
+                      size="default"
+                      className="whitespace-nowrap bg-white text-primary-burgundy hover:bg-white/90"
+                    >
+                      Contact Us
+                    </Button>
+                  </Link>
+                </div>
+
+                <ThemeToggle className="text-text-inverse hover:bg-white/10" />
+
+                {/* Mobile Menu Button */}
+                <button
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="md:hidden p-2 rounded-lg text-text-inverse hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2"
+                  aria-label="Open mobile menu"
                 >
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+              </div>
           </div>
+        </div>
         </div>
       </header>
 
