@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
       is_emergency: isEmergency || false,
       preferred_contact_method: preferredContact || 'email',
       preferred_contact_time: timePreference,
-      lead_source_category__: 'Digital Marketing / Online Presence', // Lead Source Category (on Deal)
+      lead_source_category__: 'Digital Marketing / Online Presence, Digital Marketing / Online Presence', // Lead Source Category (on Deal)
       lead_source__: 'RR Website', // Lead Source (on Deal)
     };
 
