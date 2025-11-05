@@ -16,29 +16,34 @@ export function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-        {/* Main Headline */}
-        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-          Russell Roofing & Exteriors
-        </h1>
+      <div className="relative z-10 text-white px-4 max-w-7xl mx-auto w-full">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          {/* Left Side: Headline and Subheadline */}
+          <div className="flex-1 text-center md:text-left">
+            {/* Main Headline */}
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Russell Roofing & Exteriors
+            </h1>
 
-        {/* Subheadline */}
-        <p className="text-lg md:text-xl lg:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
-          Professional roofing services with quality craftsmanship and reliable solutions for your home.
-        </p>
+            {/* Subheadline */}
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-200 max-w-2xl mx-auto md:mx-0">
+              Trusted, Hassle-Free Property Solutions Tailored For You.
+            </p>
+          </div>
 
-        {/* CTA Button */}
-        <div className="mb-12">
-          <Button
-            size="lg"
-            className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-lg font-semibold"
-          >
-            Get Free Estimate
-          </Button>
+          {/* Right Side: CTA Button */}
+          <div className="flex-shrink-0 text-center md:text-right">
+            <Button
+              size="lg"
+              className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-lg font-semibold"
+            >
+              Request Estimate →
+            </Button>
+          </div>
         </div>
 
-        {/* Trust Indicators */}
-        <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-300">
+        {/* Trust Indicators - Below Content */}
+        <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-300 mt-12">
           <div className="flex items-center space-x-2">
             <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
