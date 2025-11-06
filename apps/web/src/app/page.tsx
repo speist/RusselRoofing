@@ -281,7 +281,7 @@ export default function HomePage() {
           isScrolled || isMobileMenuOpen ? "bg-primary-red shadow-lg" : "bg-transparent"
         }`}
       >
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-8 sm:px-12 lg:px-16">
           <div className="flex items-center h-16">
             {/* Logo - Aligned with hero headline */}
             <div className="flex-shrink-0">
@@ -440,7 +440,7 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
             {/* Content positioned at bottom with perfect alignment */}
-            <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8">
+            <div className="absolute bottom-0 left-0 right-0 px-8 sm:px-12 lg:px-16 pb-4 sm:pb-6 lg:pb-8">
               <div className="flex flex-col md:flex-row justify-between items-end gap-4">
                 {/* Text content - bottom left, perfectly aligned with header logo */}
                 <div className="flex-1">

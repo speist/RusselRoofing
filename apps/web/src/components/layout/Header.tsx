@@ -47,6 +47,7 @@ export function Header({ scrollThreshold = 100 }: HeaderProps) {
         )}
       >
         <div className="max-w-7xl mx-auto">
+          {/* Updated padding for alignment */}
           <div className="flex items-center justify-between h-16 md:h-20 px-8 sm:px-12 lg:px-16">
               {/* Logo/Brand */}
               <Link href="/" className="flex items-center space-x-3">
