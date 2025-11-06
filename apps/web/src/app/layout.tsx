@@ -57,6 +57,15 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
         {children}
+
+        {/* HubSpot Tracking Code */}
+        <Script
+          id="hs-script-loader"
+          src="//js.hs-scripts.com/50177320.js"
+          strategy="afterInteractive"
+          async
+          defer
+        />
       </body>
     </html>
   );
