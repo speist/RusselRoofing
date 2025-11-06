@@ -8,7 +8,7 @@ interface EnvConfig {
   required: boolean;
   clientSide: boolean;
   description: string;
-  category: 'hubspot' | 'google' | 'instagram' | 'app' | 'notification' | 'optional';
+  category: 'hubspot' | 'google' | 'instagram' | 'companycam' | 'app' | 'notification' | 'optional';
   setupUrl?: string;
   format?: 'url' | 'token' | 'email' | 'id' | 'phone';
 }
@@ -115,6 +115,17 @@ const ENV_VARIABLES: EnvConfig[] = [
     clientSide: false,
     description: 'Facebook App Secret for token refresh',
     category: 'instagram'
+  },
+
+  // CompanyCam Integration
+  {
+    name: 'COMPANYCAM_API_KEY',
+    required: false,
+    clientSide: false,
+    description: 'CompanyCam API Key for fetching tagged construction photos',
+    category: 'companycam',
+    format: 'token',
+    setupUrl: 'https://companycam.com/developers'
   },
 
   // Application Configuration
@@ -348,7 +359,7 @@ export function getEnvironmentVariable(name: string, fallback: string = ''): str
 /**
  * Get environment variables for a specific service
  */
-export function getServiceEnvironmentVariables(service: 'hubspot' | 'google' | 'instagram'): Record<string, string | undefined> {
+export function getServiceEnvironmentVariables(service: 'hubspot' | 'google' | 'instagram' | 'companycam'): Record<string, string | undefined> {
   const serviceVars = ENV_VARIABLES.filter(env => env.category === service);
   const result: Record<string, string | undefined> = {};
   
