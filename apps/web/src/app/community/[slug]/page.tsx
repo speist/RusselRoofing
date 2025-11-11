@@ -245,16 +245,6 @@ export default function CommunityActivityPage() {
             </div>
           )}
 
-          {/* Impact Section */}
-          {activity.properties.impact && (
-            <div className="bg-[#F5F3F0] p-6 rounded-lg border-l-4 border-[#960120] mb-12">
-              <h2 className="text-xl font-bold text-text-primary mb-3">Impact</h2>
-              <p className="text-text-secondary leading-relaxed">
-                {activity.properties.impact}
-              </p>
-            </div>
-          )}
-
           {/* Article Footer */}
           <footer className="border-t border-gray-200 pt-8">
             <Link

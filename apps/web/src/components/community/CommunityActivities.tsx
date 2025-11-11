@@ -15,6 +15,42 @@ const generateSlug = (name: string): string => {
     .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
 };
 
+// Utility function to extract video thumbnail URL
+const getVideoThumbnail = (url: string): string => {
+  if (!url) return url;
+
+  // YouTube patterns
+  const youtubePatterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+    /^([a-zA-Z0-9_-]{11})$/ // Direct video ID
+  ];
+
+  for (const pattern of youtubePatterns) {
+    const match = url.match(pattern);
+    if (match) {
+      const videoId = match[1];
+      return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    }
+  }
+
+  // Vimeo patterns
+  const vimeoPatterns = [
+    /vimeo\.com\/(\d+)/,
+    /player\.vimeo\.com\/video\/(\d+)/
+  ];
+
+  for (const pattern of vimeoPatterns) {
+    const match = url.match(pattern);
+    if (match) {
+      const videoId = match[1];
+      return `https://vumbnail.com/${videoId}.jpg`;
+    }
+  }
+
+  // Return original URL if not a video (fallback to regular image)
+  return url;
+};
+
 interface CommunityActivitiesProps {
   initialActivities?: CommunityActivity[];
 }
@@ -39,6 +75,9 @@ export default function CommunityActivities({ initialActivities = [] }: Communit
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {initialActivities.map((activity) => {
               const slug = activity.properties.slug || generateSlug(activity.properties.name);
+              const thumbnailUrl = activity.properties.image_url
+                ? getVideoThumbnail(activity.properties.image_url)
+                : '';
 
               return (
               <Link
@@ -46,11 +85,11 @@ export default function CommunityActivities({ initialActivities = [] }: Communit
                 href={`/community/${slug}`}
                 className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all hover:scale-[1.02] cursor-pointer"
               >
-                {/* Activity Image */}
-                {activity.properties.image_url && (
+                {/* Activity Image/Thumbnail */}
+                {thumbnailUrl && (
                   <div className="aspect-[16/9] bg-gray-200 overflow-hidden">
                     <Image
-                      src={activity.properties.image_url}
+                      src={thumbnailUrl}
                       alt={activity.properties.name}
                       className="w-full h-full object-cover"
                       width={400}
