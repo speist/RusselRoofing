@@ -34,6 +34,9 @@ import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/autoplay"
 
+// Import Components
+import AssociationsSlider from "@/components/home/AssociationsSlider"
+
 // Loading Skeleton Component
 const SkeletonCard = () => (
   <div className="animate-pulse bg-white rounded-lg shadow-md p-6">
@@ -668,6 +671,9 @@ export default function HomePage() {
             )}
           </div>
         </section>
+
+        {/* Associations Section */}
+        <AssociationsSlider />
 
         {/* Client Testimonials Auto-Playing Carousel with Pause on Hover */}
         <section id="testimonials" className="bg-cream py-12 md:py-16 px-4 sm:px-6 lg:px-8">
