@@ -13,6 +13,8 @@ export interface CommunityActivity {
     year?: number;
     impact?: string;
     image_url?: string;
+    summary?: string;
+    slug?: string;
     live: string;
     createdate?: string;
     hs_lastmodifieddate?: string;
@@ -52,6 +54,8 @@ class CommunityService {
         'year',
         'impact',
         'image_url',
+        'summary',
+        'slug',
         'live'
       ];
 
@@ -117,6 +121,8 @@ class CommunityService {
         'year',
         'impact',
         'image_url',
+        'summary',
+        'slug',
         'live'
       ];
 
@@ -157,6 +163,65 @@ class CommunityService {
         },
       };
     }
+  }
+
+  /**
+   * Get a single community activity by slug
+   */
+  async getCommunityActivityBySlug(slug: string): Promise<HubSpotApiResponse<CommunityActivity | null>> {
+    try {
+      // First, get all activities
+      const activitiesResponse = await this.getCommunityActivities({ liveOnly: false });
+
+      if (!activitiesResponse.success || !activitiesResponse.data) {
+        return {
+          success: false,
+          error: {
+            status: 'error',
+            message: 'Failed to fetch activities',
+          },
+        };
+      }
+
+      // Find activity by slug or generate slug from name
+      const activity = activitiesResponse.data.results.find((act) => {
+        const activitySlug = act.properties.slug || this.generateSlug(act.properties.name);
+        return activitySlug === slug;
+      });
+
+      if (!activity) {
+        return {
+          success: true,
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        data: activity,
+      };
+    } catch (error: any) {
+      console.error(`Error fetching community activity by slug ${slug}:`, error);
+      return {
+        success: false,
+        error: {
+          status: 'error',
+          message: error.message || 'Failed to fetch community activity',
+        },
+      };
+    }
+  }
+
+  /**
+   * Generate a slug from a name
+   */
+  private generateSlug(name: string): string {
+    return name
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '') // Remove special characters
+      .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
+      .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
   }
 }
 

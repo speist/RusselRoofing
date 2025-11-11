@@ -2,7 +2,18 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { CommunityActivity } from '@/lib/hubspot/community';
+
+// Utility function to generate slug from name
+const generateSlug = (name: string): string => {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
+    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+};
 
 interface CommunityActivitiesProps {
   initialActivities?: CommunityActivity[];
@@ -26,10 +37,14 @@ export default function CommunityActivities({ initialActivities = [] }: Communit
         {/* Community Activities Grid */}
         {initialActivities.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {initialActivities.map((activity) => (
-              <div
+            {initialActivities.map((activity) => {
+              const slug = activity.properties.slug || generateSlug(activity.properties.name);
+
+              return (
+              <Link
                 key={activity.id}
-                className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow"
+                href={`/community/${slug}`}
+                className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all hover:scale-[1.02] cursor-pointer"
               >
                 {/* Activity Image */}
                 {activity.properties.image_url && (
@@ -75,8 +90,9 @@ export default function CommunityActivities({ initialActivities = [] }: Communit
                     </div>
                   )}
                 </div>
-              </div>
-            ))}
+              </Link>
+            );
+            })}
           </div>
         ) : (
           <div className="text-center py-12">
