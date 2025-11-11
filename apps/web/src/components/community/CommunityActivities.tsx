@@ -75,9 +75,17 @@ export default function CommunityActivities({ initialActivities = [] }: Communit
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {initialActivities.map((activity) => {
               const slug = activity.properties.slug || generateSlug(activity.properties.name);
-              const thumbnailUrl = activity.properties.image_url
-                ? getVideoThumbnail(activity.properties.image_url)
-                : '';
+              const imageUrl = activity.properties.image_url || '';
+              const thumbnailUrl = imageUrl ? getVideoThumbnail(imageUrl) : '';
+
+              // Debug logging
+              if (process.env.NODE_ENV === 'development') {
+                console.log('Community Activity:', {
+                  name: activity.properties.name,
+                  original_url: imageUrl,
+                  thumbnail_url: thumbnailUrl
+                });
+              }
 
               return (
               <Link
@@ -94,6 +102,10 @@ export default function CommunityActivities({ initialActivities = [] }: Communit
                       className="w-full h-full object-cover"
                       width={400}
                       height={225}
+                      onError={(e) => {
+                        console.error('Image failed to load:', thumbnailUrl);
+                        e.currentTarget.style.display = 'none';
+                      }}
                     />
                   </div>
                 )}

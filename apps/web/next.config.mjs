@@ -40,6 +40,18 @@ const nextConfig = {
         protocol: 'https',
         hostname: '50177320.fs1.hubspotusercontent-na1.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'vumbnail.com',
+      },
     ],
   },
   async headers() {
