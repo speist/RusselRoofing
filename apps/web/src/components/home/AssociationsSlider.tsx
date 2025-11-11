@@ -62,7 +62,7 @@ const associations: Association[] = [
   {
     name: "Rock Ministry",
     image: "/images/associations/rock-ministry-logo.png",
-    link: "https://www.rockministries.org/",
+    link: "https://therockphilly.org/",
   },
 ];
 

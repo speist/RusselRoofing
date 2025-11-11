@@ -31,7 +31,7 @@ Please add the following logo files to this directory:
    - Link: https://www.preservationalliance.com/
 
 9. **rock-ministry-logo.png** - Rock Ministry
-   - Link: https://www.rockministries.org/
+   - Link: https://therockphilly.org/
 
 ## Image Specifications
 
