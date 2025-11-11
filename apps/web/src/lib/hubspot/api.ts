@@ -46,6 +46,7 @@ interface HubSpotService {
   // Community operations
   getCommunityActivities(params?: CommunityParams): Promise<HubSpotApiResponse<CommunityListResponse>>;
   getCommunityActivityById(id: string): Promise<HubSpotApiResponse<CommunityActivity | null>>;
+  getCommunityActivityBySlug(slug: string): Promise<HubSpotApiResponse<CommunityActivity | null>>;
 
   // Progressive profiling
   getContactProfile(email: string): Promise<ContactProfile>;
@@ -374,6 +375,17 @@ class HubSpotApiService implements HubSpotService {
     }
 
     return await this.communityService.getCommunityActivityById(id);
+  }
+
+  /**
+   * Get a single community activity by slug
+   */
+  async getCommunityActivityBySlug(slug: string): Promise<HubSpotApiResponse<CommunityActivity | null>> {
+    if (!this.isConfigured) {
+      return this.mockGetCommunityActivityBySlug(slug);
+    }
+
+    return await this.communityService.getCommunityActivityBySlug(slug);
   }
 
   /**
@@ -899,6 +911,32 @@ class HubSpotApiService implements HubSpotService {
         year: 2018,
         impact: 'Helped roof 12+ homes for families in need',
         image_url: '',
+        live: 'true',
+        createdate: new Date(Date.now() - 86400000 * 365).toISOString(),
+        hs_lastmodifieddate: new Date(Date.now() - 86400000 * 30).toISOString(),
+      }
+    };
+
+    return {
+      success: true,
+      data: mockActivity,
+    };
+  }
+
+  private async mockGetCommunityActivityBySlug(slug: string): Promise<HubSpotApiResponse<CommunityActivity | null>> {
+    console.log('[HubSpot Mock] Getting community activity by slug:', slug);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockActivity: CommunityActivity = {
+      id: 'mock-activity-1',
+      properties: {
+        name: 'Habitat for Humanity Partnership',
+        description: 'Annual volunteer work providing roofing services for Habitat for Humanity home builds.',
+        year: 2018,
+        impact: 'Helped roof 12+ homes for families in need',
+        image_url: '',
+        slug: slug,
+        summary: '<p>Our partnership with Habitat for Humanity has been a cornerstone of our community involvement efforts.</p>',
         live: 'true',
         createdate: new Date(Date.now() - 86400000 * 365).toISOString(),
         hs_lastmodifieddate: new Date(Date.now() - 86400000 * 30).toISOString(),
