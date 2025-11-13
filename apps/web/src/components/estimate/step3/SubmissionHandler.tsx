@@ -39,7 +39,15 @@ export class SubmissionHandler {
       // Create or update contact in HubSpot
       const contactId = await this.createOrUpdateContact(data.contact, data.property);
 
-      // Create ticket in HubSpot
+      // Create Deal in HubSpot (Lead 5% stage)
+      const dealId = await this.createDeal(data, contactId);
+
+      // Associate deal with contact
+      if (contactId && dealId) {
+        await this.associateDealWithContact(dealId, contactId);
+      }
+
+      // Create ticket in HubSpot (for internal tracking)
       const ticketId = await this.createTicket(data, contactId);
 
       // Associate ticket with contact
@@ -90,6 +98,56 @@ export class SubmissionHandler {
     } catch (error) {
       console.error('Contact creation error:', error);
       return null;
+    }
+  }
+
+  private async createDeal(
+    data: EstimateSubmissionData,
+    contactId: string | null
+  ): Promise<string | null> {
+    const { property, project, contact } = data;
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstname: contact.firstName,
+          lastname: contact.lastName,
+          email: contact.email,
+          phone: contact.phone,
+          address: property.address,
+          message: `Estimate request for ${project.selectedServices.join(', ')}. Estimate range: $${project.estimateRange.min} - $${project.estimateRange.max}`,
+          preferredContact: contact.preferredContact,
+          timePreference: contact.timePreference,
+          isEmergency: contact.isEmergency,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create deal');
+      }
+
+      const result = await response.json();
+      return result.data?.dealId || null;
+    } catch (error) {
+      console.error('Deal creation error:', error);
+      return null;
+    }
+  }
+
+  private async associateDealWithContact(
+    dealId: string,
+    contactId: string
+  ): Promise<void> {
+    try {
+      // Association is handled by the /api/contact endpoint
+      // This method exists for consistency with associateTicketWithContact
+      console.log('Deal associated with contact via /api/contact endpoint');
+    } catch (error) {
+      console.error('Deal association error:', error);
     }
   }
 

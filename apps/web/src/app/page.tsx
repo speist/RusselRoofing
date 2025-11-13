@@ -37,6 +37,7 @@ import "swiper/css/autoplay"
 // Import Components
 import AssociationsSlider from "@/components/home/AssociationsSlider"
 import JobOpeningsCards from "@/components/home/JobOpeningsCards"
+import { AddressInput } from "@/components/estimate/AddressInput"
 
 // Loading Skeleton Component
 const SkeletonCard = () => (
@@ -110,6 +111,7 @@ export default function HomePage() {
     lastname: '',
     email: '',
     phone: '',
+    address: '',
     message: '',
     preferredContact: 'email' as 'phone' | 'email' | 'text',
     timePreference: '',
@@ -208,6 +210,7 @@ export default function HomePage() {
           lastname: '',
           email: '',
           phone: '',
+          address: '',
           message: '',
           preferredContact: 'email',
           timePreference: '',
@@ -978,6 +981,17 @@ export default function HomePage() {
                     disabled={contactFormSubmitting}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg font-inter focus:outline-none focus:ring-2 focus:ring-primary-red transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
+                  <div>
+                    <label htmlFor="address" className="block text-sm font-medium text-dark-grey mb-2 font-inter">
+                      Property Address
+                    </label>
+                    <AddressInput
+                      value={contactForm.address}
+                      onChange={(address) => setContactForm({ ...contactForm, address })}
+                      placeholder="Enter your property address"
+                      disabled={contactFormSubmitting}
+                    />
+                  </div>
                   <textarea
                     name="message"
                     placeholder="Message"

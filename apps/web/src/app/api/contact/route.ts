@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
       lastname,
       email,
       phone,
+      address,
       message,
       preferredContact,
       timePreference,
@@ -55,7 +56,7 @@ export async function POST(request: NextRequest) {
         firstname,
         lastname,
         phone,
-        address: '', // Not collected in Get in Touch form
+        address: address || '', // Address from contact form
         property_type: 'single_family', // Default value (note: property_type is not sent to HubSpot)
         preferred_contact_method: preferredContact || 'email',
         preferred_contact_time: timePreference,

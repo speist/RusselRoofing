@@ -7,6 +7,7 @@ import { RadioGroup, RadioOption } from "@/components/ui/RadioGroup";
 import { Select, SelectOption } from "@/components/ui/Select";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
+import { AddressInput } from "@/components/estimate/AddressInput";
 import { cn } from "@/lib/utils";
 
 export interface ContactFormData {
@@ -14,6 +15,7 @@ export interface ContactFormData {
   firstName: string;
   lastName: string;
   phone: string;
+  address: string;
   message: string;
   preferredContact: 'phone' | 'email' | 'text';
   timePreference: string;
@@ -67,6 +69,7 @@ export function ContactForm({ className }: ContactFormProps) {
     firstName: '',
     lastName: '',
     phone: '',
+    address: '',
     message: '',
     preferredContact: 'phone',
     timePreference: '',
@@ -140,6 +143,7 @@ export function ContactForm({ className }: ContactFormProps) {
           firstname: formData.firstName,
           lastname: formData.lastName,
           phone: formData.phone,
+          address: formData.address,
           message: formData.message,
           preferredContact: formData.preferredContact,
           timePreference: formData.timePreference,
@@ -155,6 +159,7 @@ export function ContactForm({ className }: ContactFormProps) {
           firstName: '',
           lastName: '',
           phone: '',
+          address: '',
           message: '',
           preferredContact: 'phone',
           timePreference: '',
@@ -263,6 +268,18 @@ export function ContactForm({ className }: ContactFormProps) {
           onChange={(value) => updateField('phone', value)}
           error={errors.phone}
           required
+        />
+      </div>
+
+      {/* Address */}
+      <div>
+        <label htmlFor="address" className="block text-sm font-medium text-neutral-700 mb-2">
+          Property Address
+        </label>
+        <AddressInput
+          value={formData.address}
+          onChange={(address) => updateField('address', address)}
+          placeholder="Enter your property address"
         />
       </div>
 
