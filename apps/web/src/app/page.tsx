@@ -36,6 +36,7 @@ import "swiper/css/autoplay"
 
 // Import Components
 import AssociationsSlider from "@/components/home/AssociationsSlider"
+import JobOpeningsCards from "@/components/home/JobOpeningsCards"
 
 // Loading Skeleton Component
 const SkeletonCard = () => (
@@ -100,6 +101,8 @@ export default function HomePage() {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
   const [articles, setArticles] = useState<BlogPost[]>([])
   const [articlesLoading, setArticlesLoading] = useState(true)
+  const [jobs, setJobs] = useState<any[]>([])
+  const [jobsLoading, setJobsLoading] = useState(true)
 
   // Contact form state
   const [contactForm, setContactForm] = useState({
@@ -147,6 +150,26 @@ export default function HomePage() {
     }
 
     fetchArticles()
+  }, [])
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        setJobsLoading(true)
+        const response = await fetch('/api/hubspot/careers?liveOnly=true')
+        const data = await response.json()
+
+        if (data.success && data.data) {
+          setJobs(data.data.results)
+        }
+      } catch (error) {
+        console.error('Failed to fetch job openings:', error)
+      } finally {
+        setJobsLoading(false)
+      }
+    }
+
+    fetchJobs()
   }, [])
 
   const smoothScrollTo = (elementId: string) => {
@@ -866,7 +889,7 @@ export default function HomePage() {
               Interested in a new career opportunity? Are you looking for a rewarding position with longevity and
               growth? Please email your resume to info@russellroofing.com!
             </p>
-            {isLoading ? (
+            {jobsLoading ? (
               <div className="grid md:grid-cols-3 gap-6 md:gap-8">
                 {[...Array(3)].map((_, i) => (
                   <div
@@ -880,76 +903,7 @@ export default function HomePage() {
                 ))}
               </div>
             ) : (
-              <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-                {/* Foreman Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <HardHat className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">FOREMAN</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center mb-6">
-                        Lead construction teams and ensure project quality standards.
-                      </p>
-                      <Link
-                        href="/careers"
-                        className="px-6 py-2 rounded-full font-inter font-medium bg-white text-primary-red border-2 border-primary-red hover:bg-primary-red hover:text-white transition-all duration-300"
-                      >
-                        Read More
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Superintendent Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <ClipboardCheck className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">SUPERINTENDENT</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center mb-6">
-                        Oversee multiple projects and coordinate with clients and teams.
-                      </p>
-                      <Link
-                        href="/careers"
-                        className="px-6 py-2 rounded-full font-inter font-medium bg-white text-primary-red border-2 border-primary-red hover:bg-primary-red hover:text-white transition-all duration-300"
-                      >
-                        Read More
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Roofing Laborer Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <Hammer className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">ROOFING LABORER</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center mb-6">
-                        Join our skilled team and learn the roofing trade.
-                      </p>
-                      <Link
-                        href="/careers"
-                        className="px-6 py-2 rounded-full font-inter font-medium bg-white text-primary-red border-2 border-primary-red hover:bg-primary-red hover:text-white transition-all duration-300"
-                      >
-                        Read More
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <JobOpeningsCards jobs={jobs} />
             )}
           </div>
         </section>
