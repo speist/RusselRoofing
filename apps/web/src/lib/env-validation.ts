@@ -74,6 +74,15 @@ const ENV_VARIABLES: EnvConfig[] = [
     setupUrl: 'https://developers.google.com/maps/documentation/places/web-service/get-api-key'
   },
   {
+    name: 'NEXT_PUBLIC_GOOGLE_MAPS_API_KEY',
+    required: false,
+    clientSide: true,
+    description: 'Google Maps JavaScript API Key for map displays',
+    category: 'google',
+    format: 'token',
+    setupUrl: 'https://developers.google.com/maps/documentation/javascript/get-api-key'
+  },
+  {
     name: 'RUSSELL_ROOFING_PLACE_ID',
     required: false,
     clientSide: false,
