@@ -54,13 +54,13 @@ export default function JobOpeningsCards({ jobs }: JobOpeningsCardsProps) {
 
   return (
     <>
-      <div className="grid md:grid-cols-3 gap-6 md:gap-8 justify-items-center">
+      <div className="flex flex-wrap justify-center gap-6 md:gap-8">
         {displayJobs.map((job) => {
           const IconComponent = getJobIcon(job.properties.job_title);
           const description = truncateDescription(job.properties.job_description);
 
           return (
-            <div key={job.id} className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
+            <div key={job.id} className="flip-card h-[220px] w-full md:w-[calc(33.333%-1.5rem)] max-w-sm" style={{ perspective: "1000px" }}>
               <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                 {/* Front */}
                 <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
