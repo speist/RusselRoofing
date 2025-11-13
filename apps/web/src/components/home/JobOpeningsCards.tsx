@@ -54,7 +54,7 @@ export default function JobOpeningsCards({ jobs }: JobOpeningsCardsProps) {
 
   return (
     <>
-      <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid md:grid-cols-3 gap-6 md:gap-8 justify-items-center">
         {displayJobs.map((job) => {
           const IconComponent = getJobIcon(job.properties.job_title);
           const description = truncateDescription(job.properties.job_description);
