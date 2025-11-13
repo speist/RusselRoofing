@@ -38,6 +38,7 @@ import "swiper/css/autoplay"
 import AssociationsSlider from "@/components/home/AssociationsSlider"
 import JobOpeningsCards from "@/components/home/JobOpeningsCards"
 import { AddressInput } from "@/components/estimate/AddressInput"
+import { parseAddressComponents } from "@/lib/hubspot/utils"
 
 // Loading Skeleton Component
 const SkeletonCard = () => (
@@ -112,6 +113,9 @@ export default function HomePage() {
     email: '',
     phone: '',
     address: '',
+    city: undefined as string | undefined,
+    state: undefined as string | undefined,
+    zip: undefined as string | undefined,
     message: '',
     preferredContact: 'email' as 'phone' | 'email' | 'text',
     timePreference: '',
@@ -211,6 +215,9 @@ export default function HomePage() {
           email: '',
           phone: '',
           address: '',
+          city: undefined,
+          state: undefined,
+          zip: undefined,
           message: '',
           preferredContact: 'email',
           timePreference: '',
@@ -987,7 +994,17 @@ export default function HomePage() {
                     </label>
                     <AddressInput
                       value={contactForm.address}
-                      onChange={(address) => setContactForm({ ...contactForm, address })}
+                      onChange={(address, placeDetails) => {
+                        // Parse address components from Google Places
+                        const { city, state, zip } = parseAddressComponents(placeDetails);
+                        setContactForm({
+                          ...contactForm,
+                          address,
+                          city,
+                          state,
+                          zip
+                        });
+                      }}
                       placeholder="Enter your property address"
                       disabled={contactFormSubmitting}
                     />

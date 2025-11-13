@@ -20,6 +20,9 @@ export async function POST(request: NextRequest) {
       email,
       phone,
       address,
+      city,
+      state,
+      zip,
       message,
       preferredContact,
       timePreference,
@@ -57,6 +60,9 @@ export async function POST(request: NextRequest) {
         lastname,
         phone,
         address: address || '', // Address from contact form
+        city: city || undefined,
+        state: state || undefined,
+        zip: zip || undefined,
         property_type: 'single_family', // Default value (note: property_type is not sent to HubSpot)
         preferred_contact_method: preferredContact || 'email',
         preferred_contact_time: timePreference,

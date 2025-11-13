@@ -8,6 +8,7 @@ import { Select, SelectOption } from "@/components/ui/Select";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
 import { AddressInput } from "@/components/estimate/AddressInput";
+import { parseAddressComponents } from "@/lib/hubspot/utils";
 import { cn } from "@/lib/utils";
 
 export interface ContactFormData {
@@ -16,6 +17,9 @@ export interface ContactFormData {
   lastName: string;
   phone: string;
   address: string;
+  city?: string;
+  state?: string;
+  zip?: string;
   message: string;
   preferredContact: 'phone' | 'email' | 'text';
   timePreference: string;
@@ -70,6 +74,9 @@ export function ContactForm({ className }: ContactFormProps) {
     lastName: '',
     phone: '',
     address: '',
+    city: undefined,
+    state: undefined,
+    zip: undefined,
     message: '',
     preferredContact: 'phone',
     timePreference: '',
@@ -144,6 +151,9 @@ export function ContactForm({ className }: ContactFormProps) {
           lastname: formData.lastName,
           phone: formData.phone,
           address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          zip: formData.zip,
           message: formData.message,
           preferredContact: formData.preferredContact,
           timePreference: formData.timePreference,
@@ -160,6 +170,9 @@ export function ContactForm({ className }: ContactFormProps) {
           lastName: '',
           phone: '',
           address: '',
+          city: undefined,
+          state: undefined,
+          zip: undefined,
           message: '',
           preferredContact: 'phone',
           timePreference: '',
@@ -278,7 +291,17 @@ export function ContactForm({ className }: ContactFormProps) {
         </label>
         <AddressInput
           value={formData.address}
-          onChange={(address) => updateField('address', address)}
+          onChange={(address, placeDetails) => {
+            // Parse address components from Google Places
+            const { city, state, zip } = parseAddressComponents(placeDetails);
+            setFormData(prev => ({
+              ...prev,
+              address,
+              city,
+              state,
+              zip
+            }));
+          }}
           placeholder="Enter your property address"
         />
       </div>

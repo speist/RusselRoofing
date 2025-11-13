@@ -1,6 +1,7 @@
 import { ContactFormData } from "./ContactForm";
 import { ProjectDetailsData } from "../step2/ProjectDetailsStep";
 import { PropertyInfoData } from "../step1/PropertyInfoStep";
+import { parseAddressComponents } from "@/lib/hubspot/utils";
 
 export interface EstimateSubmissionData {
   property: PropertyInfoData;
@@ -107,6 +108,9 @@ export class SubmissionHandler {
   ): Promise<string | null> {
     const { property, project, contact } = data;
 
+    // Parse address components from placeDetails
+    const { city, state, zip } = parseAddressComponents(property.placeDetails);
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -119,6 +123,9 @@ export class SubmissionHandler {
           email: contact.email,
           phone: contact.phone,
           address: property.address,
+          city,
+          state,
+          zip,
           message: `Estimate request for ${project.selectedServices.join(', ')}. Estimate range: $${project.estimateRange.min} - $${project.estimateRange.max}`,
           preferredContact: contact.preferredContact,
           timePreference: contact.timePreference,

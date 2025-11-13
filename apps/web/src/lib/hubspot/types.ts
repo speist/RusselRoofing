@@ -4,6 +4,9 @@ export interface ContactInput {
   lastname: string;
   phone: string;
   address: string;
+  city?: string;
+  state?: string;
+  zip?: string;
   property_type: 'single_family' | 'multi_family' | 'commercial';
   preferred_contact_method: 'phone' | 'email' | 'text';
   preferred_contact_time?: string;

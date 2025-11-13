@@ -77,6 +77,19 @@ export function mapContactInputToProperties(input: ContactInput) {
     }
   }
 
+  // Add address components if provided
+  if (input.city) {
+    properties.city = input.city;
+  }
+
+  if (input.state) {
+    properties.state = input.state;
+  }
+
+  if (input.zip) {
+    properties.zip = input.zip;
+  }
+
   return properties;
 }
 
@@ -219,17 +232,20 @@ export function validateContactInput(input: Partial<ContactInput>): ContactInput
   if (!input.email || !isValidEmail(input.email)) {
     return null;
   }
-  
+
   if (!input.firstname || !input.lastname) {
     return null;
   }
-  
+
   return {
     email: input.email.trim().toLowerCase(),
     firstname: input.firstname.trim(),
     lastname: input.lastname.trim(),
     phone: input.phone?.trim() || '',
     address: input.address?.trim() || '',
+    city: input.city?.trim(),
+    state: input.state?.trim(),
+    zip: input.zip?.trim(),
     property_type: input.property_type || 'single_family',
     preferred_contact_method: input.preferred_contact_method || 'email',
     preferred_contact_time: input.preferred_contact_time,
@@ -367,4 +383,44 @@ export function validateTicketInput(input: Partial<TicketInput>): TicketInput | 
     preferred_contact_method: input.preferred_contact_method,
     preferred_contact_time: input.preferred_contact_time,
   };
+}
+
+/**
+ * Parse Google Places address components into separate fields
+ * @param placeDetails Google Places PlaceResult containing address_components
+ * @returns Object with city, state, and zip extracted from address components
+ */
+export function parseAddressComponents(placeDetails?: google.maps.places.PlaceResult): {
+  city?: string;
+  state?: string;
+  zip?: string;
+} {
+  if (!placeDetails?.address_components) {
+    return {};
+  }
+
+  let city: string | undefined;
+  let state: string | undefined;
+  let zip: string | undefined;
+
+  placeDetails.address_components.forEach((component) => {
+    const types = component.types;
+
+    // City/locality
+    if (types.includes('locality')) {
+      city = component.long_name;
+    }
+
+    // State
+    if (types.includes('administrative_area_level_1')) {
+      state = component.short_name; // Use short_name for state abbreviation (e.g., "NJ")
+    }
+
+    // Zip code
+    if (types.includes('postal_code')) {
+      zip = component.long_name;
+    }
+  });
+
+  return { city, state, zip };
 }
