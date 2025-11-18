@@ -29,9 +29,49 @@ class TeamService {
   private apiKey: string;
   private readonly TEAM_OBJECT_TYPE_ID = '2-52960731'; // RR Team object from HubSpot
   private readonly BASE_URL = 'https://api.hubapi.com';
+  private fileUrlCache: Map<string, string> = new Map(); // Cache file ID to URL mappings
 
   constructor(apiKey: string) {
     this.apiKey = apiKey;
+  }
+
+  /**
+   * Convert HubSpot file ID to file URL using Files API
+   */
+  private async getFileUrl(fileId: string): Promise<string | null> {
+    // Return cached URL if available
+    if (this.fileUrlCache.has(fileId)) {
+      return this.fileUrlCache.get(fileId)!;
+    }
+
+    try {
+      const url = `${this.BASE_URL}/files/v3/files/${fileId}`;
+
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        console.error(`[HubSpot Files] Failed to fetch file ${fileId}:`, response.status);
+        return null;
+      }
+
+      const data = await response.json();
+      const fileUrl = data.url || null;
+
+      // Cache the result
+      if (fileUrl) {
+        this.fileUrlCache.set(fileId, fileUrl);
+      }
+
+      return fileUrl;
+    } catch (error) {
+      console.error(`[HubSpot Files] Error fetching file ${fileId}:`, error);
+      return null;
+    }
   }
 
   /**
@@ -80,11 +120,36 @@ class TeamService {
         results = results.filter((member: TeamMember) => member.properties.live === 'true');
       }
 
+      // Convert file IDs to URLs for employee photos
+      // HubSpot stores file IDs in employee_photo field, we need to fetch the actual URLs
+      const resultsWithUrls = await Promise.all(
+        results.map(async (member: TeamMember) => {
+          if (member.properties.employee_photo) {
+            // Check if it's a file ID (numeric string) or already a URL
+            const isFileId = /^\d+$/.test(member.properties.employee_photo);
+
+            if (isFileId) {
+              console.log(`[HubSpot Team] Converting file ID ${member.properties.employee_photo} to URL for ${member.properties.employee_name}`);
+              const fileUrl = await this.getFileUrl(member.properties.employee_photo);
+
+              if (fileUrl) {
+                console.log(`[HubSpot Team] Got URL: ${fileUrl}`);
+                member.properties.employee_photo = fileUrl;
+              } else {
+                console.warn(`[HubSpot Team] Could not fetch URL for file ID ${member.properties.employee_photo}`);
+                member.properties.employee_photo = ''; // Clear invalid file ID
+              }
+            }
+          }
+          return member;
+        })
+      );
+
       return {
         success: true,
         data: {
-          total: results.length,
-          results,
+          total: resultsWithUrls.length,
+          results: resultsWithUrls,
         },
       };
     } catch (error: any) {
@@ -138,6 +203,24 @@ class TeamService {
       }
 
       const data = await response.json();
+
+      // Convert file ID to URL for employee photo if needed
+      if (data.properties?.employee_photo) {
+        const isFileId = /^\d+$/.test(data.properties.employee_photo);
+
+        if (isFileId) {
+          console.log(`[HubSpot Team] Converting file ID ${data.properties.employee_photo} to URL for ${data.properties.employee_name}`);
+          const fileUrl = await this.getFileUrl(data.properties.employee_photo);
+
+          if (fileUrl) {
+            console.log(`[HubSpot Team] Got URL: ${fileUrl}`);
+            data.properties.employee_photo = fileUrl;
+          } else {
+            console.warn(`[HubSpot Team] Could not fetch URL for file ID ${data.properties.employee_photo}`);
+            data.properties.employee_photo = ''; // Clear invalid file ID
+          }
+        }
+      }
 
       return {
         success: true,
