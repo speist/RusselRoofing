@@ -41,10 +41,12 @@ class TeamService {
   private async getFileUrl(fileId: string): Promise<string | null> {
     // Return cached URL if available
     if (this.fileUrlCache.has(fileId)) {
+      console.log(`[HubSpot Files] Using cached URL for file ${fileId}`);
       return this.fileUrlCache.get(fileId)!;
     }
 
     try {
+      console.log(`[HubSpot Files] Fetching file details for ID: ${fileId}`);
       const url = `${this.BASE_URL}/files/v3/files/${fileId}`;
 
       const response = await fetch(url, {
@@ -54,17 +56,32 @@ class TeamService {
         },
       });
 
+      console.log(`[HubSpot Files] API response status: ${response.status}`);
+
       if (!response.ok) {
-        console.error(`[HubSpot Files] Failed to fetch file ${fileId}:`, response.status);
+        const errorText = await response.text();
+        console.error(`[HubSpot Files] Failed to fetch file ${fileId}:`, {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText,
+        });
         return null;
       }
 
       const data = await response.json();
+      console.log(`[HubSpot Files] File data received:`, {
+        fileId,
+        hasUrl: !!data.url,
+        url: data.url,
+        fullData: data,
+      });
+
       const fileUrl = data.url || null;
 
       // Cache the result
       if (fileUrl) {
         this.fileUrlCache.set(fileId, fileUrl);
+        console.log(`[HubSpot Files] Cached URL for file ${fileId}: ${fileUrl}`);
       }
 
       return fileUrl;
