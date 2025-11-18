@@ -42,6 +42,18 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: '*.hubspotusercontent.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.hs-sites.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.hubspot.com',
+      },
+      {
+        protocol: 'https',
         hostname: 'img.youtube.com',
       },
       {

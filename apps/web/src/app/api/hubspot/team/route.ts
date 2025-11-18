@@ -3,6 +3,7 @@ import { hubspotService } from '@/lib/hubspot/api';
 
 // Force dynamic rendering for this route
 export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Don't cache, always fetch fresh data
 
 export async function GET(request: NextRequest) {
   try {

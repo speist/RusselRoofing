@@ -10,6 +10,7 @@ interface DisplayTeamMember {
   title: string;
   bio: string;
   image: string;
+  email?: string;
   phone?: string;
 }
 
@@ -59,15 +60,25 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
         )}
 
         {/* Contact Info */}
-        {member.phone && (
+        {(member.email || member.phone) && (
           <div className="pt-4 border-t border-gray-100">
             <div className="flex flex-col space-y-1">
-              <a
-                href={`tel:${member.phone}`}
-                className="text-sm text-[#960120] hover:underline"
-              >
-                {member.phone}
-              </a>
+              {member.email && (
+                <a
+                  href={`mailto:${member.email}`}
+                  className="text-sm text-[#960120] hover:underline"
+                >
+                  {member.email}
+                </a>
+              )}
+              {member.phone && (
+                <a
+                  href={`tel:${member.phone}`}
+                  className="text-sm text-[#960120] hover:underline"
+                >
+                  {member.phone}
+                </a>
+              )}
             </div>
           </div>
         )}
@@ -95,14 +106,25 @@ export default function TeamSection() {
 
         if (result.success && result.data) {
           // Map HubSpot team members to display format
-          const mappedMembers: DisplayTeamMember[] = result.data.results.map((member: HubSpotTeamMember) => ({
-            id: member.id,
-            name: member.properties.employee_name,
-            title: member.properties.employee_title || '',
-            bio: member.properties.employee_description || '',
-            image: member.properties.employee_photo || '',
-            phone: member.properties.employee_phone_number,
-          }));
+          const mappedMembers: DisplayTeamMember[] = result.data.results.map((member: HubSpotTeamMember) => {
+            // Log image URL for debugging
+            if (member.properties.employee_photo) {
+              console.log('[TeamSection] Team member image URL:', {
+                name: member.properties.employee_name,
+                imageUrl: member.properties.employee_photo,
+              });
+            }
+
+            return {
+              id: member.id,
+              name: member.properties.employee_name,
+              title: member.properties.employee_title || '',
+              bio: member.properties.employee_description || '',
+              image: member.properties.employee_photo || '',
+              email: member.properties.employee_email,
+              phone: member.properties.employee_phone_number,
+            };
+          });
 
           setTeamMembers(mappedMembers);
         } else {

@@ -6,6 +6,7 @@ export interface TeamMember {
     employee_name: string;
     employee_title?: string;
     employee_description?: string;
+    employee_email?: string;
     employee_phone_number?: string;
     employee_photo?: string; // URL to photo
     live: string; // 'true' or 'false'
@@ -46,6 +47,7 @@ class TeamService {
         'employee_name',
         'employee_title',
         'employee_description',
+        'employee_email',
         'employee_phone_number',
         'employee_photo',
         'live'
@@ -106,6 +108,7 @@ class TeamService {
         'employee_name',
         'employee_title',
         'employee_description',
+        'employee_email',
         'employee_phone_number',
         'employee_photo',
         'live'
