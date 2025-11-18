@@ -12,8 +12,9 @@ export function GoogleMapsScript() {
 
   return (
     <Script
-      src={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`}
-      strategy="beforeInteractive"
+      src={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&loading=async`}
+      strategy="afterInteractive"
+      id="google-maps-script"
     />
   );
 }
