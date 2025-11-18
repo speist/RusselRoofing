@@ -105,15 +105,17 @@ export default function TeamSection() {
         const result = await response.json();
 
         if (result.success && result.data) {
+          console.log('[TeamSection] Raw API response:', result.data);
+
           // Map HubSpot team members to display format
           const mappedMembers: DisplayTeamMember[] = result.data.results.map((member: HubSpotTeamMember) => {
-            // Log image URL for debugging
-            if (member.properties.employee_photo) {
-              console.log('[TeamSection] Team member image URL:', {
-                name: member.properties.employee_name,
-                imageUrl: member.properties.employee_photo,
-              });
-            }
+            console.log('[TeamSection] Processing team member:', {
+              name: member.properties.employee_name,
+              rawPhotoValue: member.properties.employee_photo,
+              photoType: typeof member.properties.employee_photo,
+              isUrl: member.properties.employee_photo?.startsWith('http'),
+              isNumeric: /^\d+$/.test(member.properties.employee_photo || ''),
+            });
 
             return {
               id: member.id,
