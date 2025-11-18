@@ -9,10 +9,14 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const fileId = searchParams.get('fileId') || '199683264377'; // Default to Mike Thompson's file
 
-    const apiKey = process.env.HUBSPOT_ACCESS_TOKEN;
+    const apiKey = process.env.HUBSPOT_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: 'HUBSPOT_ACCESS_TOKEN not configured' },
+        {
+          error: 'HUBSPOT_API_KEY not configured',
+          message: 'Please add HUBSPOT_API_KEY to your Vercel environment variables',
+          availableEnvVars: Object.keys(process.env).filter(k => k.includes('HUBSPOT')),
+        },
         { status: 500 }
       );
     }
