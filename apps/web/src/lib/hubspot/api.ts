@@ -4,15 +4,18 @@ import TicketsService from './tickets';
 import BlogService from './blog';
 import CareersService from './careers';
 import CommunityService from './community';
+import TeamService from './team';
 import NotesService, { NoteInput, Note } from './notes';
 import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse, HUBSPOT_ERROR_CODES } from './types';
 import { Career, CareersListResponse, CareersParams } from './careers';
 import { CommunityActivity, CommunityListResponse, CommunityParams } from './community';
+import { TeamMember, TeamListResponse, TeamParams } from './team';
 import { extractKnownFields, validateContactInput, validateDealInput, validateTicketInput } from './utils';
 import { getServiceConfig, isServiceConfigured } from '../config';
 
 // Re-export types for convenience
 export type { NoteInput, Note } from './notes';
+export type { TeamMember, TeamListResponse, TeamParams } from './team';
 
 interface HubSpotService {
   // Contact operations
@@ -48,6 +51,10 @@ interface HubSpotService {
   getCommunityActivityById(id: string): Promise<HubSpotApiResponse<CommunityActivity | null>>;
   getCommunityActivityBySlug(slug: string): Promise<HubSpotApiResponse<CommunityActivity | null>>;
 
+  // Team operations
+  getTeamMembers(params?: TeamParams): Promise<HubSpotApiResponse<TeamListResponse>>;
+  getTeamMemberById(id: string): Promise<HubSpotApiResponse<TeamMember | null>>;
+
   // Progressive profiling
   getContactProfile(email: string): Promise<ContactProfile>;
 }
@@ -60,6 +67,7 @@ class HubSpotApiService implements HubSpotService {
   private blogService: BlogService;
   private careersService: CareersService;
   private communityService: CommunityService;
+  private teamService: TeamService;
   private isConfigured: boolean;
 
   constructor() {
@@ -75,6 +83,7 @@ class HubSpotApiService implements HubSpotService {
       this.blogService = null as any;
       this.careersService = null as any;
       this.communityService = null as any;
+      this.teamService = null as any;
       return;
     }
 
@@ -86,6 +95,7 @@ class HubSpotApiService implements HubSpotService {
     this.blogService = new BlogService(hubspotConfig.apiKey);
     this.careersService = new CareersService(hubspotConfig.apiKey);
     this.communityService = new CommunityService(hubspotConfig.apiKey);
+    this.teamService = new TeamService(hubspotConfig.apiKey);
 
     console.log('[HubSpot] Service initialized successfully with production configuration');
   }
@@ -386,6 +396,28 @@ class HubSpotApiService implements HubSpotService {
     }
 
     return await this.communityService.getCommunityActivityBySlug(slug);
+  }
+
+  /**
+   * Get all team members
+   */
+  async getTeamMembers(params?: TeamParams): Promise<HubSpotApiResponse<TeamListResponse>> {
+    if (!this.isConfigured) {
+      return this.mockGetTeamMembers(params);
+    }
+
+    return await this.teamService.getTeamMembers(params);
+  }
+
+  /**
+   * Get a single team member by ID
+   */
+  async getTeamMemberById(id: string): Promise<HubSpotApiResponse<TeamMember | null>> {
+    if (!this.isConfigured) {
+      return this.mockGetTeamMemberById(id);
+    }
+
+    return await this.teamService.getTeamMemberById(id);
   }
 
   /**
@@ -946,6 +978,85 @@ class HubSpotApiService implements HubSpotService {
     return {
       success: true,
       data: mockActivity,
+    };
+  }
+
+  private async mockGetTeamMembers(params?: TeamParams): Promise<HubSpotApiResponse<TeamListResponse>> {
+    console.log('[HubSpot Mock] Getting team members');
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockTeamMembers: TeamMember[] = [
+      {
+        id: 'mock-team-1',
+        properties: {
+          employee_name: 'John Smith',
+          employee_title: 'Project Manager',
+          employee_description: 'Over 15 years of experience in roofing and exterior projects.',
+          employee_phone_number: '(555) 123-4567',
+          employee_photo: '',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 365).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 30).toISOString(),
+        }
+      },
+      {
+        id: 'mock-team-2',
+        properties: {
+          employee_name: 'Sarah Johnson',
+          employee_title: 'Lead Estimator',
+          employee_description: 'Specialist in residential and commercial roofing estimates.',
+          employee_phone_number: '(555) 234-5678',
+          employee_photo: '',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 300).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 20).toISOString(),
+        }
+      },
+      {
+        id: 'mock-team-3',
+        properties: {
+          employee_name: 'Mike Davis',
+          employee_title: 'Operations Manager',
+          employee_description: 'Ensures quality and efficiency in all our projects.',
+          employee_phone_number: '(555) 345-6789',
+          employee_photo: '',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 200).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 10).toISOString(),
+        }
+      }
+    ];
+
+    return {
+      success: true,
+      data: {
+        total: mockTeamMembers.length,
+        results: mockTeamMembers,
+      },
+    };
+  }
+
+  private async mockGetTeamMemberById(id: string): Promise<HubSpotApiResponse<TeamMember | null>> {
+    console.log('[HubSpot Mock] Getting team member by ID:', id);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockTeamMember: TeamMember = {
+      id: id,
+      properties: {
+        employee_name: 'John Smith',
+        employee_title: 'Project Manager',
+        employee_description: 'Over 15 years of experience in roofing and exterior projects.',
+        employee_phone_number: '(555) 123-4567',
+        employee_photo: '',
+        live: 'true',
+        createdate: new Date(Date.now() - 86400000 * 365).toISOString(),
+        hs_lastmodifieddate: new Date(Date.now() - 86400000 * 30).toISOString(),
+      }
+    };
+
+    return {
+      success: true,
+      data: mockTeamMember,
     };
   }
 }
