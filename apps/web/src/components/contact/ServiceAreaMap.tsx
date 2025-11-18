@@ -1,9 +1,7 @@
 import React from 'react';
+import { InteractiveServiceAreaMap } from './InteractiveServiceAreaMap';
 
 export function ServiceAreaMap() {
-  // TODO: Implement interactive map with Google Maps or Mapbox
-  // This is a placeholder implementation showing service areas and completed projects
-  
   return (
     <div className="bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden">
       {/* Map Header */}
@@ -14,25 +12,8 @@ export function ServiceAreaMap() {
         </p>
       </div>
 
-      {/* Map Placeholder */}
-      <div className="h-96 bg-gray-100 relative flex items-center justify-center">
-        <div className="text-center">
-          <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          <p className="text-gray-600 mb-2">Interactive Service Area Map</p>
-          <p className="text-sm text-gray-500">
-            Map integration coming soon - will show completed projects and service coverage
-          </p>
-        </div>
-        
-        {/* Service Area Overlay */}
-        <div className="absolute top-4 right-4 bg-white rounded-lg p-3 shadow-md">
-          <h4 className="font-semibold text-sm mb-2">Service Radius</h4>
-          <p className="text-xs text-gray-600">50 miles from our location</p>
-        </div>
-      </div>
+      {/* Interactive Map */}
+      <InteractiveServiceAreaMap className="p-4" />
 
       {/* Service Area Details */}
       <div className="p-6">
