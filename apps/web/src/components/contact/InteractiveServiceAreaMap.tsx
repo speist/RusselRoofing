@@ -21,73 +21,73 @@ export function InteractiveServiceAreaMap({ className }: InteractiveServiceAreaM
       if (!mapRef.current) return false;
 
       try {
-      // Russell Roofing location (approximate center of service area in NJ)
-      // Using Place ID: ChIJ-3HLW2e6xokRgQO_Kkkp9dQ
-      const russellLocation = {
-        lat: 40.7589, // Morristown, NJ (approximate)
-        lng: -74.4793,
-      };
+        // Russell Roofing location (approximate center of service area in NJ)
+        // Using Place ID: ChIJ-3HLW2e6xokRgQO_Kkkp9dQ
+        const russellLocation = {
+          lat: 40.7589, // Morristown, NJ (approximate)
+          lng: -74.4793,
+        };
 
-      // Create map centered on Russell Roofing location
-      const map = new window.google.maps.Map(mapRef.current, {
-        center: russellLocation,
-        zoom: 9, // Show wider area to display 50-mile radius
-        mapTypeControl: true,
-        fullscreenControl: true,
-        streetViewControl: false,
-        styles: [
-          {
-            featureType: 'poi',
-            elementType: 'labels',
-            stylers: [{ visibility: 'off' }], // Hide POI labels for cleaner look
+        // Create map centered on Russell Roofing location
+        const map = new window.google.maps.Map(mapRef.current, {
+          center: russellLocation,
+          zoom: 9, // Show wider area to display 50-mile radius
+          mapTypeControl: true,
+          fullscreenControl: true,
+          streetViewControl: false,
+          styles: [
+            {
+              featureType: 'poi',
+              elementType: 'labels',
+              stylers: [{ visibility: 'off' }], // Hide POI labels for cleaner look
+            },
+          ],
+        });
+
+        // Add marker for Russell Roofing location
+        const marker = new window.google.maps.Marker({
+          position: russellLocation,
+          map: map,
+          title: 'Russell Roofing & Exteriors',
+          icon: {
+            path: window.google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            fillColor: '#960120',
+            fillOpacity: 1,
+            strokeColor: '#ffffff',
+            strokeWeight: 2,
           },
-        ],
-      });
+        });
 
-      // Add marker for Russell Roofing location
-      const marker = new window.google.maps.Marker({
-        position: russellLocation,
-        map: map,
-        title: 'Russell Roofing & Exteriors',
-        icon: {
-          path: window.google.maps.SymbolPath.CIRCLE,
-          scale: 10,
-          fillColor: '#960120',
-          fillOpacity: 1,
-          strokeColor: '#ffffff',
+        // Add info window
+        const infoWindow = new window.google.maps.InfoWindow({
+          content: `
+            <div style="padding: 8px; font-family: Inter, sans-serif;">
+              <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: #960120;">
+                Russell Roofing & Exteriors
+              </h3>
+              <p style="margin: 0; font-size: 14px; color: #4a5568;">
+                Serving New Jersey for over 100 years
+              </p>
+            </div>
+          `,
+        });
+
+        marker.addListener('click', () => {
+          infoWindow.open(map, marker);
+        });
+
+        // Draw 50-mile service radius circle
+        const serviceCircle = new window.google.maps.Circle({
+          strokeColor: '#960120',
+          strokeOpacity: 0.6,
           strokeWeight: 2,
-        },
-      });
-
-      // Add info window
-      const infoWindow = new window.google.maps.InfoWindow({
-        content: `
-          <div style="padding: 8px; font-family: Inter, sans-serif;">
-            <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 600; color: #960120;">
-              Russell Roofing & Exteriors
-            </h3>
-            <p style="margin: 0; font-size: 14px; color: #4a5568;">
-              Serving New Jersey for over 100 years
-            </p>
-          </div>
-        `,
-      });
-
-      marker.addListener('click', () => {
-        infoWindow.open(map, marker);
-      });
-
-      // Draw 50-mile service radius circle
-      const serviceCircle = new window.google.maps.Circle({
-        strokeColor: '#960120',
-        strokeOpacity: 0.6,
-        strokeWeight: 2,
-        fillColor: '#960120',
-        fillOpacity: 0.15,
-        map: map,
-        center: russellLocation,
-        radius: 50 * 1609.34, // 50 miles in meters
-      });
+          fillColor: '#960120',
+          fillOpacity: 0.15,
+          map: map,
+          center: russellLocation,
+          radius: 50 * 1609.34, // 50 miles in meters
+        });
 
         setMapLoaded(true);
         return true;
