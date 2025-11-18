@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Tag shape -->
+  <path d="M12 12L32 8L52 12L48 32L32 56L16 32L12 12Z" stroke="#960120" stroke-width="3" fill="#960120" fill-opacity="0.1"/>
+  <!-- Dollar sign crossed out / Free indicator -->
+  <text x="32" y="38" font-family="Inter, sans-serif" font-size="24" font-weight="bold" fill="#960120" text-anchor="middle">$0</text>
+  <!-- Star/badge decoration -->
+  <circle cx="32" cy="16" r="4" fill="#960120"/>
+</svg>

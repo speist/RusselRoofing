@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Badge/medal shape -->
+  <circle cx="32" cy="28" r="16" stroke="#960120" stroke-width="3" fill="#960120" fill-opacity="0.1"/>
+  <!-- Checkmark in circle -->
+  <path d="M24 28L30 34L40 24" stroke="#960120" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Ribbon -->
+  <path d="M24 40L24 56L32 50L40 56L40 40" stroke="#960120" stroke-width="3" fill="#960120" fill-opacity="0.1"/>
+</svg>

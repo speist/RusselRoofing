@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 600" fill="none">
+  <rect width="1280" height="600" fill="#F5F3F0"/>
+  <g opacity="0.3">
+    <path d="M640 200L800 300L640 400L480 300L640 200Z" stroke="#960120" stroke-width="4" fill="#960120" fill-opacity="0.1"/>
+    <circle cx="640" cy="300" r="80" stroke="#960120" stroke-width="3" fill="none"/>
+    <text x="640" y="480" font-family="Inter, sans-serif" font-size="24" fill="#960120" text-anchor="middle">Russell Roofing</text>
+  </g>
+</svg>

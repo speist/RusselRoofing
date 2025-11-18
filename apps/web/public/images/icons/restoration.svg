@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Historical building/church outline -->
+  <path d="M32 8L12 20V56H52V20L32 8Z" stroke="#960120" stroke-width="3" fill="#960120" fill-opacity="0.1"/>
+  <!-- Ornate top -->
+  <circle cx="32" cy="14" r="3" fill="#960120"/>
+  <!-- Arched windows -->
+  <path d="M20 32C20 28 24 26 24 26C24 26 28 28 28 32V44H20V32Z" stroke="#960120" stroke-width="2" fill="none"/>
+  <path d="M36 32C36 28 40 26 40 26C40 26 44 28 44 32V44H36V32Z" stroke="#960120" stroke-width="2" fill="none"/>
+  <!-- Foundation -->
+  <line x1="12" y1="56" x2="52" y2="56" stroke="#960120" stroke-width="3"/>
+</svg>

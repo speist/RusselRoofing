@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Document with seal -->
+  <rect x="16" y="8" width="32" height="48" rx="2" stroke="#960120" stroke-width="3" fill="#960120" fill-opacity="0.1"/>
+  <!-- Lines representing text -->
+  <line x1="22" y1="18" x2="42" y2="18" stroke="#960120" stroke-width="2"/>
+  <line x1="22" y1="24" x2="42" y2="24" stroke="#960120" stroke-width="2"/>
+  <!-- Seal/badge at bottom -->
+  <circle cx="32" cy="42" r="8" stroke="#960120" stroke-width="3" fill="none"/>
+  <path d="M32 38L34 42L32 46L30 42L32 38Z" fill="#960120"/>
+</svg>
