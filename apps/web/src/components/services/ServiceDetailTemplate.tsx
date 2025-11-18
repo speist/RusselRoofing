@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ServiceDetail } from "@/data/service-details";
+import ServiceFAQ from "./ServiceFAQ";
 
 interface ServiceDetailTemplateProps {
   service: ServiceDetail;
@@ -83,8 +84,13 @@ export default function ServiceDetailTemplate({ service }: ServiceDetailTemplate
         </div>
       </section>
 
+      {/* FAQ Section */}
+      {service.faqs && service.faqs.length > 0 && (
+        <ServiceFAQ faqs={service.faqs} serviceTitle={service.title} />
+      )}
+
       {/* Floating CTA Button */}
-      <div 
+      <div
         className={`fixed bottom-8 right-8 z-40 transition-all duration-300 ${
           showFloatingCTA ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16 pointer-events-none'
         }`}
