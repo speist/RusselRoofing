@@ -12,15 +12,15 @@ export function InteractiveServiceAreaMap({ className }: InteractiveServiceAreaM
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if Google Maps is loaded
-    if (typeof window === 'undefined' || !window.google?.maps) {
-      setError('Google Maps not loaded');
-      return;
-    }
+    // Wait for Google Maps to be fully loaded
+    const initializeMap = () => {
+      if (typeof window === 'undefined' || !window.google?.maps) {
+        return false;
+      }
 
-    if (!mapRef.current) return;
+      if (!mapRef.current) return false;
 
-    try {
+      try {
       // Russell Roofing location (approximate center of service area in NJ)
       // Using Place ID: ChIJ-3HLW2e6xokRgQO_Kkkp9dQ
       const russellLocation = {
@@ -89,12 +89,40 @@ export function InteractiveServiceAreaMap({ className }: InteractiveServiceAreaM
         radius: 50 * 1609.34, // 50 miles in meters
       });
 
-      setMapLoaded(true);
-    } catch (err) {
-      console.error('[InteractiveServiceAreaMap] Error initializing map:', err);
-      setError('Failed to initialize map');
+        setMapLoaded(true);
+        return true;
+      } catch (err) {
+        console.error('[InteractiveServiceAreaMap] Error initializing map:', err);
+        setError('Failed to initialize map');
+        return false;
+      }
+    };
+
+    // Try to initialize immediately
+    if (initializeMap()) {
+      return;
     }
-  }, []);
+
+    // If not ready, wait for Google Maps to load
+    const checkInterval = setInterval(() => {
+      if (initializeMap()) {
+        clearInterval(checkInterval);
+      }
+    }, 100);
+
+    // Timeout after 10 seconds
+    const timeout = setTimeout(() => {
+      clearInterval(checkInterval);
+      if (!mapLoaded) {
+        setError('Google Maps failed to load');
+      }
+    }, 10000);
+
+    return () => {
+      clearInterval(checkInterval);
+      clearTimeout(timeout);
+    };
+  }, [mapLoaded]);
 
   if (error) {
     return (

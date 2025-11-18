@@ -818,6 +818,7 @@ export default function HomePage() {
                               src={article.featuredImage || '/placeholder.svg?height=200&width=350'}
                               alt={article.name}
                               fill
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                               className="object-cover"
                               onError={(e) => {
                                 // Fallback to placeholder if image fails to load

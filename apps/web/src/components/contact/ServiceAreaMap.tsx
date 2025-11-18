@@ -5,9 +5,9 @@ export function ServiceAreaMap() {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-neutral-200 overflow-hidden">
       {/* Map Header */}
-      <div className="bg-[#960120] text-white p-4">
+      <div className="bg-white text-[#960120] p-4 border-b border-neutral-200">
         <h3 className="text-xl font-semibold mb-2">Our Service Area</h3>
-        <p className="text-sm opacity-90">
+        <p className="text-sm text-neutral-600">
           Proudly serving homeowners throughout New Jersey
         </p>
       </div>
