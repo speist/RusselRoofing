@@ -266,7 +266,24 @@ Every siding project begins with a detailed consultation where we assess your ho
     detailedDescription: "Content to be provided by Analyst",
     process: [],
     featureDetails: [],
-    faqs: [],
+    faqs: [
+      {
+        question: "What are the benefits of energy-efficient windows?",
+        answer: "Energy-efficient windows reduce heating and cooling costs, improve home comfort, minimize outside noise, reduce UV damage to furniture, and increase your home's resale value."
+      },
+      {
+        question: "How long does window installation take?",
+        answer: "Most window installations take 1-3 days depending on the number of windows and complexity. We work efficiently to minimize disruption to your daily routine."
+      },
+      {
+        question: "Do you offer a warranty on window installations?",
+        answer: "Yes, we provide comprehensive warranties on both materials and labor. Manufacturer warranties vary by brand, and we offer additional installation warranties for your peace of mind."
+      },
+      {
+        question: "Can you match my existing window style?",
+        answer: "Absolutely! We work with all major window manufacturers and can match virtually any style, including double-hung, casement, bay, bow, and custom shapes."
+      }
+    ],
     relatedServices: ["siding", "roofing"],
     testimonials: [],
     emergencyAvailable: false,
@@ -292,7 +309,24 @@ Every siding project begins with a detailed consultation where we assess your ho
     detailedDescription: "Content to be provided by Analyst",
     process: [],
     featureDetails: [],
-    faqs: [],
+    faqs: [
+      {
+        question: "Do you work with building managers and property management companies?",
+        answer: "Yes, we have extensive experience working with property managers, building owners, and facility managers. We understand the unique requirements of commercial properties and can coordinate with your team."
+      },
+      {
+        question: "Can you work outside of business hours?",
+        answer: "Absolutely. We offer flexible scheduling including evenings, weekends, and overnight work to minimize disruption to your business operations."
+      },
+      {
+        question: "What types of commercial roofing systems do you install?",
+        answer: "We install and repair all commercial roofing systems including TPO, EPDM, PVC, modified bitumen, built-up roofing, and metal roofing systems."
+      },
+      {
+        question: "Do you provide maintenance plans for commercial properties?",
+        answer: "Yes, we offer comprehensive maintenance programs tailored to commercial properties. Regular maintenance extends roof life and helps prevent costly emergency repairs."
+      }
+    ],
     relatedServices: ["roofing", "maintenance"],
     testimonials: [],
     emergencyAvailable: true,
@@ -317,7 +351,24 @@ Every siding project begins with a detailed consultation where we assess your ho
     detailedDescription: "Content to be provided by Analyst",
     process: [],
     featureDetails: [],
-    faqs: [],
+    faqs: [
+      {
+        question: "Do you work with historic preservation societies and boards?",
+        answer: "Yes, we have extensive experience working with historic preservation commissions and architectural review boards. We understand the approval process and can help navigate requirements."
+      },
+      {
+        question: "Can you source authentic historic materials?",
+        answer: "Absolutely. We have established relationships with suppliers of authentic materials including slate, clay tiles, copper, and historic wood products. We can match or replicate original materials."
+      },
+      {
+        question: "Are you familiar with period-appropriate techniques?",
+        answer: "Yes, our craftsmen are trained in traditional building techniques including hand-cut slate installation, copper work, and historic masonry methods."
+      },
+      {
+        question: "Do you offer documentation for historic preservation tax credits?",
+        answer: "Yes, we can provide detailed documentation of materials, methods, and work performed to support historic preservation tax credit applications."
+      }
+    ],
     relatedServices: ["roofing", "siding", "gutters"],
     testimonials: [],
     emergencyAvailable: true,
@@ -342,7 +393,24 @@ Every siding project begins with a detailed consultation where we assess your ho
     detailedDescription: "Content to be provided by Analyst",
     process: [],
     featureDetails: [],
-    faqs: [],
+    faqs: [
+      {
+        question: "How do you prevent skylight leaks?",
+        answer: "We use proper flashing techniques, high-quality sealants, and careful integration with your roofing system. Our installations come with comprehensive warranties against leaks."
+      },
+      {
+        question: "Can you install skylights in any type of roof?",
+        answer: "We can install skylights in most roof types including asphalt shingle, metal, slate, and tile. Each installation is customized to your specific roof structure and material."
+      },
+      {
+        question: "What are the benefits of modern skylights?",
+        answer: "Modern skylights provide natural light, reduce energy costs, improve ventilation, and enhance your home's aesthetic appeal. Many feature Low-E coatings and insulated glass for energy efficiency."
+      },
+      {
+        question: "Do you repair existing skylights?",
+        answer: "Yes, we repair and service all major skylight brands. Common repairs include resealing, flashing replacement, glass replacement, and mechanism repairs for operable units."
+      }
+    ],
     relatedServices: ["roofing", "gutters", "siding"],
     testimonials: [],
     emergencyAvailable: false,
@@ -367,7 +435,24 @@ Every siding project begins with a detailed consultation where we assess your ho
     detailedDescription: "Content to be provided by Analyst",
     process: [],
     featureDetails: [],
-    faqs: [],
+    faqs: [
+      {
+        question: "Do you have experience working on active facilities?",
+        answer: "Yes, we specialize in working around active operations. We coordinate schedules to minimize disruption to worship services, school activities, or hospital operations."
+      },
+      {
+        question: "Can you work with our building committee or board?",
+        answer: "Absolutely. We're experienced in presenting to committees and boards, providing detailed proposals, and working within institutional decision-making processes."
+      },
+      {
+        question: "Do you handle steeples and bell towers?",
+        answer: "Yes, we have the specialized equipment and expertise to work on steeples, bell towers, and other elevated architectural features unique to institutional buildings."
+      },
+      {
+        question: "Can you help with fundraising documentation?",
+        answer: "Yes, we provide detailed project documentation, phasing options, and cost breakdowns that support capital campaign and fundraising efforts."
+      }
+    ],
     relatedServices: ["roofing", "commercial", "historical-restoration"],
     testimonials: [],
     emergencyAvailable: true,
@@ -392,7 +477,24 @@ Every siding project begins with a detailed consultation where we assess your ho
     detailedDescription: "Content to be provided by Analyst",
     process: [],
     featureDetails: [],
-    faqs: [],
+    faqs: [
+      {
+        question: "How do I know if my chimney needs repair?",
+        answer: "Signs include crumbling mortar, loose or missing bricks, white staining (efflorescence), cracks in the crown, or interior water damage. We offer free inspections to assess your chimney's condition."
+      },
+      {
+        question: "What is tuckpointing and when is it needed?",
+        answer: "Tuckpointing is the process of removing and replacing deteriorated mortar between bricks. It's needed when mortar becomes soft, cracked, or recessed, typically every 25-30 years."
+      },
+      {
+        question: "Can you match the existing brick or stone?",
+        answer: "Yes, we specialize in matching existing materials including historic brick, stone, and mortar. We can source authentic materials or custom-blend mortar to match original colors."
+      },
+      {
+        question: "Do you handle chimney crown and cap repairs?",
+        answer: "Yes, we repair and rebuild chimney crowns, install and replace chimney caps, and ensure proper flashing to prevent water infiltration and extend chimney life."
+      }
+    ],
     relatedServices: ["roofing", "chimneys", "historical-restoration"],
     testimonials: [],
     emergencyAvailable: true,
