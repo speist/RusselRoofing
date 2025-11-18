@@ -2,19 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap');
 
-/* Import Skolar Latin font */
-@font-face {
-  font-family: 'Skolar Latin';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
-}
-
-/* Note: Using Merriweather as fallback for Skolar Latin as it's a similar serif font.
-   Replace with actual Skolar Latin font files when available */
+/* Note: Merriweather is loaded via @import above and used as a serif font fallback
+   in the Tailwind config for display and skolar font families. */
 
 :root {
   /* Light mode colors */
