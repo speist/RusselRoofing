@@ -13,7 +13,7 @@ export default function CompanyHistory() {
             Our <span className="text-[#960120]">Journey</span>
           </h2>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            Three decades of award-winning craftsmanship and community service
+            Three decades of award-winning craftsmanship and community service.
           </p>
         </div>
 
