@@ -2,8 +2,9 @@ import React from 'react';
 import { Metadata } from 'next';
 import FloatingPageLayout from '@/components/layout/FloatingPageLayout';
 import AboutHero from '@/components/about/AboutHero';
-import CompanyHistory from '@/components/about/CompanyHistory';
+import MissionSection from '@/components/about/MissionSection';
 import TeamSection from '@/components/about/TeamSection';
+import CompanyHistory from '@/components/about/CompanyHistory';
 import CertificationsSection from '@/components/about/CertificationsSection';
 import QualityMaterialsSlider from '@/components/about/QualityMaterialsSlider';
 
@@ -22,6 +23,7 @@ export default function AboutPage() {
   return (
     <FloatingPageLayout>
       <AboutHero />
+      <MissionSection />
       <TeamSection />
       <CompanyHistory />
       <CertificationsSection />

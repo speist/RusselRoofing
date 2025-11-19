@@ -62,22 +62,6 @@ export default function CompanyHistory() {
           </div>
         </div>
 
-        {/* Mission Statement */}
-        <div className="mt-16 text-center">
-          <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Our company slogan, &ldquo;If It&apos;s Russell, It&apos;s Right, Guaranteed!&rdquo; is more than just words.
-              It represents how we run our business with a &apos;can do&apos; attitude. Our goal is to make your roofing
-              or exterior remodeling experience as comfortable as possible by providing the highest quality warranties,
-              workers, and communication.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed mt-4">
-              Referrals are the core of our business, and we aim to make our customers 100% satisfied. We are a
-              safety-first company that is fully licensed and insured, with liability and full workers&apos; compensation coverage.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );
