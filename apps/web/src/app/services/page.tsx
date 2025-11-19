@@ -51,8 +51,8 @@ export default function ServicesPage() {
             <h2 className="font-display text-3xl font-bold text-white mb-4">
               Ready to Get Started?
             </h2>
-            <p className="text-xl text-burgundy-100 mb-8 max-w-2xl mx-auto">
-              Contact us today for a free consultation and estimate. Our expert team 
+            <p className="text-xl text-white mb-8 max-w-2xl mx-auto">
+              Contact us today for a free consultation and estimate. Our expert team
               is ready to help you protect and enhance your home.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
