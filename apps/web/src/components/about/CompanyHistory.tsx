@@ -9,9 +9,12 @@ export default function CompanyHistory() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Our <span className="text-[#960120]">Journey</span>
           </h2>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+            Three decades of excellence, award-winning craftsmanship, and dedicated service to our community
+          </p>
         </div>
 
         {/* Desktop: Horizontal Timeline */}
