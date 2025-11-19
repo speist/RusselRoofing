@@ -108,14 +108,14 @@ export default function ContactPage() {
       </section>
 
       {/* Service Area Map Section - Placeholder for now */}
-      <section className="py-16 bg-[#960120]">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-serif">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-serif">
                 Our Service Area
               </h2>
-              <p className="text-lg text-white">
+              <p className="text-lg text-gray-600">
                 See where we&apos;ve completed projects and our service coverage
               </p>
             </div>
