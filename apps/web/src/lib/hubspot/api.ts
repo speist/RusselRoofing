@@ -5,8 +5,9 @@ import BlogService from './blog';
 import CareersService from './careers';
 import CommunityService from './community';
 import TeamService from './team';
+import FAQService from './faqs';
 import NotesService, { NoteInput, Note } from './notes';
-import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse, HUBSPOT_ERROR_CODES } from './types';
+import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse, HUBSPOT_ERROR_CODES, FAQ, FAQListResponse, FAQParams } from './types';
 import { Career, CareersListResponse, CareersParams } from './careers';
 import { CommunityActivity, CommunityListResponse, CommunityParams } from './community';
 import { TeamMember, TeamListResponse, TeamParams } from './team';
@@ -55,6 +56,10 @@ interface HubSpotService {
   getTeamMembers(params?: TeamParams): Promise<HubSpotApiResponse<TeamListResponse>>;
   getTeamMemberById(id: string): Promise<HubSpotApiResponse<TeamMember | null>>;
 
+  // FAQ operations
+  getFAQs(params?: FAQParams): Promise<HubSpotApiResponse<FAQListResponse>>;
+  getFAQById(id: string): Promise<HubSpotApiResponse<FAQ | null>>;
+
   // Progressive profiling
   getContactProfile(email: string): Promise<ContactProfile>;
 }
@@ -68,6 +73,7 @@ class HubSpotApiService implements HubSpotService {
   private careersService: CareersService;
   private communityService: CommunityService;
   private teamService: TeamService;
+  private faqService: FAQService;
   private isConfigured: boolean;
 
   constructor() {
@@ -84,6 +90,7 @@ class HubSpotApiService implements HubSpotService {
       this.careersService = null as any;
       this.communityService = null as any;
       this.teamService = null as any;
+      this.faqService = null as any;
       return;
     }
 
@@ -96,6 +103,7 @@ class HubSpotApiService implements HubSpotService {
     this.careersService = new CareersService(hubspotConfig.apiKey);
     this.communityService = new CommunityService(hubspotConfig.apiKey);
     this.teamService = new TeamService(hubspotConfig.apiKey);
+    this.faqService = new FAQService(hubspotConfig.apiKey);
 
     console.log('[HubSpot] Service initialized successfully with production configuration');
   }
@@ -418,6 +426,28 @@ class HubSpotApiService implements HubSpotService {
     }
 
     return await this.teamService.getTeamMemberById(id);
+  }
+
+  /**
+   * Get all FAQs, optionally filtered by service area
+   */
+  async getFAQs(params?: FAQParams): Promise<HubSpotApiResponse<FAQListResponse>> {
+    if (!this.isConfigured) {
+      return this.mockGetFAQs(params);
+    }
+
+    return await this.faqService.getFAQs(params);
+  }
+
+  /**
+   * Get a single FAQ by ID
+   */
+  async getFAQById(id: string): Promise<HubSpotApiResponse<FAQ | null>> {
+    if (!this.isConfigured) {
+      return this.mockGetFAQById(id);
+    }
+
+    return await this.faqService.getFAQById(id);
   }
 
   /**
@@ -1057,6 +1087,105 @@ class HubSpotApiService implements HubSpotService {
     return {
       success: true,
       data: mockTeamMember,
+    };
+  }
+
+  private async mockGetFAQs(params?: FAQParams): Promise<HubSpotApiResponse<FAQListResponse>> {
+    console.log('[HubSpot Mock] Getting FAQs with params:', params);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockFAQs: FAQ[] = [
+      {
+        id: '1',
+        properties: {
+          service_area: 'roofing',
+          question: 'How often should I have my roof inspected?',
+          answer: 'We recommend annual roof inspections, especially after severe weather events. Regular inspections help identify minor issues before they become major problems.',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 30).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 5).toISOString(),
+        }
+      },
+      {
+        id: '2',
+        properties: {
+          service_area: 'roofing',
+          question: 'How long does a typical roof replacement take?',
+          answer: 'Most residential roof replacements are completed in 1-3 days, depending on the size and complexity of the roof. We\'ll provide a specific timeline during your consultation.',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 28).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 4).toISOString(),
+        }
+      },
+      {
+        id: '3',
+        properties: {
+          service_area: 'windows',
+          question: 'What are the benefits of energy-efficient windows?',
+          answer: 'Energy-efficient windows reduce heating and cooling costs, improve home comfort, minimize outside noise, reduce UV damage to furniture, and increase your home\'s resale value.',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 25).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 3).toISOString(),
+        }
+      },
+      {
+        id: '4',
+        properties: {
+          service_area: 'churches-and-institutions',
+          question: 'Do you have experience working on active facilities?',
+          answer: 'Yes, we specialize in working around active operations. We coordinate schedules to minimize disruption to worship services, school activities, or hospital operations.',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 20).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 2).toISOString(),
+        }
+      },
+      {
+        id: '5',
+        properties: {
+          service_area: 'historical-restorations',
+          question: 'Do you work with historic preservation societies and boards?',
+          answer: 'Yes, we have extensive experience working with historic preservation commissions and architectural review boards. We understand the approval process and can help navigate requirements.',
+          live: 'true',
+          createdate: new Date(Date.now() - 86400000 * 18).toISOString(),
+          hs_lastmodifieddate: new Date(Date.now() - 86400000 * 1).toISOString(),
+        }
+      }
+    ];
+
+    // Filter by service area if requested
+    let results = mockFAQs;
+    if (params?.serviceArea) {
+      results = mockFAQs.filter(faq => faq.properties.service_area === params.serviceArea);
+    }
+
+    return {
+      success: true,
+      data: {
+        total: results.length,
+        results,
+      },
+    };
+  }
+
+  private async mockGetFAQById(id: string): Promise<HubSpotApiResponse<FAQ | null>> {
+    console.log('[HubSpot Mock] Getting FAQ by ID:', id);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const mockFAQ: FAQ = {
+      id,
+      properties: {
+        service_area: 'roofing',
+        question: 'How often should I have my roof inspected?',
+        answer: 'We recommend annual roof inspections, especially after severe weather events. Regular inspections help identify minor issues before they become major problems.',
+        live: 'true',
+        createdate: new Date(Date.now() - 86400000 * 30).toISOString(),
+        hs_lastmodifieddate: new Date(Date.now() - 86400000 * 5).toISOString(),
+      }
+    };
+
+    return {
+      success: true,
+      data: mockFAQ,
     };
   }
 }

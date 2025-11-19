@@ -332,9 +332,9 @@ Every siding project begins with a detailed consultation where we assess your ho
     emergencyAvailable: true,
     certifications: []
   },
-  "historical-restoration": {
+  "historical-restorations": {
     id: "5",
-    slug: "historical-restoration",
+    slug: "historical-restorations",
     title: "Historical Restoration",
     shortDescription: "Preserving historic buildings with authentic materials and techniques",
     description: "Specialized restoration services for historic properties. We use traditional materials and techniques while meeting modern performance standards to preserve the character and integrity of historic buildings.",
@@ -416,9 +416,9 @@ Every siding project begins with a detailed consultation where we assess your ho
     emergencyAvailable: false,
     certifications: []
   },
-  "churches-institutions": {
+  "churches-and-institutions": {
     id: "4",
-    slug: "churches-institutions",
+    slug: "churches-and-institutions",
     title: "Churches & Institutions",
     shortDescription: "Specialized services for religious and institutional buildings",
     description: "Expert roofing and exterior services for churches, schools, hospitals, and other institutional buildings. We understand the unique requirements and architectural considerations of these important structures.",
@@ -453,7 +453,7 @@ Every siding project begins with a detailed consultation where we assess your ho
         answer: "Yes, we provide detailed project documentation, phasing options, and cost breakdowns that support capital campaign and fundraising efforts."
       }
     ],
-    relatedServices: ["roofing", "commercial", "historical-restoration"],
+    relatedServices: ["roofing", "commercial", "historical-restorations"],
     testimonials: [],
     emergencyAvailable: true,
     certifications: []
@@ -495,7 +495,7 @@ Every siding project begins with a detailed consultation where we assess your ho
         answer: "Yes, we repair and rebuild chimney crowns, install and replace chimney caps, and ensure proper flashing to prevent water infiltration and extend chimney life."
       }
     ],
-    relatedServices: ["roofing", "chimneys", "historical-restoration"],
+    relatedServices: ["roofing", "chimneys", "historical-restorations"],
     testimonials: [],
     emergencyAvailable: true,
     certifications: []

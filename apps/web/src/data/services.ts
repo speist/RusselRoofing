@@ -63,7 +63,7 @@ export const services: Service[] = [
   },
   {
     id: "4",
-    slug: "churches-institutions",
+    slug: "churches-and-institutions",
     title: "Churches & Institutions",
     shortDescription: "Specialized services for religious and institutional buildings",
     description: "Expert roofing and exterior services for churches, schools, hospitals, and other institutional buildings. We understand the unique requirements and architectural considerations of these important structures.",
@@ -74,7 +74,7 @@ export const services: Service[] = [
   },
   {
     id: "5",
-    slug: "historical-restoration",
+    slug: "historical-restorations",
     title: "Historical Restoration",
     shortDescription: "Preserving historic buildings with authentic materials and techniques",
     description: "Specialized restoration services for historic properties. We use traditional materials and techniques while meeting modern performance standards to preserve the character and integrity of historic buildings.",

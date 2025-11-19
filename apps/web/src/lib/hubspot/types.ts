@@ -209,3 +209,27 @@ export const HUBSPOT_ERROR_CODES = {
 } as const;
 
 export type HubSpotErrorCode = typeof HUBSPOT_ERROR_CODES[keyof typeof HUBSPOT_ERROR_CODES];
+
+// FAQ Types
+export interface FAQ {
+  id: string;
+  properties: {
+    service_area: string;
+    question: string;
+    answer: string;
+    live?: string; // 'true' or 'false'
+    createdate: string;
+    hs_lastmodifieddate: string;
+  };
+}
+
+export interface FAQListResponse {
+  total: number;
+  results: FAQ[];
+}
+
+export interface FAQParams {
+  limit?: number;
+  offset?: number;
+  serviceArea?: string; // Filter by service area (roofing, siding-and-gutters, etc.)
+}

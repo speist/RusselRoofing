@@ -116,10 +116,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       {/* Image Gallery Section */}
       <ServiceGallery serviceSlug={params.slug} serviceTitle={service.title} />
 
-      {/* FAQ Section */}
-      {serviceDetail.faqs && serviceDetail.faqs.length > 0 && (
-        <ServiceFAQ faqs={serviceDetail.faqs} serviceTitle={service.title} />
-      )}
+      {/* FAQ Section - Now dynamically fetched from HubSpot */}
+      <ServiceFAQ serviceArea={params.slug} serviceTitle={service.title} />
 
       {/* Related Articles Section */}
       {relatedArticles.length > 0 && (
