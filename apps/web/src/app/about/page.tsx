@@ -24,8 +24,8 @@ export default function AboutPage() {
     <FloatingPageLayout>
       <AboutHero />
       <MissionSection />
-      <TeamSection />
       <CompanyHistory />
+      <TeamSection />
       <CertificationsSection />
       <QualityMaterialsSlider />
     </FloatingPageLayout>
