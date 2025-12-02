@@ -102,12 +102,21 @@ export const envMiddleware = {
     requiredVars: [],
     optionalVars: [
       'EMERGENCY_PHONE_NUMBERS',
-      'EMERGENCY_EMAIL_LIST', 
+      'EMERGENCY_EMAIL_LIST',
       'SENIOR_SALES_EMAIL_LIST',
       'SALES_TEAM_EMAIL_LIST'
     ],
     category: 'notification',
     gracefulDegradation: true
+  }),
+
+  /**
+   * CompanyCam API middleware - requires CompanyCam API key
+   */
+  companycam: createEnvMiddleware({
+    requiredVars: ['COMPANYCAM_API_KEY'],
+    category: 'companycam',
+    gracefulDegradation: true // Allow degraded functionality if API key is not configured
   })
 };
 
@@ -159,6 +168,10 @@ export function getApiHealthStatus(): {
     instagram: {
       required: ['INSTAGRAM_ACCESS_TOKEN', 'INSTAGRAM_USER_ID'],
       optional: ['FACEBOOK_APP_ID', 'FACEBOOK_APP_SECRET']
+    },
+    companycam: {
+      required: ['COMPANYCAM_API_KEY'],
+      optional: []
     },
     notifications: {
       required: [],

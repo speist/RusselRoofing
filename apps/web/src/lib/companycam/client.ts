@@ -1,6 +1,12 @@
 /**
  * CompanyCam API Client
  * Handles authentication and API requests to CompanyCam
+ *
+ * Filtering Strategy:
+ * 1. Master Tag: "RR Website" must be present on ALL photos
+ * 2. Service Tags: At least ONE must be present from the SERVICE_TAGS list
+ * 3. Case-insensitive matching for all tags
+ * 4. Optional: Before/After tags for transformation showcases
  */
 
 import type {
@@ -10,6 +16,14 @@ import type {
   CompanyCamTagListResponse,
   PhotoFilterOptions,
   GalleryPhoto,
+} from './types';
+
+import {
+  MASTER_TAG,
+  MASTER_TAG_ID,
+  SERVICE_TAGS,
+  BEFORE_TAG,
+  AFTER_TAG,
 } from './types';
 
 const COMPANYCAM_API_BASE = 'https://api.companycam.com/v2';
@@ -40,9 +54,45 @@ export class CompanyCamClient {
   }
 
   /**
-   * Make a GET request to the CompanyCam API
+   * Helper: Check if tags array contains a specific tag (case-insensitive)
    */
-  private async get<T>(endpoint: string): Promise<T> {
+  private hasTag(tags: string[], targetTag: string): boolean {
+    return tags.some(tag => tag.toLowerCase() === targetTag.toLowerCase());
+  }
+
+  /**
+   * Helper: Check if photo has the master tag ("RR Website")
+   */
+  private hasMasterTag(tags: string[]): boolean {
+    return this.hasTag(tags, MASTER_TAG);
+  }
+
+  /**
+   * Helper: Get matched service tags from photo tags
+   * Returns array of matched service tags
+   */
+  private getMatchedServiceTags(tags: string[]): string[] {
+    return SERVICE_TAGS.filter(serviceTag =>
+      this.hasTag(tags, serviceTag)
+    );
+  }
+
+  /**
+   * Helper: Check if photo passes the two-tier filter
+   * 1. Must have master tag ("RR Website")
+   * 2. Must have at least one service tag
+   */
+  private passesFilter(tags: string[]): boolean {
+    const hasMaster = this.hasMasterTag(tags);
+    const matchedServiceTags = this.getMatchedServiceTags(tags);
+    return hasMaster && matchedServiceTags.length > 0;
+  }
+
+  /**
+   * Make a GET request to the CompanyCam API
+   * Public for debugging purposes
+   */
+  async get<T>(endpoint: string): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
 
     try {
@@ -94,46 +144,100 @@ export class CompanyCamClient {
    */
   async getPhotoTags(photoId: string): Promise<CompanyCamTag[]> {
     const endpoint = `/photos/${photoId}/tags`;
-    const response = await this.get<CompanyCamTagListResponse>(endpoint);
+    const response = await this.get<any>(endpoint);
 
-    return response.data || [];
+    // The response IS the array directly, not wrapped in { data: [...] }
+    return Array.isArray(response) ? response : (response.data || []);
   }
 
   /**
-   * Get photos filtered by tags
-   * This method fetches all photos and filters them by tags on the client side
-   * since CompanyCam API doesn't support tag filtering in the list endpoint
+   * Get photos filtered by user's requirements
+   *
+   * Implements two-tier filtering:
+   * 1. Master tag: "RRWebsite" (required) - fetched efficiently using tag_ids parameter
+   * 2. Service tags: At least ONE service tag must be present
+   * 3. Optional: Additional filter by specific service tag
+   * 4. Optional: Filter by before/after tags
    */
-  async getPhotosByTags(tags: string[], options?: PhotoFilterOptions): Promise<GalleryPhoto[]> {
-    // Fetch all photos
-    const photos = await this.getPhotos(options);
+  async getPhotosByTags(additionalFilters?: {
+    serviceTag?: string;
+    beforeAfter?: 'before' | 'after' | 'both';
+  }, options?: PhotoFilterOptions): Promise<GalleryPhoto[]> {
+    // EFFICIENT APPROACH: Fetch ONLY photos with the RRWebsite master tag using tag_ids parameter
+    // This drastically reduces API calls from hundreds to ~36 photos
+    const perPage = options?.perPage || 100;
+    const page = options?.page || 1;
 
-    // Fetch tags for each photo and filter
-    const photosWithTags = await Promise.all(
-      photos.map(async (photo) => {
-        try {
-          const photoTags = await this.getPhotoTags(photo.id);
-          const tagNames = photoTags.map(tag => tag.name.toLowerCase());
+    // Fetch photos that already have the master tag (RRWebsite)
+    const endpoint = `/photos?tag_ids=${MASTER_TAG_ID}&page=${page}&per_page=${perPage}`;
+    const response = await this.get<any>(endpoint);
+    const photos = Array.isArray(response) ? response : (response.data || []);
 
-          return {
-            photo,
-            tags: tagNames,
-          };
-        } catch (error) {
-          console.error(`Failed to fetch tags for photo ${photo.id}:`, error);
-          return null;
-        }
-      })
-    );
+    if (photos.length === 0) {
+      return [];
+    }
 
-    // Filter photos that have all the required tags
+    // Fetch tags for each photo to check for service tags
+    // Since we're only fetching ~36 photos max, rate limiting is not an issue
+    const batchSize = 20;
+    const delayBetweenBatches = 3000; // 3 seconds between batches (conservative)
+    const photosWithTags: ({ photo: CompanyCamPhoto; tags: string[] } | null)[] = [];
+
+    for (let i = 0; i < photos.length; i += batchSize) {
+      const batch = photos.slice(i, i + batchSize);
+
+      const batchResults = await Promise.all(
+        batch.map(async (photo: CompanyCamPhoto) => {
+          try {
+            const photoTags = await this.getPhotoTags(photo.id);
+            const tagNames = photoTags.map(tag => tag.display_value || tag.value || tag.name || '');
+
+            return {
+              photo,
+              tags: tagNames,
+            };
+          } catch (error) {
+            console.error(`Failed to fetch tags for photo ${photo.id}:`, error);
+            return null;
+          }
+        })
+      );
+
+      photosWithTags.push(...batchResults);
+
+      // Delay between batches (except for the last batch)
+      if (i + batchSize < photos.length) {
+        await new Promise(resolve => setTimeout(resolve, delayBetweenBatches));
+      }
+    }
+
+    // Apply two-tier filter
     const filteredPhotos = photosWithTags.filter(item => {
       if (!item) return false;
 
-      const normalizedTags = tags.map(tag => tag.toLowerCase().replace('#', ''));
-      return normalizedTags.every(requiredTag =>
-        item.tags.includes(requiredTag)
-      );
+      // Apply master + service tag filter
+      if (!this.passesFilter(item.tags)) {
+        return false;
+      }
+
+      // Apply optional service tag filter
+      if (additionalFilters?.serviceTag) {
+        if (!this.hasTag(item.tags, additionalFilters.serviceTag)) {
+          return false;
+        }
+      }
+
+      // Apply optional before/after filter
+      if (additionalFilters?.beforeAfter) {
+        const isBeforePhoto = this.hasTag(item.tags, BEFORE_TAG);
+        const isAfterPhoto = this.hasTag(item.tags, AFTER_TAG);
+
+        if (additionalFilters.beforeAfter === 'before' && !isBeforePhoto) return false;
+        if (additionalFilters.beforeAfter === 'after' && !isAfterPhoto) return false;
+        if (additionalFilters.beforeAfter === 'both' && (!isBeforePhoto || !isAfterPhoto)) return false;
+      }
+
+      return true;
     });
 
     // Transform to GalleryPhoto format
@@ -143,27 +247,36 @@ export class CompanyCamClient {
   }
 
   /**
-   * Get gallery photos by service category
+   * Get all gallery photos (filtered by master tag + service tags)
    */
-  async getGalleryPhotosByService(service: string): Promise<GalleryPhoto[]> {
-    const tags = ['#gallery', `#${service.toLowerCase()}`];
-    return this.getPhotosByTags(tags);
+  async getAllGalleryPhotos(options?: PhotoFilterOptions): Promise<GalleryPhoto[]> {
+    return this.getPhotosByTags(undefined, options);
+  }
+
+  /**
+   * Get gallery photos by specific service category
+   */
+  async getGalleryPhotosByService(service: string, options?: PhotoFilterOptions): Promise<GalleryPhoto[]> {
+    return this.getPhotosByTags({ serviceTag: service }, options);
   }
 
   /**
    * Get before/after photos
+   * Optionally filtered by service category
    */
-  async getBeforeAfterPhotos(service?: string): Promise<{
+  async getBeforeAfterPhotos(service?: string, options?: PhotoFilterOptions): Promise<{
     before: GalleryPhoto[];
     after: GalleryPhoto[];
   }> {
-    const baseTags = ['#gallery'];
-    if (service) {
-      baseTags.push(`#${service.toLowerCase()}`);
-    }
+    const beforePhotos = await this.getPhotosByTags({
+      serviceTag: service,
+      beforeAfter: 'before',
+    }, options);
 
-    const beforePhotos = await this.getPhotosByTags([...baseTags, '#before']);
-    const afterPhotos = await this.getPhotosByTags([...baseTags, '#after']);
+    const afterPhotos = await this.getPhotosByTags({
+      serviceTag: service,
+      beforeAfter: 'after',
+    }, options);
 
     return {
       before: beforePhotos,
@@ -172,41 +285,49 @@ export class CompanyCamClient {
   }
 
   /**
+   * Helper: Get URI from photo by type
+   * CompanyCam returns uris as an array of {type, uri, url} objects
+   */
+  private getPhotoUri(photo: CompanyCamPhoto, type: string): string | undefined {
+    if (!photo.uris || !Array.isArray(photo.uris)) {
+      return photo.uri;
+    }
+    const found = photo.uris.find(u => u.type === type);
+    return found?.uri || found?.url;
+  }
+
+  /**
    * Transform CompanyCam photo to GalleryPhoto format
    */
   private transformToGalleryPhoto(photo: CompanyCamPhoto, tags: string[]): GalleryPhoto {
+    const matchedServiceTags = this.getMatchedServiceTags(tags);
+
+    // Get URLs from the uris array
+    // Use 'web' for main display (400x400) and 'thumbnail' for thumbnails (250x250)
+    // Fall back to 'original' if others not available
+    const mainUrl = this.getPhotoUri(photo, 'web') || this.getPhotoUri(photo, 'original') || photo.uri;
+    const thumbnailUrl = this.getPhotoUri(photo, 'thumbnail') || mainUrl;
+
     return {
       id: photo.id,
-      url: photo.uri,
-      thumbnailUrl: photo.thumbnail_uri || photo.uri,
-      capturedAt: photo.captured_at || photo.created_at,
+      url: mainUrl || '',
+      thumbnailUrl: thumbnailUrl || '',
+      capturedAt: photo.captured_at ? String(photo.captured_at) : photo.created_at,
       tags,
       location: photo.coordinates,
-      category: this.extractCategory(tags),
-      isBeforePhoto: tags.includes('before'),
-      isAfterPhoto: tags.includes('after'),
+      category: matchedServiceTags[0]?.toLowerCase(), // Use first matched service tag
+      isBeforePhoto: this.hasTag(tags, BEFORE_TAG),
+      isAfterPhoto: this.hasTag(tags, AFTER_TAG),
     };
   }
 
   /**
-   * Extract service category from tags
+   * Extract service category from tags (legacy support)
+   * Now uses SERVICE_TAGS constant from types
    */
   private extractCategory(tags: string[]): string | undefined {
-    const serviceCategories = [
-      'roofing',
-      'siding',
-      'gutters',
-      'windows',
-      'chimneys',
-      'commercial',
-      'historical',
-      'masonry',
-      'skylights',
-    ];
-
-    return serviceCategories.find(category =>
-      tags.includes(category)
-    );
+    const matchedTags = this.getMatchedServiceTags(tags);
+    return matchedTags[0]?.toLowerCase();
   }
 }
 
