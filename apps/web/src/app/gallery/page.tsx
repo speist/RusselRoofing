@@ -1,6 +1,6 @@
 import React from "react";
 import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
-import { ProjectGallery } from "@/components/gallery";
+import { CompanyCamGallery } from "@/components/gallery";
 import { sampleProjects } from "@/data/gallery";
 
 export default function GalleryPage() {
@@ -14,19 +14,19 @@ export default function GalleryPage() {
               Our Project Gallery
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore our portfolio of completed roofing, siding, and home improvement projects. 
+              Explore our portfolio of completed roofing, siding, and home improvement projects.
               Each project represents our commitment to quality craftsmanship and customer satisfaction.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Gallery Section */}
+      {/* Gallery Section - Uses CompanyCam API with static fallback */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <ProjectGallery
-          images={sampleProjects}
+        <CompanyCamGallery
           showFilter={true}
           className="w-full"
+          fallbackImages={sampleProjects}
         />
       </div>
 

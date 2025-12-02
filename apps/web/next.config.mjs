@@ -64,6 +64,19 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'vumbnail.com',
       },
+      // CompanyCam CDN for gallery images
+      {
+        protocol: 'https',
+        hostname: '*.companycam.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'photos.companycam.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.cloudfront.net',
+      },
     ],
   },
   async headers() {
