@@ -39,6 +39,7 @@ import AssociationsSlider from "@/components/home/AssociationsSlider"
 import JobOpeningsCards from "@/components/home/JobOpeningsCards"
 import { AddressInput } from "@/components/estimate/AddressInput"
 import { parseAddressComponents } from "@/lib/hubspot/utils"
+import { Review } from "@/types/review"
 
 // Loading Skeleton Component
 const SkeletonCard = () => (
@@ -105,6 +106,8 @@ export default function HomePage() {
   const [articlesLoading, setArticlesLoading] = useState(true)
   const [jobs, setJobs] = useState<any[]>([])
   const [jobsLoading, setJobsLoading] = useState(true)
+  const [googleReviews, setGoogleReviews] = useState<Review[]>([])
+  const [reviewsLoading, setReviewsLoading] = useState(true)
 
   // Contact form state
   const [contactForm, setContactForm] = useState({
@@ -176,6 +179,29 @@ export default function HomePage() {
     }
 
     fetchJobs()
+  }, [])
+
+  // Fetch Google Reviews (5-star only)
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        setReviewsLoading(true)
+        const response = await fetch('/api/reviews')
+        const data = await response.json()
+
+        if (data.reviews) {
+          // Filter for 5-star reviews only
+          const fiveStarReviews = data.reviews.filter((review: Review) => review.rating === 5)
+          setGoogleReviews(fiveStarReviews)
+        }
+      } catch (error) {
+        console.error('Failed to fetch Google reviews:', error)
+      } finally {
+        setReviewsLoading(false)
+      }
+    }
+
+    fetchReviews()
   }, [])
 
   const smoothScrollTo = (elementId: string) => {
@@ -275,39 +301,7 @@ export default function HomePage() {
     "Skylights": "/images/services/service cards/skylight-card.jpg",
   }
 
-  const testimonials = [
-    {
-      text: "Russell Roofing exceeded our expectations. The team was professional, efficient, and the quality of work was outstanding. Our new roof looks amazing and we couldn't be happier with the service.",
-      name: "Sarah Johnson",
-      title: "Property Owner",
-    },
-    {
-      text: "From start to finish, Russell Roofing provided exceptional service. They were transparent about pricing, completed the work on time, and cleaned up thoroughly. Highly recommended!",
-      name: "Michael Chen",
-      title: "Property Owner",
-    },
-    {
-      text: "Professional, reliable, and honest. They completed our roofing project on time and within budget. The attention to detail was impressive and the results speak for themselves.",
-      name: "Jennifer Martinez",
-      title: "Property Owner",
-    },
-    {
-      text: "Excellent communication throughout the entire process. The crew was respectful of our property and delivered quality workmanship. We're extremely satisfied with our new siding.",
-      name: "David Thompson",
-      title: "Property Owner",
-    },
-    {
-      text: "Russell Roofing transformed our historic home while preserving its character. Their expertise in restoration work is unmatched. Truly a professional organization.",
-      name: "Lisa Anderson",
-      title: "Property Owner",
-    },
-    {
-      text: "Outstanding customer service and craftsmanship. They handled our commercial roofing project with precision and completed it ahead of schedule. Highly recommend their services.",
-      name: "Robert Wilson",
-      title: "Business Owner",
-    },
-  ]
-
+  
 
   return (
     <div className="min-h-screen bg-light-grey">
@@ -714,13 +708,16 @@ export default function HomePage() {
             <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey text-center mb-8 md:mb-12">
               Client Testimonials
             </h2>
-            {isLoading ? (
+            <p className="text-center text-gray-600 mb-8 -mt-4">
+              5-star reviews from our verified Google customers
+            </p>
+            {reviewsLoading ? (
               <div className="grid md:grid-cols-2 gap-6">
                 {[...Array(2)].map((_, i) => (
                   <TestimonialSkeleton key={i} />
                 ))}
               </div>
-            ) : (
+            ) : googleReviews.length > 0 ? (
               <div className="relative">
                 {/* Auto-playing Testimonials Swiper with Pause on Hover */}
                 <Swiper
@@ -732,7 +729,7 @@ export default function HomePage() {
                   }}
                   spaceBetween={30}
                   slidesPerView={1}
-                  loop={true}
+                  loop={googleReviews.length > 2}
                   breakpoints={{
                     768: {
                       slidesPerView: 2,
@@ -741,27 +738,38 @@ export default function HomePage() {
                   }}
                   className="testimonials-swiper"
                 >
-                  {testimonials.map((testimonial, index) => (
-                    <SwiperSlide key={index}>
+                  {googleReviews.map((review) => (
+                    <SwiperSlide key={review.id}>
                       <div className="bg-white p-6 md:p-8 rounded-lg shadow-md h-full hover:shadow-lg transition-shadow duration-300">
                         <div className="flex mb-4">
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} className="w-5 h-5 text-accent-yellow fill-current" />
                           ))}
                         </div>
-                        <p className="font-inter text-gray-600 text-lg mb-6 italic">&ldquo;{testimonial.text}&rdquo;</p>
-                        <div className="flex items-center">
-                          <div className="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-                          <div>
-                            <h4 className="font-inter font-semibold text-dark-grey">{testimonial.name}</h4>
-                            <p className="font-inter text-gray-500">{testimonial.title}</p>
+                        <p className="font-inter text-gray-600 text-lg mb-6 italic line-clamp-4">&ldquo;{review.shortText || review.reviewText}&rdquo;</p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <div className="w-12 h-12 bg-gray-300 rounded-full mr-4 flex items-center justify-center text-gray-500 font-semibold text-lg">
+                              {review.customerName.charAt(0)}
+                            </div>
+                            <div>
+                              <h4 className="font-inter font-semibold text-dark-grey">{review.customerName}</h4>
+                              <p className="font-inter text-gray-500 text-sm">Verified Google Review</p>
+                            </div>
                           </div>
+                          {review.verified && (
+                            <svg className="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                          )}
                         </div>
                       </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
               </div>
+            ) : (
+              <p className="text-center text-gray-500">No reviews available at this time.</p>
             )}
           </div>
         </section>
