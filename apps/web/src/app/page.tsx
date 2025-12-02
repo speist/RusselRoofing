@@ -1273,6 +1273,23 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+
+            {/* Bottom Bar - Copyright and Legal */}
+            <div className="mt-12 pt-8 border-t border-gray-700">
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p className="font-inter text-gray-400 text-sm">
+                  © {new Date().getFullYear()} Russell Roofing & Exteriors. All rights reserved.
+                </p>
+                <div className="flex gap-6">
+                  <Link
+                    href="/privacy-policy"
+                    className="font-inter text-gray-400 text-sm hover:text-white transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </footer>
       </div>
