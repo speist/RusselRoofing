@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Lora } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import Script from "next/script";
 import { GoogleMapsScript } from "@/components/GoogleMapsScript";
+import { TrackingScripts } from "@/components/TrackingScripts";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { validateEnvironmentOrThrow } from "@/lib/env-validation";
@@ -56,14 +56,8 @@ export default function RootLayout({
         <GoogleMapsScript />
         {children}
 
-        {/* HubSpot Tracking Code */}
-        <Script
-          id="hs-script-loader"
-          src="//js.hs-scripts.com/50177320.js"
-          strategy="afterInteractive"
-          async
-          defer
-        />
+        {/* Cookie Consent Banner and Tracking Scripts */}
+        <TrackingScripts />
       </body>
     </html>
   );
