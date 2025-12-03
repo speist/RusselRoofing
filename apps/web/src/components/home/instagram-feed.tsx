@@ -124,22 +124,20 @@ export function InstagramFeed() {
   };
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-light-grey py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-primary-charcoal mb-4">
-            Follow Our Latest Work
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey mb-2">
+            Follow Us on Instagram
           </h2>
-          <p className="text-lg text-secondary-warm-gray max-w-2xl mx-auto mb-8">
-            See our most recent projects and updates from the field. Follow us on Instagram to stay connected with our craftsmanship.
-          </p>
-          
+          <p className="font-inter text-gray-600 text-lg">@russellroofingcompany</p>
+
           {error && (
-            <div className="mb-6">
+            <div className="mt-4">
               <p className="text-sm text-amber-600 bg-amber-50 px-4 py-2 rounded-lg inline-block">
-                {error === 'Using demo content' 
-                  ? 'Currently showing demo content. Live Instagram feed will be available soon.' 
+                {error === 'Using demo content'
+                  ? 'Currently showing demo content. Live Instagram feed will be available soon.'
                   : error
                 }
               </p>
@@ -148,7 +146,7 @@ export function InstagramFeed() {
         </div>
 
         {/* Instagram Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
           {isLoading ? (
             // Loading skeletons
             Array.from({ length: 6 }).map((_, index) => (
@@ -217,30 +215,6 @@ export function InstagramFeed() {
               </div>
             ))
           )}
-        </div>
-
-        {/* Follow Us CTA */}
-        <div className="text-center">
-          <Button
-            variant="primary"
-            size="lg"
-            className="px-8 py-4"
-            onClick={() => window.open('https://instagram.com/russellroofingcompany', '_blank', 'noopener,noreferrer')}
-          >
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.017 0C8.396 0 7.929.016 6.706.084 5.481.153 4.677.39 3.967.735a5.84 5.84 0 0 0-2.109 1.374A5.862 5.862 0 0 0 .482 4.218c-.345.71-.582 1.514-.65 2.739C-.085 8.18-.1 8.647-.1 12.017c0 3.37.014 3.837.083 5.061.069 1.225.305 2.029.65 2.739.345.71.858 1.423 1.374 2.109.686.686 1.398 1.029 2.109 1.374.71.345 1.514.582 2.739.65 1.225.069 1.692.083 5.061.083 3.37 0 3.837-.014 5.061-.083 1.225-.069 2.029-.305 2.739-.65a5.84 5.84 0 0 0 2.109-1.374 5.862 5.862 0 0 0 1.374-2.109c.345-.71.582-1.514.65-2.739.069-1.224.083-1.691.083-5.061 0-3.37-.014-3.837-.083-5.061-.069-1.225-.305-2.029-.65-2.739a5.862 5.862 0 0 0-1.374-2.109A5.84 5.84 0 0 0 19.728.735c-.71-.345-1.514-.582-2.739-.65C15.765.016 15.298 0 11.927 0h.09zm-.09 1.982c3.317 0 3.708.014 5.018.081 1.212.055 1.871.256 2.31.425.58.225 1.014.497 1.459.942.445.445.717.879.942 1.459.169.439.37 1.098.425 2.31.067 1.31.081 1.701.081 5.018 0 3.317-.014 3.708-.081 5.018-.055 1.212-.256 1.871-.425 2.31a3.927 3.927 0 0 1-.942 1.459c-.445.445-.879.717-1.459.942-.439.169-1.098.37-2.31.425-1.31.067-1.701.081-5.018.081-3.317 0-3.708-.014-5.018-.081-1.212-.055-1.871-.256-2.31-.425a3.927 3.927 0 0 1-1.459-.942 3.927 3.927 0 0 1-.942-1.459c-.169-.439-.37-1.098-.425-2.31-.067-1.31-.081-1.701-.081-5.018 0-3.317.014-3.708.081-5.018.055-1.212.256-1.871.425-2.31.225-.58.497-1.014.942-1.459a3.927 3.927 0 0 1 1.459-.942c.439-.169 1.098-.37 2.31-.425 1.31-.067 1.701-.081 5.018-.081zM5.838 12.017a6.179 6.179 0 1 1 12.358 0 6.179 6.179 0 0 1-12.358 0zm2.27 0a3.909 3.909 0 1 0 7.818 0 3.909 3.909 0 0 0-7.818 0zm7.846-6.179a1.441 1.441 0 1 1 2.883 0 1.441 1.441 0 0 1-2.883 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Follow Us on Instagram
-          </Button>
         </div>
       </div>
     </section>

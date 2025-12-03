@@ -40,6 +40,7 @@ import JobOpeningsCards from "@/components/home/JobOpeningsCards"
 import { AddressInput } from "@/components/estimate/AddressInput"
 import { parseAddressComponents } from "@/lib/hubspot/utils"
 import { Review } from "@/types/review"
+import { InstagramFeed } from "@/components/home/instagram-feed"
 
 // Loading Skeleton Component
 const SkeletonCard = () => (
@@ -859,46 +860,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Instagram Section with Lightbox */}
-        <section className="bg-light-grey py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-8 md:mb-12">
-              <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey mb-2">Follow Us on Instagram</h2>
-              <p className="font-inter text-gray-600 text-lg">@russellroofingcompany</p>
-            </div>
-            {isLoading ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="animate-pulse aspect-square bg-gray-300 rounded-lg"></div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {[...Array(6)].map((_, index) => (
-                  <div
-                    key={index}
-                    className="relative aspect-square group cursor-pointer transform hover:scale-105 transition-transform duration-300"
-                    onClick={() =>
-                      setLightboxImage(
-                        `/placeholder.svg?height=800&width=800&query=roofing work instagram post ${index + 1}`,
-                      )
-                    }
-                  >
-                    <Image
-                      src={`/placeholder.svg?height=200&width=200&query=roofing work instagram post ${index + 1}`}
-                      alt={`Instagram post ${index + 1}`}
-                      fill
-                      className="object-cover rounded-lg"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 rounded-lg flex items-center justify-center">
-                      <Instagram className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
+        {/* Instagram Section - Live Feed from API */}
+        <InstagramFeed />
 
         {/* Hiring Section */}
         <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
