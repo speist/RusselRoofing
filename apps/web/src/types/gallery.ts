@@ -8,6 +8,11 @@ export interface ProjectImage {
   projectTitle: string;
   description: string;
   location?: string;
+  locationArea?: string; // Service area name for filtering (e.g., "Montgomery County")
+  coordinates?: {
+    lat: number;
+    lon: number;
+  };
   completedDate?: string;
   aspectRatio: number;
 }

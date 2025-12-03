@@ -4,18 +4,23 @@ import React, { useState, useEffect, useMemo } from "react";
 import { ProjectImage, ServiceCategory, serviceCategories } from "@/types/gallery";
 import { GalleryGrid } from "./GalleryGrid";
 import { GalleryFilter } from "./GalleryFilter";
+import { LocationFilter } from "./LocationFilter";
 import { GalleryLightbox } from "./GalleryLightbox";
 import { cn } from "@/lib/utils";
 import type { GalleryPhoto } from "@/lib/companycam/types";
 import {
   transformPhotosToProjectImages,
   calculateCategoryCounts,
+  calculateLocationCounts,
 } from "@/lib/companycam/photos";
+import { type LocationArea } from "@/lib/service-areas";
 
 export interface CompanyCamGalleryProps {
   initialCategory?: ServiceCategory;
+  initialLocation?: LocationArea;
   className?: string;
   showFilter?: boolean;
+  showLocationFilter?: boolean;
   gridClassName?: string;
   /** Optional fallback images if API fails */
   fallbackImages?: ProjectImage[];
@@ -30,8 +35,10 @@ interface PhotosApiResponse {
 
 const CompanyCamGallery: React.FC<CompanyCamGalleryProps> = ({
   initialCategory = "All",
+  initialLocation = "All Areas",
   className,
   showFilter = true,
+  showLocationFilter = true,
   gridClassName,
   fallbackImages = [],
 }) => {
@@ -39,6 +46,7 @@ const CompanyCamGallery: React.FC<CompanyCamGalleryProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>(initialCategory);
+  const [activeLocation, setActiveLocation] = useState<LocationArea>(initialLocation);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [rawPhotos, setRawPhotos] = useState<GalleryPhoto[]>([]);
@@ -79,15 +87,26 @@ const CompanyCamGallery: React.FC<CompanyCamGalleryProps> = ({
     fetchPhotos();
   }, [fallbackImages]);
 
-  // Filter images based on selected category
+  // Filter images based on selected category and location
   const filteredImages = useMemo(() => {
-    if (activeCategory === "All") {
-      return images;
+    let filtered = images;
+
+    // Filter by service category
+    if (activeCategory !== "All") {
+      filtered = filtered.filter(image =>
+        image.serviceTypes.includes(activeCategory)
+      );
     }
-    return images.filter(image =>
-      image.serviceTypes.includes(activeCategory)
-    );
-  }, [images, activeCategory]);
+
+    // Filter by location area
+    if (activeLocation !== "All Areas") {
+      filtered = filtered.filter(image =>
+        image.locationArea === activeLocation
+      );
+    }
+
+    return filtered;
+  }, [images, activeCategory, activeLocation]);
 
   // Calculate project counts for each category from raw photos
   const projectCounts = useMemo(() => {
@@ -102,6 +121,24 @@ const CompanyCamGallery: React.FC<CompanyCamGalleryProps> = ({
       image.serviceTypes.forEach(serviceType => {
         counts[serviceType] = (counts[serviceType] || 0) + 1;
       });
+    });
+
+    return counts;
+  }, [rawPhotos, images]);
+
+  // Calculate location counts from raw photos
+  const locationCounts = useMemo(() => {
+    if (rawPhotos.length > 0) {
+      return calculateLocationCounts(rawPhotos);
+    }
+
+    // Fallback calculation from transformed images
+    const counts: Record<string, number> = { "All Areas": images.length };
+
+    images.forEach(image => {
+      if (image.locationArea && image.locationArea !== "All Areas") {
+        counts[image.locationArea] = (counts[image.locationArea] || 0) + 1;
+      }
     });
 
     return counts;
@@ -180,12 +217,22 @@ const CompanyCamGallery: React.FC<CompanyCamGalleryProps> = ({
 
   return (
     <div className={cn("w-full", className)}>
-      {/* Filter */}
+      {/* Service Type Filter */}
       {showFilter && (
         <GalleryFilter
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
           projectCounts={projectCounts}
+          className="mb-4"
+        />
+      )}
+
+      {/* Location Filter */}
+      {showLocationFilter && (
+        <LocationFilter
+          activeLocation={activeLocation}
+          onLocationChange={setActiveLocation}
+          locationCounts={locationCounts}
           className="mb-8"
         />
       )}

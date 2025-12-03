@@ -14,6 +14,7 @@ import {
   GalleryPhoto,
 } from './types';
 import type { ProjectImage, ServiceCategory } from '@/types/gallery';
+import { getLocationAreaName, type LocationArea, LOCATION_AREAS } from '@/lib/service-areas';
 
 /**
  * CompanyCam Photos Service
@@ -488,11 +489,15 @@ export function transformToProjectImage(photo: GalleryPhoto): ProjectImage {
     }
   }
 
-  // Format location from coordinates
+  // Determine location area from coordinates
   let location: string | undefined;
+  let locationArea: LocationArea | undefined;
+  let coordinates: { lat: number; lon: number } | undefined;
+
   if (photo.location && photo.location.lat !== 0 && photo.location.lon !== 0) {
-    // For now, just indicate Philadelphia area (where most projects are)
-    location = 'Greater Philadelphia Area';
+    coordinates = { lat: photo.location.lat, lon: photo.location.lon };
+    locationArea = getLocationAreaName(photo.location.lat, photo.location.lon);
+    location = locationArea !== 'All Areas' ? locationArea : 'Greater Philadelphia Area';
   }
 
   return {
@@ -505,6 +510,8 @@ export function transformToProjectImage(photo: GalleryPhoto): ProjectImage {
     projectTitle,
     description: `Quality ${primaryCategory?.toLowerCase() || 'home improvement'} work by Russell Roofing & Exteriors.`,
     location,
+    locationArea,
+    coordinates,
     completedDate,
     aspectRatio: 1.5, // Default aspect ratio, CompanyCam doesn't provide this
   };
@@ -561,6 +568,24 @@ export function calculateCategoryCounts(photos: GalleryPhoto[]): Record<string, 
     const categories = getAllGalleryCategories(photo.tags);
     for (const category of categories) {
       counts[category] = (counts[category] || 0) + 1;
+    }
+  }
+
+  return counts;
+}
+
+/**
+ * Calculate photo counts by location area for the gallery location filter
+ */
+export function calculateLocationCounts(photos: GalleryPhoto[]): Record<string, number> {
+  const counts: Record<string, number> = { 'All Areas': photos.length };
+
+  for (const photo of photos) {
+    if (photo.location && photo.location.lat !== 0 && photo.location.lon !== 0) {
+      const locationArea = getLocationAreaName(photo.location.lat, photo.location.lon);
+      if (locationArea && locationArea !== 'All Areas') {
+        counts[locationArea] = (counts[locationArea] || 0) + 1;
+      }
     }
   }
 
