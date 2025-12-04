@@ -1183,12 +1183,36 @@ export default function HomePage() {
               <div>
                 <h3 className="font-inter font-semibold text-white text-lg mb-4">Service Areas</h3>
                 <ul className="space-y-2">
-                  <li className="font-inter text-gray-300 text-sm">Greater Philadelphia Area</li>
-                  <li className="font-inter text-gray-300 text-sm">South Jersey</li>
-                  <li className="font-inter text-gray-300 text-sm">Central Jersey</li>
-                  <li className="font-inter text-gray-300 text-sm">Montgomery County</li>
-                  <li className="font-inter text-gray-300 text-sm">Bucks County</li>
-                  <li className="font-inter text-gray-300 text-sm">Delaware County</li>
+                  <li>
+                    <Link href="/service-areas/greater-philadelphia" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      Greater Philadelphia Area
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/service-areas/south-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      South Jersey
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/service-areas/central-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      Central Jersey
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/service-areas/montgomery-county" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      Montgomery County
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/service-areas/bucks-county" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      Bucks County
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/service-areas/delaware-county" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      Delaware County
+                    </Link>
+                  </li>
                 </ul>
               </div>
 

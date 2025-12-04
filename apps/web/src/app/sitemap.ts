@@ -28,6 +28,16 @@ const servicePages = [
   'skylights',
 ]
 
+// Service area pages
+const serviceAreaPages = [
+  'greater-philadelphia',
+  'montgomery-county',
+  'bucks-county',
+  'delaware-county',
+  'south-jersey',
+  'central-jersey',
+]
+
 // Fetch blog posts from HubSpot API for dynamic sitemap
 async function getBlogPosts(): Promise<{ slug: string; updatedAt: string }[]> {
   try {
@@ -75,6 +85,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }))
 
+  // Service area pages
+  const serviceAreaUrls: MetadataRoute.Sitemap = [
+    // Service areas index page
+    {
+      url: `${BASE_URL}/service-areas`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    // Individual service area pages
+    ...serviceAreaPages.map((slug) => ({
+      url: `${BASE_URL}/service-areas/${slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ]
+
   // Blog posts from HubSpot
   const blogPosts = await getBlogPosts()
   const blogUrls: MetadataRoute.Sitemap = blogPosts.map((post) => ({
@@ -84,5 +112,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }))
 
-  return [...staticUrls, ...serviceUrls, ...blogUrls]
+  return [...staticUrls, ...serviceUrls, ...serviceAreaUrls, ...blogUrls]
 }
