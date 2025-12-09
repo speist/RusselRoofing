@@ -286,30 +286,6 @@ export default function NewsPage() {
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="bg-secondary-light-warm-gray py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-text-primary mb-4">
-            Stay Updated
-          </h2>
-          <p className="font-body text-text-secondary mb-8">
-            Subscribe to our newsletter for the latest roofing tips, industry news, and exclusive offers.
-          </p>
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg font-body focus:outline-none focus:ring-2 focus:ring-primary-burgundy"
-            />
-            <button
-              type="submit"
-              className="bg-primary-burgundy text-white px-6 py-3 rounded-lg font-body font-medium hover:bg-primary-charcoal transition-colors whitespace-nowrap"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </section>
     </FloatingPageLayout>
   );
 }

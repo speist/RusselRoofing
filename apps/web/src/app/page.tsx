@@ -27,6 +27,8 @@ import {
   HardHat,
   ClipboardCheck,
   Hammer,
+  Copy,
+  Check,
 } from "lucide-react"
 
 // Import Swiper styles
@@ -109,6 +111,20 @@ export default function HomePage() {
   const [jobsLoading, setJobsLoading] = useState(true)
   const [googleReviews, setGoogleReviews] = useState<Review[]>([])
   const [reviewsLoading, setReviewsLoading] = useState(true)
+  const [emailCopied, setEmailCopied] = useState(false)
+  const email = "info@russellroofing.com"
+
+  const copyEmailToClipboard = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    try {
+      await navigator.clipboard.writeText(email)
+      setEmailCopied(true)
+      setTimeout(() => setEmailCopied(false), 2000)
+    } catch (err) {
+      console.error("Failed to copy email:", err)
+    }
+  }
 
   // Contact form state
   const [contactForm, setContactForm] = useState({
@@ -1110,9 +1126,26 @@ export default function HomePage() {
                     <Phone className="w-4 h-4 mr-3" />
                     <span className="font-inter text-sm">1-888-567-7663</span>
                   </div>
-                  <div className="flex items-center text-gray-300">
-                    <Mail className="w-4 h-4 mr-3" />
-                    <span className="font-inter text-sm">info@russellroofing.com</span>
+                  <div className="flex items-center text-gray-300 group">
+                    <Mail className="w-4 h-4 mr-3 flex-shrink-0" />
+                    <a
+                      href={`mailto:${email}`}
+                      className="font-inter text-sm hover:text-white transition-colors"
+                    >
+                      {email}
+                    </a>
+                    <button
+                      onClick={copyEmailToClipboard}
+                      className="ml-2 p-1 rounded hover:bg-gray-700 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                      aria-label={emailCopied ? "Email copied" : "Copy email to clipboard"}
+                      title={emailCopied ? "Copied!" : "Copy email"}
+                    >
+                      {emailCopied ? (
+                        <Check className="w-3.5 h-3.5 text-green-400" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
