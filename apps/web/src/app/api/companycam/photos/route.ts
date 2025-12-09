@@ -3,6 +3,9 @@ import { getCompanyCamClient } from '@/lib/companycam';
 import { envMiddleware } from '@/lib/middleware/env-check';
 import type { GalleryPhoto } from '@/lib/companycam/types';
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+
 interface CompanyCamPhotosResponse {
   photos: GalleryPhoto[];
   total: number;

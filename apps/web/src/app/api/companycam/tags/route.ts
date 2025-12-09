@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCompanyCamClient } from '@/lib/companycam';
 import { MASTER_TAG, SERVICE_TAGS, BEFORE_TAG, AFTER_TAG } from '@/lib/companycam/types';
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/companycam/tags
  *

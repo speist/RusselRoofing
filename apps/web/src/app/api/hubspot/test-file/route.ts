@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+
 /**
  * Diagnostic endpoint to test HubSpot Files API
  * Test with: /api/hubspot/test-file?fileId=199683264377
