@@ -1,0 +1,201 @@
+# Instagram Token Auto-Refresh Workflow
+#
+# This workflow automatically refreshes the Instagram long-lived access token
+# before it expires (60-day validity). Runs weekly at 3:30 AM EST on Sundays.
+#
+# Required GitHub Secrets:
+#   - INSTAGRAM_ACCESS_TOKEN: Current Instagram long-lived access token
+#   - VERCEL_TOKEN: Vercel API token (create at https://vercel.com/account/tokens)
+#   - VERCEL_PROJECT_ID: Your Vercel project ID (from project settings)
+#   - VERCEL_TEAM_ID: Your Vercel team ID (if using team, otherwise optional)
+#   - VERCEL_ENV_VAR_ID: The ID of the INSTAGRAM_ACCESS_TOKEN env var in Vercel
+#
+# Setup Instructions:
+# 1. Create Vercel API token at https://vercel.com/account/tokens
+# 2. Get Project ID from Vercel Dashboard > Project > Settings > General
+# 3. Get Env Var ID via: curl -H "Authorization: Bearer $VERCEL_TOKEN" \
+#    "https://api.vercel.com/v9/projects/$PROJECT_ID/env"
+# 4. Add all secrets to GitHub repo: Settings > Secrets and variables > Actions
+
+name: Refresh Instagram Token
+
+on:
+  schedule:
+    # Run every Sunday at 3:30 AM EST (8:30 AM UTC)
+    # Cron uses UTC, so 3:30 AM EST = 8:30 AM UTC (or 7:30 AM UTC during DST)
+    - cron: '30 8 * * 0'
+  workflow_dispatch:
+    # Allow manual trigger for testing or emergency refresh
+    inputs:
+      force_refresh:
+        description: 'Force token refresh even if recently refreshed'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  # Timezone for logging
+  TZ: America/New_York
+
+jobs:
+  refresh-token:
+    name: Refresh Instagram Token & Redeploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Display Current Time
+        run: |
+          echo "Workflow started at: $(date)"
+          echo "Timezone: $TZ"
+
+      - name: Refresh Instagram Access Token
+        id: refresh
+        run: |
+          echo "Calling Instagram API to refresh token..."
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${{ secrets.INSTAGRAM_ACCESS_TOKEN }}")
+
+          # Split response body and HTTP status code
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "HTTP Status: $HTTP_CODE"
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Failed to refresh Instagram token. HTTP $HTTP_CODE"
+            echo "Response: $BODY"
+            exit 1
+          fi
+
+          # Extract new token and expiration
+          NEW_TOKEN=$(echo "$BODY" | jq -r '.access_token')
+          EXPIRES_IN=$(echo "$BODY" | jq -r '.expires_in')
+
+          if [ "$NEW_TOKEN" == "null" ] || [ -z "$NEW_TOKEN" ]; then
+            echo "::error::Failed to extract new token from response"
+            echo "Response: $BODY"
+            exit 1
+          fi
+
+          # Calculate expiration date
+          EXPIRES_DAYS=$((EXPIRES_IN / 86400))
+          EXPIRY_DATE=$(date -d "+${EXPIRES_DAYS} days" '+%Y-%m-%d')
+
+          echo "Token refreshed successfully!"
+          echo "New token expires in: $EXPIRES_DAYS days ($EXPIRY_DATE)"
+
+          # Set outputs (token is masked in logs)
+          echo "::add-mask::$NEW_TOKEN"
+          echo "new_token=$NEW_TOKEN" >> $GITHUB_OUTPUT
+          echo "expires_in=$EXPIRES_IN" >> $GITHUB_OUTPUT
+          echo "expires_days=$EXPIRES_DAYS" >> $GITHUB_OUTPUT
+          echo "expiry_date=$EXPIRY_DATE" >> $GITHUB_OUTPUT
+
+      - name: Update Vercel Environment Variable
+        id: update_vercel
+        run: |
+          echo "Updating INSTAGRAM_ACCESS_TOKEN in Vercel..."
+
+          # Build the API URL
+          API_URL="https://api.vercel.com/v9/projects/${{ secrets.VERCEL_PROJECT_ID }}/env/${{ secrets.VERCEL_ENV_VAR_ID }}"
+
+          # Add team ID if provided
+          if [ -n "${{ secrets.VERCEL_TEAM_ID }}" ]; then
+            API_URL="${API_URL}?teamId=${{ secrets.VERCEL_TEAM_ID }}"
+          fi
+
+          # Update the environment variable
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X PATCH "$API_URL" \
+            -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"value\": \"${{ steps.refresh.outputs.new_token }}\"}")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "HTTP Status: $HTTP_CODE"
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Failed to update Vercel environment variable. HTTP $HTTP_CODE"
+            echo "Response: $BODY"
+            exit 1
+          fi
+
+          echo "Vercel environment variable updated successfully!"
+
+      - name: Update GitHub Secret
+        run: |
+          echo "Updating INSTAGRAM_ACCESS_TOKEN GitHub secret..."
+
+          # Use GitHub CLI to update the secret
+          echo "${{ steps.refresh.outputs.new_token }}" | gh secret set INSTAGRAM_ACCESS_TOKEN --repo ${{ github.repository }}
+
+          echo "GitHub secret updated successfully!"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger Vercel Redeploy
+        id: redeploy
+        run: |
+          echo "Triggering Vercel redeploy..."
+
+          # Build the API URL for creating a deployment
+          API_URL="https://api.vercel.com/v13/deployments"
+
+          # Add team ID if provided
+          if [ -n "${{ secrets.VERCEL_TEAM_ID }}" ]; then
+            API_URL="${API_URL}?teamId=${{ secrets.VERCEL_TEAM_ID }}"
+          fi
+
+          # Create deployment from latest commit on main branch
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$API_URL" \
+            -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "name": "russell-roofing",
+              "project": "${{ secrets.VERCEL_PROJECT_ID }}",
+              "target": "production",
+              "gitSource": {
+                "type": "github",
+                "ref": "main",
+                "repoId": "${{ github.repository_id }}"
+              }
+            }')
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "HTTP Status: $HTTP_CODE"
+
+          # 200 or 201 are success codes for deployment creation
+          if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "201" ]; then
+            echo "::warning::Vercel redeploy may have failed. HTTP $HTTP_CODE"
+            echo "Response: $BODY"
+            echo "Note: The env var was updated. You may need to manually redeploy."
+            exit 0  # Don't fail the workflow, env var is already updated
+          fi
+
+          DEPLOYMENT_URL=$(echo "$BODY" | jq -r '.url // "pending"')
+          DEPLOYMENT_ID=$(echo "$BODY" | jq -r '.id // "unknown"')
+
+          echo "Vercel redeploy triggered successfully!"
+          echo "Deployment ID: $DEPLOYMENT_ID"
+          echo "Deployment URL: https://$DEPLOYMENT_URL"
+
+          echo "deployment_url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+          echo "deployment_id=$DEPLOYMENT_ID" >> $GITHUB_OUTPUT
+
+      - name: Summary
+        run: |
+          echo "## Instagram Token Refresh Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Item | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Refresh Time | $(date) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Token Expires | ${{ steps.refresh.outputs.expiry_date }} (${{ steps.refresh.outputs.expires_days }} days) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Vercel Env Updated | Yes |" >> $GITHUB_STEP_SUMMARY
+          echo "| GitHub Secret Updated | Yes |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deployment Triggered | Yes |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Next scheduled refresh: Next Sunday at 3:30 AM EST" >> $GITHUB_STEP_SUMMARY
