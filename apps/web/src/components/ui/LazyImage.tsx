@@ -1,5 +1,8 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
+// Native img element used intentionally for custom lazy loading with IntersectionObserver
+
 import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 

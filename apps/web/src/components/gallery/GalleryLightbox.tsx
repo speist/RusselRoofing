@@ -1,5 +1,8 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
+// Native img element used intentionally for lightbox with dynamic src and custom loading behavior
+
 import React, { useState, useEffect, useCallback } from "react";
 import { ProjectImage } from "@/types/gallery";
 import { Modal } from "@/components/ui";

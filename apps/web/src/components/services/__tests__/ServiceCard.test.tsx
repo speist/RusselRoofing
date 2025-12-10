@@ -1,3 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
+// Test file: native img used in Next.js Image mock for testing purposes
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
