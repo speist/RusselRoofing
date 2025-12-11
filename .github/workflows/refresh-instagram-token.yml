@@ -126,11 +126,23 @@ jobs:
 
       - name: Trigger Vercel Redeploy
         id: redeploy
-        if: ${{ secrets.VERCEL_DEPLOY_HOOK != '' }}
+        env:
+          DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
         run: |
+          if [ -z "$DEPLOY_HOOK" ]; then
+            echo "::notice::No VERCEL_DEPLOY_HOOK configured. Please redeploy manually from Vercel dashboard."
+            echo ""
+            echo "To create a deploy hook:"
+            echo "1. Go to Vercel Dashboard → Project → Settings → Git"
+            echo "2. Scroll to 'Deploy Hooks' section"
+            echo "3. Create a hook named 'GitHub Actions' for 'main' branch"
+            echo "4. Add the URL as VERCEL_DEPLOY_HOOK secret in GitHub"
+            exit 0
+          fi
+
           echo "Triggering Vercel redeploy via deploy hook..."
 
-          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}")
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$DEPLOY_HOOK")
 
           HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
           BODY=$(echo "$RESPONSE" | sed '$d')
@@ -146,17 +158,6 @@ jobs:
             JOB_ID=$(echo "$BODY" | jq -r '.job.id // "triggered"')
             echo "Job ID: $JOB_ID"
           fi
-
-      - name: Redeploy Instructions (if no deploy hook)
-        if: ${{ secrets.VERCEL_DEPLOY_HOOK == '' }}
-        run: |
-          echo "::notice::No VERCEL_DEPLOY_HOOK configured. Please redeploy manually from Vercel dashboard, or add a deploy hook."
-          echo ""
-          echo "To create a deploy hook:"
-          echo "1. Go to Vercel Dashboard → Project → Settings → Git"
-          echo "2. Scroll to 'Deploy Hooks' section"
-          echo "3. Create a hook named 'GitHub Actions' for 'main' branch"
-          echo "4. Add the URL as VERCEL_DEPLOY_HOOK secret in GitHub"
 
       - name: Summary
         run: |
