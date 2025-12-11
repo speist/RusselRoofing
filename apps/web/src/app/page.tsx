@@ -716,6 +716,24 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* The Art of the Build - Video Section */}
+        <section className="bg-dark-grey py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-white text-center mb-8 md:mb-12">
+              The Art of the Build
+            </h2>
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl"
+                src="https://www.youtube.com/embed/YP0pArYDvaY?rel=0"
+                title="Russell Roofing - The Art of the Build"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Associations Section */}
         <AssociationsSlider />
 
