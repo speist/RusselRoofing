@@ -31,16 +31,6 @@ export default function ServicesPage() {
 
       {/* Services Grid Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-3xl font-bold text-gray-900 mb-4">
-            Complete Home Exterior Solutions
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Our comprehensive range of services covers every aspect of your home&apos;s exterior, 
-            ensuring both beauty and protection for years to come.
-          </p>
-        </div>
-        
         <ServicesGrid services={services} />
       </div>
 

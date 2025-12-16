@@ -38,7 +38,6 @@ import "swiper/css/autoplay"
 
 // Import Components
 import AssociationsSlider from "@/components/home/AssociationsSlider"
-import JobOpeningsCards from "@/components/home/JobOpeningsCards"
 import { AddressInput } from "@/components/estimate/AddressInput"
 import { parseAddressComponents } from "@/lib/hubspot/utils"
 import { Review } from "@/types/review"
@@ -75,40 +74,11 @@ const TestimonialSkeleton = () => (
   </div>
 )
 
-interface BlogPost {
-  id: string;
-  name: string;
-  slug: string;
-  featuredImage: string;
-  postSummary: string;
-  publishDate: string;
-}
-
-// Utility function to strip HTML tags and decode entities
-const stripHtml = (html: string): string => {
-  if (!html) return '';
-  // Remove HTML tags
-  const withoutTags = html.replace(/<[^>]*>/g, '');
-  // Decode common HTML entities
-  const decoded = withoutTags
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
-  return decoded.trim();
-}
-
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
-  const [articles, setArticles] = useState<BlogPost[]>([])
-  const [articlesLoading, setArticlesLoading] = useState(true)
-  const [jobs, setJobs] = useState<any[]>([])
-  const [jobsLoading, setJobsLoading] = useState(true)
   const [googleReviews, setGoogleReviews] = useState<Review[]>([])
   const [reviewsLoading, setReviewsLoading] = useState(true)
   const [emailCopied, setEmailCopied] = useState(false)
@@ -156,46 +126,6 @@ export default function HomePage() {
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000)
     return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        setArticlesLoading(true)
-        const response = await fetch('/api/hubspot/blog?limit=6')
-        const data = await response.json()
-
-        if (data.success && data.data) {
-          setArticles(data.data.results)
-        }
-      } catch (error) {
-        console.error('Failed to fetch blog posts:', error)
-      } finally {
-        setArticlesLoading(false)
-      }
-    }
-
-    fetchArticles()
-  }, [])
-
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        setJobsLoading(true)
-        const response = await fetch('/api/hubspot/careers?liveOnly=true')
-        const data = await response.json()
-
-        if (data.success && data.data) {
-          setJobs(data.data.results)
-        }
-      } catch (error) {
-        console.error('Failed to fetch job openings:', error)
-      } finally {
-        setJobsLoading(false)
-      }
-    }
-
-    fetchJobs()
   }, [])
 
   // Fetch Google Reviews (5-star only)
@@ -512,131 +442,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Why Choose Us Section */}
-        <section id="about" className="bg-dark-grey py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-white text-center mb-8 md:mb-12">
-              Why Choose Us
-            </h2>
-            {isLoading ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="animate-pulse bg-white p-6 rounded-lg text-center">
-                    <div className="w-12 h-12 bg-gray-300 rounded mx-auto mb-4"></div>
-                    <div className="h-6 bg-gray-300 rounded w-3/4 mx-auto mb-3"></div>
-                    <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {/* Licensed & Insured Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <Shield className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">Licensed & Insured</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center">
-                        Fully licensed and insured for your peace of mind and protection. Your investment is secure with us.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* On-Time Service Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <Clock className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">On-Time Service</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center">
-                        We respect your time and always deliver projects on schedule. Punctuality is part of our commitment to excellence.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Expert Team Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <Users className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">Expert Team</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center">
-                        Skilled professionals with years of industry experience. Our team brings expertise to every project.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quality Materials Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <Award className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">Quality Materials</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center">
-                        We use only the highest quality materials for lasting results. Your project deserves the best.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Warranty Backed Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <Wrench className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">Warranty Backed</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center">
-                        All work comes with comprehensive warranty coverage. We stand behind every project we complete.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 5-Star Service Card */}
-                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
-                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
-                    {/* Front */}
-                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
-                      <Star className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">5-Star Service</h3>
-                    </div>
-                    {/* Back */}
-                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <p className="font-inter text-gray-600 text-center">
-                        Consistently rated 5 stars by satisfied customers. Your satisfaction is our top priority.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-
         {/* Our Services Section with Swiper */}
         <section id="services" className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
@@ -737,14 +542,138 @@ export default function HomePage() {
         {/* Associations Section */}
         <AssociationsSlider />
 
+        {/* Why Choose Us Section */}
+        <section id="about" className="bg-dark-grey py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-white text-center mb-8 md:mb-12">
+              Why Choose Us
+            </h2>
+            {isLoading ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="animate-pulse bg-white p-6 rounded-lg text-center">
+                    <div className="w-12 h-12 bg-gray-300 rounded mx-auto mb-4"></div>
+                    <div className="h-6 bg-gray-300 rounded w-3/4 mx-auto mb-3"></div>
+                    <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {/* Licensed & Insured Card */}
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Shield className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">Licensed & Insured</h3>
+                    </div>
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        Fully licensed and insured for your peace of mind and protection. Your investment is secure with us.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* On-Time Service Card */}
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Clock className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">On-Time Service</h3>
+                    </div>
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        We respect your time and always deliver projects on schedule. Punctuality is part of our commitment to excellence.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expert Team Card */}
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Users className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">Expert Team</h3>
+                    </div>
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        Skilled professionals with years of industry experience. Our team brings expertise to every project.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quality Materials Card */}
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Award className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">Quality Materials</h3>
+                    </div>
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        We use only the highest quality materials for lasting results. Your project deserves the best.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Warranty Backed Card */}
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Wrench className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">Warranty Backed</h3>
+                    </div>
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        All work comes with comprehensive warranty coverage. We stand behind every project we complete.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 5-Star Service Card */}
+                <div className="flip-card h-[220px]" style={{ perspective: "1000px" }}>
+                  <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+                    <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
+                      <Star className="w-16 h-16 text-primary-red mb-4" />
+                      <h3 className="font-inter font-bold text-dark-grey text-xl">5-Star Service</h3>
+                    </div>
+                    <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
+                      <p className="font-inter text-gray-600 text-center">
+                        Consistently rated 5 stars by satisfied customers. Your satisfaction is our top priority.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Client Testimonials Auto-Playing Carousel with Pause on Hover */}
         <section id="testimonials" className="bg-cream py-12 md:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey text-center mb-8 md:mb-12">
+            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey text-center mb-4">
               Client Testimonials
             </h2>
-            <p className="text-center text-gray-600 mb-8 -mt-4">
-              5-star reviews from our verified Google customers
+            {/* Google Logo */}
+            <div className="flex justify-center mb-4">
+              <svg className="w-24 h-8" viewBox="0 0 272 92" xmlns="http://www.w3.org/2000/svg">
+                <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
+                <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
+                <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/>
+                <path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/>
+                <path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/>
+                <path d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z" fill="#4285F4"/>
+              </svg>
+            </div>
+            <p className="text-center text-gray-600 mb-8">
+              Please give us your feedback!
             </p>
             {reviewsLoading ? (
               <div className="grid md:grid-cols-2 gap-6">
@@ -809,120 +738,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Popular Articles Swiper Section */}
-        <section id="articles" className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey text-center mb-8 md:mb-12">
-              Popular Articles
-            </h2>
-            {articlesLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[...Array(3)].map((_, i) => (
-                  <SkeletonCard key={i} />
-                ))}
-              </div>
-            ) : articles.length > 0 ? (
-              <div className="relative">
-                {/* Navigation Buttons */}
-                <button className="articles-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-light-grey hover:bg-gray-300 transition-colors shadow-md">
-                  <ChevronLeft className="w-6 h-6 text-dark-grey" />
-                </button>
-                <button className="articles-next absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-light-grey hover:bg-gray-300 transition-colors shadow-md">
-                  <ChevronRight className="w-6 h-6 text-dark-grey" />
-                </button>
-
-                {/* Articles Swiper */}
-                <Swiper
-                  modules={[Navigation]}
-                  navigation={{
-                    prevEl: ".articles-prev",
-                    nextEl: ".articles-next",
-                  }}
-                  spaceBetween={20}
-                  slidesPerView={1}
-                  breakpoints={{
-                    640: {
-                      slidesPerView: 2,
-                      spaceBetween: 20,
-                    },
-                    1024: {
-                      slidesPerView: 3,
-                      spaceBetween: 30,
-                    },
-                  }}
-                  className="articles-swiper"
-                >
-                  {articles.map((article) => (
-                    <SwiperSlide key={article.id}>
-                      <Link href={`/news/${article.slug}`}>
-                        <article className="bg-white rounded-lg shadow-md overflow-hidden h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-                          <div className="relative w-full h-48">
-                            <Image
-                              src={article.featuredImage || '/placeholder.svg?height=200&width=350'}
-                              alt={article.name}
-                              fill
-                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                              className="object-cover"
-                              onError={(e) => {
-                                // Fallback to placeholder if image fails to load
-                                const target = e.target as HTMLImageElement;
-                                target.src = '/placeholder.svg?height=200&width=350';
-                              }}
-                            />
-                          </div>
-                          <div className="p-6">
-                            <h3 className="font-display text-xl font-semibold text-text-primary mb-3 line-clamp-2">{article.name}</h3>
-                            <p className="font-body text-text-secondary mb-4 line-clamp-3">{stripHtml(article.postSummary)}</p>
-                            <span className="inline-flex items-center font-body text-primary-burgundy font-medium hover:text-primary-charcoal transition-colors">
-                              Read More
-                              <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                              </svg>
-                            </span>
-                          </div>
-                        </article>
-                      </Link>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="font-inter text-gray-600 text-lg">No articles available at this time.</p>
-              </div>
-            )}
-          </div>
-        </section>
-
         {/* Instagram Section - Live Feed from API */}
         <InstagramFeed />
-
-        {/* Hiring Section */}
-        <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey mb-6">We&rsquo;re Hiring!</h2>
-            <p className="font-inter text-gray-600 text-lg mb-8 md:mb-12 max-w-4xl mx-auto">
-              Interested in a new career opportunity? Are you looking for a rewarding position with longevity and
-              growth? Please email your resume to info@russellroofing.com!
-            </p>
-            {jobsLoading ? (
-              <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-                {[...Array(3)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="animate-pulse bg-white p-6 md:p-8 rounded-lg shadow-md border-t-4 border-gray-300"
-                  >
-                    <div className="h-6 bg-gray-300 rounded w-3/4 mx-auto mb-2"></div>
-                    <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-4 bg-gray-300 rounded w-5/6 mx-auto"></div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <JobOpeningsCards jobs={jobs} />
-            )}
-          </div>
-        </section>
 
         <style jsx>{`
           .flip-card:hover .flip-card-inner {
