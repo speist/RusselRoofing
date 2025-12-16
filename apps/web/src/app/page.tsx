@@ -38,6 +38,7 @@ import "swiper/css/autoplay"
 
 // Import Components
 import AssociationsSlider from "@/components/home/AssociationsSlider"
+import QualityMaterialsSlider from "@/components/about/QualityMaterialsSlider"
 import { AddressInput } from "@/components/estimate/AddressInput"
 import { parseAddressComponents } from "@/lib/hubspot/utils"
 import { Review } from "@/types/review"
@@ -654,6 +655,9 @@ export default function HomePage() {
             )}
           </div>
         </section>
+
+        {/* Quality Materials Section */}
+        <QualityMaterialsSlider />
 
         {/* Client Testimonials Auto-Playing Carousel with Pause on Hover */}
         <section id="testimonials" className="bg-cream py-12 md:py-16 px-4 sm:px-6 lg:px-8">

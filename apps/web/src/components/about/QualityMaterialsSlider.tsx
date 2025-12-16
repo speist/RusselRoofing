@@ -105,14 +105,11 @@ export default function QualityMaterialsSlider() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-charcoal mb-4">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-charcoal">
             Quality Materials
             <br />
             <span className="text-primary-burgundy">Plus Quality Craftsmanship</span>
           </h2>
-          <p className="font-body text-lg text-gray-600 max-w-4xl mx-auto">
-            Russell Roofing and Exteriors is a factory-certified installer for the best manufacturers in the industry. To gain factory certification from a roofing manufacturer or maker of other building components, certified roofing contractors must demonstrate superior product knowledge, financial stability, proven commitment to staff training and education, and a high level of customer service. Being a factory-certified installer allows us to provide our customers with a material and workmanship warranty through the manufacturer.
-          </p>
         </div>
 
         {/* Slider */}
