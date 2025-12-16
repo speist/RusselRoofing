@@ -26,7 +26,7 @@ export function ServiceCard({ service, className = "" }: ServiceCardProps) {
         </div>
         
         <div className="p-6">
-          <div className="flex items-start gap-3 mb-4">
+          <div className="flex items-start gap-3">
             <div className="w-8 h-8 relative flex-shrink-0">
               <Image
                 src={service.icon}
@@ -40,20 +40,6 @@ export function ServiceCard({ service, className = "" }: ServiceCardProps) {
                 {service.title}
               </h3>
             </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-primary-burgundy font-semibold text-sm group-hover:underline">
-              Learn More
-            </span>
-            <svg
-              className="w-4 h-4 text-primary-burgundy transition-transform duration-200 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
           </div>
         </div>
       </Link>
