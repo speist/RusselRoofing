@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CompanyCamClient } from '@/lib/companycam/client';
 
+// Force dynamic rendering - this endpoint makes API calls
+export const dynamic = 'force-dynamic';
+
 /**
  * DEBUG ENDPOINT - GET /api/companycam/debug
  *

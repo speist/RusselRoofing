@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCompanyCamClient } from '@/lib/companycam';
 import { MASTER_TAG, SERVICE_TAGS } from '@/lib/companycam/types';
 
+// Force dynamic rendering - this endpoint makes API calls
+export const dynamic = 'force-dynamic';
+
 /**
  * DEBUG ENDPOINT - GET /api/companycam/photos-debug
  *

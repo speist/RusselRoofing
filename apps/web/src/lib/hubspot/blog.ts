@@ -2,6 +2,11 @@ import { Client } from '@hubspot/api-client';
 import { BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse } from './types';
 import { calculateBackoffDelay } from './utils';
 
+// Module-level cache for blog posts during build (SSG)
+// This prevents multiple API calls when generating static pages
+let blogPostsCache: { data: BlogListResponse; timestamp: number } | null = null;
+const CACHE_TTL = 60000; // 1 minute TTL for build caching
+
 class BlogService {
   private client: Client;
   private maxRetries = 3;
@@ -110,6 +115,21 @@ class BlogService {
       state = 'PUBLISHED',
     } = params;
 
+    // Check module-level cache for SSG optimization
+    // Use cache if: same or smaller limit requested, cache is fresh, and we have enough data
+    if (blogPostsCache &&
+        Date.now() - blogPostsCache.timestamp < CACHE_TTL &&
+        blogPostsCache.data.results.length >= limit) {
+      console.log(`[HubSpot] Using cached blog posts (${blogPostsCache.data.results.length} posts, cache age: ${Date.now() - blogPostsCache.timestamp}ms)`);
+      return {
+        success: true,
+        data: {
+          total: blogPostsCache.data.total,
+          results: blogPostsCache.data.results.slice(0, limit),
+        },
+      };
+    }
+
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       try {
         // Use direct API request since SDK doesn't have cms.blogs.blogPosts
@@ -125,7 +145,7 @@ class BlogService {
 
         const data = await response.json() as any;
 
-        console.log(`[HubSpot] Retrieved ${data.results?.length || 0} blog posts`, {
+        console.log(`[HubSpot] Retrieved ${data.results?.length || 0} blog posts from API`, {
           total: data.total,
           limit,
           timestamp: new Date().toISOString(),
@@ -156,12 +176,20 @@ class BlogService {
           }))
         );
 
+        // Populate module-level cache for SSG optimization
+        const responseData: BlogListResponse = {
+          total: data.total || 0,
+          results,
+        };
+        blogPostsCache = {
+          data: responseData,
+          timestamp: Date.now(),
+        };
+        console.log(`[HubSpot] Cached ${results.length} blog posts for SSG optimization`);
+
         return {
           success: true,
-          data: {
-            total: data.total || 0,
-            results,
-          },
+          data: responseData,
         };
       } catch (error: any) {
         lastError = error;
