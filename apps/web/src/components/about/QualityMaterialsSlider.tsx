@@ -86,7 +86,7 @@ export default function QualityMaterialsSlider() {
   const nextRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <section className="pt-2 pb-12 md:pt-3 md:pb-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">

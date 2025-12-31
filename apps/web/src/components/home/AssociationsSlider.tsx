@@ -1,16 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
 
 interface Association {
   name: string;
@@ -42,9 +34,6 @@ const associations: Association[] = [
 ];
 
 export default function AssociationsSlider() {
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
-
   return (
     <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-cream">
       <div className="max-w-6xl mx-auto">
@@ -59,88 +48,33 @@ export default function AssociationsSlider() {
           </p>
         </div>
 
-        {/* Slider */}
-        <div className="relative">
-          {/* Navigation Buttons */}
-          <button
-            ref={prevRef}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-light-grey hover:bg-gray-300 transition-colors shadow-md"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="w-6 h-6 text-dark-grey" />
-          </button>
-          <button
-            ref={nextRef}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-light-grey hover:bg-gray-300 transition-colors shadow-md"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="w-6 h-6 text-dark-grey" />
-          </button>
-
-          {/* Associations Swiper */}
-          <Swiper
-            modules={[Navigation, Autoplay]}
-            navigation={{
-              prevEl: prevRef.current,
-              nextEl: nextRef.current,
-            }}
-            onBeforeInit={(swiper: any) => {
-              if (swiper.params.navigation && typeof swiper.params.navigation !== 'boolean') {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
-              }
-            }}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            spaceBetween={15}
-            slidesPerView={2}
-            loop={true}
-            breakpoints={{
-              640: {
-                slidesPerView: 3,
-                spaceBetween: 15,
-              },
-              768: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-              },
-              1024: {
-                slidesPerView: 5,
-                spaceBetween: 20,
-              },
-            }}
-            className="associations-swiper py-8"
-          >
-            {associations.map((association, index) => (
-              <SwiperSlide key={index}>
-                <Link
-                  href={association.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block group"
-                >
-                  <div className="bg-white p-4 rounded-lg border border-gray-200 hover:border-primary-red hover:shadow-lg transition-all duration-300 aspect-square flex items-center justify-center">
-                    <Image
-                      src={association.image}
-                      alt={association.name}
-                      width={200}
-                      height={200}
-                      className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-300"
-                      unoptimized
-                      onError={(e) => {
-                        // Fallback to placeholder if image not found
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/placeholder.svg?height=200&width=200';
-                      }}
-                    />
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        {/* Centered Grid */}
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+          {associations.map((association, index) => (
+            <Link
+              key={index}
+              href={association.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group"
+            >
+              <div className="bg-white p-4 rounded-lg border border-gray-200 hover:border-primary-red hover:shadow-lg transition-all duration-300 w-36 h-36 md:w-44 md:h-44 flex items-center justify-center">
+                <Image
+                  src={association.image}
+                  alt={association.name}
+                  width={200}
+                  height={200}
+                  className="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-300"
+                  unoptimized
+                  onError={(e) => {
+                    // Fallback to placeholder if image not found
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder.svg?height=200&width=200';
+                  }}
+                />
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
