@@ -540,9 +540,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Associations Section */}
-        <AssociationsSlider />
-
         {/* Why Choose Us Section */}
         <section id="about" className="bg-dark-grey py-12 md:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
@@ -658,6 +655,9 @@ export default function HomePage() {
 
         {/* Quality Materials Section */}
         <QualityMaterialsSlider />
+
+        {/* Associations Section */}
+        <AssociationsSlider />
 
         {/* Client Testimonials Auto-Playing Carousel with Pause on Hover */}
         <section id="testimonials" className="bg-cream py-12 md:py-16 px-4 sm:px-6 lg:px-8">

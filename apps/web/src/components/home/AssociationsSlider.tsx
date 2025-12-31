@@ -35,34 +35,9 @@ const associations: Association[] = [
     link: "https://www.certainteed.com/",
   },
   {
-    name: "Main Line Chamber of Commerce",
-    image: "/images/associations/main-line-chamber-logo.png",
-    link: "https://www.mlcc.org/",
-  },
-  {
     name: "Montgomery County Chamber of Commerce",
     image: "/images/associations/montgomery-county-chamber-logo.png",
     link: "https://www.montgomerycountychamber.org/",
-  },
-  {
-    name: "BNI - Business Networking International (Jenkintown)",
-    image: "/images/associations/bni-logo.png",
-    link: "https://www.bni.com/",
-  },
-  {
-    name: "Philadelphia Historical Society",
-    image: "/images/associations/philadelphia-historical-society-logo.png",
-    link: "https://www.philahistory.org/",
-  },
-  {
-    name: "Preservation Alliance of Greater Philadelphia",
-    image: "/images/associations/preservation-alliance-logo.png",
-    link: "https://www.preservationalliance.com/",
-  },
-  {
-    name: "Rock Ministry",
-    image: "/images/associations/rock-ministry-logo.png",
-    link: "https://therockphilly.org/",
   },
 ];
 

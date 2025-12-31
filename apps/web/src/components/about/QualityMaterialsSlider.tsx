@@ -20,16 +20,6 @@ interface MaterialPartner {
 
 const materialPartners: MaterialPartner[] = [
   {
-    name: "Air Vent Inc",
-    image: "/images/about/qualitymaterialsslider/airvent-300x150-1.png",
-    link: "https://www.airvent.com/",
-  },
-  {
-    name: "Owens Corning AttiCat",
-    image: "/images/about/qualitymaterialsslider/atticat-300x150-1.png",
-    link: "https://www.owenscorning.com/",
-  },
-  {
     name: "CertainTeed",
     image: "/images/about/qualitymaterialsslider/certainteed-400x200-300x150-1.png",
     link: "https://www.certainteed.com/",
@@ -55,9 +45,9 @@ const materialPartners: MaterialPartner[] = [
     link: "https://www.jameshardie.com/",
   },
   {
-    name: "Owens Corning",
-    image: "/images/about/qualitymaterialsslider/owenscorning-300x150-1.png",
-    link: "https://www.owenscorning.com/",
+    name: "Marvin Windows",
+    image: "/images/associations/marvin.png",
+    link: "https://www.marvin.com/",
   },
   {
     name: "Pella",
@@ -88,11 +78,6 @@ const materialPartners: MaterialPartner[] = [
     name: "Viwinco",
     image: "/images/about/qualitymaterialsslider/Viwinco-logo.png",
     link: "https://www.viwinco.com/",
-  },
-  {
-    name: "Zambelli Gutters",
-    image: "/images/about/qualitymaterialsslider/Zambelli-Gutters-logo.jpg",
-    link: "https://www.zambelligutters.com/",
   },
 ];
 
