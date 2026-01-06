@@ -39,6 +39,7 @@ import "swiper/css/autoplay"
 // Import Components
 import AssociationsSlider from "@/components/home/AssociationsSlider"
 import QualityMaterialsSlider from "@/components/about/QualityMaterialsSlider"
+import ProjectOfTheMonth from "@/components/home/ProjectOfTheMonth"
 import { AddressInput } from "@/components/estimate/AddressInput"
 import { parseAddressComponents } from "@/lib/hubspot/utils"
 import { Review } from "@/types/review"
@@ -652,6 +653,9 @@ export default function HomePage() {
             )}
           </div>
         </section>
+
+        {/* Project of the Month Section */}
+        <ProjectOfTheMonth />
 
         {/* Quality Materials Section */}
         <QualityMaterialsSlider />
