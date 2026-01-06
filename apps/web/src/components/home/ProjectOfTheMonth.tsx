@@ -46,10 +46,15 @@ export default function ProjectOfTheMonth() {
         const data: PhotosApiResponse = await response.json();
 
         if (data.photos && data.photos.length > 0) {
-          // Filter for Before/After photos only
-          const beforeAfterPhotos = data.photos.filter(
-            photo => photo.isBeforePhoto || photo.isAfterPhoto
-          );
+          // Filter for Before/After photos only, then sort with Before photos first
+          const beforeAfterPhotos = data.photos
+            .filter(photo => photo.isBeforePhoto || photo.isAfterPhoto)
+            .sort((a, b) => {
+              // Before photos come first
+              if (a.isBeforePhoto && !b.isBeforePhoto) return -1;
+              if (!a.isBeforePhoto && b.isBeforePhoto) return 1;
+              return 0;
+            });
           setPhotos(beforeAfterPhotos);
         }
       } catch (err) {
