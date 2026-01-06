@@ -24,6 +24,8 @@ import {
   SERVICE_TAGS,
   BEFORE_TAG,
   AFTER_TAG,
+  BEFORE_TAG_ID,
+  AFTER_TAG_ID,
 } from './types';
 
 const COMPANYCAM_API_BASE = 'https://api.companycam.com/v2';
@@ -181,7 +183,7 @@ export class CompanyCamClient {
     // Since we're only fetching ~36 photos max, rate limiting is not an issue
     const batchSize = 20;
     const delayBetweenBatches = 3000; // 3 seconds between batches (conservative)
-    const photosWithTags: ({ photo: CompanyCamPhoto; tags: string[] } | null)[] = [];
+    const photosWithTags: ({ photo: CompanyCamPhoto; tags: string[]; tagIds: string[] } | null)[] = [];
 
     for (let i = 0; i < photos.length; i += batchSize) {
       const batch = photos.slice(i, i + batchSize);
@@ -191,10 +193,12 @@ export class CompanyCamClient {
           try {
             const photoTags = await this.getPhotoTags(photo.id);
             const tagNames = photoTags.map(tag => tag.display_value || tag.value || tag.name || '');
+            const tagIds = photoTags.map(tag => tag.id);
 
             return {
               photo,
               tags: tagNames,
+              tagIds,
             };
           } catch (error) {
             console.error(`Failed to fetch tags for photo ${photo.id}:`, error);
@@ -227,10 +231,10 @@ export class CompanyCamClient {
         }
       }
 
-      // Apply optional before/after filter
+      // Apply optional before/after filter (check by tag ID for reliability)
       if (additionalFilters?.beforeAfter) {
-        const isBeforePhoto = this.hasTag(item.tags, BEFORE_TAG);
-        const isAfterPhoto = this.hasTag(item.tags, AFTER_TAG);
+        const isBeforePhoto = item.tagIds.includes(BEFORE_TAG_ID) || this.hasTag(item.tags, BEFORE_TAG);
+        const isAfterPhoto = item.tagIds.includes(AFTER_TAG_ID) || this.hasTag(item.tags, AFTER_TAG);
 
         if (additionalFilters.beforeAfter === 'before' && !isBeforePhoto) return false;
         if (additionalFilters.beforeAfter === 'after' && !isAfterPhoto) return false;
@@ -243,7 +247,7 @@ export class CompanyCamClient {
     // Transform to GalleryPhoto format
     return filteredPhotos
       .filter((item): item is NonNullable<typeof item> => item !== null)
-      .map(item => this.transformToGalleryPhoto(item.photo, item.tags));
+      .map(item => this.transformToGalleryPhoto(item.photo, item.tags, item.tagIds));
   }
 
   /**
@@ -299,7 +303,7 @@ export class CompanyCamClient {
   /**
    * Transform CompanyCam photo to GalleryPhoto format
    */
-  private transformToGalleryPhoto(photo: CompanyCamPhoto, tags: string[]): GalleryPhoto {
+  private transformToGalleryPhoto(photo: CompanyCamPhoto, tags: string[], tagIds: string[] = []): GalleryPhoto {
     const matchedServiceTags = this.getMatchedServiceTags(tags);
 
     // Get URLs from the uris array
@@ -307,6 +311,10 @@ export class CompanyCamClient {
     // Fall back to 'original' if others not available
     const mainUrl = this.getPhotoUri(photo, 'web') || this.getPhotoUri(photo, 'original') || photo.uri;
     const thumbnailUrl = this.getPhotoUri(photo, 'thumbnail') || mainUrl;
+
+    // Check by tag ID first (more reliable), fallback to tag name
+    const isBeforePhoto = tagIds.includes(BEFORE_TAG_ID) || this.hasTag(tags, BEFORE_TAG);
+    const isAfterPhoto = tagIds.includes(AFTER_TAG_ID) || this.hasTag(tags, AFTER_TAG);
 
     return {
       id: photo.id,
@@ -316,8 +324,8 @@ export class CompanyCamClient {
       tags,
       location: photo.coordinates,
       category: matchedServiceTags[0]?.toLowerCase(), // Use first matched service tag
-      isBeforePhoto: this.hasTag(tags, BEFORE_TAG),
-      isAfterPhoto: this.hasTag(tags, AFTER_TAG),
+      isBeforePhoto,
+      isAfterPhoto,
     };
   }
 

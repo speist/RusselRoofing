@@ -92,10 +92,12 @@ export const MASTER_TAG_ID = '23361102';
 
 /**
  * Before/After tags for transformation showcases
- * Note: User mentioned no photos currently have these tags yet
+ * Tag IDs are used for reliable filtering regardless of display name
  */
 export const BEFORE_TAG = 'Before';
 export const AFTER_TAG = 'After';
+export const BEFORE_TAG_ID = '23885608';
+export const AFTER_TAG_ID = '23885636';
 
 export interface CompanyCamProject {
   id: string;
