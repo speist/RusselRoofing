@@ -54,12 +54,12 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       subtitle: "Protecting Your Home with Quality Craftsmanship Since 1985",
       backgroundImage: "/images/services/ServiceHeroImages/roofing-hero.jpg"
     },
-    overview: "With over 35 years of experience, Russell Roofing has been the trusted choice for homeowners throughout New Jersey. Our comprehensive roofing services ensure your home stays protected through every season.",
-    detailedDescription: `Russell Roofing specializes in complete roofing solutions tailored to your home's specific needs. Whether you need a full roof replacement, emergency repairs, or regular maintenance, our certified professionals deliver exceptional results.
+    overview: "With over 33 years of experience, nationally recognized awards, and an unwavering commitment to quality, Russell Roofing is the trusted choice for property owners throughout the Greater Philadelphia Area seeking solutions that truly last. Our comprehensive, consultative approach to roofing keeps your property protected in every season, from harsh winter freeze–thaw cycles to the intense thermal shock of scorching summer heat. Our roofing systems are designed to perform, endure, and stand the test of time.",
+    detailedDescription: `Russell Roofing specializes in complete roofing solutions tailored to your home's unique needs and architectural character. Whether you require a full roof replacement, emergency repairs, or ongoing maintenance, our certified professionals deliver exceptional workmanship and reliable results.
 
-We work with all major roofing materials including asphalt shingles, architectural shingles, slate, tile, and metal roofing systems. Our team stays current with the latest installation techniques and building codes to ensure your roof provides maximum protection and value.
+We install all major roofing systems, including asphalt shingles, slate, tile, single-ply membranes, and metal roofing. Our team continually trains on the latest installation methods and stays current with evolving building codes to ensure your roof delivers maximum protection, performance, and value.
 
-Every project begins with a thorough inspection to assess your roof's condition and identify the best solution for your needs and budget. We provide detailed estimates and work closely with insurance companies when storm damage is involved.`,
+Every project begins with a thorough roof inspection to evaluate current conditions and determine the most effective solution for your needs and budget. You receive a detailed written estimate, and when storm damage is involved, we coordinate closely with your insurance company to help streamline the claims process.`,
     process: [
       {
         step: 1,
