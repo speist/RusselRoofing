@@ -80,14 +80,24 @@ export class CompanyCamClient {
   }
 
   /**
+   * Helper: Check if photo has Before or After tag (by ID or name)
+   */
+  private hasBeforeOrAfterTag(tags: string[], tagIds: string[]): boolean {
+    const hasByIds = tagIds.includes(BEFORE_TAG_ID) || tagIds.includes(AFTER_TAG_ID);
+    const hasByNames = this.hasTag(tags, BEFORE_TAG) || this.hasTag(tags, AFTER_TAG);
+    return hasByIds || hasByNames;
+  }
+
+  /**
    * Helper: Check if photo passes the two-tier filter
    * 1. Must have master tag ("RR Website")
-   * 2. Must have at least one service tag
+   * 2. Must have at least one service tag OR a Before/After tag
    */
-  private passesFilter(tags: string[]): boolean {
+  private passesFilter(tags: string[], tagIds: string[] = []): boolean {
     const hasMaster = this.hasMasterTag(tags);
     const matchedServiceTags = this.getMatchedServiceTags(tags);
-    return hasMaster && matchedServiceTags.length > 0;
+    const hasBeforeAfter = this.hasBeforeOrAfterTag(tags, tagIds);
+    return hasMaster && (matchedServiceTags.length > 0 || hasBeforeAfter);
   }
 
   /**
@@ -219,8 +229,8 @@ export class CompanyCamClient {
     const filteredPhotos = photosWithTags.filter(item => {
       if (!item) return false;
 
-      // Apply master + service tag filter
-      if (!this.passesFilter(item.tags)) {
+      // Apply master + service tag filter (or Before/After tags)
+      if (!this.passesFilter(item.tags, item.tagIds)) {
         return false;
       }
 
