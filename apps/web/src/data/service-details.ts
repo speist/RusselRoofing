@@ -145,13 +145,13 @@ Every project begins with a thorough roof inspection to evaluate current conditi
   "siding-and-gutters": {
     id: "2",
     slug: "siding-and-gutters",
-    title: "Siding and Gutters",
+    title: "Siding",
     shortDescription: "Exterior siding installation and repair",
     description: "Transform your home's exterior with our professional siding services. We work with vinyl, fiber cement, wood, and composite materials to enhance both beauty and protection.",
     icon: "/images/icons/siding.svg",
     image: "/images/services/ServiceHeroImages/siding-gutters-hero.jpg",
     features: ["Vinyl Siding", "Fiber Cement", "Wood Siding", "Siding Repairs"],
-    category: "Siding and Gutters",
+    category: "Siding",
     popular: true,
     hero: {
       title: "Expert Siding Installation",

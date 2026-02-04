@@ -13,7 +13,7 @@ export interface Service {
 
 export const serviceCategories = [
   'Roofing',
-  'Siding and Gutters',
+  'Siding',
   'Commercial',
   'Churches & Institutions',
   'Historical Restoration',
@@ -40,13 +40,13 @@ export const services: Service[] = [
   {
     id: "2",
     slug: "siding-and-gutters",
-    title: "Siding and Gutters",
+    title: "Siding",
     shortDescription: "Exterior siding installation and comprehensive gutter services",
     description: "Transform your home's exterior with our professional siding services and protect your foundation with our comprehensive gutter solutions. We work with all major materials and provide seamless installations.",
     icon: "/images/icons/siding.svg",
     image: "/images/services/ServiceHeroImages/siding-gutters-hero.jpg",
     features: ["Vinyl Siding", "Fiber Cement", "Seamless Gutters", "Gutter Guards"],
-    category: "Siding and Gutters",
+    category: "Siding",
     popular: true
   },
   {

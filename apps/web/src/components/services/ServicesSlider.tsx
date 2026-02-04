@@ -12,7 +12,7 @@ import "swiper/css/navigation";
 
 const services = [
   "Roofing",
-  "Siding and Gutters",
+  "Siding",
   "Commercial",
   "Churches & Institutions",
   "Historical Restoration",
@@ -23,7 +23,7 @@ const services = [
 
 const serviceSlugMap: Record<string, string> = {
   "Roofing": "roofing",
-  "Siding and Gutters": "siding-and-gutters",
+  "Siding": "siding-and-gutters",
   "Commercial": "commercial",
   "Churches & Institutions": "churches-institutions",
   "Historical Restoration": "historical-restoration",
@@ -34,7 +34,7 @@ const serviceSlugMap: Record<string, string> = {
 
 const serviceImageMap: Record<string, string> = {
   "Roofing": "/images/services/service cards/roofing-card.jpg",
-  "Siding and Gutters": "/images/services/service cards/siding-gutters-card.jpg",
+  "Siding": "/images/services/service cards/siding-gutters-card.jpg",
   "Commercial": "/images/services/service cards/commercial-card.jpg",
   "Churches & Institutions": "/images/services/service cards/church-institutions-card.jpg",
   "Historical Restoration": "/images/services/service cards/historical-restoration-card.jpg",

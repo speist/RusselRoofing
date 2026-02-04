@@ -33,7 +33,7 @@ export function Footer() {
 
   const services = [
     { title: "Roofing", slug: "roofing" },
-    { title: "Siding and Gutters", slug: "siding-and-gutters" },
+    { title: "Siding", slug: "siding-and-gutters" },
     { title: "Commercial", slug: "commercial" },
     { title: "Churches & Institutions", slug: "churches-institutions" },
     { title: "Historical Restoration", slug: "historical-restoration" },

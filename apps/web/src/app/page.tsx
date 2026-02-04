@@ -217,7 +217,7 @@ export default function HomePage() {
 
   const services = [
     "Roofing",
-    "Siding and Gutters",
+    "Siding",
     "Commercial",
     "Churches & Institutions",
     "Historical Restoration",
@@ -229,7 +229,7 @@ export default function HomePage() {
   // Map service names to slugs for navigation
   const serviceSlugMap: Record<string, string> = {
     "Roofing": "roofing",
-    "Siding and Gutters": "siding-and-gutters",
+    "Siding": "siding-and-gutters",
     "Commercial": "commercial",
     "Churches & Institutions": "churches-institutions",
     "Historical Restoration": "historical-restoration",
@@ -241,7 +241,7 @@ export default function HomePage() {
   // Map service names to card images
   const serviceImageMap: Record<string, string> = {
     "Roofing": "/images/services/service cards/roofing-card.jpg",
-    "Siding and Gutters": "/images/services/service cards/siding-gutters-card.jpg",
+    "Siding": "/images/services/service cards/siding-gutters-card.jpg",
     "Commercial": "/images/services/service cards/commercial-card.jpg",
     "Churches & Institutions": "/images/services/service cards/church-institutions-card.jpg",
     "Historical Restoration": "/images/services/service cards/historical-restoration-card.jpg",
@@ -997,11 +997,14 @@ export default function HomePage() {
               <div>
                 <h3 className="font-inter font-semibold text-white text-lg mb-4">Our Services</h3>
                 <ul className="space-y-2">
-                  {services.slice(0, 6).map((service) => (
+                  {services.map((service) => (
                     <li key={service}>
-                      <a href="#" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      <Link
+                        href={`/services/${serviceSlugMap[service]}`}
+                        className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
+                      >
                         {service}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
