@@ -23,7 +23,7 @@ const servicePages = [
   'commercial',
   'churches-and-institutions',
   'historical-restorations',
-  'masonry',
+  'gutters',
   'windows',
   'skylights',
 ]

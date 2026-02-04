@@ -16,7 +16,7 @@ const services = [
   "Commercial",
   "Churches & Institutions",
   "Historical Restoration",
-  "Masonry",
+  "Gutters",
   "Windows",
   "Skylights",
 ];
@@ -27,7 +27,7 @@ const serviceSlugMap: Record<string, string> = {
   "Commercial": "commercial",
   "Churches & Institutions": "churches-institutions",
   "Historical Restoration": "historical-restoration",
-  "Masonry": "masonry",
+  "Gutters": "gutters",
   "Windows": "windows",
   "Skylights": "skylights",
 };
@@ -38,7 +38,7 @@ const serviceImageMap: Record<string, string> = {
   "Commercial": "/images/services/service cards/commercial-card.jpg",
   "Churches & Institutions": "/images/services/service cards/church-institutions-card.jpg",
   "Historical Restoration": "/images/services/service cards/historical-restoration-card.jpg",
-  "Masonry": "/images/services/service cards/masonry-card.jpg",
+  "Gutters": "/images/services/service cards/gutters-card.jpg",
   "Windows": "/images/services/service cards/windows-card.jpg",
   "Skylights": "/images/services/service cards/skylight-card.jpg",
 };

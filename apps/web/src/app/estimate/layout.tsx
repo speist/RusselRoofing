@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Free Estimate - Get a Quote for Roofing & Exterior Services',
-  description: 'Request a free estimate for roofing, siding, gutters, windows, skylights, and masonry services. Serving Greater Philadelphia, South Jersey, Montgomery, Bucks & Delaware Counties.',
+  description: 'Request a free estimate for roofing, siding, gutters, windows, skylights, and exterior services. Serving Greater Philadelphia, South Jersey, Montgomery, Bucks & Delaware Counties.',
   keywords: [
     'free roofing estimate',
     'roof replacement quote',

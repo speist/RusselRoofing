@@ -159,7 +159,7 @@ const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
         {/* Image info */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-black/0 p-6 text-white">
           <h3 className="text-2xl font-semibold mb-2">{currentImage.projectTitle}</h3>
-          <p className="text-gray-300 mb-3">{currentImage.description}</p>
+          <p className="text-white/90 mb-3">{currentImage.description}</p>
 
           <div className="flex flex-wrap items-center gap-4 text-sm">
             {currentImage.location && (

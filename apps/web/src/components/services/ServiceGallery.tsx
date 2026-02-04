@@ -29,7 +29,7 @@ const getStaticFallbackImages = (serviceSlug: string): GalleryImage[] => {
     "commercial": "commercial",
     "churches-and-institutions": "churches-and-institutions",
     "historical-restorations": "historical-restoration",
-    "masonry": "masonry",
+    "gutters": "gutters",
     "skylights": "skylights"
   };
 
@@ -66,10 +66,10 @@ const getStaticFallbackImages = (serviceSlug: string): GalleryImage[] => {
       { src: "/images/gallery/historical-restoration/full/historical-restoration-02.jpeg", thumbnail: "/images/gallery/historical-restoration/thumbnails/historical-restoration-02-thumb.jpeg", alt: "Historical restoration project", title: "Heritage Property Services" },
       { src: "/images/gallery/historical-restoration/full/historical-restoration-03.jpeg", thumbnail: "/images/gallery/historical-restoration/thumbnails/historical-restoration-03-thumb.jpeg", alt: "Historical restoration project", title: "Period Building Restoration" },
     ],
-    masonry: [
-      { src: "/images/gallery/masonry/full/masonry-01.jpeg", thumbnail: "/images/gallery/masonry/thumbnails/masonry-01-thumb.jpeg", alt: "Masonry project showcase", title: "Professional Masonry Work" },
-      { src: "/images/gallery/masonry/full/masonry-02.jpeg", thumbnail: "/images/gallery/masonry/thumbnails/masonry-02-thumb.jpeg", alt: "Masonry project showcase", title: "Expert Brick and Stone Work" },
-      { src: "/images/gallery/masonry/full/masonry-03.jpeg", thumbnail: "/images/gallery/masonry/thumbnails/masonry-03-thumb.jpeg", alt: "Masonry project showcase", title: "Chimney and Masonry Services" },
+    gutters: [
+      { src: "/images/gallery/gutters/full/gutters-01.jpeg", thumbnail: "/images/gallery/gutters/thumbnails/gutters-01-thumb.jpeg", alt: "Gutter project showcase", title: "Professional Gutter Installation" },
+      { src: "/images/gallery/gutters/full/gutters-02.jpeg", thumbnail: "/images/gallery/gutters/thumbnails/gutters-02-thumb.jpeg", alt: "Gutter project showcase", title: "Custom Copper Gutters" },
+      { src: "/images/gallery/gutters/full/gutters-03.jpeg", thumbnail: "/images/gallery/gutters/thumbnails/gutters-03-thumb.jpeg", alt: "Gutter project showcase", title: "Seamless Gutter Services" },
     ],
     skylights: [
       { src: "/images/gallery/skylights/full/windows-skylight-01.jpeg", thumbnail: "/images/gallery/skylights/thumbnails/windows-skylight-01-thumb.jpeg", alt: "Skylight installation showcase", title: "Professional Skylight Installation" },
@@ -282,7 +282,7 @@ export default function ServiceGallery({ serviceSlug, serviceTitle }: ServiceGal
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                     <h3 className="font-semibold text-lg">{image.title}</h3>
                     {image.location && (
-                      <p className="text-sm text-gray-200">{image.location}</p>
+                      <p className="text-sm text-white/90">{image.location}</p>
                     )}
                   </div>
                 </div>

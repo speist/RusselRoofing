@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Project Gallery - Roofing, Siding & Exterior Work Photos',
-  description: 'Browse our portfolio of completed roofing, siding, window, masonry and exterior projects in Greater Philadelphia, South Jersey, Montgomery, Bucks & Delaware Counties.',
+  description: 'Browse our portfolio of completed roofing, siding, window, gutter and exterior projects in Greater Philadelphia, South Jersey, Montgomery, Bucks & Delaware Counties.',
   keywords: [
     'roofing project photos',
     'siding installation gallery',

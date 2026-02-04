@@ -317,10 +317,11 @@ export class CompanyCamClient {
     const matchedServiceTags = this.getMatchedServiceTags(tags);
 
     // Get URLs from the uris array
-    // Use 'web' for main display (400x400) and 'thumbnail' for thumbnails (250x250)
-    // Fall back to 'original' if others not available
-    const mainUrl = this.getPhotoUri(photo, 'web') || this.getPhotoUri(photo, 'original') || photo.uri;
-    const thumbnailUrl = this.getPhotoUri(photo, 'thumbnail') || mainUrl;
+    // Use 'original' for main display (full resolution for lightbox/large views)
+    // Use 'web' (400x400) for thumbnails in grid views
+    // This prevents pixelation when viewing photos at larger sizes
+    const mainUrl = this.getPhotoUri(photo, 'original') || this.getPhotoUri(photo, 'web') || photo.uri;
+    const thumbnailUrl = this.getPhotoUri(photo, 'web') || this.getPhotoUri(photo, 'thumbnail') || mainUrl;
 
     // Check by tag ID first (more reliable), fallback to tag name
     const isBeforePhoto = tagIds.includes(BEFORE_TAG_ID) || this.hasTag(tags, BEFORE_TAG);

@@ -339,16 +339,15 @@ const TAG_TO_CATEGORY: Record<string, ServiceCategory> = {
   'roofing': 'Roofing',
   'Roofing': 'Roofing',
   'Commercial': 'Commercial',
-  'Masonry': 'Masonry',
+  'Gutters': 'Gutters',
   'Windows': 'Windows',
 
   // Plural/singular normalization
   'Skylight': 'Skylights',
   'Skylights': 'Skylights',
 
-  // Siding/Gutters (both map to Siding in gallery)
+  // Siding
   'Siding': 'Siding',
-  'Gutters': 'Siding', // Gallery shows as Siding category
 
   // Combined categories
   'Churches': 'Churches & Institutions',
@@ -365,11 +364,11 @@ const TAG_TO_CATEGORY: Record<string, ServiceCategory> = {
  */
 export const SERVICE_SLUG_TO_TAGS: Record<string, string[]> = {
   'roofing': ['roofing'],
-  'siding-and-gutters': ['Siding', 'Gutters'],
+  'siding-and-gutters': ['Siding'],
   'commercial': ['Commercial'],
   'churches-and-institutions': ['Churches', 'Institutions'],
   'historical-restorations': ['Historical', 'Restoration'],
-  'masonry': ['Masonry'],
+  'gutters': ['Gutters'],
   'windows': ['Windows'],
   'skylights': ['Skylight'],
 };
@@ -416,7 +415,7 @@ export function getGalleryCategory(tags: string[]): ServiceCategory | undefined 
     'Siding',
     'Windows',
     'Skylights',
-    'Masonry',
+    'Gutters',
     'Commercial',
     'Churches & Institutions',
     'Historical Restoration',

@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     default: "Russell Roofing & Exteriors | Roofing, Siding & More in Philadelphia & South Jersey",
     template: "%s | Russell Roofing & Exteriors",
   },
-  description: "Professional roofing, siding, gutters, windows, skylights, masonry, and exterior services. Serving Greater Philadelphia, South Jersey, Montgomery, Bucks & Delaware Counties since 1992. Free estimates!",
+  description: "Professional roofing, siding, gutters, windows, skylights, gutters, and exterior services. Serving Greater Philadelphia, South Jersey, Montgomery, Bucks & Delaware Counties since 1992. Free estimates!",
   keywords: [
     "roofing contractor",
     "roof repair",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     "gutter services",
     "window installation",
     "skylight installation",
-    "masonry",
+    "gutters",
     "commercial roofing",
     "historical restoration",
     "Philadelphia roofing",
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     url: BASE_URL,
     siteName: "Russell Roofing & Exteriors",
     title: "Russell Roofing & Exteriors | Professional Exterior Services Since 1992",
-    description: "Expert roofing, siding, gutters, windows, skylights & masonry services. Serving Greater Philadelphia, South Jersey & surrounding counties. Free estimates!",
+    description: "Expert roofing, siding, gutters, windows, skylights & gutters services. Serving Greater Philadelphia, South Jersey & surrounding counties. Free estimates!",
     // OG image is auto-generated from opengraph-image.tsx
   },
   twitter: {

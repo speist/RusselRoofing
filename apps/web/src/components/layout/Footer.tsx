@@ -37,7 +37,7 @@ export function Footer() {
     { title: "Commercial", slug: "commercial" },
     { title: "Churches & Institutions", slug: "churches-institutions" },
     { title: "Historical Restoration", slug: "historical-restoration" },
-    { title: "Masonry", slug: "masonry" },
+    { title: "Gutters", slug: "gutters" },
     { title: "Windows", slug: "windows" },
     { title: "Skylights", slug: "skylights" },
   ];
@@ -167,13 +167,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/service-areas/south-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
-                  South Jersey
+                <Link href="/service-areas/central-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                  Central Jersey
                 </Link>
               </li>
               <li>
-                <Link href="/service-areas/central-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
-                  Central Jersey
+                <Link href="/service-areas/south-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                  South Jersey
                 </Link>
               </li>
               <li>

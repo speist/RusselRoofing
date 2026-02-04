@@ -158,12 +158,10 @@ Every project begins with a thorough roof inspection to evaluate current conditi
       subtitle: "Enhance Your Home's Beauty and Protection",
       backgroundImage: "/images/services/ServiceHeroImages/siding-gutters-hero.jpg"
     },
-    overview: "Russell Roofing's siding services combine aesthetic appeal with superior protection. Our expert installers work with premium materials to transform your home's exterior while improving energy efficiency.",
-    detailedDescription: `Quality siding does more than beautify your home - it provides essential protection against the elements while improving energy efficiency and property value. Russell Roofing offers comprehensive siding services using the industry's best materials and installation practices.
+    overview: "Russell Roofing & Exteriors has been a trusted siding contractor for more than 33 years, proudly serving thousands of satisfied residential and commercial clients throughout the region. As a certified installer for CertainTeed, James Hardie, and Mastic, our team is uniquely qualified to offer a full range of premium siding systems supported by robust lifetime warranty options.",
+    detailedDescription: `We invite you to connect with our team to speak with an experienced design professional about the siding solution that best aligns with your home, aesthetic preferences, and budget. Most homeowners approach a siding project with four primary objectives: enhancing curb appeal, improving energy efficiency, increasing overall property value, and selecting a low-maintenance product that delivers long-term performance.
 
-Our experienced team works with all major siding types including vinyl, fiber cement (James Hardie), wood, and composite materials. We help you select the perfect siding solution based on your home's architecture, your aesthetic preferences, and your budget.
-
-Every siding project begins with a detailed consultation where we assess your home's current condition, discuss your goals, and provide samples of available materials. Our installations include proper moisture barriers, insulation upgrades when needed, and meticulous attention to detail that ensures lasting beauty and performance.`,
+Our specialists take the time to listen, present tailored options, and guide you through each step of the process so you feel informed, supported, and confident in every decision you make.`,
     process: [
       {
         step: 1,
@@ -262,8 +260,50 @@ Every siding project begins with a detailed consultation where we assess your ho
       subtitle: "Energy Efficiency and Beauty Combined",
       backgroundImage: "/images/services/ServiceHeroImages/windows-hero.jpg"
     },
-    overview: "Upgrade your home with energy-efficient windows that enhance comfort, reduce utility costs, and improve curb appeal. Our expert installers ensure perfect fit and function.",
-    detailedDescription: "Content to be provided by Analyst",
+    overview: "We install a full range of high-quality replacement and new-construction windows, matching the right products to your property, style, and budget. Every window is measured, ordered, and installed with careful attention to detail so it fits properly, seals tightly, and operates smoothly for years to come.",
+    detailedDescription: `**Expert window installation for every need**
+
+• Double-hung, casement, awning, and slider windows
+• Bay, bow, and picture windows for expanded views and natural light
+• Specialty shapes and architectural windows for distinctive designs
+• Basement, egress, and utility windows for safety and code compliance
+
+**Energy efficiency and comfort**
+
+Modern windows do far more than just look good—they play a major role in your home's comfort and energy performance. We help you choose options that make a real difference in how your home feels and what you pay in utilities.
+
+• Energy-efficient glass packages to help reduce heat loss and drafts
+• Low-E coatings to manage solar heat gain and protect interiors from UV rays
+• Insulated frames and professional air sealing to improve overall performance
+
+Our goal is to provide windows that help keep your home warmer in winter, cooler in summer, and quieter year-round.
+
+**Styles and materials to match your home**
+
+Whether you're updating a historic property, modernizing a contemporary home, or refreshing a classic suburban residence, we offer window solutions that complement your architecture.
+
+• Vinyl, fiberglass, composite, and wood-clad window options
+• Multiple interior and exterior colors and finishes
+• Grille patterns and hardware choices to match your design vision
+
+We take the time to review samples, explain options, and recommend combinations that align with both your aesthetic preferences and long-term maintenance expectations.
+
+**Award-winning craftsmanship and clean installation**
+
+As a nationally recognized specialty contractor, we approach window projects with the same disciplined process we use on complex roofing work.
+
+• Careful removal of old windows to protect surrounding finishes
+• Proper flashing, insulation, and sealing at all critical points
+• Trim, casing, and interior/exterior finishing for a complete, polished look
+• Jobsite cleanliness and respectful crews on every project
+
+You get windows that look like they've always belonged there—installed to perform and built to last.
+
+**Start with a window consultation**
+
+If you're considering new or replacement windows, our specialists are ready to help you plan the right project. We'll review your existing windows, discuss your goals, present product options, and provide a clear, detailed proposal.
+
+Contact us today to schedule a window consultation and discover why property owners have trusted our nationally award-winning team for 33 years to deliver high-quality window installations and exterior solutions.`,
     process: [],
     featureDetails: [],
     faqs: [
@@ -305,8 +345,49 @@ Every siding project begins with a detailed consultation where we assess your ho
       subtitle: "Protecting Your Business Investment",
       backgroundImage: "/images/services/ServiceHeroImages/commercial-hero.jpg"
     },
-    overview: "Russell Roofing provides comprehensive commercial roofing and exterior services designed to protect your investment while minimizing disruption to your operations.",
-    detailedDescription: "Content to be provided by Analyst",
+    overview: "A leading commercial roofing partner for 33 years, Russell Roofing & Exteriors delivers long-lasting solutions for properties that demand the highest level of performance and professionalism. From office buildings and retail centers to schools, institutions, and industrial facilities, our team has the experience to handle complex projects safely, efficiently, and with minimal disruption to your operations.",
+    detailedDescription: `**Why businesses trust us**
+
+For more than three decades, we have helped building owners, property managers, and developers protect their investments with roofing systems designed to perform—not just pass inspection. Our experts evaluate each roof as a complete system, recommending solutions based on building use, budget, lifecycle costs, and long-term performance, not just lowest upfront price.
+
+• 33 years of specialized commercial roofing experience
+• Proven track record across thousands of projects
+• Highly trained crews focused on safety and quality
+• Strong relationships with leading manufacturers and inspectors
+
+**Comprehensive commercial roofing services**
+
+We provide a full range of commercial roofing services to support your property at every stage of its lifecycle.
+
+• New construction roofing and design input
+• Roof replacement and re-roofing
+• Roof repairs and leak tracking
+• Preventive maintenance programs
+• Roof inspections, reports, and budgeting support
+
+Whether you need a durable flat roofing system, a high-performance membrane, or a specialty solution for a unique structure, we tailor our recommendations to your building's needs and your long-term plans.
+
+**Solutions engineered to last**
+
+Every commercial roof we install is designed to deliver maximum value over time. We focus on proper design, high-quality materials, and precise installation to help reduce emergency repairs, extend roof life, and protect what's inside your building.
+
+• Thoughtful system selection based on climate and use
+• Code-compliant details and manufacturer-approved methods
+• Emphasis on energy efficiency, durability, and low maintenance
+
+Our goal is to provide the best overall solution—not just for today, but for the next 20+ years of service life.
+
+**Safety, communication, and professionalism**
+
+On an active commercial property, safety and coordination are critical. Our teams follow strict safety protocols and maintain clear communication with owners, managers, and other trades to keep projects on schedule and minimize impact on tenants and operations.
+
+You get a dedicated point of contact, regular updates, and detailed documentation so you always know what's happening on your roof.
+
+**Schedule a commercial roof assessment**
+
+If your facility needs a new roof, a long-term plan for an aging system, or help solving recurring leaks, our commercial roofing specialists are ready to help. We'll inspect your roof, discuss your goals and budget, and present clear options with straightforward recommendations.
+
+Contact us today to schedule a commercial roof assessment and discover why businesses have trusted our team for 33 years to deliver the best roofing solutions for their properties.`,
     process: [],
     featureDetails: [],
     faqs: [
@@ -389,8 +470,56 @@ Every siding project begins with a detailed consultation where we assess your ho
       subtitle: "Bring Natural Light Into Your Home",
       backgroundImage: "/images/services/ServiceHeroImages/skylight-hero.jpg"
     },
-    overview: "Regular maintenance is the key to maximizing the life of your roof and exterior systems. Our comprehensive maintenance programs help prevent costly repairs.",
-    detailedDescription: "Content to be provided by Analyst",
+    overview: "For more than 33 years, Russell Roofing & Exteriors has been a trusted specialty roofing company, known for nationally award-winning craftsmanship and long-lasting solutions. Our team brings that same level of expertise to skylight installation, transforming dark spaces into bright, welcoming areas while protecting your home from the elements.",
+    detailedDescription: `**Expert skylight installation of all kinds**
+
+We install a full range of skylights to match your roof type, room layout, and design goals, whether you're adding natural light to a single room or planning multiple daylighting points throughout your home.
+
+• Fixed skylights for consistent natural light
+• Venting (operable) skylights for added ventilation and fresh air
+• Roof windows and balcony-style units for lofts and upper stories
+• Sun tunnels/tubular skylights for hallways, closets, and tight spaces
+
+Our specialists evaluate roof pitch, structure, and interior layout to recommend the right skylight type, size, and placement for optimal light and performance.
+
+**Designed to perform, not just look good**
+
+A skylight should bring in light—not leaks. We focus on proper integration with your roofing system to ensure durability, weather resistance, and long-term performance.
+
+• High-quality glazing options to manage heat gain and glare
+• Energy-efficient glass to help maintain comfortable indoor temperatures
+• Professional flashing systems tailored to your roofing material
+• Careful sealing and insulation at all critical joints
+
+Every skylight is installed as part of a complete roofing solution, helping prevent issues like condensation, drafts, and water intrusion.
+
+**Options to fit your home and lifestyle**
+
+From traditional homes to modern designs, skylights can be customized to match your style and how you use the space.
+
+• Manual and solar-powered venting skylights
+• Integrated blinds and shades for light and privacy control
+• Smart controls and rain sensors for added convenience
+• Interior finishing options to blend seamlessly with your ceiling design
+
+We take time to understand how you live in the space so the skylight not only looks right but functions the way you need it to.
+
+**Award-winning craftsmanship and careful installation**
+
+As a nationally recognized specialty roofing contractor, we treat skylight projects with the same care as complex roofing and restoration work.
+
+• Precise roof cutting and framing adjustments, when needed
+• Proper integration with shingles, slate, tile, or flat roofing systems
+• Clean interior work to minimize dust and disruption
+• Respectful, professional crews on every project
+
+The result is a skylight that looks like it was always meant to be there—installed to high standards and built to last.
+
+**Schedule a skylight consultation**
+
+If you're considering adding new skylights, replacing old units, or integrating daylighting into a larger roofing project, our specialists are ready to help. We'll review your roof and interior spaces, discuss design and performance goals, and provide clear recommendations and pricing.
+
+Contact us today to schedule a skylight consultation and discover why homeowners have trusted our nationally award-winning specialty roofing team for more than 33 years to install skylights of all kinds.`,
     process: [],
     featureDetails: [],
     faqs: [
@@ -431,8 +560,53 @@ Every siding project begins with a detailed consultation where we assess your ho
       subtitle: "Specialized Services for Important Buildings",
       backgroundImage: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg"
     },
-    overview: "Russell Roofing provides specialized services for churches, schools, hospitals, and other institutional buildings with unique architectural and operational requirements.",
-    detailedDescription: "Content to be provided by Analyst",
+    overview: "A nationally recognized leader in specialty roofing for churches and institutions, Russell Roofing & Exteriors has been trusted for more than 33 years to protect some of the region's most significant and sacred buildings. Our craftsmen combine old-world skill with modern roofing technology to deliver work that is both historically respectful and nationally award-winning.",
+    detailedDescription: `**Dedicated to churches and institutions**
+
+For decades, we have focused on the unique needs of churches, schools, colleges, and institutional facilities. These projects demand more than standard roofing—they require sensitivity to architecture, scheduling, and long-term stewardship of important properties.
+
+• Extensive experience with historic and architecturally significant structures
+• Careful coordination around services, school schedules, and daily operations
+• Solutions tailored to long-term ownership, not short-term fixes
+
+Whether your building is a century-old stone church or a large campus facility, we approach every project with the same respect and attention to detail.
+
+**Nationally award-winning craftsmanship**
+
+Our work has been recognized with national awards that highlight our commitment to excellence in specialty roofing. These honors reflect the quality of our installations, the complexity of the projects we undertake, and the long-term performance of the systems we install.
+
+• Nationally award-winning roofing projects
+• Proven track record on complex, high-visibility buildings
+• Reputation for meticulous detailing and superior workmanship
+
+Every roof is treated as a legacy project designed to protect your building for decades to come.
+
+**Expertise in specialty roofing systems**
+
+Specialty and institutional roofing often involves materials and details that go far beyond standard commercial work. Our teams are trained and experienced in a wide range of high-end systems and traditional techniques.
+
+• Slate, tile, and copper roofing
+• Steep-slope and complex roof geometries
+• Ornamental metalwork, gutters, and custom flashings
+• Long-lasting flat and low-slope systems for institutional campuses
+
+We carefully evaluate each structure, recommending materials and assemblies that fit both the architecture and the performance goals of your organization.
+
+**Respectful, safe, and well-managed projects**
+
+Working on churches and institutions requires a disciplined approach to safety, cleanliness, and communication. We plan every project to minimize disruption while maintaining the highest standards of site conduct.
+
+• Strict safety protocols to protect congregations, students, staff, and visitors
+• Clear communication with building committees, boards, and facility managers
+• Professional crews trained to work respectfully around occupied spaces
+
+From staging and access to noise and scheduling, we design our process around your building's daily life.
+
+**Partner with a trusted specialty roofing expert**
+
+If your church or institution needs expert guidance on roof repair, restoration, or replacement, our team is ready to help. We can assess your current roof, provide detailed recommendations, and help you prioritize work over time to fit your budget and long-range plans.
+
+Contact us today to schedule a consultation and discover why churches and institutions have trusted our nationally award-winning specialty roofing team for over 33 years.`,
     process: [],
     featureDetails: [],
     faqs: [
@@ -458,46 +632,147 @@ Every siding project begins with a detailed consultation where we assess your ho
     emergencyAvailable: true,
     certifications: []
   },
-  masonry: {
+  gutters: {
     id: "6",
-    slug: "masonry",
-    title: "Masonry",
-    shortDescription: "Stone and brick work for chimneys and exterior walls",
-    description: "Professional masonry services including chimney repairs, stone work, and brick restoration. We restore and repair masonry structures to ensure both safety and aesthetic appeal.",
-    icon: "/images/icons/masonry.svg",
-    image: "/images/services/ServiceHeroImages/masonry-hero.jpg",
-    features: ["Chimney Repairs", "Stone Work", "Brick Restoration", "Pointing and Repointing"],
-    category: "Masonry",
+    slug: "gutters",
+    title: "Gutters",
+    shortDescription: "Complete gutter expertise for every property",
+    description: "We install and service gutters of all types to match the architecture, performance needs, and budget of your home or building. From traditional systems to high-end custom metals, every gutter is designed as part of a complete water-management solution.",
+    icon: "/images/icons/gutters.svg",
+    image: "/images/services/ServiceHeroImages/gutters-hero.jpg",
+    features: ["Seamless Aluminum Gutters", "Copper Gutters", "Custom Fabrication", "Gutter Guards"],
+    category: "Gutters",
     hero: {
-      title: "Masonry Services",
-      subtitle: "Expert Stone and Brick Work",
-      backgroundImage: "/images/services/ServiceHeroImages/masonry-hero.jpg"
+      title: "Gutter Services",
+      subtitle: "Complete Gutter Expertise for Every Property",
+      backgroundImage: "/images/services/ServiceHeroImages/gutters-hero.jpg"
     },
-    overview: "Professional masonry services including chimney repairs, stone work, and brick restoration to ensure both safety and aesthetic appeal.",
-    detailedDescription: "Content to be provided by Analyst",
-    process: [],
-    featureDetails: [],
-    faqs: [
+    overview: "We install and service gutters of all types to match the architecture, performance needs, and budget of your home or building. From traditional systems to high-end custom metals, every gutter is designed as part of a complete water-management solution that moves water away from your structure and protects roofs, walls, and foundations.",
+    detailedDescription: `**Complete gutter expertise for every property**
+
+• Seamless aluminum gutters in multiple sizes and colors
+• Copper gutters and downspouts for premium and historic properties
+• Steel and specialty metal gutters for added strength and durability
+• K-style and half-round profiles to complement any architectural style
+
+We carefully evaluate roof lines, drainage patterns, and landscaping to recommend the right gutter size, style, and configuration for your property.
+
+**Award-winning installation and craftsmanship**
+
+Our nationally recognized work reflects a commitment to doing things the right way—from layout and pitch to fastening and flashing details. Proper gutter installation is critical to preventing leaks, ice issues, and damage to trim, fascia, and masonry.
+
+• Precise gutter slopes for proper water flow
+• Secure hangers and brackets for long-term stability
+• Thoughtful downspout placement to direct water away from foundations
+• Integration with roofing, flashings, and drainage systems
+
+Every project is installed to high standards so your gutters not only look good but perform reliably in heavy rain and harsh weather.
+
+**Custom solutions and specialty metals**
+
+For high-end homes, historic properties, and architecturally distinctive buildings, we offer fully custom gutter solutions that enhance both performance and curb appeal.
+
+• Custom-fabricated copper and metal gutters
+• Ornamental brackets, leader heads, and collector boxes
+• Coordination with slate, tile, cedar, and specialty roofing systems
+
+Our specialists work closely with owners, architects, and contractors to ensure the gutter system complements the overall design of the building.
+
+**Protection, maintenance, and long-term value**
+
+A properly designed gutter system is one of the most important defenses against water damage. We help you protect your investment with thoughtful design and ongoing support.
+
+• Gutter repairs and system upgrades
+• Gutter guards and leaf protection options
+• Maintenance and inspection services to keep systems clear and flowing
+
+The goal is to reduce water intrusion, staining, and foundation issues while extending the life of your roof, siding, and exterior finishes.
+
+**Schedule a gutter consultation**
+
+Whether you need new gutters for a specialty roofing project, a full-system upgrade, or custom metal gutters for a high-end property, our team is ready to help. We'll inspect your current setup, discuss your goals, and present clear options tailored to your building and budget.
+
+Contact us today to schedule a gutter consultation and see why property owners have trusted our nationally award-winning specialty roofing and gutter team for more than 33 years.`,
+    process: [
       {
-        question: "How do I know if my chimney needs repair?",
-        answer: "Signs include crumbling mortar, loose or missing bricks, white staining (efflorescence), cracks in the crown, or interior water damage. We offer free inspections to assess your chimney's condition."
+        step: 1,
+        title: "Property Assessment",
+        description: "Evaluate roof lines, drainage patterns, and existing gutter condition",
+        icon: "/images/icons/inspection.svg"
       },
       {
-        question: "What is tuckpointing and when is it needed?",
-        answer: "Tuckpointing is the process of removing and replacing deteriorated mortar between bricks. It's needed when mortar becomes soft, cracked, or recessed, typically every 25-30 years."
+        step: 2,
+        title: "Custom Design",
+        description: "Recommend optimal gutter size, style, and configuration",
+        icon: "/images/icons/design.svg"
       },
       {
-        question: "Can you match the existing brick or stone?",
-        answer: "Yes, we specialize in matching existing materials including historic brick, stone, and mortar. We can source authentic materials or custom-blend mortar to match original colors."
+        step: 3,
+        title: "Professional Installation",
+        description: "Expert installation with precise slopes and secure fastening",
+        icon: "/images/icons/installation.svg"
       },
       {
-        question: "Do you handle chimney crown and cap repairs?",
-        answer: "Yes, we repair and rebuild chimney crowns, install and replace chimney caps, and ensure proper flashing to prevent water infiltration and extend chimney life."
+        step: 4,
+        title: "Quality Assurance",
+        description: "Final inspection and drainage testing",
+        icon: "/images/icons/quality.svg"
       }
     ],
-    relatedServices: ["roofing", "chimneys", "historical-restorations"],
+    featureDetails: [
+      {
+        title: "Seamless Gutters",
+        description: "Custom-fabricated on-site for a perfect fit with no seams to leak",
+        icon: "/images/icons/seamless.svg",
+        highlight: true
+      },
+      {
+        title: "Copper & Specialty Metals",
+        description: "Premium materials for historic and high-end properties",
+        icon: "/images/icons/copper.svg"
+      },
+      {
+        title: "Gutter Guards",
+        description: "Leaf protection systems to reduce maintenance",
+        icon: "/images/icons/guard.svg"
+      },
+      {
+        title: "Custom Fabrication",
+        description: "Ornamental brackets, leader heads, and collector boxes",
+        icon: "/images/icons/custom.svg"
+      },
+      {
+        title: "Foundation Protection",
+        description: "Proper drainage to protect your foundation from water damage",
+        icon: "/images/icons/foundation.svg"
+      },
+      {
+        title: "Award-Winning Work",
+        description: "Nationally recognized craftsmanship and attention to detail",
+        icon: "/images/icons/award.svg"
+      }
+    ],
+    faqs: [
+      {
+        question: "What types of gutters do you install?",
+        answer: "We install seamless aluminum gutters, copper gutters and downspouts, steel and specialty metal gutters, and both K-style and half-round profiles to match any architectural style."
+      },
+      {
+        question: "How do I know if my gutters need to be replaced?",
+        answer: "Signs include sagging, pulling away from the house, visible rust or cracks, water pooling near your foundation, or peeling paint on trim and fascia. We offer free inspections to assess your gutter system."
+      },
+      {
+        question: "Do you offer gutter guards?",
+        answer: "Yes, we install a variety of gutter guard and leaf protection systems. We can recommend the best option based on your roof type, surrounding trees, and maintenance preferences."
+      },
+      {
+        question: "Can you match gutters to historic properties?",
+        answer: "Absolutely. We specialize in custom-fabricated copper and metal gutters with ornamental brackets and details that complement historic and architecturally distinctive buildings."
+      }
+    ],
+    relatedServices: ["roofing", "siding-and-gutters", "historical-restorations"],
     testimonials: [],
-    emergencyAvailable: true,
+    emergencyAvailable: false,
     certifications: []
   }
 };

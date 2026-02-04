@@ -23,7 +23,7 @@ export const serviceCategories = [
   'Siding',
   'Windows',
   'Skylights',
-  'Masonry',
+  'Gutters',
   'Commercial',
   'Churches & Institutions',
   'Historical Restoration'

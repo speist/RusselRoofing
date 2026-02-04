@@ -13,11 +13,11 @@ export interface Service {
 
 export const serviceCategories = [
   'Roofing',
-  'Siding and Gutters', 
+  'Siding and Gutters',
   'Commercial',
   'Churches & Institutions',
   'Historical Restoration',
-  'Masonry',
+  'Gutters',
   'Windows',
   'Skylights'
 ] as const;
@@ -85,14 +85,14 @@ export const services: Service[] = [
   },
   {
     id: "6",
-    slug: "masonry",
-    title: "Masonry",
-    shortDescription: "Stone and brick work for chimneys and exterior walls",
-    description: "Professional masonry services including chimney repairs, stone work, and brick restoration. We restore and repair masonry structures to ensure both safety and aesthetic appeal.",
-    icon: "/images/icons/masonry.svg",
-    image: "/images/services/ServiceHeroImages/masonry-hero.jpg",
-    features: ["Chimney Repairs", "Stone Work", "Brick Restoration", "Pointing and Repointing"],
-    category: "Masonry"
+    slug: "gutters",
+    title: "Gutters",
+    shortDescription: "Complete gutter expertise for every property",
+    description: "We install and service gutters of all types to match the architecture, performance needs, and budget of your home or building. From traditional systems to high-end custom metals, every gutter is designed as part of a complete water-management solution.",
+    icon: "/images/icons/gutters.svg",
+    image: "/images/services/ServiceHeroImages/gutters-hero.jpg",
+    features: ["Seamless Aluminum Gutters", "Copper Gutters", "Custom Fabrication", "Gutter Guards"],
+    category: "Gutters"
   },
   {
     id: "7",

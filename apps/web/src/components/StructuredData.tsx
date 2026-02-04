@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://russellroofing.com
 const companyInfo = {
   name: 'Russell Roofing & Exteriors',
   legalName: 'Russell Roofing & Exteriors',
-  description: 'Professional roofing, siding, gutters, windows, skylights, masonry, and exterior services serving Greater Philadelphia, South Jersey, Central Jersey, Montgomery County, Bucks County, and Delaware County since 1992.',
+  description: 'Professional roofing, siding, gutters, windows, skylights, gutters, and exterior services serving Greater Philadelphia, South Jersey, Central Jersey, Montgomery County, Bucks County, and Delaware County since 1992.',
   foundingDate: '1992',
   address: {
     streetAddress: '1200 Pennsylvania Ave',
@@ -43,7 +43,7 @@ const companyInfo = {
     'Commercial Roofing',
     'Church & Institutional Roofing',
     'Historical Restoration',
-    'Masonry',
+    'Gutters',
     'Window Installation',
     'Skylight Installation',
   ],

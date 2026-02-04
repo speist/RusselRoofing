@@ -221,7 +221,7 @@ export default function HomePage() {
     "Commercial",
     "Churches & Institutions",
     "Historical Restoration",
-    "Masonry",
+    "Gutters",
     "Windows",
     "Skylights",
   ]
@@ -233,7 +233,7 @@ export default function HomePage() {
     "Commercial": "commercial",
     "Churches & Institutions": "churches-institutions",
     "Historical Restoration": "historical-restoration",
-    "Masonry": "masonry",
+    "Gutters": "gutters",
     "Windows": "windows",
     "Skylights": "skylights",
   }
@@ -245,7 +245,7 @@ export default function HomePage() {
     "Commercial": "/images/services/service cards/commercial-card.jpg",
     "Churches & Institutions": "/images/services/service cards/church-institutions-card.jpg",
     "Historical Restoration": "/images/services/service cards/historical-restoration-card.jpg",
-    "Masonry": "/images/services/service cards/masonry-card.jpg",
+    "Gutters": "/images/services/service cards/gutters-card.jpg",
     "Windows": "/images/services/service cards/windows-card.jpg",
     "Skylights": "/images/services/service cards/skylight-card.jpg",
   }
@@ -1065,13 +1065,13 @@ export default function HomePage() {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/service-areas/south-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
-                      South Jersey
+                    <Link href="/service-areas/central-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      Central Jersey
                     </Link>
                   </li>
                   <li>
-                    <Link href="/service-areas/central-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
-                      Central Jersey
+                    <Link href="/service-areas/south-jersey" className="font-inter text-gray-300 text-sm hover:text-white transition-colors">
+                      South Jersey
                     </Link>
                   </li>
                   <li>

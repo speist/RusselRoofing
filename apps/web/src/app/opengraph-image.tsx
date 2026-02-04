@@ -117,7 +117,7 @@ export default async function Image() {
               justifyContent: 'center',
             }}
           >
-            {['Roofing', 'Siding', 'Windows', 'Skylights', 'Masonry'].map((service) => (
+            {['Roofing', 'Siding', 'Windows', 'Skylights', 'Gutters'].map((service) => (
               <div
                 key={service}
                 style={{
