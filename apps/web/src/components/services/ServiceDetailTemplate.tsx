@@ -9,6 +9,72 @@ interface ServiceDetailTemplateProps {
   service: ServiceDetail;
 }
 
+/**
+ * Render formatted description text with proper styling
+ * Handles: **bold headers**, • bullet points, and regular paragraphs
+ */
+function renderFormattedDescription(text: string) {
+  const lines = text.split('\n');
+  const elements: React.ReactNode[] = [];
+  let currentBullets: string[] = [];
+  let key = 0;
+
+  const flushBullets = () => {
+    if (currentBullets.length > 0) {
+      elements.push(
+        <ul key={key++} className="list-disc list-inside space-y-2 mb-6 text-gray-600 font-inter">
+          {currentBullets.map((bullet, i) => (
+            <li key={i} className="leading-relaxed">{bullet}</li>
+          ))}
+        </ul>
+      );
+      currentBullets = [];
+    }
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    // Skip empty lines
+    if (!trimmed) {
+      flushBullets();
+      continue;
+    }
+
+    // Bold header lines: **Header Text**
+    if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
+      flushBullets();
+      const headerText = trimmed.slice(2, -2);
+      elements.push(
+        <h3 key={key++} className="font-display text-xl font-semibold text-gray-900 mt-8 mb-4 first:mt-0">
+          {headerText}
+        </h3>
+      );
+      continue;
+    }
+
+    // Bullet points: • text or - text
+    if (trimmed.startsWith('•') || trimmed.startsWith('-')) {
+      const bulletText = trimmed.slice(1).trim();
+      currentBullets.push(bulletText);
+      continue;
+    }
+
+    // Regular paragraph
+    flushBullets();
+    elements.push(
+      <p key={key++} className="text-gray-600 font-inter leading-relaxed mb-4">
+        {trimmed}
+      </p>
+    );
+  }
+
+  // Flush any remaining bullets
+  flushBullets();
+
+  return elements;
+}
+
 export default function ServiceDetailTemplate({ service }: ServiceDetailTemplateProps) {
   const [showFloatingCTA, setShowFloatingCTA] = useState(false);
 
@@ -52,13 +118,11 @@ export default function ServiceDetailTemplate({ service }: ServiceDetailTemplate
               <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 About Our {service.title}
               </h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed font-inter">
                 {service.overview}
               </p>
-              <div className="prose prose-lg text-gray-600 max-w-none">
-                {service.detailedDescription.split('\n').map((paragraph, index) => (
-                  <p key={index} className="mb-4">{paragraph}</p>
-                ))}
+              <div className="max-w-none">
+                {renderFormattedDescription(service.detailedDescription)}
               </div>
             </div>
             <div className="relative">

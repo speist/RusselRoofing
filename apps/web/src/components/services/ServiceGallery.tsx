@@ -222,7 +222,7 @@ export default function ServiceGallery({ serviceSlug, serviceTitle }: ServiceGal
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, index) => (
-              <div key={index} className="bg-gray-200 rounded-lg animate-pulse" style={{ aspectRatio: '16/12' }}></div>
+              <div key={index} className="bg-gray-200 rounded-lg animate-pulse h-[200px]"></div>
             ))}
           </div>
         </div>
@@ -269,7 +269,7 @@ export default function ServiceGallery({ serviceSlug, serviceTitle }: ServiceGal
                 onClick={() => setSelectedImage(image)}
                 className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
               >
-                <div className="aspect-w-16 aspect-h-12">
+                <div className="h-[200px] w-full">
                   <Image
                     src={image.thumbnail || image.src}
                     alt={image.alt}
