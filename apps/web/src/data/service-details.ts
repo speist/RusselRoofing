@@ -241,7 +241,7 @@ Our specialists take the time to listen, present tailored options, and guide you
     ],
     relatedServices: ["roofing", "windows", "gutters"],
     testimonials: ["siding-1", "siding-2", "siding-3"],
-    emergencyAvailable: false,
+    emergencyAvailable: true,
     certifications: ["James Hardie Elite Preferred", "VSI Certified Installer", "EPA RRP Certified"]
   },
   // Placeholder for remaining services - to be populated with full details
@@ -326,7 +326,7 @@ Contact us today to schedule a window consultation and discover why property own
     ],
     relatedServices: ["siding", "roofing"],
     testimonials: [],
-    emergencyAvailable: false,
+    emergencyAvailable: true,
     certifications: []
   },
   commercial: {
@@ -542,7 +542,7 @@ Contact us today to schedule a skylight consultation and discover why homeowners
     ],
     relatedServices: ["roofing", "gutters", "siding"],
     testimonials: [],
-    emergencyAvailable: false,
+    emergencyAvailable: true,
     certifications: []
   },
   "churches-and-institutions": {
@@ -772,7 +772,7 @@ Contact us today to schedule a gutter consultation and see why property owners h
     ],
     relatedServices: ["roofing", "siding-and-gutters", "historical-restorations"],
     testimonials: [],
-    emergencyAvailable: false,
+    emergencyAvailable: true,
     certifications: []
   }
 };
