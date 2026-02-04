@@ -113,37 +113,47 @@ export default function ServiceDetailTemplate({ service }: ServiceDetailTemplate
       {/* Service Overview Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                About Our {service.title}
-              </h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed font-inter">
-                {service.overview}
-              </p>
-              <div className="max-w-none">
-                {renderFormattedDescription(service.detailedDescription)}
-              </div>
-            </div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            About Our {service.title}
+          </h2>
+
+          {/* Image floats right on larger screens */}
+          <div className="lg:float-right lg:ml-8 lg:mb-6 lg:w-[45%] mb-6">
             <div className="relative">
               <Image
                 src={service.image}
                 alt={`${service.title} service`}
                 width={600}
                 height={400}
-                className="w-full h-full object-cover rounded-lg shadow-xl"
+                className="w-full h-auto object-cover rounded-lg shadow-xl"
                 priority
               />
               {service.emergencyAvailable && (
-                <div className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full font-semibold flex items-center">
+                <a
+                  href="tel:1-888-567-7663"
+                  className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full font-semibold flex items-center hover:bg-red-700 transition-colors"
+                >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   24/7 Emergency Service
-                </div>
+                </a>
               )}
             </div>
           </div>
+
+          {/* Text content flows around the image */}
+          <div>
+            <p className="text-lg text-gray-600 mb-6 leading-relaxed font-inter">
+              {service.overview}
+            </p>
+            <div className="max-w-none">
+              {renderFormattedDescription(service.detailedDescription)}
+            </div>
+          </div>
+
+          {/* Clear float */}
+          <div className="clear-both"></div>
         </div>
       </section>
 
