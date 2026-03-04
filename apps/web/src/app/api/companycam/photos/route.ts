@@ -58,7 +58,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<CompanyCam
 
       if (serviceTag) {
         filteredPhotos = filteredPhotos.filter(photo =>
-          photo.category?.toLowerCase() === serviceTag.toLowerCase()
+          photo.tags.some(tag => tag.toLowerCase() === serviceTag.toLowerCase())
         );
       }
 

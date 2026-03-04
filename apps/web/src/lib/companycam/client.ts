@@ -211,7 +211,7 @@ export class CompanyCamClient {
           try {
             const photoTags = await this.getPhotoTags(photo.id);
             const tagNames = photoTags.map(tag => tag.display_value || tag.value || tag.name || '');
-            const tagIds = photoTags.map(tag => tag.id);
+            const tagIds = photoTags.map(tag => String(tag.id));
 
             return {
               photo,
