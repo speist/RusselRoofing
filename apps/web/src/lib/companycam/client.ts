@@ -165,26 +165,36 @@ export class CompanyCamClient {
     const MAX_PAGES = 20; // Safety limit
 
     // Fetch photos by service tag IDs
-    // If filtering for a specific service, use just that tag ID for efficiency
-    let fetchTagIds: string;
+    // CompanyCam API expects tag_ids as repeated array params: tag_ids[]=X&tag_ids[]=Y
+    let tagIdsToFetch: string[];
     if (additionalFilters?.serviceTag && SERVICE_TAG_IDS[additionalFilters.serviceTag]) {
-      fetchTagIds = SERVICE_TAG_IDS[additionalFilters.serviceTag];
+      tagIdsToFetch = [SERVICE_TAG_IDS[additionalFilters.serviceTag]];
     } else {
-      fetchTagIds = ALL_SERVICE_TAG_IDS.join(',');
+      tagIdsToFetch = [...ALL_SERVICE_TAG_IDS];
     }
+
+    // Build tag_ids query string as array params
+    const tagIdsQuery = tagIdsToFetch.map(id => `tag_ids[]=${id}`).join('&');
 
     // Paginate through all results
     let allPhotos: CompanyCamPhoto[] = [];
     let currentPage = 1;
+    const seenIds = new Set<string>();
 
     while (currentPage <= MAX_PAGES) {
-      const endpoint = `/photos?tag_ids=${fetchTagIds}&page=${currentPage}&per_page=${perPage}`;
+      const endpoint = `/photos?${tagIdsQuery}&page=${currentPage}&per_page=${perPage}`;
       const response = await this.get<any>(endpoint);
       const photos = Array.isArray(response) ? response : (response.data || []);
 
       if (photos.length === 0) break;
 
-      allPhotos = [...allPhotos, ...photos];
+      // Deduplicate photos that appear under multiple tags
+      for (const photo of photos) {
+        if (!seenIds.has(photo.id)) {
+          seenIds.add(photo.id);
+          allPhotos.push(photo);
+        }
+      }
 
       // If we got fewer than perPage, we've reached the last page
       if (photos.length < perPage) break;
