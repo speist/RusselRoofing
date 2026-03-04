@@ -161,8 +161,8 @@ export class CompanyCamClient {
     serviceTag?: string;
     beforeAfter?: 'before' | 'after' | 'both';
   }, options?: PhotoFilterOptions): Promise<GalleryPhoto[]> {
-    const perPage = options?.perPage || 100;
-    const page = options?.page || 1;
+    const perPage = 100; // Max per page for CompanyCam API
+    const MAX_PAGES = 20; // Safety limit
 
     // Fetch photos by service tag IDs
     // If filtering for a specific service, use just that tag ID for efficiency
@@ -173,21 +173,38 @@ export class CompanyCamClient {
       fetchTagIds = ALL_SERVICE_TAG_IDS.join(',');
     }
 
-    const endpoint = `/photos?tag_ids=${fetchTagIds}&page=${page}&per_page=${perPage}`;
-    const response = await this.get<any>(endpoint);
-    const photos = Array.isArray(response) ? response : (response.data || []);
+    // Paginate through all results
+    let allPhotos: CompanyCamPhoto[] = [];
+    let currentPage = 1;
 
-    if (photos.length === 0) {
+    while (currentPage <= MAX_PAGES) {
+      const endpoint = `/photos?tag_ids=${fetchTagIds}&page=${currentPage}&per_page=${perPage}`;
+      const response = await this.get<any>(endpoint);
+      const photos = Array.isArray(response) ? response : (response.data || []);
+
+      if (photos.length === 0) break;
+
+      allPhotos = [...allPhotos, ...photos];
+
+      // If we got fewer than perPage, we've reached the last page
+      if (photos.length < perPage) break;
+
+      currentPage++;
+    }
+
+    if (allPhotos.length === 0) {
       return [];
     }
 
+    console.log(`[CompanyCam] Fetched ${allPhotos.length} photos across ${currentPage} page(s)`);
+
     // Fetch tags for each photo to determine service categories
     const batchSize = 20;
-    const delayBetweenBatches = 3000; // 3 seconds between batches (conservative)
+    const delayBetweenBatches = 1000; // 1 second between batches
     const photosWithTags: ({ photo: CompanyCamPhoto; tags: string[]; tagIds: string[] } | null)[] = [];
 
-    for (let i = 0; i < photos.length; i += batchSize) {
-      const batch = photos.slice(i, i + batchSize);
+    for (let i = 0; i < allPhotos.length; i += batchSize) {
+      const batch = allPhotos.slice(i, i + batchSize);
 
       const batchResults = await Promise.all(
         batch.map(async (photo: CompanyCamPhoto) => {
@@ -211,7 +228,7 @@ export class CompanyCamClient {
       photosWithTags.push(...batchResults);
 
       // Delay between batches (except for the last batch)
-      if (i + batchSize < photos.length) {
+      if (i + batchSize < allPhotos.length) {
         await new Promise(resolve => setTimeout(resolve, delayBetweenBatches));
       }
     }

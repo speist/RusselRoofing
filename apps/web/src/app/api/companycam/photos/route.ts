@@ -87,26 +87,28 @@ export async function GET(request: NextRequest): Promise<NextResponse<CompanyCam
     // Get CompanyCam client
     const client = getCompanyCamClient();
 
-    // Fetch photos with filtering
-    const photos = await client.getPhotosByTags({
+    // Fetch all photos matching filters (client handles API pagination internally)
+    const allPhotos = await client.getPhotosByTags({
       serviceTag,
       beforeAfter,
-    }, {
-      page,
-      perPage,
     });
 
-    // Update cache with all photos (before pagination)
+    // Update cache with all photos (unfiltered fetch only)
     if (!serviceTag && !beforeAfter) {
       cachedData = {
-        photos,
+        photos: allPhotos,
         timestamp: Date.now(),
       };
     }
 
+    // Apply client-side pagination for the response
+    const startIndex = (page - 1) * perPage;
+    const endIndex = startIndex + perPage;
+    const paginatedPhotos = allPhotos.slice(startIndex, endIndex);
+
     return NextResponse.json({
-      photos,
-      total: photos.length,
+      photos: paginatedPhotos,
+      total: allPhotos.length,
       page,
       pageSize: perPage,
     }, { status: 200 });

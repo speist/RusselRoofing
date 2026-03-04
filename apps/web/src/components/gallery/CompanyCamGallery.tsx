@@ -58,7 +58,7 @@ const CompanyCamGallery: React.FC<CompanyCamGalleryProps> = ({
         setLoading(true);
         setError(null);
 
-        const response = await fetch('/api/companycam/photos');
+        const response = await fetch('/api/companycam/photos?perPage=1000');
 
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);

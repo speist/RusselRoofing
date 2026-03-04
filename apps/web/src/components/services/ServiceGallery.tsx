@@ -138,7 +138,7 @@ export default function ServiceGallery({ serviceSlug, serviceTitle }: ServiceGal
         }
 
         // Fetch photos filtered by the first tag for this service
-        const response = await fetch(`/api/companycam/photos?serviceTag=${encodeURIComponent(serviceTags[0])}`);
+        const response = await fetch(`/api/companycam/photos?serviceTag=${encodeURIComponent(serviceTags[0])}&perPage=1000`);
 
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
