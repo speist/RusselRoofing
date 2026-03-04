@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCompanyCamClient } from '@/lib/companycam';
-import { MASTER_TAG, SERVICE_TAGS } from '@/lib/companycam/types';
+import { SERVICE_TAG_IDS } from '@/lib/companycam/types';
 
 // Force dynamic rendering - this endpoint makes API calls
 export const dynamic = 'force-dynamic';
@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 /**
  * GET /api/companycam/tags/search
  *
- * Searches for tags matching the user's requirements
+ * Searches for tags matching the user's requirements (by tag ID)
  */
 export async function GET(request: NextRequest) {
   try {
@@ -43,12 +43,6 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // The tags you specified in your requirements
-    const requiredTags = [
-      MASTER_TAG,      // Master tag
-      ...SERVICE_TAGS, // Service tags
-    ];
-
     const results: any = {
       debug_info: {
         total_tags_fetched: allTags.length,
@@ -56,49 +50,40 @@ export async function GET(request: NextRequest) {
         first_tag_sample: allTags[0],
       },
       total_tags_in_companycam: allTags.length,
-      required_tags: requiredTags,
+      required_service_tags: SERVICE_TAG_IDS,
       search_results: {},
       found_tags: [],
       missing_tags: [],
       recommendations: [],
     };
 
-    // Search for each required tag
-    requiredTags.forEach(requiredTag => {
-      const searchResults = allTags.filter((tag: any) => {
-        const displayValue = tag.display_value || '';
-        const value = tag.value || '';
-        const name = tag.name || '';
+    // Search for each required service tag by ID
+    for (const [category, tagId] of Object.entries(SERVICE_TAG_IDS)) {
+      const matchById = allTags.find((tag: any) => String(tag.id) === tagId);
 
-        // Case-insensitive search in display_value, value, or name
-        return displayValue.toLowerCase().includes(requiredTag.toLowerCase()) ||
-               value.toLowerCase().includes(requiredTag.toLowerCase()) ||
-               name.toLowerCase().includes(requiredTag.toLowerCase());
-      });
-
-      results.search_results[requiredTag] = {
-        found: searchResults.length > 0,
-        count: searchResults.length,
-        matches: searchResults.map((tag: any) => ({
-          id: tag.id,
-          display_value: tag.display_value,
-          value: tag.value,
-          name: tag.name,
-          tag_type: tag.tag_type,
-        })),
+      results.search_results[category] = {
+        tag_id: tagId,
+        found: !!matchById,
+        match: matchById ? {
+          id: matchById.id,
+          display_value: matchById.display_value,
+          value: matchById.value,
+          name: matchById.name,
+          tag_type: matchById.tag_type,
+        } : null,
       };
 
-      if (searchResults.length > 0) {
-        results.found_tags.push(requiredTag);
+      if (matchById) {
+        results.found_tags.push(category);
       } else {
-        results.missing_tags.push(requiredTag);
+        results.missing_tags.push(category);
       }
-    });
+    }
 
     // Generate recommendations
     if (results.missing_tags.length > 0) {
       results.recommendations.push(
-        `L Missing ${results.missing_tags.length} tags: ${results.missing_tags.join(', ')}`
+        `Missing ${results.missing_tags.length} tags: ${results.missing_tags.join(', ')}`
       );
       results.recommendations.push(
         `Create these tags in CompanyCam and apply them to your photos.`
@@ -107,19 +92,17 @@ export async function GET(request: NextRequest) {
 
     if (results.found_tags.length > 0) {
       results.recommendations.push(
-        ` Found ${results.found_tags.length} matching tags: ${results.found_tags.join(', ')}`
+        `Found ${results.found_tags.length} matching tags: ${results.found_tags.join(', ')}`
       );
     }
 
     // Summary
     results.summary = {
-      master_tag_found: results.search_results[MASTER_TAG]?.found || false,
-      service_tags_found: results.found_tags.filter((tag: string) => tag !== MASTER_TAG).length,
-      total_required: requiredTags.length,
+      service_tags_found: results.found_tags.length,
+      total_required: Object.keys(SERVICE_TAG_IDS).length,
       total_found: results.found_tags.length,
       total_missing: results.missing_tags.length,
-      ready_for_filtering: results.search_results[MASTER_TAG]?.found &&
-                          results.found_tags.filter((tag: string) => tag !== MASTER_TAG).length > 0,
+      ready_for_filtering: results.found_tags.length > 0,
     };
 
     return NextResponse.json(results, { status: 200 });

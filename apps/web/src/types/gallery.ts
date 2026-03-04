@@ -25,8 +25,8 @@ export const serviceCategories = [
   'Skylights',
   'Gutters',
   'Commercial',
-  'Churches & Institutions',
-  'Historical Restoration'
+  'Specialty',
+  'Flat',
 ] as const;
 
 export type ServiceCategory = typeof serviceCategories[number];

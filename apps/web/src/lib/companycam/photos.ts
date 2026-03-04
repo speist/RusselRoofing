@@ -6,8 +6,10 @@ import {
   PhotoFilterOptions,
   FilteredPhoto,
   CompanyCamErrorCode,
-  MASTER_TAG,
   SERVICE_TAGS,
+  SERVICE_TAG_IDS,
+  TAG_ID_TO_CATEGORY,
+  ALL_SERVICE_TAG_IDS,
   BEFORE_TAG,
   AFTER_TAG,
   ServiceTag,
@@ -20,10 +22,7 @@ import { getLocationAreaName, type LocationArea, LOCATION_AREAS } from '@/lib/se
  * CompanyCam Photos Service
  *
  * Handles photo fetching and filtering from CompanyCam API
- * Implements two-tier filtering:
- * 1. Master tag filter: "RR Website" (required on ALL photos)
- * 2. Service tag filter: At least ONE service tag must be present
- * 3. Case-insensitive tag matching
+ * Photos need a single service tag (by ID) to appear on the website.
  */
 class CompanyCamPhotosService {
   private apiKey: string;
@@ -44,15 +43,8 @@ class CompanyCamPhotosService {
   }
 
   /**
-   * Check if photo has the master tag ("RR Website")
-   */
-  private hasMasterTag(tags: string[]): boolean {
-    return this.hasTag(tags, MASTER_TAG);
-  }
-
-  /**
    * Check if photo has at least one service tag
-   * Returns the matched service tags
+   * Returns the matched service tag names
    */
   private getMatchedServiceTags(tags: string[]): string[] {
     return SERVICE_TAGS.filter(serviceTag =>
@@ -61,14 +53,12 @@ class CompanyCamPhotosService {
   }
 
   /**
-   * Check if photo passes the two-tier filter:
-   * 1. Must have master tag ("RR Website")
-   * 2. Must have at least one service tag
+   * Check if photo passes the service tag filter
+   * Must have at least one recognized service tag
    */
   private passesFilter(tags: string[]): boolean {
-    const hasMaster = this.hasMasterTag(tags);
     const matchedServiceTags = this.getMatchedServiceTags(tags);
-    return hasMaster && matchedServiceTags.length > 0;
+    return matchedServiceTags.length > 0;
   }
 
   /**
@@ -209,11 +199,7 @@ class CompanyCamPhotosService {
   /**
    * Get all photos from all projects with filtering
    *
-   * Implements two-tier filtering:
-   * 1. Master tag: "RR Website" (required)
-   * 2. Service tags: At least one from SERVICE_TAGS (required)
-   * 3. Optional: Filter by specific service tag
-   * 4. Optional: Filter by before/after tags
+   * Filters by service tags and optional additional criteria.
    */
   async getFilteredPhotos(
     options: PhotoFilterOptions = {}
@@ -328,70 +314,47 @@ export default CompanyCamPhotosService;
 /**
  * Tags to hide from display (internal tags)
  */
-const HIDDEN_TAGS = [MASTER_TAG, 'RRWebsite'];
+const HIDDEN_TAGS: string[] = [];
 
 /**
- * Mapping from CompanyCam tags to Gallery display categories
- * CompanyCam tags are case-sensitive as stored, display is normalized
+ * Mapping from tag display names to Gallery display categories
+ * These are the category names populated by the client from tag IDs
  */
 const TAG_TO_CATEGORY: Record<string, ServiceCategory> = {
-  // Direct mappings
-  'roofing': 'Roofing',
   'Roofing': 'Roofing',
+  'Siding': 'Siding',
   'Commercial': 'Commercial',
+  'Specialty': 'Specialty',
   'Gutters': 'Gutters',
   'Windows': 'Windows',
-
-  // Plural/singular normalization
-  'Skylight': 'Skylights',
   'Skylights': 'Skylights',
-
-  // Siding
-  'Siding': 'Siding',
-
-  // Combined categories
-  'Churches': 'Churches & Institutions',
-  'Institutions': 'Churches & Institutions',
-
-  // Historical Restoration (both tags map to same category)
-  'Historical': 'Historical Restoration',
-  'Restoration': 'Historical Restoration',
+  'Flat': 'Flat',
 };
 
 /**
- * Service page slug to CompanyCam tags mapping
+ * Service page slug to tag category names mapping
  * Used to fetch relevant photos for each service page
  */
 export const SERVICE_SLUG_TO_TAGS: Record<string, string[]> = {
-  'roofing': ['roofing'],
+  'roofing': ['Roofing'],
   'siding-and-gutters': ['Siding'],
   'commercial': ['Commercial'],
-  'churches-and-institutions': ['Churches', 'Institutions'],
-  'historical-restorations': ['Historical', 'Restoration'],
+  'historical-restorations': ['Specialty'],
   'gutters': ['Gutters'],
   'windows': ['Windows'],
-  'skylights': ['Skylight'],
+  'skylights': ['Skylights'],
 };
 
 /**
- * Format a CompanyCam tag for display
- * - Hides internal tags (RRWebsite)
- * - Capitalizes "roofing" → "Roofing"
- * - Pluralizes "Skylight" → "Skylights"
+ * Format a tag for display
+ * - Hides any internal tags
+ * - Returns the tag as-is (categories are already properly named)
  */
 export function formatTagForDisplay(tag: string): string | null {
-  // Hide internal tags
   if (HIDDEN_TAGS.includes(tag)) {
     return null;
   }
-
-  // Normalize specific tags
-  const normalizations: Record<string, string> = {
-    'roofing': 'Roofing',
-    'Skylight': 'Skylights',
-  };
-
-  return normalizations[tag] || tag;
+  return tag;
 }
 
 /**
@@ -417,8 +380,8 @@ export function getGalleryCategory(tags: string[]): ServiceCategory | undefined 
     'Skylights',
     'Gutters',
     'Commercial',
-    'Churches & Institutions',
-    'Historical Restoration',
+    'Specialty',
+    'Flat',
   ];
 
   // Find all matching categories

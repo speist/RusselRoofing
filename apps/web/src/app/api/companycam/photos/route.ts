@@ -21,9 +21,8 @@ const CACHE_DURATION = 3600 * 1000; // 1 hour
 /**
  * GET /api/companycam/photos
  *
- * Fetches photos from CompanyCam with two-tier filtering:
- * 1. Master tag: "RR Website" (required on ALL photos)
- * 2. Service tags: At least ONE must be present
+ * Fetches photos from CompanyCam filtered by service tag IDs.
+ * Photos need a single service tag to appear.
  *
  * Query Parameters:
  * - serviceTag: Filter by specific service (e.g., "Roofing", "Commercial")

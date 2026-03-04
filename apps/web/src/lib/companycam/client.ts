@@ -3,10 +3,8 @@
  * Handles authentication and API requests to CompanyCam
  *
  * Filtering Strategy:
- * 1. Master Tag: "RR Website" must be present on ALL photos
- * 2. Service Tags: At least ONE must be present from the SERVICE_TAGS list
- * 3. Case-insensitive matching for all tags
- * 4. Optional: Before/After tags for transformation showcases
+ * Photos need a single service tag (by ID) to appear on the website.
+ * Optional: Before/After tags for transformation showcases.
  */
 
 import type {
@@ -19,9 +17,9 @@ import type {
 } from './types';
 
 import {
-  MASTER_TAG,
-  MASTER_TAG_ID,
-  SERVICE_TAGS,
+  SERVICE_TAG_IDS,
+  TAG_ID_TO_CATEGORY,
+  ALL_SERVICE_TAG_IDS,
   BEFORE_TAG,
   AFTER_TAG,
   BEFORE_TAG_ID,
@@ -63,20 +61,13 @@ export class CompanyCamClient {
   }
 
   /**
-   * Helper: Check if photo has the master tag ("RR Website")
+   * Helper: Get matched service categories from photo tag IDs
+   * Returns array of category names that match our SERVICE_TAG_IDS
    */
-  private hasMasterTag(tags: string[]): boolean {
-    return this.hasTag(tags, MASTER_TAG);
-  }
-
-  /**
-   * Helper: Get matched service tags from photo tags
-   * Returns array of matched service tags
-   */
-  private getMatchedServiceTags(tags: string[]): string[] {
-    return SERVICE_TAGS.filter(serviceTag =>
-      this.hasTag(tags, serviceTag)
-    );
+  private getMatchedCategories(tagIds: string[]): string[] {
+    return tagIds
+      .map(id => TAG_ID_TO_CATEGORY[id])
+      .filter(Boolean);
   }
 
   /**
@@ -89,15 +80,13 @@ export class CompanyCamClient {
   }
 
   /**
-   * Helper: Check if photo passes the two-tier filter
-   * 1. Must have master tag ("RR Website")
-   * 2. Must have at least one service tag OR a Before/After tag
+   * Helper: Check if photo passes the service tag filter
+   * Must have at least one service tag ID OR a Before/After tag
    */
   private passesFilter(tags: string[], tagIds: string[] = []): boolean {
-    const hasMaster = this.hasMasterTag(tags);
-    const matchedServiceTags = this.getMatchedServiceTags(tags);
+    const hasServiceTag = tagIds.some(id => TAG_ID_TO_CATEGORY[id]);
     const hasBeforeAfter = this.hasBeforeOrAfterTag(tags, tagIds);
-    return hasMaster && (matchedServiceTags.length > 0 || hasBeforeAfter);
+    return hasServiceTag || hasBeforeAfter;
   }
 
   /**
@@ -165,23 +154,26 @@ export class CompanyCamClient {
   /**
    * Get photos filtered by user's requirements
    *
-   * Implements two-tier filtering:
-   * 1. Master tag: "RRWebsite" (required) - fetched efficiently using tag_ids parameter
-   * 2. Service tags: At least ONE service tag must be present
-   * 3. Optional: Additional filter by specific service tag
-   * 4. Optional: Filter by before/after tags
+   * Fetches photos by service tag IDs and applies optional filters.
+   * Each photo only needs a single service tag to be included.
    */
   async getPhotosByTags(additionalFilters?: {
     serviceTag?: string;
     beforeAfter?: 'before' | 'after' | 'both';
   }, options?: PhotoFilterOptions): Promise<GalleryPhoto[]> {
-    // EFFICIENT APPROACH: Fetch ONLY photos with the RRWebsite master tag using tag_ids parameter
-    // This drastically reduces API calls from hundreds to ~36 photos
     const perPage = options?.perPage || 100;
     const page = options?.page || 1;
 
-    // Fetch photos that already have the master tag (RRWebsite)
-    const endpoint = `/photos?tag_ids=${MASTER_TAG_ID}&page=${page}&per_page=${perPage}`;
+    // Fetch photos by service tag IDs
+    // If filtering for a specific service, use just that tag ID for efficiency
+    let fetchTagIds: string;
+    if (additionalFilters?.serviceTag && SERVICE_TAG_IDS[additionalFilters.serviceTag]) {
+      fetchTagIds = SERVICE_TAG_IDS[additionalFilters.serviceTag];
+    } else {
+      fetchTagIds = ALL_SERVICE_TAG_IDS.join(',');
+    }
+
+    const endpoint = `/photos?tag_ids=${fetchTagIds}&page=${page}&per_page=${perPage}`;
     const response = await this.get<any>(endpoint);
     const photos = Array.isArray(response) ? response : (response.data || []);
 
@@ -189,8 +181,7 @@ export class CompanyCamClient {
       return [];
     }
 
-    // Fetch tags for each photo to check for service tags
-    // Since we're only fetching ~36 photos max, rate limiting is not an issue
+    // Fetch tags for each photo to determine service categories
     const batchSize = 20;
     const delayBetweenBatches = 3000; // 3 seconds between batches (conservative)
     const photosWithTags: ({ photo: CompanyCamPhoto; tags: string[]; tagIds: string[] } | null)[] = [];
@@ -225,18 +216,19 @@ export class CompanyCamClient {
       }
     }
 
-    // Apply two-tier filter
+    // Apply service tag filter
     const filteredPhotos = photosWithTags.filter(item => {
       if (!item) return false;
 
-      // Apply master + service tag filter (or Before/After tags)
+      // Check for service tag ID or Before/After tag
       if (!this.passesFilter(item.tags, item.tagIds)) {
         return false;
       }
 
-      // Apply optional service tag filter
+      // Apply optional service category filter
       if (additionalFilters?.serviceTag) {
-        if (!this.hasTag(item.tags, additionalFilters.serviceTag)) {
+        const matchedCategories = this.getMatchedCategories(item.tagIds);
+        if (!matchedCategories.some(cat => cat.toLowerCase() === additionalFilters.serviceTag!.toLowerCase())) {
           return false;
         }
       }
@@ -314,39 +306,33 @@ export class CompanyCamClient {
    * Transform CompanyCam photo to GalleryPhoto format
    */
   private transformToGalleryPhoto(photo: CompanyCamPhoto, tags: string[], tagIds: string[] = []): GalleryPhoto {
-    const matchedServiceTags = this.getMatchedServiceTags(tags);
+    // Map tag IDs to our category display names
+    const matchedCategories = this.getMatchedCategories(tagIds);
 
-    // Get URLs from the uris array
-    // Use 'original' for main display (full resolution for lightbox/large views)
-    // Use 'web' (400x400) for thumbnails in grid views
-    // This prevents pixelation when viewing photos at larger sizes
-    const mainUrl = this.getPhotoUri(photo, 'original') || this.getPhotoUri(photo, 'web') || photo.uri;
-    const thumbnailUrl = this.getPhotoUri(photo, 'web') || this.getPhotoUri(photo, 'thumbnail') || mainUrl;
+    // Build display tags from matched categories + Before/After
+    const displayTags: string[] = [...matchedCategories];
 
-    // Check by tag ID first (more reliable), fallback to tag name
     const isBeforePhoto = tagIds.includes(BEFORE_TAG_ID) || this.hasTag(tags, BEFORE_TAG);
     const isAfterPhoto = tagIds.includes(AFTER_TAG_ID) || this.hasTag(tags, AFTER_TAG);
+
+    if (isBeforePhoto) displayTags.push(BEFORE_TAG);
+    if (isAfterPhoto) displayTags.push(AFTER_TAG);
+
+    // Get URLs from the uris array
+    const mainUrl = this.getPhotoUri(photo, 'original') || this.getPhotoUri(photo, 'web') || photo.uri;
+    const thumbnailUrl = this.getPhotoUri(photo, 'web') || this.getPhotoUri(photo, 'thumbnail') || mainUrl;
 
     return {
       id: photo.id,
       url: mainUrl || '',
       thumbnailUrl: thumbnailUrl || '',
       capturedAt: photo.captured_at ? String(photo.captured_at) : photo.created_at,
-      tags,
+      tags: displayTags,
       location: photo.coordinates,
-      category: matchedServiceTags[0]?.toLowerCase(), // Use first matched service tag
+      category: matchedCategories[0]?.toLowerCase(),
       isBeforePhoto,
       isAfterPhoto,
     };
-  }
-
-  /**
-   * Extract service category from tags (legacy support)
-   * Now uses SERVICE_TAGS constant from types
-   */
-  private extractCategory(tags: string[]): string | undefined {
-    const matchedTags = this.getMatchedServiceTags(tags);
-    return matchedTags[0]?.toLowerCase();
   }
 }
 

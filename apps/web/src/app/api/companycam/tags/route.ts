@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCompanyCamClient } from '@/lib/companycam';
-import { MASTER_TAG, SERVICE_TAGS, BEFORE_TAG, AFTER_TAG } from '@/lib/companycam/types';
+import { SERVICE_TAG_IDS, BEFORE_TAG, AFTER_TAG } from '@/lib/companycam/types';
 
 // Force dynamic rendering for this API route
 export const dynamic = 'force-dynamic';
@@ -71,37 +71,18 @@ export async function GET(request: NextRequest) {
       }, { status: 200 });
     }
 
-    // Check which tags we're looking for
+    // Check which tags we're looking for (by ID)
     const tagAnalysis = {
       total_tags: allTags.length,
       all_tags: allTags,
       filtering_analysis: {
-        master_tag: {
-          looking_for: MASTER_TAG,
-          found: allTags.some((tag: any) =>
-            (tag.display_value || tag.value || tag.name || '').toLowerCase() === MASTER_TAG.toLowerCase()
-          ),
-          exact_match: allTags.find((tag: any) =>
-            (tag.display_value || tag.value || tag.name || '').toLowerCase() === MASTER_TAG.toLowerCase()
-          ),
-          similar_matches: allTags.filter((tag: any) => {
-            const tagName = (tag.display_value || tag.value || tag.name || '').toLowerCase();
-            return tagName.includes('website') ||
-                   tagName.includes('rr') ||
-                   tagName.includes('russell');
-          }),
-        },
-        service_tags: SERVICE_TAGS.map(serviceTag => {
-          const exactMatch = allTags.find((tag: any) =>
-            (tag.display_value || tag.value || tag.name || '').toLowerCase() === serviceTag.toLowerCase()
-          );
+        service_tags: Object.entries(SERVICE_TAG_IDS).map(([category, tagId]) => {
+          const matchById = allTags.find((tag: any) => String(tag.id) === tagId);
           return {
-            looking_for: serviceTag,
-            found: !!exactMatch,
-            exact_match: exactMatch,
-            similar_matches: allTags.filter((tag: any) =>
-              (tag.display_value || tag.value || tag.name || '').toLowerCase().includes(serviceTag.toLowerCase())
-            ),
+            category,
+            tag_id: tagId,
+            found: !!matchById,
+            match: matchById,
           };
         }),
         before_after_tags: {
@@ -145,43 +126,25 @@ export async function GET(request: NextRequest) {
 function generateRecommendations(allTags: any[]): string[] {
   const recommendations: string[] = [];
 
-  // Check for master tag
-  const hasMasterTag = allTags.some(tag =>
-    (tag.display_value || tag.value || tag.name || '').toLowerCase() === MASTER_TAG.toLowerCase()
-  );
-  if (!hasMasterTag) {
-    const websiteTags = allTags.filter(tag => {
-      const tagName = (tag.display_value || tag.value || tag.name || '').toLowerCase();
-      return tagName.includes('website') ||
-             tagName.includes('rr') ||
-             tagName.includes('russell');
-    });
-    if (websiteTags.length > 0) {
-      recommendations.push(`Master tag "${MASTER_TAG}" not found. Did you mean: ${websiteTags.map(t => t.display_value || t.value || t.name || '').join(', ')}?`);
+  const foundCategories: string[] = [];
+  const missingCategories: string[] = [];
+
+  for (const [category, tagId] of Object.entries(SERVICE_TAG_IDS)) {
+    const found = allTags.some((tag: any) => String(tag.id) === tagId);
+    if (found) {
+      foundCategories.push(category);
     } else {
-      recommendations.push(`Master tag "${MASTER_TAG}" not found in CompanyCam. Please create this tag and apply it to your photos.`);
+      missingCategories.push(`${category} (ID: ${tagId})`);
     }
   }
 
-  // Check for service tags
-  const foundServiceTags = SERVICE_TAGS.filter(serviceTag =>
-    allTags.some(tag => (tag.display_value || tag.value || tag.name || '').toLowerCase() === serviceTag.toLowerCase())
-  );
-  const missingServiceTags = SERVICE_TAGS.filter(serviceTag =>
-    !allTags.some(tag => (tag.display_value || tag.value || tag.name || '').toLowerCase() === serviceTag.toLowerCase())
-  );
-
-  if (missingServiceTags.length > 0) {
-    recommendations.push(`Missing service tags: ${missingServiceTags.join(', ')}. These tags should be created in CompanyCam.`);
+  if (missingCategories.length > 0) {
+    recommendations.push(`Missing service tags: ${missingCategories.join(', ')}.`);
   }
 
-  if (foundServiceTags.length > 0) {
-    recommendations.push(` Found ${foundServiceTags.length} matching service tags: ${foundServiceTags.join(', ')}`);
-  }
-
-  // Overall status
-  if (hasMasterTag && foundServiceTags.length > 0) {
-    recommendations.push(` Filtering should work! Make sure photos have both the master tag ("${MASTER_TAG}") and at least one service tag.`);
+  if (foundCategories.length > 0) {
+    recommendations.push(`Found ${foundCategories.length} matching service tags: ${foundCategories.join(', ')}`);
+    recommendations.push(`Filtering should work! Photos need at least one service tag to appear on the website.`);
   }
 
   return recommendations;

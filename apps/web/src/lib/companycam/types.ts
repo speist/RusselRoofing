@@ -46,49 +46,43 @@ export interface CompanyCamTag {
 }
 
 /**
- * Service tags from CompanyCam (using exact display_value from API)
- * Photos must have RRWebsite tag AND at least one of these service tags
- * Case-insensitive matching is used in filtering logic
+ * Service tag IDs from CompanyCam
+ * Each service category maps to a single CompanyCam tag ID
+ * Photos only need ONE of these tags to appear on the website
  *
- * Tag IDs from CompanyCam API (for reference):
- * - Churches: 23436542
- * - Commercial: 7050239
- * - Gutters: 7768825
- * - Historical: 23436581
- * - Institutions: 23436574
- * - Masonry: 10427799
- * - Restoration: 23436584
- * - roofing: 23436538 (lowercase in CompanyCam)
- * - Siding: 23436509
- * - Skylight: 15568699
- * - Windows: 7757712
+ * Tag IDs:
+ * - Roofing: 24460658
+ * - Siding: 24460533
+ * - Commercial: 24475643
+ * - Specialty: 24475737
+ * - Gutters: 24472896
+ * - Windows: 24478730
+ * - Skylights: 24473059
+ * - Flat: 24460541
  */
-export const SERVICE_TAGS = [
-  'Churches',
-  'Commercial',
-  'Gutters',
-  'Historical',
-  'Institutions',
-  'Masonry',
-  'Restoration',
-  'roofing',       // lowercase in CompanyCam
-  'Siding',
-  'Skylight',
-  'Windows',
-] as const;
+export const SERVICE_TAG_IDS: Record<string, string> = {
+  'Roofing': '24460658',
+  'Siding': '24460533',
+  'Commercial': '24475643',
+  'Specialty': '24475737',
+  'Gutters': '24472896',
+  'Windows': '24478730',
+  'Skylights': '24473059',
+  'Flat': '24460541',
+};
 
-export type ServiceTag = typeof SERVICE_TAGS[number];
+/** Reverse mapping: tag ID -> category display name */
+export const TAG_ID_TO_CATEGORY: Record<string, string> = Object.fromEntries(
+  Object.entries(SERVICE_TAG_IDS).map(([category, id]) => [id, category])
+);
 
-/**
- * Master tag that must be present on ALL photos to be displayed
- */
-export const MASTER_TAG = 'RRWebsite';
+/** All service tag IDs for fetching gallery photos */
+export const ALL_SERVICE_TAG_IDS = Object.values(SERVICE_TAG_IDS);
 
-/**
- * Tag ID for the master tag (RRWebsite) - used for efficient API filtering
- * This allows us to use CompanyCam's tag_ids parameter to fetch only tagged photos
- */
-export const MASTER_TAG_ID = '23361102';
+/** Service tag category names (for backward compatibility) */
+export const SERVICE_TAGS = Object.keys(SERVICE_TAG_IDS);
+
+export type ServiceTag = keyof typeof SERVICE_TAG_IDS;
 
 /**
  * Before/After tags for transformation showcases

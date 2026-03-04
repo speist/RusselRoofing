@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getCompanyCamClient } from '@/lib/companycam';
-import { MASTER_TAG, SERVICE_TAGS } from '@/lib/companycam/types';
+import { SERVICE_TAG_IDS, TAG_ID_TO_CATEGORY } from '@/lib/companycam/types';
 
 // Force dynamic rendering - this endpoint makes API calls
 export const dynamic = 'force-dynamic';
@@ -30,8 +30,7 @@ export async function GET(request: NextRequest) {
     const debugInfo: any = {
       total_photos_fetched: photosArray.length,
       filtering_requirements: {
-        master_tag: MASTER_TAG,
-        service_tags: SERVICE_TAGS,
+        service_tag_ids: SERVICE_TAG_IDS,
       },
       raw_photo_sample: photosArray[0], // Show first photo structure
       photos_with_tags: [],
@@ -48,27 +47,23 @@ export async function GET(request: NextRequest) {
         const tagsArray = Array.isArray(photoTags) ? photoTags : (photoTags.data || []);
 
         const tagNames = tagsArray.map((tag: any) => tag.display_value || tag.value || tag.name || '');
+        const tagIds = tagsArray.map((tag: any) => String(tag.id));
 
-        // Check master tag
-        const hasMasterTag = tagNames.some((tag: string) =>
-          tag.toLowerCase() === MASTER_TAG.toLowerCase()
-        );
+        // Check service tags by ID
+        const matchedCategories = tagIds
+          .map((id: string) => TAG_ID_TO_CATEGORY[id])
+          .filter(Boolean);
 
-        // Check service tags
-        const matchedServiceTags = SERVICE_TAGS.filter(serviceTag =>
-          tagNames.some((tag: string) => tag.toLowerCase() === serviceTag.toLowerCase())
-        );
-
-        const passesFilter = hasMasterTag && matchedServiceTags.length > 0;
+        const passesFilter = matchedCategories.length > 0;
 
         const photoInfo = {
           photo_id: photo.id,
           uri: photo.uri,
           captured_at: photo.captured_at,
           tags: tagNames,
+          tag_ids: tagIds,
           filtering: {
-            has_master_tag: hasMasterTag,
-            matched_service_tags: matchedServiceTags,
+            matched_categories: matchedCategories,
             passes_filter: passesFilter,
           },
         };
@@ -80,7 +75,7 @@ export async function GET(request: NextRequest) {
         } else {
           debugInfo.filtering_results.failed.push({
             photo_id: photo.id,
-            reason: !hasMasterTag ? 'Missing master tag' : 'Missing service tag',
+            reason: 'No matching service tag ID',
           });
         }
       } catch (error) {
