@@ -140,14 +140,6 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/community"
-                  className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
-                >
-                  Community
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/careers"
                   className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                 >
