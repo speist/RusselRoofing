@@ -1,16 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { contactConfig } from "@/config/contact";
-
-interface FAQ {
-  id: string;
-  properties: {
-    service_area: string;
-    question: string;
-    answer: string;
-  };
-}
+import { serviceFAQs } from "@/data/faqs";
 
 interface ServiceFAQProps {
   serviceArea: string;
@@ -18,108 +10,16 @@ interface ServiceFAQProps {
 }
 
 export default function ServiceFAQ({ serviceArea, serviceTitle }: ServiceFAQProps) {
-  const [faqs, setFaqs] = useState<FAQ[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First FAQ open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  // Fetch FAQs from API
-  useEffect(() => {
-    async function fetchFAQs() {
-      try {
-        setLoading(true);
-        const response = await fetch(`/api/hubspot/faqs?serviceArea=${serviceArea}`);
-        const data = await response.json();
-
-        if (data.success && data.data) {
-          setFaqs(data.data.results);
-          setError(null);
-        } else {
-          setError(data.error || 'Failed to load FAQs');
-        }
-      } catch (err) {
-        console.error('[ServiceFAQ] Error fetching FAQs:', err);
-        setError('Failed to load FAQs');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchFAQs();
-  }, [serviceArea]);
+  const faqs = serviceFAQs[serviceArea] || [];
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Show loading state
-  if (loading) {
-    return (
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg text-gray-600">
-              Common questions about our {serviceTitle.toLowerCase()}
-            </p>
-          </div>
-          <div className="text-center text-gray-500">
-            Loading FAQs...
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // Show error state (but don't break the page)
-  if (error) {
-    console.error('[ServiceFAQ] Display error:', error);
-    return (
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg text-gray-600">
-              Common questions about our {serviceTitle.toLowerCase()}
-            </p>
-          </div>
-          <div className="text-center text-gray-500">
-            <p className="mb-4">FAQs are temporarily unavailable. Please contact us directly for answers to your questions.</p>
-            <a
-              href={contactConfig.phone.href}
-              className="text-primary-burgundy hover:underline font-semibold"
-            >
-              Call {contactConfig.phone.display}
-            </a>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // Show empty state if no FAQs
   if (faqs.length === 0) {
-    return (
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-lg text-gray-600">
-              Common questions about our {serviceTitle.toLowerCase()}
-            </p>
-          </div>
-          <div className="text-center text-gray-500">
-            No FAQs available at this time. Please contact us for more information.
-          </div>
-        </div>
-      </section>
-    );
+    return null;
   }
 
   return (
@@ -137,7 +37,7 @@ export default function ServiceFAQ({ serviceArea, serviceTitle }: ServiceFAQProp
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div
-              key={faq.id}
+              key={index}
               className="bg-gray-50 rounded-lg overflow-hidden"
             >
               <button
@@ -145,7 +45,7 @@ export default function ServiceFAQ({ serviceArea, serviceTitle }: ServiceFAQProp
                 className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-100 transition-colors duration-200"
                 aria-expanded={openIndex === index}
               >
-                <h3 className="font-semibold text-gray-900 pr-4">{faq.properties.question}</h3>
+                <h3 className="font-semibold text-gray-900 pr-4">{faq.question}</h3>
                 <svg
                   className={`w-5 h-5 text-primary-burgundy transform transition-transform duration-200 ${
                     openIndex === index ? 'rotate-180' : ''
@@ -164,7 +64,7 @@ export default function ServiceFAQ({ serviceArea, serviceTitle }: ServiceFAQProp
                 } overflow-hidden`}
               >
                 <div className="px-6 pb-4">
-                  <p className="text-gray-600 leading-relaxed">{faq.properties.answer}</p>
+                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
                 </div>
               </div>
             </div>

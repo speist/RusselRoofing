@@ -99,7 +99,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
       {/* Image Gallery Section */}
       <ServiceGallery serviceSlug={params.slug} serviceTitle={service.title} />
 
-      {/* FAQ Section - Now dynamically fetched from HubSpot */}
+      {/* FAQ Section */}
       <ServiceFAQ serviceArea={params.slug} serviceTitle={service.title} />
 
     </FloatingPageLayout>

@@ -7,7 +7,7 @@ Status: Complete
 3. remove the hubspot AI bot code from all pages.  Since we no longer have Hubspot we need to take out the bot as well.
 Status: Complete
 4. The FAQ sections on each Service Page need to be Hardcoded in now instead of being dynamic.  I have placed all of the question and answers for each page below for you to use for each section.
-Status: In process
+Status: Complete
 5. Hide the "Meet our team" section on the About us page. Will revisit this once I get more information from them.
 Status: Complete
 6. Update the "24/7 Emergency Services" button that appears on the services page.  Right now it is clickable to go to the phone number.  I want this to stay if viewing on mobile but if it is viewed on anything other then mobile I would like the link to change to opening an email to info@russelroofing.com
