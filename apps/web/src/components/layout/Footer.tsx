@@ -36,7 +36,7 @@ export function Footer() {
     { title: "Siding", slug: "siding-and-gutters" },
     { title: "Commercial", slug: "commercial" },
     { title: "Churches & Institutions", slug: "churches-institutions" },
-    { title: "Historical Restoration", slug: "historical-restoration" },
+    { title: "Specialty & Historic Restoration", slug: "historical-restorations" },
     { title: "Gutters", slug: "gutters" },
     { title: "Windows", slug: "windows" },
     { title: "Skylights", slug: "skylights" },

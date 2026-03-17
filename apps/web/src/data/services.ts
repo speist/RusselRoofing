@@ -75,13 +75,13 @@ export const services: Service[] = [
   {
     id: "5",
     slug: "historical-restorations",
-    title: "Historical Restoration",
-    shortDescription: "Preserving historic buildings with authentic materials and techniques",
-    description: "Specialized restoration services for historic properties. We use traditional materials and techniques while meeting modern performance standards to preserve the character and integrity of historic buildings.",
+    title: "Specialty and Historic Restoration",
+    shortDescription: "Expert craftsmanship in specialty roofing and historic roof restoration",
+    description: "For over 34 years, Russell Roofing has been Philadelphia's trusted expert in specialty roofing and historic roof restoration. We combine traditional craftsmanship with modern precision to deliver roofs that are both structurally superior and architecturally stunning.",
     icon: "/images/icons/restoration.svg",
     image: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg",
-    features: ["Slate Restoration", "Historic Materials", "Preservation Techniques", "Period-Appropriate Methods"],
-    category: "Historical Restoration"
+    features: ["Custom Copper Roofing", "Slate & Tile Roofing", "Cedar Roofing", "Historic Roof Restoration"],
+    category: "Specialty & Historic Restoration"
   },
   {
     id: "6",

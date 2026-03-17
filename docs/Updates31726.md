@@ -17,7 +17,7 @@ Status: Complete
 8. I also Updated the "RR-33-years-on-transparent-white.png" image so need to make sure this gets updated on the about page and all the footers
 Status: Complete
 9. Update text below "About our Historical Restoration" on the historical resoration page(listed below)
-Status: In process
+Status: Complete
 10. On the Home Page the Why Choose Us Section.  Change the card to be "On Time Service: (Consultative Approach)" and the text on the other side of the card to: "Our team is dedicated to helping you achieve your property goals. Instead of using high-pressure sales tactics, we present the best options for your property and clearly explain how each one supports your objectives."
 And change the text on the other side of the "Warranty Backed" Care to: "When you meet with us we will always present you with a warrantable scope of work to ensure your investment. We offer the highest warranties available on the market so no matter what product you choose you know you will have best in class coverage."
 Status: Complete

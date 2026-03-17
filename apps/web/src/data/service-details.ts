@@ -416,20 +416,48 @@ Contact us today to schedule a commercial roof assessment and discover why busin
   "historical-restorations": {
     id: "5",
     slug: "historical-restorations",
-    title: "Historical Restoration",
-    shortDescription: "Preserving historic buildings with authentic materials and techniques",
-    description: "Specialized restoration services for historic properties. We use traditional materials and techniques while meeting modern performance standards to preserve the character and integrity of historic buildings.",
+    title: "Specialty and Historic Restoration",
+    shortDescription: "Expert craftsmanship in specialty roofing and historic roof restoration",
+    description: "For over 34 years, Russell Roofing has been Philadelphia's trusted expert in specialty roofing and historic roof restoration. We combine traditional craftsmanship with modern precision to deliver roofs that are both structurally superior and architecturally stunning.",
     icon: "/images/icons/restoration.svg",
     image: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg",
-    features: ["Slate Restoration", "Historic Materials", "Preservation Techniques", "Period-Appropriate Methods"],
-    category: "Historical Restoration",
+    features: ["Custom Copper Roofing", "Slate & Tile Roofing", "Cedar Roofing", "Historic Roof Restoration"],
+    category: "Specialty & Historic Restoration",
     hero: {
-      title: "Historical Restoration",
-      subtitle: "Preserving History with Expert Craftsmanship",
+      title: "Specialty and Historic Restoration",
+      subtitle: "Expert Roofing Craftsmanship That Stands the Test of Time",
       backgroundImage: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg"
     },
-    overview: "When severe weather damages your home, Russell Roofing responds quickly with emergency repairs and insurance claim assistance to restore your property.",
-    detailedDescription: "Content to be provided by Analyst",
+    overview: "For over 34 years, Russell Roofing has been Philadelphia's trusted expert in specialty roofing and historic roof restoration. As a nationally awarded roofing company, we combine traditional craftsmanship with modern precision to deliver roofs that are both structurally superior and architecturally stunning. From custom copper and slate roofing to cedar shake and tile, every project is completed with integrity, artistry, and attention to detail.",
+    detailedDescription: `**Philadelphia's Specialty Roofing Experts**
+
+At Russell Roofing, our reputation is built on mastery of premium and historic roofing systems. We specialize in distinctive, long-lasting roofs that enhance curb appeal, energy efficiency, and property value.
+
+**Custom Copper Roofing**
+
+Our custom copper roofing contractors create beautifully crafted, weather-resistant roofs that last for generations. Each seam and joint is hand-soldered for maximum performance and timeless aesthetic appeal. Copper naturally patinas over time, adding depth and character that make every roof truly one of a kind.
+
+**Slate and Tile Roofing**
+
+We provide expert slate roof installation and tile roof replacement using the highest-grade materials available. Whether restoring a historic home or upgrading a classic estate, slate and tile deliver unparalleled durability, fire resistance, and distinctive architectural beauty.
+
+**Cedar Roofing**
+
+As experienced cedar roofing contractors, Russell Roofing installs premium cedar shake and shingle roofs that balance natural beauty with exceptional strength. Sustainably sourced and meticulously installed, our cedar roofs offer excellent insulation and a timeless look suited for traditional and modern homes alike.
+
+**Historic Roof Restoration**
+
+Preserve your home's history with Russell Roofing's nationally recognized historic roof restoration services. Our craftsmen specialize in reproducing and restoring roofs on historic homes, churches, and buildings across the Philadelphia region. We work closely with preservation committees and architects to ensure accuracy, authenticity, and long-term protection.
+
+**Why Choose Russell Roofing**
+
+- Over 34 years of nationally awarded roofing experience
+- Philadelphia's leader in specialty and historic roofing
+- Fully licensed, insured, and manufacturer-certified
+- Experts in copper, slate, cedar, and tile roofing systems
+- Unmatched craftsmanship, integrity, and customer satisfaction
+
+Preserve your legacy. Enhance your home. Protect your investment. Contact Russell Roofing, Philadelphia's specialty roofing and historic restoration experts, to schedule your consultation or request a free quote today.`,
     process: [],
     featureDetails: [],
     faqs: [
