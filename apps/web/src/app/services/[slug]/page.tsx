@@ -1,6 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import Image from "next/image";
 import { services } from "@/data/services";
 import { getServiceDetailsBySlug } from "@/data/service-details";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import ServiceDetailTemplate from "@/components/services/ServiceDetailTemplate";
 import ServiceGallery from "@/components/services/ServiceGallery";
 import ServiceFAQ from "@/components/services/ServiceFAQ";
+import { hubspotService } from "@/lib/hubspot/api";
 
 interface ServicePageProps {
   params: { slug: string };
@@ -59,6 +61,12 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   };
 }
 
+// Helper function to strip HTML tags from text
+function stripHtmlTags(html: string): string {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, '').trim();
+}
+
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const serviceDetail = getServiceDetailsBySlug(params.slug);
   const service = services.find(s => s.slug === params.slug);
@@ -67,6 +75,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   if (!service || !serviceDetail) {
     notFound();
   }
+
+  // Fetch blog posts for related articles
+  const blogResponse = await hubspotService.getBlogPosts({ limit: 50 });
+  const allPosts = blogResponse.success && blogResponse.data ? blogResponse.data.results : [];
+  const relatedArticles = allPosts.slice(0, 3);
 
   return (
     <FloatingPageLayout>
@@ -101,6 +114,55 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
       {/* FAQ Section */}
       <ServiceFAQ serviceArea={params.slug} serviceTitle={service.title} />
+
+      {/* Related Articles Section */}
+      {relatedArticles.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-display text-3xl font-bold text-gray-900 mb-8 text-center">
+              Related Articles
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedArticles.map((post) => {
+                return (
+                  <Link
+                    key={post.id}
+                    href={`/news/${post.slug}`}
+                    className="group bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200"
+                  >
+                    <div className="aspect-w-16 aspect-h-9 relative">
+                      <Image
+                        src={post.featuredImage}
+                        alt={post.featuredImageAltText || post.name}
+                        width={300}
+                        height={192}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-primary-burgundy transition-colors">
+                        {post.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm line-clamp-2">
+                        {stripHtmlTags(post.postSummary || post.metaDescription || '')}
+                      </p>
+                      {post.publishDate && (
+                        <p className="text-xs text-gray-500 mt-2">
+                          {new Date(post.publishDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </p>
+                      )}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
     </FloatingPageLayout>
   );

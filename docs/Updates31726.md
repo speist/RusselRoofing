@@ -3,7 +3,7 @@ Russel roofing is no longer using hubspot so we will need ot remove/hide some ar
 Status: Complete
 2. His News page.  Need to do the same as point 1 but for the News page
 a. additionally we will need to hide the related articles section on each of the service pages
-Status: Complete
+Status: Reverted - News links and related articles restored per team feedback
 3. remove the hubspot AI bot code from all pages.  Since we no longer have Hubspot we need to take out the bot as well.
 Status: Complete
 4. The FAQ sections on each Service Page need to be Hardcoded in now instead of being dynamic.  I have placed all of the question and answers for each page below for you to use for each section.
