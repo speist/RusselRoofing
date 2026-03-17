@@ -11,7 +11,7 @@ Status: Complete
 5. Hide the "Meet our team" section on the About us page. Will revisit this once I get more information from them.
 Status: Complete
 6. Update the "24/7 Emergency Services" button that appears on the services page.  Right now it is clickable to go to the phone number.  I want this to stay if viewing on mobile but if it is viewed on anything other then mobile I would like the link to change to opening an email to info@russelroofing.com
-Status: In process
+Status: Complete
 7. Add a Gallery section below the Our Mission Section on the About Us page that is similar to the the ones that are on the Services pages.  It should show 3 images pulled from the gallery.  And come up with a appropriate header and text for the section.
 Status: In process
 8. I also Updated the "RR-33-years-on-transparent-white.png" image so need to make sure this gets updated on the about page and all the footers
@@ -20,7 +20,7 @@ Status: In process
 Status: In process
 10. On the Home Page the Why Choose Us Section.  Change the card to be "On Time Service: (Consultative Approach)" and the text on the other side of the card to: "Our team is dedicated to helping you achieve your property goals. Instead of using high-pressure sales tactics, we present the best options for your property and clearly explain how each one supports your objectives."
 And change the text on the other side of the "Warranty Backed" Care to: "When you meet with us we will always present you with a warrantable scope of work to ensure your investment. We offer the highest warranties available on the market so no matter what product you choose you know you will have best in class coverage."
-Status: In process
+Status: Complete
 11. In the quality Materials sections remove the Viwinco and Reveere cards
 Status: In process
 12. In the associations section replace the Certainteed and GAF images with the new ones and their link: nari.png(https://cornerstonerisksolutions.com/nari/) and rotary.png(https://www.rotary.org/en).

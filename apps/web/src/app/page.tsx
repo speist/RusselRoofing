@@ -554,11 +554,11 @@ export default function HomePage() {
                   <div className="flip-card-inner relative w-full h-full transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
                     <div className="flip-card-front absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden" }}>
                       <Clock className="w-16 h-16 text-primary-red mb-4" />
-                      <h3 className="font-inter font-bold text-dark-grey text-xl">On-Time Service</h3>
+                      <h3 className="font-inter font-bold text-dark-grey text-xl text-center">On Time Service: Consultative Approach</h3>
                     </div>
                     <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
                       <p className="font-inter text-gray-600 text-center">
-                        We respect your time and always deliver projects on schedule. Punctuality is part of our commitment to excellence.
+                        Our team is dedicated to helping you achieve your property goals. Instead of using high-pressure sales tactics, we present the best options for your property and clearly explain how each one supports your objectives.
                       </p>
                     </div>
                   </div>
@@ -603,7 +603,7 @@ export default function HomePage() {
                     </div>
                     <div className="flip-card-back absolute w-full h-full bg-white rounded-lg shadow-md border-t-4 border-primary-red flex flex-col items-center justify-center p-6" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
                       <p className="font-inter text-gray-600 text-center">
-                        All work comes with comprehensive warranty coverage. We stand behind every project we complete.
+                        When you meet with us we will always present you with a warrantable scope of work to ensure your investment. We offer the highest warranties available on the market so no matter what product you choose you know you will have best in class coverage.
                       </p>
                     </div>
                   </div>
