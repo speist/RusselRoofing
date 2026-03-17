@@ -81,7 +81,7 @@ export const services: Service[] = [
     icon: "/images/icons/restoration.svg",
     image: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg",
     features: ["Custom Copper Roofing", "Slate & Tile Roofing", "Cedar Roofing", "Historic Roof Restoration"],
-    category: "Specialty & Historic Restoration"
+    category: "Historical Restoration"
   },
   {
     id: "6",

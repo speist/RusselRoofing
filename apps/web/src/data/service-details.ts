@@ -422,7 +422,7 @@ Contact us today to schedule a commercial roof assessment and discover why busin
     icon: "/images/icons/restoration.svg",
     image: "/images/services/ServiceHeroImages/historical-restoration-hero.jpg",
     features: ["Custom Copper Roofing", "Slate & Tile Roofing", "Cedar Roofing", "Historic Roof Restoration"],
-    category: "Specialty & Historic Restoration",
+    category: "Historical Restoration",
     hero: {
       title: "Specialty and Historic Restoration",
       subtitle: "Expert Roofing Craftsmanship That Stands the Test of Time",
