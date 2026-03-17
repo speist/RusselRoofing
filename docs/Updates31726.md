@@ -5,11 +5,11 @@ Status: Complete
 a. additionally we will need to hide the related articles section on each of the service pages
 Status: Complete
 3. remove the hubspot AI bot code from all pages.  Since we no longer have Hubspot we need to take out the bot as well.
-Status: In process
+Status: Complete
 4. The FAQ sections on each Service Page need to be Hardcoded in now instead of being dynamic.  I have placed all of the question and answers for each page below for you to use for each section.
 Status: In process
 5. Hide the "Meet our team" section on the About us page. Will revisit this once I get more information from them.
-Status: In process
+Status: Complete
 6. Update the "24/7 Emergency Services" button that appears on the services page.  Right now it is clickable to go to the phone number.  I want this to stay if viewing on mobile but if it is viewed on anything other then mobile I would like the link to change to opening an email to info@russelroofing.com
 Status: In process
 7. Add a Gallery section below the Our Mission Section on the About Us page that is similar to the the ones that are on the Services pages.  It should show 3 images pulled from the gallery.  And come up with a appropriate header and text for the section.

@@ -3,7 +3,6 @@ import { Metadata } from 'next';
 import FloatingPageLayout from '@/components/layout/FloatingPageLayout';
 import AboutHero from '@/components/about/AboutHero';
 import MissionSection from '@/components/about/MissionSection';
-import TeamSection from '@/components/about/TeamSection';
 import CertificationsSection from '@/components/about/CertificationsSection';
 
 export const metadata: Metadata = {
@@ -22,7 +21,6 @@ export default function AboutPage() {
     <FloatingPageLayout>
       <AboutHero />
       <MissionSection />
-      <TeamSection />
       <CertificationsSection />
     </FloatingPageLayout>
   );

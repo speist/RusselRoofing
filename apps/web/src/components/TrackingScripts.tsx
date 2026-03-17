@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Script from "next/script";
 import { CookieConsent, getCookieConsent, CookieConsentValue } from "./ui/CookieConsent";
 
 export function TrackingScripts() {
@@ -25,16 +24,6 @@ export function TrackingScripts() {
       {/* Cookie Consent Banner */}
       <CookieConsent onConsentChange={handleConsentChange} />
 
-      {/* HubSpot Tracking Code - Only load if consent is accepted */}
-      {consent === "accepted" && (
-        <Script
-          id="hs-script-loader"
-          src="//js.hs-scripts.com/50177320.js"
-          strategy="afterInteractive"
-          async
-          defer
-        />
-      )}
     </>
   );
 }
