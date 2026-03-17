@@ -55,11 +55,6 @@ const materialPartners: MaterialPartner[] = [
     link: "https://www.pella.com/",
   },
   {
-    name: "Revere Copper",
-    image: "/images/about/qualitymaterialsslider/Revere-copper-logo.png",
-    link: "https://www.reverecopper.com/",
-  },
-  {
     name: "GAF Select Shingle",
     image: "/images/about/qualitymaterialsslider/selectshingle-400x200-300x150-1.png",
     link: "https://www.gaf.com/",
@@ -73,11 +68,6 @@ const materialPartners: MaterialPartner[] = [
     name: "Versico",
     image: "/images/about/qualitymaterialsslider/Versico_Logo.png",
     link: "https://www.versico.com/",
-  },
-  {
-    name: "Viwinco",
-    image: "/images/about/qualitymaterialsslider/Viwinco-logo.png",
-    link: "https://www.viwinco.com/",
   },
 ];
 

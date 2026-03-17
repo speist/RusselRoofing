@@ -22,14 +22,14 @@ Status: Complete
 And change the text on the other side of the "Warranty Backed" Care to: "When you meet with us we will always present you with a warrantable scope of work to ensure your investment. We offer the highest warranties available on the market so no matter what product you choose you know you will have best in class coverage."
 Status: Complete
 11. In the quality Materials sections remove the Viwinco and Reveere cards
-Status: In process
+Status: Complete
 12. In the associations section replace the Certainteed and GAF images with the new ones and their link: nari.png(https://cornerstonerisksolutions.com/nari/) and rotary.png(https://www.rotary.org/en).
-Status: In process
-13. On the Community Page change the 3 boxes in the header to be the following: 
+Status: Complete
+13. On the Community Page change the 3 boxes in the header to be the following:
 First box: 8 roofs donated
 Second Box: 25+ sponsorships
 Third Box: 100+ Historically Registered Restoration Projects
-Status: In process
+Status: Complete
 
 
 Text supporting the above.

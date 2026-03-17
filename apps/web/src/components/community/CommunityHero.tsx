@@ -43,16 +43,16 @@ export default function CommunityHero() {
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-12">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-              <div className="text-4xl font-bold mb-2 text-white">12+</div>
-              <div className="text-white">Habitat Homes Roofed</div>
+              <div className="text-4xl font-bold mb-2 text-white">8</div>
+              <div className="text-white">Roofs Donated</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
               <div className="text-4xl font-bold mb-2 text-white">25+</div>
-              <div className="text-white">Students Supported</div>
+              <div className="text-white">Sponsorships</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-              <div className="text-4xl font-bold mb-2 text-white">50+</div>
-              <div className="text-white">Emergency Repairs</div>
+              <div className="text-4xl font-bold mb-2 text-white">100+</div>
+              <div className="text-white">Historically Registered Restoration Projects</div>
             </div>
           </div>
         </div>

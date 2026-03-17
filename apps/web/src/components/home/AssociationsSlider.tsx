@@ -17,14 +17,14 @@ const associations: Association[] = [
     link: "https://www.nrca.net/",
   },
   {
-    name: "GAF President's Club",
-    image: "/images/associations/gaf-presidents-club-logo.png",
-    link: "https://www.gaf.com/",
+    name: "NARI - National Association of the Remodeling Industry",
+    image: "/images/associations/nari.png",
+    link: "https://cornerstonerisksolutions.com/nari/",
   },
   {
-    name: "Certainteed Advisory Council",
-    image: "/images/associations/certainteed-advisory-council-logo.png",
-    link: "https://www.certainteed.com/",
+    name: "Rotary International",
+    image: "/images/associations/rotary.png",
+    link: "https://www.rotary.org/en",
   },
   {
     name: "Montgomery County Chamber of Commerce",
