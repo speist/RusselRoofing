@@ -13,9 +13,9 @@ Status: Complete
 6. Update the "24/7 Emergency Services" button that appears on the services page.  Right now it is clickable to go to the phone number.  I want this to stay if viewing on mobile but if it is viewed on anything other then mobile I would like the link to change to opening an email to info@russelroofing.com
 Status: Complete
 7. Add a Gallery section below the Our Mission Section on the About Us page that is similar to the the ones that are on the Services pages.  It should show 3 images pulled from the gallery.  And come up with a appropriate header and text for the section.
-Status: In process
+Status: Complete
 8. I also Updated the "RR-33-years-on-transparent-white.png" image so need to make sure this gets updated on the about page and all the footers
-Status: In process
+Status: Complete
 9. Update text below "About our Historical Restoration" on the historical resoration page(listed below)
 Status: In process
 10. On the Home Page the Why Choose Us Section.  Change the card to be "On Time Service: (Consultative Approach)" and the text on the other side of the card to: "Our team is dedicated to helping you achieve your property goals. Instead of using high-pressure sales tactics, we present the best options for your property and clearly explain how each one supports your objectives."
