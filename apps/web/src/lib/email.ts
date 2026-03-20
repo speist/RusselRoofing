@@ -1,9 +1,14 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const TO_EMAIL = 'info@russellroofing.com';
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'noreply@russellroofing.com';
+
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY environment variable is not configured');
+  }
+  return new Resend(apiKey);
+}
 
 interface SendEmailOptions {
   subject: string;
@@ -11,8 +16,11 @@ interface SendEmailOptions {
 }
 
 export async function sendEmail({ subject, html }: SendEmailOptions) {
+  const resend = getResend();
+  const fromEmail = process.env.RESEND_FROM_EMAIL || 'noreply@russellroofing.com';
+
   const { data, error } = await resend.emails.send({
-    from: `Russell Roofing Website <${FROM_EMAIL}>`,
+    from: `Russell Roofing Website <${fromEmail}>`,
     to: [TO_EMAIL],
     subject,
     html,
