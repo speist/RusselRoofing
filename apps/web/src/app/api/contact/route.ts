@@ -1,19 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { hubspotService, NoteInput } from '@/lib/hubspot/api';
-import { ContactInput, DealInput } from '@/lib/hubspot/types';
+import { sendEmail, formatContactEmail } from '@/lib/email';
 
-// Contact form API endpoint - handles HubSpot integration
+export const dynamic = 'force-dynamic';
+
+// Contact form API endpoint - sends email to info@russellroofing.com
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Log the raw body from the form
-    console.log('[Contact API] Received form data:', {
-      body,
-      timestamp: new Date().toISOString(),
-    });
-
-    // Validate required fields
     const {
       firstname,
       lastname,
@@ -36,161 +30,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // First, search for existing contact by email and name
-    console.log('[Contact API] Searching for existing contact:', { email, firstname, lastname });
-    const searchResult = await hubspotService.findContactByEmailAndName(email, firstname, lastname);
+    const subject = isEmergency
+      ? `[EMERGENCY] New Contact: ${firstname} ${lastname}`
+      : `New Contact Form: ${firstname} ${lastname}`;
 
-    let contact: { id: string };
-
-    if (searchResult.success && searchResult.data) {
-      // Contact found - use existing contact
-      contact = searchResult.data;
-      console.log('[Contact API] Using existing contact:', contact.id);
-    } else {
-      // No contact found - create new contact
-      console.log('[Contact API] Creating new contact');
-      console.log('[Contact API] Raw form values before contactData:', {
-        preferredContact,
-        timePreference,
-        isEmergency,
-      });
-      const contactData: ContactInput = {
-        email,
-        firstname,
-        lastname,
-        phone,
-        address: address || '', // Address from contact form
-        city: city || undefined,
-        state: state || undefined,
-        zip: zip || undefined,
-        property_type: 'single_family', // Default value (note: property_type is not sent to HubSpot)
-        preferred_contact_method: preferredContact || 'email',
-        preferred_contact_time: timePreference,
-        lead_source: 'RR Website',
-        lead_source_category: 'Digital Marketing / Online Presence',
-      };
-      console.log('[Contact API] ContactData object created:', contactData);
-
-      // Create or update contact in HubSpot
-      const contactResult = await hubspotService.createOrUpdateContact(contactData);
-
-      if (!contactResult.success) {
-        console.error('[Contact API] Failed to create contact:', contactResult.error);
-        return NextResponse.json(
-          { success: false, error: 'Failed to create contact in HubSpot' },
-          { status: 500 }
-        );
-      }
-
-      contact = contactResult.data!;
-      console.log('[Contact API] Contact created/updated:', contact.id);
-    }
-
-    // Create deal data with "Lead (5%)" stage in Sales Pipeline
-    // Pipeline ID: 765276511 (Sales Pipeline)
-    // Stage ID: 1114664036 (Lead 5%)
-    // Note: Most contact fields (contact_first_name_, contact_email_, etc.) are sync/calculated
-    // properties in HubSpot and will auto-populate from the associated Contact.
-    // However, lead_source__ and lead_source_category__ are direct Deal properties.
-    const dealData: DealInput = {
-      dealname: `${firstname} ${lastname} - RR Website`,
-      amount: '0', // No amount provided in contact form
-      pipeline: '765276511', // Sales Pipeline (internal ID)
-      dealstage: '1114664036', // Lead (5%) stage (internal ID)
-      services_requested: '', // Not used in contact form
-      estimate_min: 0, // Not used in contact form
-      estimate_max: 0, // Not used in contact form
-      is_emergency: isEmergency || false,
-      preferred_contact_method: preferredContact || 'email',
-      preferred_contact_time: timePreference,
-      lead_source_category__: 'Digital Marketing / Online Presence, Digital Marketing / Online Presence', // Lead Source Category (on Deal)
-      lead_source__: 'RR Website', // Lead Source (on Deal)
-    };
-
-    // Log deal data before sending to HubSpot
-    console.log('[Contact API] Deal data before createDeal:', {
-      dealData,
+    const html = formatContactEmail({
+      firstname,
+      lastname,
+      email,
+      phone,
+      address,
+      city,
+      state,
+      zip,
+      message,
       preferredContact,
       timePreference,
       isEmergency,
-      timestamp: new Date().toISOString(),
     });
 
-    // Create deal in HubSpot
-    const dealResult = await hubspotService.createDeal(dealData);
+    await sendEmail({ subject, html });
 
-    if (!dealResult.success) {
-      console.error('[Contact API] Failed to create deal:', dealResult.error);
-      return NextResponse.json(
-        { success: false, error: 'Failed to create deal in HubSpot' },
-        { status: 500 }
-      );
-    }
-
-    const deal = dealResult.data!;
-    console.log('[Contact API] Deal created:', deal.id);
-
-    // Associate contact with deal
-    const associationResult = await hubspotService.associateContactToDeal(
-      contact.id,
-      deal.id
-    );
-
-    if (!associationResult.success) {
-      console.error('[Contact API] Failed to associate contact with deal:', associationResult.error);
-      // Don't fail the request if association fails - contact and deal are created
-    } else {
-      console.log('[Contact API] Successfully associated contact with deal');
-    }
-
-    // Create note with message if provided
-    if (message && message.trim()) {
-      const noteData: NoteInput = {
-        note: message.trim(),
-        timestamp: Date.now(),
-      };
-
-      const noteResult = await hubspotService.createNote(noteData);
-
-      if (noteResult.success && noteResult.data) {
-        const note = noteResult.data;
-        console.log('[Contact API] Note created:', note.id);
-
-        // Associate note with deal
-        const noteDealAssocResult = await hubspotService.associateNoteToDeal(
-          note.id,
-          deal.id
-        );
-
-        if (!noteDealAssocResult.success) {
-          console.error('[Contact API] Failed to associate note with deal:', noteDealAssocResult.error);
-        } else {
-          console.log('[Contact API] Successfully associated note with deal');
-        }
-
-        // Associate note with contact
-        const noteContactAssocResult = await hubspotService.associateNoteToContact(
-          note.id,
-          contact.id
-        );
-
-        if (!noteContactAssocResult.success) {
-          console.error('[Contact API] Failed to associate note with contact:', noteContactAssocResult.error);
-        } else {
-          console.log('[Contact API] Successfully associated note with contact');
-        }
-      } else {
-        console.error('[Contact API] Failed to create note:', noteResult.error);
-      }
-    }
-
-    return NextResponse.json({
-      success: true,
-      data: {
-        contactId: contact.id,
-        dealId: deal.id,
-      },
-    });
+    return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error('[Contact API] Error:', error);
     return NextResponse.json(

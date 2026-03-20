@@ -85,7 +85,7 @@ export function ContactInfo() {
             {contactConfig.address.city}, {contactConfig.address.state} {contactConfig.address.zip}
           </address>
           <p className="text-sm text-neutral-600">
-            Serving New Jersey
+            Serving PA &amp; NJ
           </p>
         </div>
       </div>
