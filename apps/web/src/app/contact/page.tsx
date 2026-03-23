@@ -44,7 +44,7 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <h3 className="font-semibold mb-2 text-white">Call Us</h3>
-                <p className="text-sm text-white">Available 24/7 for emergencies</p>
+                <p className="text-sm text-white">For storm damage, leaks, or urgent repairs</p>
               </div>
               <div className="text-center">
                 <div className="bg-white/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
