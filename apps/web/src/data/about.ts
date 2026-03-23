@@ -83,7 +83,7 @@ export const companyInfo: CompanyInfo = {
       certifications: ["GAF Master Elite Contractor", "CertainTeed SELECT ShingleMaster", "OSHA 30-Hour Safety Certified"],
       image: "/images/team/john-russell.jpg.placeholder",
       email: "john@russellroofing.com",
-      phone: "(555) 123-4567",
+      phone: "215-887-7800",
       specialties: ["Residential Roofing", "Storm Damage Assessment", "Business Development", "Quality Control"]
     },
     {

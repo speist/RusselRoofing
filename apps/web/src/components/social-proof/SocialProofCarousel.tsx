@@ -89,7 +89,7 @@ const SocialProofCarousel: React.FC<SocialProofCarouselProps> = ({
               Get Your Free Estimate
             </a>
             <a
-              href="tel:+15551234567"
+              href="tel:+12158877800"
               className={cn(
                 "inline-flex items-center justify-center",
                 "px-6 py-3 border-2 border-primary-burgundy text-primary-burgundy",
@@ -98,7 +98,7 @@ const SocialProofCarousel: React.FC<SocialProofCarouselProps> = ({
                 "focus:ring-2 focus:ring-primary-burgundy focus:ring-offset-2"
               )}
             >
-              Call Now: (555) 123-4567
+              Call Now: 215-887-7800
             </a>
           </div>
         </div>

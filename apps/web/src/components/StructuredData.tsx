@@ -15,7 +15,7 @@ const companyInfo = {
     postalCode: '19075',
     addressCountry: 'US',
   },
-  telephone: '1-888-567-7663',
+  telephone: '215-887-7800',
   email: 'info@russellroofing.com',
   url: BASE_URL,
   logo: `${BASE_URL}/rrlogo-white.svg`,

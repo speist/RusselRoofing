@@ -140,7 +140,7 @@ const PDFGenerator: React.FC<PDFGeneratorProps> = ({ estimateData, className }) 
       doc.setTextColor(0, 0, 0);
       doc.text('Russell Roofing Company', margin, yPosition);
       yPosition += 5;
-      doc.text('Phone: (555) 123-ROOF', margin, yPosition);
+      doc.text('Phone: 215-887-7800', margin, yPosition);
       yPosition += 5;
       doc.text('Email: info@russellroofing.com', margin, yPosition);
       yPosition += 5;

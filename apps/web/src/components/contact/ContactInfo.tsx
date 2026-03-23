@@ -112,7 +112,7 @@ export function ContactInfo() {
               {contactConfig.emergency.phone.display}
             </a>
             <p className="text-sm text-red-600">
-              Available 24/7 for emergencies
+              For storm damage, leaks, or urgent repairs
             </p>
           </div>
         </div>
@@ -154,7 +154,7 @@ export function BusinessHours() {
       </div>
       <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
         <p className="text-sm text-green-800">
-          <strong>Emergency services available 24/7</strong> - Call our emergency line for storm damage, leaks, or urgent repairs.
+          <strong>Emergency services available</strong> - Call our emergency line for storm damage, leaks, or urgent repairs.
         </p>
       </div>
     </div>

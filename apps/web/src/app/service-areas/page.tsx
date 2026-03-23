@@ -117,10 +117,10 @@ export default function ServiceAreasPage() {
                 Get Free Estimate
               </Link>
               <a
-                href="tel:1-888-567-7663"
+                href="tel:215-887-7800"
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-burgundy transition-colors duration-200"
               >
-                Call 1-888-567-7663
+                Call 215-887-7800
               </a>
             </div>
           </div>

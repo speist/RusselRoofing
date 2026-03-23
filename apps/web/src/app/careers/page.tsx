@@ -87,10 +87,10 @@ export default async function CareersPage() {
                   Have questions? Give us a call:
                 </p>
                 <a
-                  href="tel:+18885677663"
+                  href="tel:+12158877800"
                   className="font-body text-primary-burgundy font-medium hover:text-primary-charcoal transition-colors"
                 >
-                  1-888-567-7663
+                  215-887-7800
                 </a>
               </div>
             </div>

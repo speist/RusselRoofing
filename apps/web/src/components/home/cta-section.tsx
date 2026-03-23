@@ -35,7 +35,7 @@ export function CTASection() {
               size="lg"
               className="w-full sm:w-auto text-lg px-8 py-4 min-h-[56px] bg-transparent border-2 border-white text-white hover:bg-white hover:text-red-700 transition-all duration-300"
             >
-              Call (555) 123-4567
+              Call 215-887-7800
             </Button>
           </div>
 

@@ -374,7 +374,7 @@ export default function PrivacyPolicyPage() {
                   1200 Pennsylvania Ave<br />
                   Oreland, PA 19075<br />
                   United States<br />
-                  <span className="text-primary-burgundy">Phone: 1-888-567-7663</span>
+                  <span className="text-primary-burgundy">Phone: 215-887-7800</span>
                 </address>
               </div>
             </section>

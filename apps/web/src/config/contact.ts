@@ -1,8 +1,8 @@
 // Contact configuration for Russell Roofing
 export const contactConfig = {
   phone: {
-    display: "1-888-567-7663",
-    href: "tel:+18885677663"
+    display: "215-887-7800",
+    href: "tel:+12158877800"
   },
   email: {
     display: "info@russellroofing.com",

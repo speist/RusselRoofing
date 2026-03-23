@@ -9,7 +9,7 @@ export interface NextStepsProps {
 
 const NextSteps: React.FC<NextStepsProps> = ({ isEmergency, className }) => {
   const handleCall = () => {
-    window.location.href = 'tel:+15551234567';
+    window.location.href = 'tel:+12158877800';
   };
 
   const handleEmail = () => {

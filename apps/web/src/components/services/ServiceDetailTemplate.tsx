@@ -132,7 +132,7 @@ export default function ServiceDetailTemplate({ service }: ServiceDetailTemplate
                 <>
                   {/* Mobile: phone link */}
                   <a
-                    href="tel:1-888-567-7663"
+                    href="tel:+12158877800"
                     className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full font-semibold flex items-center hover:bg-red-700 transition-colors md:hidden"
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
