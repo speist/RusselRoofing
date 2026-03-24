@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ReviewCarousel } from "./ReviewCarousel";
 import { TrustBadges } from "./TrustBadges";
 import { sampleReviews, trustBadges } from "@/data/reviews";
+import { EstimateLink } from "@/components/ui/EstimateLink";
 
 export interface SocialProofCarouselProps {
   title?: string;
@@ -76,10 +77,9 @@ const SocialProofCarousel: React.FC<SocialProofCarouselProps> = ({
             Ready to join our satisfied customers?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/estimate"
+            <EstimateLink
               className={cn(
-                "inline-flex items-center justify-center",
+                "items-center justify-center",
                 "px-6 py-3 bg-primary-burgundy text-white",
                 "rounded-lg font-medium transition-colors",
                 "hover:bg-primary-charcoal focus:outline-none",
@@ -87,7 +87,7 @@ const SocialProofCarousel: React.FC<SocialProofCarouselProps> = ({
               )}
             >
               Get Your Free Estimate
-            </a>
+            </EstimateLink>
             <a
               href="tel:+12158877800"
               className={cn(

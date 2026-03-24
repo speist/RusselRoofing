@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import FloatingPageLayout from '@/components/layout/FloatingPageLayout';
+import { EstimateLink } from '@/components/ui/EstimateLink';
 import AboutHero from '@/components/about/AboutHero';
 import MissionSection from '@/components/about/MissionSection';
 import AboutGallery from '@/components/about/AboutGallery';
@@ -36,12 +37,11 @@ export default function AboutPage() {
                 the Russell Roofing difference.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="/estimate"
-                  className="bg-[#960120] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#7a0f1a] transition-colors"
+                <EstimateLink
+                  className="bg-[#960120] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#7a0f1a] transition-colors items-center justify-center"
                 >
                   Get Free Estimate
-                </a>
+                </EstimateLink>
                 <a
                   href="/contact"
                   className="border border-[#960120] text-[#960120] px-8 py-3 rounded-lg font-semibold hover:bg-[#960120] hover:text-white transition-colors"

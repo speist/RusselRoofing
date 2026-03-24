@@ -8,6 +8,7 @@ import { SERVICE_AREAS, getServiceAreaBySlug } from "@/lib/service-areas";
 import type { LocationArea } from "@/lib/service-areas";
 import Link from "next/link";
 import { ServicesSlider } from "@/components/services/ServicesSlider";
+import { EstimateLink } from "@/components/ui/EstimateLink";
 
 interface ServiceAreaPageProps {
   params: { slug: string };
@@ -112,12 +113,11 @@ export default function ServiceAreaPage({ params }: ServiceAreaPageProps) {
               We&apos;ve been serving {area.name} for over 30 years.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/estimate"
-                className="bg-white text-primary-burgundy px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
+              <EstimateLink
+                className="bg-white text-primary-burgundy px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 items-center justify-center"
               >
                 Get Free Estimate
-              </Link>
+              </EstimateLink>
               <Link
                 href="/contact"
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-burgundy transition-colors duration-200"

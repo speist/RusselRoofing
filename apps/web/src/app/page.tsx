@@ -44,6 +44,7 @@ import { AddressInput } from "@/components/estimate/AddressInput"
 import { parseAddressComponents } from "@/lib/hubspot/utils"
 import { Review } from "@/types/review"
 import { InstagramFeed } from "@/components/home/instagram-feed"
+import { EstimateLink } from "@/components/ui/EstimateLink"
 
 // Loading Skeleton Component
 const SkeletonCard = () => (
@@ -419,13 +420,12 @@ export default function HomePage() {
                 </div>
 
                 {/* CTA Button - bottom right, aligned with header contact button */}
-                <Link
-                  href="/estimate"
-                  className="bg-primary-red text-white px-6 py-2 rounded-full font-inter font-medium inline-flex items-center gap-2 hover:bg-opacity-90 transition-colors whitespace-nowrap shadow-lg"
+                <EstimateLink
+                  className="bg-primary-red text-white px-6 py-2 rounded-full font-inter font-medium items-center gap-2 hover:bg-opacity-90 transition-colors whitespace-nowrap shadow-lg"
                 >
                   Request Estimate
                   <ArrowRight className="w-5 h-5" />
-                </Link>
+                </EstimateLink>
               </div>
             </div>
           </div>
@@ -1024,7 +1024,7 @@ export default function HomePage() {
                   </li>
                   <li>
                     <Link
-                      href="/estimate"
+                      href="/contact"
                       className="font-inter text-gray-300 text-sm hover:text-white transition-colors"
                     >
                       Get Estimate

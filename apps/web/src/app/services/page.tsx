@@ -2,6 +2,7 @@ import React from "react";
 import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import { ServicesGrid } from "@/components/services";
 import { services } from "@/data/services";
+import { EstimateLink } from "@/components/ui/EstimateLink";
 
 export default function ServicesPage() {
   return (
@@ -46,12 +47,11 @@ export default function ServicesPage() {
               is ready to help you protect and enhance your home.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/estimate"
-                className="bg-white text-primary-burgundy px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 inline-flex items-center justify-center"
+              <EstimateLink
+                className="bg-white text-primary-burgundy px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 items-center justify-center"
               >
                 Get Free Estimate
-              </a>
+              </EstimateLink>
               <a
                 href="/gallery"
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-burgundy transition-colors duration-200 inline-flex items-center justify-center"

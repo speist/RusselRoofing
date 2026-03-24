@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import type { TeamMember as HubSpotTeamMember } from '@/lib/hubspot/api';
+import { EstimateLink } from '@/components/ui/EstimateLink';
 
 interface DisplayTeamMember {
   id: string;
@@ -198,12 +199,11 @@ export default function TeamSection() {
               the Russell Roofing difference.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/estimate"
-                className="bg-[#960120] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#7a0f1a] transition-colors"
+              <EstimateLink
+                className="bg-[#960120] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#7a0f1a] transition-colors items-center justify-center"
               >
                 Get Free Estimate
-              </a>
+              </EstimateLink>
               <a
                 href="/contact"
                 className="border border-[#960120] text-[#960120] px-8 py-3 rounded-lg font-semibold hover:bg-[#960120] hover:text-white transition-colors"

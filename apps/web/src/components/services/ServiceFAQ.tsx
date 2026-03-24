@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { contactConfig } from "@/config/contact";
 import { serviceFAQs } from "@/data/faqs";
+import { EstimateLink } from "@/components/ui/EstimateLink";
 
 interface ServiceFAQProps {
   serviceArea: string;
@@ -80,12 +81,11 @@ export default function ServiceFAQ({ serviceArea, serviceTitle }: ServiceFAQProp
             Our experts are ready to help. Contact us for personalized assistance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/estimate"
-              className="bg-primary-burgundy text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-burgundy/90 transition-colors duration-200 inline-flex items-center justify-center"
+            <EstimateLink
+              className="bg-primary-burgundy text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-burgundy/90 transition-colors duration-200 items-center justify-center"
             >
               Get Free Estimate
-            </a>
+            </EstimateLink>
             <a
               href={contactConfig.phone.href}
               className="border-2 border-primary-burgundy text-primary-burgundy px-6 py-3 rounded-lg font-semibold hover:bg-primary-burgundy hover:text-white transition-colors duration-200 inline-flex items-center justify-center"

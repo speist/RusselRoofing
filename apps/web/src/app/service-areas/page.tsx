@@ -4,6 +4,7 @@ import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import { SERVICE_AREAS } from "@/lib/service-areas";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
+import { EstimateLink } from "@/components/ui/EstimateLink";
 
 export const metadata: Metadata = {
   title: "Service Areas | Russell Roofing & Exteriors",
@@ -110,12 +111,11 @@ export default function ServiceAreasPage() {
               roofing, siding, and home improvement needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/estimate"
-                className="bg-white text-primary-burgundy px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
+              <EstimateLink
+                className="bg-white text-primary-burgundy px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 items-center justify-center"
               >
                 Get Free Estimate
-              </Link>
+              </EstimateLink>
               <a
                 href="tel:215-887-7800"
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-burgundy transition-colors duration-200"
