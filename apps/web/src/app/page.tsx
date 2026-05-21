@@ -42,6 +42,7 @@ import QualityMaterialsSlider from "@/components/about/QualityMaterialsSlider"
 import ProjectOfTheMonth from "@/components/home/ProjectOfTheMonth"
 import { AddressInput } from "@/components/estimate/AddressInput"
 import { parseAddressComponents } from "@/lib/hubspot/utils"
+import { useRecaptcha } from "@/lib/useRecaptcha"
 import { Review } from "@/types/review"
 import { InstagramFeed } from "@/components/home/instagram-feed"
 import { EstimateLink } from "@/components/ui/EstimateLink"
@@ -110,12 +111,14 @@ export default function HomePage() {
     state: undefined as string | undefined,
     zip: undefined as string | undefined,
     message: '',
-    preferredContact: 'email' as 'phone' | 'email' | 'text',
+    preferredContact: 'email' as 'phone' | 'email',
     timePreference: '',
     isEmergency: false,
   })
   const [contactFormSubmitting, setContactFormSubmitting] = useState(false)
   const [contactFormMessage, setContactFormMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [contactHoneypot, setContactHoneypot] = useState('')
+  const { getToken } = useRecaptcha()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -169,12 +172,14 @@ export default function HomePage() {
     setContactFormSubmitting(true)
 
     try {
+      const recaptchaToken = await getToken('contact_submit')
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(contactForm),
+        body: JSON.stringify({ ...contactForm, recaptchaToken, website_url: contactHoneypot }),
       })
 
       const data = await response.json()
@@ -764,6 +769,17 @@ export default function HomePage() {
                 )}
 
                 <form onSubmit={handleContactFormSubmit} className="space-y-6">
+                  {/* Honeypot — invisible to humans, bots populate it and the server rejects */}
+                  <input
+                    type="text"
+                    name="website_url"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={contactHoneypot}
+                    onChange={(e) => setContactHoneypot(e.target.value)}
+                    style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+                  />
                   <div className="grid md:grid-cols-2 gap-4">
                     <input
                       type="text"
@@ -843,14 +859,14 @@ export default function HomePage() {
                       Preferred Contact Method
                     </label>
                     <div className="flex gap-4">
-                      {['phone', 'email', 'text'].map((method) => (
+                      {['phone', 'email'].map((method) => (
                         <label key={method} className="flex items-center cursor-pointer">
                           <input
                             type="radio"
                             name="preferredContact"
                             value={method}
                             checked={contactForm.preferredContact === method}
-                            onChange={(e) => setContactForm({ ...contactForm, preferredContact: e.target.value as 'phone' | 'email' | 'text' })}
+                            onChange={(e) => setContactForm({ ...contactForm, preferredContact: e.target.value as 'phone' | 'email' })}
                             disabled={contactFormSubmitting}
                             className="mr-2 text-primary-red focus:ring-primary-red disabled:opacity-50"
                           />

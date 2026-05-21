@@ -166,7 +166,7 @@ export function mapDealInputToProperties(input: DealInput) {
   }
 
   // Contact preferences
-  // Note: HubSpot expects capitalized for preferred_contact_method (Phone, Email, Text)
+  // Note: HubSpot expects capitalized for preferred_contact_method (Phone, Email)
   if (input.preferred_contact_method) {
     properties.preferred_contact_method = capitalizeFirstLetter(input.preferred_contact_method) || 'Email';
   }

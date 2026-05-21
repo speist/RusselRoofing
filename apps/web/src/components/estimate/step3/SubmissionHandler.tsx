@@ -9,7 +9,11 @@ export interface EstimateSubmissionData {
 }
 
 export class SubmissionHandler {
-  async submitEstimate(data: EstimateSubmissionData): Promise<{ success: boolean; error?: string }> {
+  async submitEstimate(
+    data: EstimateSubmissionData,
+    recaptchaToken?: string | null,
+    honeypot?: string
+  ): Promise<{ success: boolean; error?: string }> {
     try {
       const response = await fetch('/api/estimate', {
         method: 'POST',
@@ -35,6 +39,8 @@ export class SubmissionHandler {
             fieldValues: data.project.fieldValues,
             estimateRange: data.project.estimateRange,
           },
+          recaptchaToken,
+          website_url: honeypot,
         }),
       });
 

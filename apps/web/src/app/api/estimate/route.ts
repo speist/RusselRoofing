@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail, formatEstimateEmail } from '@/lib/email';
+import { verifyRecaptchaToken, checkHoneypot, HONEYPOT_FIELD_NAME } from '@/lib/recaptcha';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,7 +9,23 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const { contact, property, project } = body;
+    const { contact, property, project, recaptchaToken } = body;
+
+    // Honeypot check (cheap, runs before remote reCAPTCHA call)
+    const honeypotResult = checkHoneypot(body[HONEYPOT_FIELD_NAME], 'estimate_submit');
+    if (!honeypotResult.success) {
+      // Return a 200 to avoid signaling rejection to the bot
+      return NextResponse.json({ success: true });
+    }
+
+    // Verify reCAPTCHA token
+    const recaptchaResult = await verifyRecaptchaToken(recaptchaToken, 'estimate_submit');
+    if (!recaptchaResult.success) {
+      return NextResponse.json(
+        { success: false, error: recaptchaResult.error || 'Spam check failed' },
+        { status: 403 }
+      );
+    }
 
     if (!contact?.firstName || !contact?.lastName || !contact?.email || !contact?.phone) {
       return NextResponse.json(

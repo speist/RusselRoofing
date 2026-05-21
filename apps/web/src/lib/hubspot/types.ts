@@ -8,7 +8,7 @@ export interface ContactInput {
   state?: string;
   zip?: string;
   property_type: 'single_family' | 'multi_family' | 'commercial';
-  preferred_contact_method: 'phone' | 'email' | 'text';
+  preferred_contact_method: 'phone' | 'email';
   preferred_contact_time?: string;
   lead_source: string; // HubSpot has specific allowed values
   lead_source_category?: string; // e.g., "Digital Marketing / Online Presence"
@@ -26,7 +26,7 @@ export interface DealInput {
   is_emergency: boolean;
   project_timeline?: string;
   // Contact preferences
-  preferred_contact_method?: 'phone' | 'email' | 'text';
+  preferred_contact_method?: 'phone' | 'email';
   preferred_contact_time?: string;
   // Lead source properties (direct Deal properties)
   lead_source__?: string; // Lead Source

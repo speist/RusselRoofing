@@ -24,7 +24,7 @@ interface EstimateSuccessData {
     firstName: string;
     lastName: string;
     phone: string;
-    preferredContact: 'phone' | 'email' | 'text';
+    preferredContact: 'phone' | 'email';
     timePreference: string;
     isEmergency: boolean;
   };

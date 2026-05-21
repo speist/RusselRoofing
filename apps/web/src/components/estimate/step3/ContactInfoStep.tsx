@@ -6,6 +6,7 @@ import { ProgressDots } from "../ProgressDots";
 import { Button } from "@/components/ui/Button";
 import { PropertyInfoData } from "../step1/PropertyInfoStep";
 import { ProjectDetailsData } from "../step2/ProjectDetailsStep";
+import { useRecaptcha } from "@/lib/useRecaptcha";
 import { cn } from "@/lib/utils";
 
 export interface ContactInfoStepProps {
@@ -23,8 +24,10 @@ const ContactInfoStep = React.forwardRef<HTMLDivElement, ContactInfoStepProps>(
     const [formData, setFormData] = useState<Partial<ContactFormData>>(initialData || {});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submissionError, setSubmissionError] = useState<string | null>(null);
+    const [honeypot, setHoneypot] = useState('');
     const formRef = useRef<HTMLFormElement>(null);
     const submissionHandler = useRef(new SubmissionHandler());
+    const { getToken } = useRecaptcha();
 
     // Save form data to localStorage on change
     useEffect(() => {
@@ -65,6 +68,8 @@ const ContactInfoStep = React.forwardRef<HTMLDivElement, ContactInfoStepProps>(
       setIsSubmitting(true);
       setSubmissionError(null);
 
+      const recaptchaToken = await getToken('estimate_submit');
+
       const submissionData: EstimateSubmissionData = {
         property: propertyInfo,
         project: projectDetails,
@@ -72,7 +77,7 @@ const ContactInfoStep = React.forwardRef<HTMLDivElement, ContactInfoStepProps>(
       };
 
       try {
-        const result = await submissionHandler.current.submitEstimate(submissionData);
+        const result = await submissionHandler.current.submitEstimate(submissionData, recaptchaToken, honeypot);
         
         if (result.success) {
           // Clear local storage on successful submission
@@ -126,6 +131,18 @@ const ContactInfoStep = React.forwardRef<HTMLDivElement, ContactInfoStepProps>(
           email={formData.email || ''}
           onContactFound={handleContactFound}
           className="mb-6"
+        />
+
+        {/* Honeypot — invisible to humans, bots populate it and the server rejects */}
+        <input
+          type="text"
+          name="website_url"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
         />
 
         {/* Contact Form */}

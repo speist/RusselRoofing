@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
 import { AddressInput } from "@/components/estimate/AddressInput";
 import { parseAddressComponents } from "@/lib/hubspot/utils";
+import { useRecaptcha } from "@/lib/useRecaptcha";
 import { cn } from "@/lib/utils";
 
 export interface ContactFormData {
@@ -21,7 +22,7 @@ export interface ContactFormData {
   state?: string;
   zip?: string;
   message: string;
-  preferredContact: 'phone' | 'email' | 'text';
+  preferredContact: 'phone' | 'email';
   timePreference: string;
   isEmergency: boolean;
 }
@@ -46,15 +47,6 @@ const contactMethodOptions: RadioOption[] = [
     icon: (
       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    )
-  },
-  {
-    value: 'text',
-    label: 'Text',
-    icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
       </svg>
     )
   }
@@ -87,6 +79,8 @@ export function ContactForm({ className }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
+  const [honeypot, setHoneypot] = useState('');
+  const { getToken } = useRecaptcha();
 
   // Email validation
   useEffect(() => {
@@ -139,7 +133,8 @@ export function ContactForm({ className }: ContactFormProps) {
     setIsSubmitting(true);
 
     try {
-      // Integrate with HubSpot API
+      const recaptchaToken = await getToken('contact_submit');
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -158,6 +153,8 @@ export function ContactForm({ className }: ContactFormProps) {
           preferredContact: formData.preferredContact,
           timePreference: formData.timePreference,
           isEmergency: formData.isEmergency,
+          website_url: honeypot,
+          recaptchaToken,
         }),
       });
 
@@ -228,6 +225,18 @@ export function ContactForm({ className }: ContactFormProps) {
       className={cn("space-y-6", className)}
       noValidate
     >
+      {/* Honeypot — invisible to humans, bots populate it and the server rejects */}
+      <input
+        type="text"
+        name="website_url"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+      />
+
       {/* Emergency Banner */}
       {formData.isEmergency && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
