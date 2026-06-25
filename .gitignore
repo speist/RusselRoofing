@@ -2,8 +2,15 @@
 
 # dependencies
 /node_modules
+**/node_modules
 /.pnp
 .pnp.*
+
+# Blog migration working artifacts — large backups kept local-only (synced via Dropbox)
+/blog-migration/images/
+/blog-migration/convert/node_modules/
+/blog-migration/hubspot-blog-export-raw.json
+/docs/blog-migration/
 .yarn/*
 !.yarn/patches
 !.yarn/plugins

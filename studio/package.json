@@ -1,0 +1,19 @@
+{
+  "name": "russell-roofing-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sanity Studio for the Russell Roofing blog (separate from the Next.js site)",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "import": "sanity dataset import ../blog-migration/sanity-blog-import.ndjson production --replace"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sanity": "^3",
+    "styled-components": "^6.1.15"
+  }
+}
