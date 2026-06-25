@@ -1,13 +1,12 @@
 import ContactsService from './contacts';
 import DealsService from './deals';
 import TicketsService from './tickets';
-import BlogService from './blog';
 import CareersService from './careers';
 import CommunityService from './community';
 import TeamService from './team';
 import FAQService from './faqs';
 import NotesService, { NoteInput, Note } from './notes';
-import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, BlogPost, BlogListResponse, BlogPostParams, HubSpotApiResponse, HUBSPOT_ERROR_CODES, FAQ, FAQListResponse, FAQParams } from './types';
+import { ContactInput, DealInput, TicketInput, Contact, Deal, Ticket, ContactProfile, HubSpotApiResponse, HUBSPOT_ERROR_CODES, FAQ, FAQListResponse, FAQParams } from './types';
 import { Career, CareersListResponse, CareersParams } from './careers';
 import { CommunityActivity, CommunityListResponse, CommunityParams } from './community';
 import { TeamMember, TeamListResponse, TeamParams } from './team';
@@ -38,11 +37,6 @@ interface HubSpotService {
   createTicket(ticketData: TicketInput): Promise<HubSpotApiResponse<Ticket>>;
   associateContactToTicket(contactId: string, ticketId: string): Promise<HubSpotApiResponse<void>>;
 
-  // Blog operations
-  getBlogPosts(params?: BlogPostParams): Promise<HubSpotApiResponse<BlogListResponse>>;
-  getBlogPostBySlug(slug: string): Promise<HubSpotApiResponse<BlogPost | null>>;
-  getBlogPostById(id: string): Promise<HubSpotApiResponse<BlogPost | null>>;
-
   // Careers operations
   getCareers(params?: CareersParams): Promise<HubSpotApiResponse<CareersListResponse>>;
   getCareerById(id: string): Promise<HubSpotApiResponse<Career | null>>;
@@ -69,7 +63,6 @@ class HubSpotApiService implements HubSpotService {
   private dealsService: DealsService;
   private ticketsService: TicketsService;
   private notesService: NotesService;
-  private blogService: BlogService;
   private careersService: CareersService;
   private communityService: CommunityService;
   private teamService: TeamService;
@@ -86,7 +79,6 @@ class HubSpotApiService implements HubSpotService {
       this.dealsService = null as any;
       this.ticketsService = null as any;
       this.notesService = null as any;
-      this.blogService = null as any;
       this.careersService = null as any;
       this.communityService = null as any;
       this.teamService = null as any;
@@ -99,7 +91,6 @@ class HubSpotApiService implements HubSpotService {
     this.dealsService = new DealsService(hubspotConfig.apiKey);
     this.ticketsService = new TicketsService(hubspotConfig.apiKey);
     this.notesService = new NotesService(hubspotConfig.apiKey);
-    this.blogService = new BlogService(hubspotConfig.apiKey);
     this.careersService = new CareersService(hubspotConfig.apiKey);
     this.communityService = new CommunityService(hubspotConfig.apiKey);
     this.teamService = new TeamService(hubspotConfig.apiKey);
@@ -316,39 +307,6 @@ class HubSpotApiService implements HubSpotService {
       console.warn('[HubSpot] Progressive profiling failed, showing regular form:', error);
       return { isReturning: false };
     }
-  }
-
-  /**
-   * Get blog posts
-   */
-  async getBlogPosts(params?: BlogPostParams): Promise<HubSpotApiResponse<BlogListResponse>> {
-    if (!this.isConfigured) {
-      return this.mockGetBlogPosts(params);
-    }
-
-    return await this.blogService.getBlogPosts(params);
-  }
-
-  /**
-   * Get a single blog post by slug
-   */
-  async getBlogPostBySlug(slug: string): Promise<HubSpotApiResponse<BlogPost | null>> {
-    if (!this.isConfigured) {
-      return this.mockGetBlogPostBySlug(slug);
-    }
-
-    return await this.blogService.getBlogPostBySlug(slug);
-  }
-
-  /**
-   * Get a single blog post by ID
-   */
-  async getBlogPostById(id: string): Promise<HubSpotApiResponse<BlogPost | null>> {
-    if (!this.isConfigured) {
-      return this.mockGetBlogPostById(id);
-    }
-
-    return await this.blogService.getBlogPostById(id);
   }
 
   /**
@@ -748,100 +706,6 @@ class HubSpotApiService implements HubSpotService {
 
     return {
       success: true,
-    };
-  }
-
-  private async mockGetBlogPosts(params?: BlogPostParams): Promise<HubSpotApiResponse<BlogListResponse>> {
-    console.log('[HubSpot Mock] Getting blog posts:', params);
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    const mockPosts: BlogPost[] = [
-      {
-        id: '1',
-        name: 'Expert Tips for Roof Maintenance',
-        slug: 'expert-tips-roof-maintenance',
-        state: 'PUBLISHED',
-        featuredImage: '/placeholder.svg?height=300&width=400&query=roof maintenance professional inspection',
-        postBody: '<p>Learn essential maintenance tips to extend your roof\'s lifespan...</p>',
-        postSummary: 'Learn essential maintenance tips to extend your roof\'s lifespan and prevent costly repairs.',
-        publishDate: new Date(Date.now() - 86400000 * 5).toISOString(),
-        created: new Date(Date.now() - 86400000 * 10).toISOString(),
-        updated: new Date(Date.now() - 86400000 * 3).toISOString(),
-        authorName: 'Russell Roofing Team',
-        url: '/news/expert-tips-roof-maintenance',
-      },
-      {
-        id: '2',
-        name: 'Choosing the Right Siding Material',
-        slug: 'choosing-right-siding-material',
-        state: 'PUBLISHED',
-        featuredImage: '/placeholder.svg?height=300&width=400&query=home siding materials comparison',
-        postBody: '<p>Compare different siding materials and find the perfect option...</p>',
-        postSummary: 'Compare different siding materials and find the perfect option for your home\'s style and budget.',
-        publishDate: new Date(Date.now() - 86400000 * 8).toISOString(),
-        created: new Date(Date.now() - 86400000 * 12).toISOString(),
-        updated: new Date(Date.now() - 86400000 * 6).toISOString(),
-        authorName: 'Russell Roofing Team',
-        url: '/news/choosing-right-siding-material',
-      },
-    ];
-
-    return {
-      success: true,
-      data: {
-        total: mockPosts.length,
-        results: mockPosts.slice(0, params?.limit || 10),
-      },
-    };
-  }
-
-  private async mockGetBlogPostBySlug(slug: string): Promise<HubSpotApiResponse<BlogPost | null>> {
-    console.log('[HubSpot Mock] Getting blog post by slug:', slug);
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    const mockPost: BlogPost = {
-      id: '1',
-      name: 'Expert Tips for Roof Maintenance',
-      slug: slug,
-      state: 'PUBLISHED',
-      featuredImage: '/placeholder.svg?height=600&width=1200&query=roof maintenance',
-      postBody: '<p>Full blog post content goes here...</p>',
-      postSummary: 'Learn essential maintenance tips to extend your roof\'s lifespan.',
-      publishDate: new Date(Date.now() - 86400000 * 5).toISOString(),
-      created: new Date(Date.now() - 86400000 * 10).toISOString(),
-      updated: new Date(Date.now() - 86400000 * 3).toISOString(),
-      authorName: 'Russell Roofing Team',
-      url: `/news/${slug}`,
-    };
-
-    return {
-      success: true,
-      data: mockPost,
-    };
-  }
-
-  private async mockGetBlogPostById(id: string): Promise<HubSpotApiResponse<BlogPost | null>> {
-    console.log('[HubSpot Mock] Getting blog post by ID:', id);
-    await new Promise(resolve => setTimeout(resolve, 300));
-
-    const mockPost: BlogPost = {
-      id,
-      name: 'Expert Tips for Roof Maintenance',
-      slug: 'expert-tips-roof-maintenance',
-      state: 'PUBLISHED',
-      featuredImage: '/placeholder.svg?height=600&width=1200&query=roof maintenance',
-      postBody: '<p>Full blog post content goes here...</p>',
-      postSummary: 'Learn essential maintenance tips to extend your roof\'s lifespan.',
-      publishDate: new Date(Date.now() - 86400000 * 5).toISOString(),
-      created: new Date(Date.now() - 86400000 * 10).toISOString(),
-      updated: new Date(Date.now() - 86400000 * 3).toISOString(),
-      authorName: 'Russell Roofing Team',
-      url: '/news/expert-tips-roof-maintenance',
-    };
-
-    return {
-      success: true,
-      data: mockPost,
     };
   }
 

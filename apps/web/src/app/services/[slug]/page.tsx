@@ -9,7 +9,7 @@ import FloatingPageLayout from "@/components/layout/FloatingPageLayout";
 import ServiceDetailTemplate from "@/components/services/ServiceDetailTemplate";
 import ServiceGallery from "@/components/services/ServiceGallery";
 import ServiceFAQ from "@/components/services/ServiceFAQ";
-import { hubspotService } from "@/lib/hubspot/api";
+import { getBlogPosts } from "@/lib/sanity/blog";
 
 interface ServicePageProps {
   params: { slug: string };
@@ -76,10 +76,14 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     notFound();
   }
 
-  // Fetch blog posts for related articles
-  const blogResponse = await hubspotService.getBlogPosts({ limit: 50 });
-  const allPosts = blogResponse.success && blogResponse.data ? blogResponse.data.results : [];
-  const relatedArticles = allPosts.slice(0, 3);
+  // Fetch blog posts (from Sanity) for related articles
+  let relatedArticles: Awaited<ReturnType<typeof getBlogPosts>>["results"] = [];
+  try {
+    const { results } = await getBlogPosts(50);
+    relatedArticles = results.slice(0, 3);
+  } catch (error) {
+    console.error("Failed to load related articles:", error);
+  }
 
   return (
     <FloatingPageLayout>

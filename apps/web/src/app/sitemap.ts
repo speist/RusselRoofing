@@ -38,10 +38,10 @@ const serviceAreaPages = [
   'central-jersey',
 ]
 
-// Fetch blog posts from HubSpot API for dynamic sitemap
+// Fetch blog posts (from Sanity) for dynamic sitemap
 async function getBlogPosts(): Promise<{ slug: string; updatedAt: string }[]> {
   try {
-    const response = await fetch(`${BASE_URL}/api/hubspot/blog?limit=100`, {
+    const response = await fetch(`${BASE_URL}/api/blog?limit=100`, {
       next: { revalidate: 3600 }, // Cache for 1 hour
     })
 
