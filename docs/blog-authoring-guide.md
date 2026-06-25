@@ -1,98 +1,68 @@
-# How to Write & Publish a Blog Post — Russell Roofing
+# Blog Post
 
-A simple guide for writing a new blog post and getting it onto the website.
-No technical knowledge needed.
+## **Writing & Publishing a Blog Post**
 
----
+### **Before you start (one time)**
 
-## Before you start (one-time)
+  - You need a **Sanity account** with access to the Russell Roofing Blog. Ask Derek to invite you — you'll receive an email invitation.
+  - Once invited, go to **https://russellroofing.sanity.studio** and log in.
 
-1. You need a **Sanity account** with access to the Russell Roofing Blog.
-   (Ask Derek to invite you — you'll get an email invitation.)
-2. Once invited, go to **https://russellroofing.sanity.studio** and log in.
+Fill in the fields exactly as described below so the post appears correctly on the website.
 
----
+### **Create a New Post**
 
-## Writing a new post
+1.  **Open the Studio.**
 
-### 1. Open the Studio
-Go to **https://russellroofing.sanity.studio** and sign in.
+      - Go to **https://russellroofing.sanity.studio** and sign in.
 
-### 2. Start a new post
-- In the left sidebar, click **Blog Post**.
-- Click the **pencil/“+” (Create new)** button at the top of the list.
+2.  **Start a new post.**
 
-### 3. Fill in the post
+      - In the left sidebar, click **Blog Post**.
+      - Click the **Create new** (pencil / "+") button at the top of the list.
 
-Fill these in (the important ones are marked **required**):
+3.  **Add the post details.**
 
-| Field | What to put |
-|-------|-------------|
-| **Title** *(required)* | The headline of your post. |
-| **Slug** *(required)* | The web address piece. Click **“Generate”** and it fills in automatically from your title. Leave it as-is. |
-| **Published date** *(required)* | Click and pick today’s date/time (or a past date). |
-| **Featured image** | The main photo shown at the top and in the blog list. Click to upload from your computer. |
-| **Featured image alt text** | A short description of the photo (helps Google + accessibility). e.g. “New shingle roof on a Philadelphia row home.” |
-| **Excerpt / summary** | 1–2 sentences summarizing the post. Shows in the blog list. |
-| **Body** | The main content. See tips below. |
-| **Author** | Your name. |
-| **Tags** | Keywords like `Roofing`, `Siding`. Type and press Enter for each. |
-| **SEO meta description** | Optional. 1–2 sentences for Google search results. |
-| **SEO title** | Optional. A custom title for Google (defaults to your Title if blank). |
+      - **Title** *(required)* — the headline of your post.
+      - **Slug** *(required)* — click **Generate** to fill it automatically from the title.
+      - **Published date** *(required)* — pick the date/time to publish.
+      - **Featured image** — the main photo (shown at the top and in the blog list). Click to upload.
+      - **Featured image alt text** — a short description of the photo (helps Google + accessibility).
+      - **Excerpt / summary** — 1–2 sentences shown in the blog list.
+      - **Author** — your name.
+      - **Tags** — keywords like Roofing or Siding. Type each one and press **Enter**.
+      - **SEO meta description / SEO title** — optional; used for Google search results.
 
-### 4. Writing in the Body
+4.  **Write the body.**
 
-The Body is a rich text editor (like Google Docs):
-- **Headings:** Use the style dropdown (top-left of the editor) to mark section headings (H2, H3).
-- **Bold / italic / links:** Highlight text and use the toolbar. For a link, highlight text → click the link icon → paste the URL.
-- **Bullet / numbered lists:** Use the list buttons in the toolbar.
-- **Add an image inside the post:** Click the image icon in the editor toolbar and upload.
+      - Use the editor like Google Docs.
+      - **Headings:** use the style dropdown for section headings (Heading 2 / 3).
+      - **Bold, italic, links:** highlight text and use the toolbar (for a link, click the link icon and paste the URL).
+      - **Lists:** use the bullet or numbered list buttons.
+      - **Images:** click the image icon in the toolbar to add a photo inside the post.
 
-### 5. Save & Publish
+5.  **Publish.**
 
-- Sanity **auto-saves** as you type (you’ll see “Saved” at the bottom).
-- When you’re ready to go live, click the green **Publish** button (bottom-right).
-- That’s it — the post is now published. 🎉
+      - Sanity auto-saves as you type ("Saved" appears at the bottom).
+      - Click the green **Publish** button (bottom-right) to make it live.
 
----
+### **Editing or Removing a Post**
 
-## Editing or unpublishing later
+  - **To edit:** open the post, make your changes, then click **Publish** again.
+  - **To take a post down:** open the post, click the **…** menu, then **Unpublish**.
+  - **Drafts:** if you're not ready, don't click Publish — your work stays saved as a private draft only you and admins can see.
 
-- **To edit:** open the post, make changes, click **Publish** again.
-- **To take a post down:** open the post, click the **“…” menu** (bottom bar) → **Unpublish**.
-- **Drafts:** if you’re not ready, just don’t hit Publish — your work stays saved as a draft only you/admins see.
+Once published, your post will appear on:
 
----
+  - The **News page** (https://russellroofing.com/news), where visitors can search and filter by tag.
+  - Its own page at **https://russellroofing.com/news/your-post-slug**.
+  - **Related Articles** sections on matching Service pages.
 
-## Where it shows up on the website
+(It may take a minute or two for a brand-new post to appear.)
 
-Published posts appear automatically at:
-- **The news page:** https://russellroofing.com/news
-- **Each post:** https://russellroofing.com/news/your-post-slug
+### **Tips for a Good Post**
 
-It may take a minute or two for a brand-new post to appear (the site refreshes
-its blog data periodically).
-
----
-
-## Tips for a good post
-
-- **Title:** clear and specific (“How Long Does a Roof Last in Pennsylvania?” beats “Roof Info”).
-- **Featured image:** use a real project photo when possible. Landscape orientation looks best.
-- **Always add alt text** to images.
-- **Keep paragraphs short** — easier to read on phones.
-- **Add 1–3 tags** so related posts group together.
-
----
-
-## Need help?
-
-If something looks wrong on the website after publishing, or you’re unsure about
-a field, contact Derek.
-
----
-
-> **Note for Derek (remove before sharing with authors):** This guide assumes the
-> website’s `/news` page has been connected to Sanity (migration Step 4). Until that
-> repoint is deployed, posts published here will live in Sanity but will **not** appear
-> on russellroofing.com/news (the live site still reads from HubSpot until cutover).
+  - **Title:** clear and specific ("How Long Does a Roof Last in Pennsylvania?" beats "Roof Info").
+  - **Featured image:** use a real project photo when possible; landscape orientation looks best.
+  - **Always add alt text** to images.
+  - **Keep paragraphs short** — easier to read on phones.
+  - **Add 1–3 tags** so related posts group together.
