@@ -74,7 +74,7 @@ export default function BlogPostPage() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`/api/hubspot/blog?slug=${slug}`);
+        const response = await fetch(`/api/blog?slug=${slug}`);
         const data = await response.json();
 
         if (data.success && data.data) {

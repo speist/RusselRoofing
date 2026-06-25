@@ -47,7 +47,7 @@ export default function NewsPage() {
     const fetchArticles = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/hubspot/blog?limit=50');
+        const response = await fetch('/api/blog?limit=50');
         const data = await response.json();
 
         if (data.success && data.data) {
