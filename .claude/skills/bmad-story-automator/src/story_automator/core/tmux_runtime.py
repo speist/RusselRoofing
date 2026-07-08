@@ -85,8 +85,15 @@ def agent_type() -> str:
     return runtime_provider()
 
 
-def agent_cli(agent: str) -> str:
-    return "codex exec" if agent == "codex" else "claude --dangerously-skip-permissions"
+def agent_cli(agent: str, model: str = "") -> str:
+    model = (model or "").strip()
+    if agent == "codex":
+        base = "codex exec"
+    else:
+        base = "claude --dangerously-skip-permissions"
+    if model:
+        base = f"{base} --model {shlex.quote(model)}"
+    return base
 
 
 def skill_prefix(agent: str) -> str:
