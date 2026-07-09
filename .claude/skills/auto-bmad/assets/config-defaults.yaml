@@ -1,0 +1,56 @@
+# Constant-default SETUP-block values for auto-bmad's runtime config.yaml.
+#
+# Unlike `profiles` / `phase_profiles` (whose single source is assets/agents/profiles.yaml),
+# config.yaml's `delegation` / `tea` / `git` / `code_review` blocks are SETUP ANSWERS: seeded
+# by the first-run interview, not copied from a shipped asset. So when a release ADDS a new
+# setup key, nothing materialises it into an existing config — the orchestrator falls back to a
+# hardcoded default and the new key (and the feature it unlocks) stays invisible in the file.
+#
+# This asset is that missing source — but ONLY for keys whose correct value is a fixed CONSTANT
+# in every environment. The Phase 0 config-drift heal (scripts/config_plan.py --apply) appends
+# any of these keys a config is MISSING, append-only: a key you already have is left exactly as
+# it is (your customisations are never touched); only never-seen keys are added, with the
+# default below. `reset` still NEVER touches these blocks — overwriting a setup answer is wrong;
+# appending a key you never had cannot lose one.
+#
+# DELIBERATELY ABSENT — environment-resolved / interviewed fields whose correct value is NOT a
+# universal constant, so writing a static guess would change behaviour:
+#   delegation.host, delegation.mode  (re-detected every run; the stored value is inert)
+#   delegation.target_tools           (detected from the installed skill dirs)
+#   tea.enabled, tea.framework_ci     (gated on whether TEA / a test framework / CI are present)
+#   git.mode                          (the detect|remote|local toggle; default sentinel `auto` = detect)
+#   git.base_branch                   (detected from the repo)
+# These are always seeded at first run, so they are never "missing" in practice; keeping them
+# out of this asset guarantees the heal can never materialise a wrong static value for them.
+#
+# INVARIANT (same lockstep cost as profiles.yaml): every default here must stay equal to BOTH
+# the orchestrator's absent-key fallback AND the schema in references/state-and-resume.md.
+delegation:
+  cli_phases: {}            # OPT-IN per-phase external-CLI routing; empty => every phase uses its tier.
+                            # Map a phase_profiles key -> a tool (claude|codex|opencode) to run that
+                            # phase via the tool's CLI instead of an in-tool sub-agent (model + effort
+                            # still come from that phase's profile). A few examples:
+                            #   cli_phases: { code_review_review_secondary: opencode }  # 2nd-opinion review on a different vendor's model
+                            #   cli_phases: { retrospective: codex }                    # run the retro via `codex exec`
+                            #   cli_phases: { dev_story: claude, code_review_review: codex }
+tea:
+  gate_max_iterations: 2    # Phase 8 trace-gate remediation cap before only waive/stop remain
+  story_trace_advisory:     # per-story, non-blocking trace pass; self-activating on long high-risk epics
+    enabled: true
+    min_epic_stories: 6     # only runs in epics with >= this many stories
+    skip_last_stories: 3    # also skip the epic's last N stories (their gap surfaces at the epic-end gate)
+git:
+  branch_prefix: "story/"
+  epic_branch_prefix: "epic/"  # epic mode: the one branch a whole epic run commits to (epic/{e}-{slug})
+  offer_merge: true         # Phase 9: ask whether to merge a clean-completion PR
+  ci_wait_minutes: 30       # max wait for in-progress CI before deciding (only when offer_merge is on)
+code_review:
+  max_iterations: 2
+  security_review: true     # run the dedicated per-story security review inside the Phase 7 loop
+                            # (auto-bmad-local; the ab-security delegate, gated here). false => skip it.
+  epic_review: true         # epic mode: run the Tier-B epic integration review (the heavy adversarial
+                            # pass; no halt — decisions auto-resolved). false => skip it (per-story thin review only).
+  tier_a_lenses: [auditor, security]  # epic mode: the per-story thin-review lens set (no loop/halt).
+                            # security gated by security_review above; drop blind/edge — Tier B's job.
+  epic_diff_chunk_threshold_lines: 6000  # epic mode: chunk the Tier-B review when the epic diff exceeds
+                            # this many lines (per-story sub-diffs + joint triage). 0 => never chunk.
