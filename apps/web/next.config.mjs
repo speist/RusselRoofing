@@ -122,6 +122,9 @@ const nextConfig = {
       // BASE_PATH=/analytics, so its script + collector live under /analytics too.
       { source: '/stats/script.js', destination: `${umami}/analytics/script.js` },
       { source: '/stats/api/send', destination: `${umami}/analytics/api/send` },
+      // Safety net: some tracker builds address the collector at the origin root
+      // (ignoring the /stats prefix in data-host-url). No app route uses /api/send.
+      { source: '/api/send', destination: `${umami}/analytics/api/send` },
       // Private dashboard (same BASE_PATH=/analytics deploy).
       { source: '/analytics', destination: `${umami}/analytics` },
       { source: '/analytics/:path*', destination: `${umami}/analytics/:path*` },
