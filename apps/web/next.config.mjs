@@ -118,10 +118,11 @@ const nextConfig = {
     const umami = (process.env.UMAMI_URL || '').replace(/\/$/, '');
     if (!umami) return [];
     return [
-      // First-party tracking proxy (script + event collector).
-      { source: '/stats/script.js', destination: `${umami}/script.js` },
-      { source: '/stats/api/send', destination: `${umami}/api/send` },
-      // Private dashboard (Umami deployed with BASE_PATH=/analytics).
+      // First-party tracking proxy (script + event collector). Umami runs with
+      // BASE_PATH=/analytics, so its script + collector live under /analytics too.
+      { source: '/stats/script.js', destination: `${umami}/analytics/script.js` },
+      { source: '/stats/api/send', destination: `${umami}/analytics/api/send` },
+      // Private dashboard (same BASE_PATH=/analytics deploy).
       { source: '/analytics', destination: `${umami}/analytics` },
       { source: '/analytics/:path*', destination: `${umami}/analytics/:path*` },
     ];
