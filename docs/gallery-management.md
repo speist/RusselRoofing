@@ -6,6 +6,45 @@ Complete guide for managing project photos in the Russell Roofing gallery system
 
 The gallery system is organized into service categories with structured folders for different image types. All project photos are stored in `/public/images/gallery/` with a consistent naming convention and folder structure.
 
+## SEO Conventions (Story 8.2) — read this first
+
+Gallery photos only help SEO when they carry **descriptive alt text + descriptive filenames**. Apply
+these whenever you add or replace images (including CompanyCam-sourced ones).
+
+### Alt text (required)
+Every `ProjectImage.alt` must be descriptive and, where the location is known, location-specific —
+generic phrases ("Professional roofing installation") add no SEO value and are invisible to image search.
+
+- **Convention:** `"{Project title / work done} in {Location}"`, built from the entry's own metadata.
+- **Accurate to the photo:** describe what it shows (service + type). If a photo is masonry, the alt
+  says masonry even if `serviceTypes` is mis-tagged.
+- **Location-specific when known:** a real city/town ("...in Glenside, PA") beats a state for *local* SEO.
+- **Never fabricate** a location or date. If the real location is unknown, describe by service/type only.
+- **≤ 125 characters**, one natural phrase, **no keyword stuffing**.
+
+A test enforces this — `apps/web/src/data/__tests__/gallery.test.ts` fails if any alt is empty, over
+125 chars, missing its known location, or reverts to a generic phrase.
+
+### Filenames (validated by `pnpm gallery:validate`)
+Expected pattern (see the regex in `apps/web/scripts/validate-gallery.js`):
+```
+{service}-{project-type}-{location}-{YYYY-MM-DD}[-thumb].{jpg|png|webp}
+```
+`service ∈ roofing | siding | gutters | windows | chimneys | commercial`. Generic names like
+`roofing-01.jpg` fail validation. See "Image Naming Conventions" below for examples.
+
+> **Status:** Story 8.2 rewrote the alt text for all 44 existing images. Renaming the existing files to
+> the pattern above is **deferred** — the pattern needs a real **date and location per image**, which
+> the current data lacks (all entries are the generic "New Jersey", no dates), and we do not fabricate
+> that metadata. Once real per-image locations/dates exist, rename the files, update `src` +
+> `thumbnailSrc` in `gallery.ts`, and re-run `pnpm gallery:process` + `pnpm gallery:validate`.
+
+### Known data follow-ups
+- The `masonry-*` entries have `serviceTypes: ["Gutters"]`, so masonry photos appear under the *Gutters*
+  filter — correct these to a masonry/specialty category.
+- Replacing the generic `location: "New Jersey"` with real city/town names materially improves local
+  image SEO.
+
 ## Folder Structure
 
 ```

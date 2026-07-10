@@ -81,6 +81,6 @@ development_status:
   # Epic 8 — Analytics & SEO Enhancements
   epic-8: in-progress
   8-1-faq-structured-data-schema: done
-  8-2-gallery-image-seo-optimization: backlog
+  8-2-gallery-image-seo-optimization: review
   8-3-umami-privacy-analytics: backlog
   epic-8-retrospective: optional

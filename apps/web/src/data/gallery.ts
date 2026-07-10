@@ -6,7 +6,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "roofing-01",
     src: "/images/gallery/roofing/full/roofing-01.jpg",
-    alt: "Professional roofing installation",
+    alt: "Residential Roofing Project in New Jersey",
     thumbnailSrc: "/images/gallery/roofing/thumbnails/roofing-01-thumb.jpg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Roofing"],
@@ -18,7 +18,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "roofing-03",
     src: "/images/gallery/roofing/full/roofing-03.jpg",
-    alt: "Quality roofing workmanship",
+    alt: "Expert Roof Installation in New Jersey",
     thumbnailSrc: "/images/gallery/roofing/thumbnails/roofing-03-thumb.jpg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Roofing"],
@@ -30,7 +30,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "roofing-04",
     src: "/images/gallery/roofing/full/roofing-04.jpg",
-    alt: "Modern roofing solution",
+    alt: "Modern Roofing Design in New Jersey",
     thumbnailSrc: "/images/gallery/roofing/thumbnails/roofing-04-thumb.jpg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Roofing"],
@@ -42,7 +42,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "roofing-05",
     src: "/images/gallery/roofing/full/roofing-05.jpg",
-    alt: "Durable roof installation",
+    alt: "Reliable Roof System in New Jersey",
     thumbnailSrc: "/images/gallery/roofing/thumbnails/roofing-05-thumb.jpg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Roofing"],
@@ -54,7 +54,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "roofing-06",
     src: "/images/gallery/roofing/full/roofing-06.jpg",
-    alt: "Premium roofing services",
+    alt: "Premium Roofing Installation in New Jersey",
     thumbnailSrc: "/images/gallery/roofing/thumbnails/roofing-06-thumb.jpg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Roofing"],
@@ -68,7 +68,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "siding-01",
     src: "/images/gallery/siding/full/siding01.jpg",
-    alt: "Beautiful siding installation",
+    alt: "Residential Siding Project in New Jersey",
     thumbnailSrc: "/images/gallery/siding/thumbnails/siding01-thumb.jpg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Siding"],
@@ -80,7 +80,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "siding-02",
     src: "/images/gallery/siding/full/siding02.jpg",
-    alt: "Professional siding work",
+    alt: "Expert Siding Installation in New Jersey",
     thumbnailSrc: "/images/gallery/siding/thumbnails/siding02-thumb.jpg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Siding"],
@@ -92,7 +92,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "siding-03",
     src: "/images/gallery/siding/full/siding03.jpeg",
-    alt: "Modern siding solution",
+    alt: "Contemporary Siding Design in New Jersey",
     thumbnailSrc: "/images/gallery/siding/thumbnails/siding03-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Siding"],
@@ -104,7 +104,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "siding-04",
     src: "/images/gallery/siding/full/siding04.jpeg",
-    alt: "Quality siding installation",
+    alt: "Durable Siding System in New Jersey",
     thumbnailSrc: "/images/gallery/siding/thumbnails/siding04-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Siding"],
@@ -116,7 +116,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "siding-05",
     src: "/images/gallery/siding/full/siding05.jpeg",
-    alt: "Premium siding services",
+    alt: "Premium Siding Installation in New Jersey",
     thumbnailSrc: "/images/gallery/siding/thumbnails/siding05-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Siding"],
@@ -128,7 +128,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "siding-06",
     src: "/images/gallery/siding/full/siding06.jpeg",
-    alt: "Expert siding craftsmanship",
+    alt: "Expert Siding Craftsmanship in New Jersey",
     thumbnailSrc: "/images/gallery/siding/thumbnails/siding06-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Siding"],
@@ -142,7 +142,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "windows-01",
     src: "/images/gallery/windows/full/windows-01.jpeg",
-    alt: "Professional window installation",
+    alt: "Window Replacement Project in New Jersey",
     thumbnailSrc: "/images/gallery/windows/thumbnails/windows-01-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Windows"],
@@ -154,7 +154,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "windows-02",
     src: "/images/gallery/windows/full/windows-02.jpeg",
-    alt: "Quality window services",
+    alt: "Expert Window Installation in New Jersey",
     thumbnailSrc: "/images/gallery/windows/thumbnails/windows-02-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Windows"],
@@ -166,7 +166,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "windows-03",
     src: "/images/gallery/windows/full/windows-03.jpeg",
-    alt: "Modern window solutions",
+    alt: "Modern Window Design in New Jersey",
     thumbnailSrc: "/images/gallery/windows/thumbnails/windows-03-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Windows"],
@@ -178,7 +178,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "windows-04",
     src: "/images/gallery/windows/full/windows-04.jpeg",
-    alt: "Premium window services",
+    alt: "Premium Window Replacement in New Jersey",
     thumbnailSrc: "/images/gallery/windows/thumbnails/windows-04-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Windows"],
@@ -192,7 +192,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "skylights-01",
     src: "/images/gallery/skylights/full/windows-skylight-01.jpeg",
-    alt: "Skylight installation",
+    alt: "Skylight Installation in New Jersey",
     thumbnailSrc: "/images/gallery/skylights/thumbnails/windows-skylight-01-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Skylights"],
@@ -204,7 +204,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "skylights-02",
     src: "/images/gallery/skylights/full/windows-skylight-02.jpeg",
-    alt: "Quality skylight work",
+    alt: "Expert Skylight Services in New Jersey",
     thumbnailSrc: "/images/gallery/skylights/thumbnails/windows-skylight-02-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Skylights"],
@@ -216,7 +216,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "skylights-03",
     src: "/images/gallery/skylights/full/windows-skylight-03.jpeg",
-    alt: "Modern skylight design",
+    alt: "Modern Skylight Solutions in New Jersey",
     thumbnailSrc: "/images/gallery/skylights/thumbnails/windows-skylight-03-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Skylights"],
@@ -228,7 +228,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "skylights-04",
     src: "/images/gallery/skylights/full/windows-skylight-04.jpeg",
-    alt: "Skylight replacement",
+    alt: "Skylight Replacement in New Jersey",
     thumbnailSrc: "/images/gallery/skylights/thumbnails/windows-skylight-04-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Skylights"],
@@ -240,7 +240,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "skylights-05",
     src: "/images/gallery/skylights/full/windows-skylight-05.jpeg",
-    alt: "Premium skylight services",
+    alt: "Premium Skylight Installation in New Jersey",
     thumbnailSrc: "/images/gallery/skylights/thumbnails/windows-skylight-05-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Skylights"],
@@ -252,7 +252,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "skylights-06",
     src: "/images/gallery/skylights/full/windows-skylight-06.jpeg",
-    alt: "Expert skylight craftsmanship",
+    alt: "Expert Skylight Craftsmanship in New Jersey",
     thumbnailSrc: "/images/gallery/skylights/thumbnails/windows-skylight-06-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Skylights"],
@@ -266,7 +266,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "masonry-01",
     src: "/images/gallery/masonry/full/masonry-01.jpeg",
-    alt: "Professional masonry work",
+    alt: "Masonry Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/masonry/thumbnails/masonry-01-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Gutters"],
@@ -278,7 +278,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "masonry-02",
     src: "/images/gallery/masonry/full/masonry-02.jpeg",
-    alt: "Quality masonry services",
+    alt: "Expert Masonry Services in New Jersey",
     thumbnailSrc: "/images/gallery/masonry/thumbnails/masonry-02-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Gutters"],
@@ -290,7 +290,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "masonry-03",
     src: "/images/gallery/masonry/full/masonry-03.jpeg",
-    alt: "Brick and stone work",
+    alt: "Brick and Stone Masonry in New Jersey",
     thumbnailSrc: "/images/gallery/masonry/thumbnails/masonry-03-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Gutters"],
@@ -302,7 +302,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "masonry-04",
     src: "/images/gallery/masonry/full/masonry-04.jpeg",
-    alt: "Masonry repair work",
+    alt: "Masonry Repair Services in New Jersey",
     thumbnailSrc: "/images/gallery/masonry/thumbnails/masonry-04-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Gutters"],
@@ -314,7 +314,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "masonry-05",
     src: "/images/gallery/masonry/full/masonry-05.jpeg",
-    alt: "Premium masonry work",
+    alt: "Premium Masonry Installation in New Jersey",
     thumbnailSrc: "/images/gallery/masonry/thumbnails/masonry-05-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Gutters"],
@@ -326,7 +326,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "masonry-06",
     src: "/images/gallery/masonry/full/masonry-06.jpeg",
-    alt: "Expert masonry craftsmanship",
+    alt: "Expert Masonry Craftsmanship in New Jersey",
     thumbnailSrc: "/images/gallery/masonry/thumbnails/masonry-06-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Gutters"],
@@ -340,7 +340,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "commercial-01",
     src: "/images/gallery/commercial/full/commercial01.jpeg",
-    alt: "Commercial roofing project",
+    alt: "Commercial Roofing Project in New Jersey",
     thumbnailSrc: "/images/gallery/commercial/thumbnails/commercial01-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Commercial"],
@@ -352,7 +352,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "commercial-02",
     src: "/images/gallery/commercial/full/commercial02.jpeg",
-    alt: "Commercial building services",
+    alt: "Commercial Building Services in New Jersey",
     thumbnailSrc: "/images/gallery/commercial/thumbnails/commercial02-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Commercial"],
@@ -364,7 +364,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "commercial-03",
     src: "/images/gallery/commercial/full/commercial03.jpeg",
-    alt: "Commercial renovation",
+    alt: "Commercial Renovation in New Jersey",
     thumbnailSrc: "/images/gallery/commercial/thumbnails/commercial03-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Commercial"],
@@ -376,7 +376,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "commercial-04",
     src: "/images/gallery/commercial/full/commercial04.jpeg",
-    alt: "Commercial roof restoration",
+    alt: "Commercial Roof Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/commercial/thumbnails/commercial04-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Commercial"],
@@ -388,7 +388,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "commercial-05",
     src: "/images/gallery/commercial/full/commercial05.jpeg",
-    alt: "Commercial property services",
+    alt: "Commercial Property Services in New Jersey",
     thumbnailSrc: "/images/gallery/commercial/thumbnails/commercial05-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Commercial"],
@@ -400,7 +400,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "commercial-06",
     src: "/images/gallery/commercial/full/commercial06.jpeg",
-    alt: "Commercial building maintenance",
+    alt: "Commercial Building Maintenance in New Jersey",
     thumbnailSrc: "/images/gallery/commercial/thumbnails/commercial06-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Commercial"],
@@ -414,7 +414,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "church-01",
     src: "/images/gallery/churches-and-institutions/full/church-institutions-01.jpeg",
-    alt: "Church restoration project",
+    alt: "Church Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/churches-and-institutions/thumbnails/church-institutions-01-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Churches & Institutions"],
@@ -426,7 +426,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "church-02",
     src: "/images/gallery/churches-and-institutions/full/church-institutions-02.jpeg",
-    alt: "Institutional building services",
+    alt: "Institutional Building Services in New Jersey",
     thumbnailSrc: "/images/gallery/churches-and-institutions/thumbnails/church-institutions-02-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Churches & Institutions"],
@@ -438,7 +438,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "church-03",
     src: "/images/gallery/churches-and-institutions/full/church-institutions-03.jpeg",
-    alt: "Church roof restoration",
+    alt: "Church Roof Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/churches-and-institutions/thumbnails/church-institutions-03-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Churches & Institutions"],
@@ -450,7 +450,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "church-04",
     src: "/images/gallery/churches-and-institutions/full/church-institutions-04.jpeg",
-    alt: "Historic church maintenance",
+    alt: "Historic Church Maintenance in New Jersey",
     thumbnailSrc: "/images/gallery/churches-and-institutions/thumbnails/church-institutions-04-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Churches & Institutions"],
@@ -462,7 +462,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "church-05",
     src: "/images/gallery/churches-and-institutions/full/church-institutions-05.jpeg",
-    alt: "Institutional restoration",
+    alt: "Institutional Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/churches-and-institutions/thumbnails/church-institutions-05-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Churches & Institutions"],
@@ -476,7 +476,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "historical-01",
     src: "/images/gallery/historical-restoration/full/historical-restoration-01.jpeg",
-    alt: "Historical building restoration",
+    alt: "Historical Building Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/historical-restoration/thumbnails/historical-restoration-01-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Historical Restoration"],
@@ -488,7 +488,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "historical-02",
     src: "/images/gallery/historical-restoration/full/historical-restoration-02.jpeg",
-    alt: "Heritage property restoration",
+    alt: "Heritage Property Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/historical-restoration/thumbnails/historical-restoration-02-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Historical Restoration"],
@@ -500,7 +500,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "historical-03",
     src: "/images/gallery/historical-restoration/full/historical-restoration-03.jpeg",
-    alt: "Historic roof restoration",
+    alt: "Historic Roof Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/historical-restoration/thumbnails/historical-restoration-03-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Historical Restoration"],
@@ -512,7 +512,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "historical-04",
     src: "/images/gallery/historical-restoration/full/historical-restoration-04.jpeg",
-    alt: "Period architecture restoration",
+    alt: "Period Architecture Restoration in New Jersey",
     thumbnailSrc: "/images/gallery/historical-restoration/thumbnails/historical-restoration-04-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Historical Restoration"],
@@ -524,7 +524,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "historical-05",
     src: "/images/gallery/historical-restoration/full/historical-restoration-05.jpeg",
-    alt: "Historic building preservation",
+    alt: "Historic Building Preservation in New Jersey",
     thumbnailSrc: "/images/gallery/historical-restoration/thumbnails/historical-restoration-05-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Historical Restoration"],
@@ -536,7 +536,7 @@ export const sampleProjects: ProjectImage[] = [
   {
     id: "historical-06",
     src: "/images/gallery/historical-restoration/full/historical-restoration-06-v3.jpeg",
-    alt: "Heritage conservation project",
+    alt: "Heritage Conservation Project in New Jersey",
     thumbnailSrc: "/images/gallery/historical-restoration/thumbnails/historical-restoration-06-v3-thumb.jpeg",
     blurDataUrl: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyejFxqJslid7XWO5qLLVLqm2tVSFtKJuFAvbBr2JdOgSPpppJGlBEJPcaBZ",
     serviceTypes: ["Historical Restoration"],
