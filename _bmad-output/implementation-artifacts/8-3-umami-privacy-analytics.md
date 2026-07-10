@@ -1,7 +1,7 @@
 # Story 8.3: Self-Hosted Umami Analytics with Private Dashboard
 
 ## Status
-review
+done
 
 ## Story
 **As** Russell Roofing (site owner),
@@ -45,31 +45,26 @@ dashboard (`/analytics`) and the tracking script are served first-party from `ru
 > **RR infrastructure actions** — see `docs/analytics-umami.md`. Nothing activates until `UMAMI_URL` +
 > `NEXT_PUBLIC_UMAMI_WEBSITE_ID` are set on the main site's Vercel project.
 
-- [ ] Provision database (AC: 1) — **RR action** (Supabase; runbook §1)
-  - [ ] Create a Supabase project; capture pooled (`pgbouncer`, port 6543) and direct connection strings
-  - [ ] Note free-tier caveats (pause-on-inactivity is a non-issue with live traffic; document anyway)
-- [ ] Deploy Umami (AC: 1, 2) — **RR action** (own Vercel project; runbook §2–3)
-  - [ ] Deploy Umami (`umami-software/umami`) as its own Vercel project (with `BASE_PATH=/analytics`)
-  - [ ] Set env: `DATABASE_URL` (pooled), `DIRECT_DATABASE_URL` (direct), `APP_SECRET`, `BASE_PATH=/analytics`
-  - [ ] Run/confirm DB migration; log in; **change the default admin password**; create the RR user
-- [x] First-party tracking on the main site (AC: 3, 5) — **code done**
-  - [ ] Add Umami site in the dashboard; obtain `website-id` — **RR action** (runbook §4)
+- [x] Provision database (AC: 1) — Supabase project created; Session-pooler `DATABASE_URL` wired
+- [x] Deploy Umami (AC: 1, 2) — deployed as its own Vercel project (`umami-gilt-three.vercel.app`) with
+      `BASE_PATH=/analytics`; DB migrated (tables present); default admin password changed
+- [x] First-party tracking on the main site (AC: 3, 5)
+  - [x] Website added in the dashboard; `website-id` = `4099339e-4cb2-479c-b555-73871c167fe2`
   - [x] Rewrites in `apps/web/next.config.mjs` proxy the script + collector (`/stats/script.js`,
-        `/stats/api/send`) — gated on `UMAMI_URL`
-  - [x] Tracking `<script>` mounted via `UmamiAnalytics.tsx` in `app/layout.tsx` (first-party path +
-        `website-id`), gated on `NEXT_PUBLIC_UMAMI_WEBSITE_ID`; cookieless (no consent needed)
-  - [ ] Verify events arrive for production traffic — **RR action** (runbook Verify)
-- [x] Private dashboard route (AC: 4) — **code done**
-  - [x] Rewrite maps `russellroofing.com/analytics` → the Umami dashboard (needs `BASE_PATH=/analytics`)
+        `/stats/api/send`, plus `/api/send` fallback) — gated on `UMAMI_URL`
+  - [x] Tracking `<script>` mounted via `UmamiAnalytics.tsx` in `app/layout.tsx`; cookieless (no consent)
+  - [x] Verified events arrive for production traffic (pageview appeared in Realtime)
+- [x] Private dashboard route (AC: 4)
+  - [x] Rewrite maps `russellroofing.com/analytics` → the Umami dashboard (`BASE_PATH=/analytics`)
   - [x] Confirmed absent from nav, footer, and `app/sitemap.ts` (it's a rewrite, not a page)
-  - [ ] Confirm Umami login required; optionally enable Vercel password protection — **RR action**
+  - [x] Umami login required
 - [x] Runbook (AC: 7)
   - [x] Wrote `docs/analytics-umami.md` (setup, login, credentials location, add-a-site, reading metrics,
         "how RR uses this")
-- [ ] Verify end-to-end (AC: 3, 4, 5) — **RR action** (after infra; runbook Verify)
-  - [ ] Visit site → confirm a pageview appears in the dashboard within ~1 min
-  - [ ] Confirm `/analytics` requires auth and is unlinked
-  - [ ] Confirm no cookie banner is introduced by Umami
+- [x] Verify end-to-end (AC: 3, 4, 5)
+  - [x] Visited site → pageview appeared in the dashboard (Realtime)
+  - [x] `/analytics` requires auth and is unlinked
+  - [x] No cookie banner introduced by Umami
 
 ## Dev Notes
 
@@ -162,10 +157,19 @@ why this story stays at `review` rather than `done`.
   and the env-validation test that expects an optional Google var to be required — both present on `main`
   before this change.)
 
-### Remaining (RR — tracked in deferred-work.md + the runbook)
-Provision Supabase, deploy Umami (own Vercel project, `BASE_PATH=/analytics`), change default creds,
-create the website + get its ID, set `UMAMI_URL` + `NEXT_PUBLIC_UMAMI_WEBSITE_ID` on the main site, then
-verify E2E. Also confirm the Vercel plan and the analytics-login owner.
+### Go-live (2026-07-10) — DONE
+Infra stood up and verified end-to-end: Supabase Postgres (Session pooler), Umami v3.2.0 deployed at
+`umami-gilt-three.vercel.app` with `BASE_PATH=/analytics`, website `4099339e-4cb2-479c-b555-73871c167fe2`,
+`UMAMI_URL` + `NEXT_PUBLIC_UMAMI_WEBSITE_ID` set on the main site. A production pageview appeared in the
+Umami **Realtime** view. Three fixes were needed during bring-up (all committed):
+- `/stats/*` rewrites retargeted to Umami's `/analytics/...` paths (BASE_PATH puts script + collector there).
+- Added a `/api/send` fallback rewrite (tracker-version-robust collector addressing).
+- **Dropped the absolute `data-host-url`** so events post **same-origin** — the apex `russellroofing.com`
+  307-redirects to `www`, and the cross-origin POST hit that redirect (browsers won't follow it on a CORS
+  request), so no events recorded until the tracker sent to the same `www` origin the page loads from.
+
+Optional, non-blocking: enabling Vercel password protection on the Umami project as a second auth layer,
+and confirming the Vercel plan / analytics-login owner (operational).
 
 ## QA Results
 _(to be completed by reviewer)_

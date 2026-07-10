@@ -18,10 +18,7 @@ Cross-story record of work consciously deferred. Each entry names the story it c
 
 ## Deferred from: story 8-3-umami-privacy-analytics (2026-07-10)
 
-- Umami go-live infrastructure (AC1–4 live verification) — **RR action, not code.** The main-site code
-  is shipped inert (gated on `UMAMI_URL` + `NEXT_PUBLIC_UMAMI_WEBSITE_ID`). To activate, follow
-  `docs/analytics-umami.md`: create a Supabase Postgres project; deploy Umami as its own Vercel project
-  with `BASE_PATH=/analytics`; change the default admin password + create the RR user; add the website
-  and copy its ID; set `UMAMI_URL` + `NEXT_PUBLIC_UMAMI_WEBSITE_ID` on the main site's Vercel project;
-  then verify E2E (pageview appears, `/analytics` gated + unlinked, no cookie banner). Also confirm the
-  Vercel plan and the analytics-login owner.
+- ✅ Umami go-live infrastructure (AC1–4 live verification). **Resolved in** the live Umami deploy
+  (2026-07-10): Supabase Postgres + Umami (`umami-gilt-three.vercel.app`, `BASE_PATH=/analytics`) stood
+  up, `UMAMI_URL` + `NEXT_PUBLIC_UMAMI_WEBSITE_ID` set on the main site, and a production pageview
+  verified in Umami Realtime. See `docs/analytics-umami.md` and story 8-3's Dev Agent Record.
