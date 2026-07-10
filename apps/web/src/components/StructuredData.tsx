@@ -53,7 +53,7 @@ const companyInfo = {
 export function LocalBusinessSchema() {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'RoofingContractor',
+    '@type': 'GeneralContractor',
     '@id': `${BASE_URL}/#organization`,
     name: companyInfo.name,
     legalName: companyInfo.legalName,
@@ -202,7 +202,7 @@ export function ServiceSchema({ name, description, image, url }: ServiceSchemaPr
     name,
     description,
     provider: {
-      '@type': 'RoofingContractor',
+      '@type': 'GeneralContractor',
       '@id': `${BASE_URL}/#organization`,
     },
     areaServed: companyInfo.serviceArea.map((area) => ({
@@ -263,6 +263,54 @@ export function ArticleSchema({
         url: companyInfo.logo,
       },
     },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+// FAQPage Schema for pages that visibly display FAQs.
+// Answers must be plain text per schema.org FAQ requirements, so we strip any
+// markup and decode common HTML entities before emitting the JSON-LD. Only
+// render this on pages that visibly show the same FAQ content (Google requires
+// schema content to match on-page content).
+function toPlainText(input: string): string {
+  return input
+    .replace(/<[^>]*>/g, '') // strip HTML tags
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#0*39;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+interface FAQItem {
+  question: string
+  answer: string
+}
+
+export function FAQSchema({ faqs }: { faqs: FAQItem[] }) {
+  if (!faqs?.length) return null
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: toPlainText(faq.question),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: toPlainText(faq.answer),
+      },
+    })),
   }
 
   return (

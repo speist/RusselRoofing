@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { contactConfig } from "@/config/contact";
 import { serviceFAQs } from "@/data/faqs";
 import { EstimateLink } from "@/components/ui/EstimateLink";
+import { FAQSchema } from "@/components/StructuredData";
 
 interface ServiceFAQProps {
   serviceArea: string;
@@ -25,6 +26,9 @@ export default function ServiceFAQ({ serviceArea, serviceTitle }: ServiceFAQProp
 
   return (
     <section className="py-16 bg-white">
+      {/* FAQPage structured data — generated from the same FAQs shown below, so it
+          stays in sync automatically and only emits when FAQs are visibly rendered. */}
+      <FAQSchema faqs={faqs} />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">
