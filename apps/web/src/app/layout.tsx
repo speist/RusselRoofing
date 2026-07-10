@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display, Lora } from "next/font/google";
 import { GoogleMapsScript } from "@/components/GoogleMapsScript";
 import { TrackingScripts } from "@/components/TrackingScripts";
+import { UmamiAnalytics } from "@/components/UmamiAnalytics";
 import { MainStructuredData } from "@/components/StructuredData";
 import { validateEnvironmentOrThrow } from "@/lib/env-validation";
 import "./globals.css";
@@ -127,6 +128,9 @@ export default function RootLayout({
 
         {/* Cookie Consent Banner and Tracking Scripts */}
         <TrackingScripts />
+
+        {/* Umami privacy analytics (first-party, cookieless) — no-op unless configured */}
+        <UmamiAnalytics />
       </body>
     </html>
   );

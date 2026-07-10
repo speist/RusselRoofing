@@ -204,6 +204,20 @@ const ENV_VARIABLES: EnvConfig[] = [
     clientSide: false,
     description: 'Custom Domain override for domain configurations',
     category: 'optional'
+  },
+  {
+    name: 'UMAMI_URL',
+    required: false,
+    clientSide: false,
+    description: 'Base URL of the self-hosted Umami analytics instance (own Vercel project). When set, enables the first-party /stats/* tracking proxy and the /analytics dashboard rewrite in next.config.mjs. Leave unset to disable Umami entirely.',
+    category: 'optional'
+  },
+  {
+    name: 'NEXT_PUBLIC_UMAMI_WEBSITE_ID',
+    required: false,
+    clientSide: true,
+    description: 'Umami website ID for the production site. When set, the first-party Umami tracking script mounts in the layout. Leave unset to disable Umami tracking.',
+    category: 'optional'
   }
 ];
 

@@ -108,6 +108,24 @@ const nextConfig = {
       },
     ];
   },
+  // Umami analytics (Story 8.3). Self-hosted Umami runs as its OWN Vercel project;
+  // we proxy it first-party from this domain so the tracking script + collector dodge
+  // ad-blockers, and the dashboard is reachable at /analytics. Entirely gated on
+  // UMAMI_URL — unset (the default) means these rewrites are omitted and nothing changes.
+  // The Umami project MUST be deployed with BASE_PATH=/analytics for the dashboard
+  // asset paths to resolve under /analytics (see docs/analytics-umami.md).
+  async rewrites() {
+    const umami = (process.env.UMAMI_URL || '').replace(/\/$/, '');
+    if (!umami) return [];
+    return [
+      // First-party tracking proxy (script + event collector).
+      { source: '/stats/script.js', destination: `${umami}/script.js` },
+      { source: '/stats/api/send', destination: `${umami}/api/send` },
+      // Private dashboard (Umami deployed with BASE_PATH=/analytics).
+      { source: '/analytics', destination: `${umami}/analytics` },
+      { source: '/analytics/:path*', destination: `${umami}/analytics/:path*` },
+    ];
+  },
 };
 
 export default nextConfig;
