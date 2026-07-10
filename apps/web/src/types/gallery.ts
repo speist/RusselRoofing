@@ -25,6 +25,7 @@ export const serviceCategories = [
   'Skylights',
   'Gutters',
   'Commercial',
+  'Masonry',
   'Specialty',
   'Flat',
 ] as const;

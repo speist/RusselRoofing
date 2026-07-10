@@ -12,8 +12,9 @@ Cross-story record of work consciously deferred. Each entry names the story it c
   the data has neither (all `location: "New Jersey"`, no `completedDate`). Do NOT fabricate. Needs the
   RR action (real project locations/dates) first. This is also what makes `pnpm gallery:validate`
   report its 88 pre-existing naming issues.
-- Fix mis-tagged gallery categories — `masonry-01…06` in `gallery.ts` have `serviceTypes: ["Gutters"]`,
-  so masonry photos appear under the *Gutters* filter. Retag to a masonry/specialty category.
+- ✅ Fix mis-tagged gallery categories — `masonry-01…06` in `gallery.ts` had `serviceTypes: ["Gutters"]`,
+  so masonry photos appeared under the *Gutters* filter. **Resolved in** `src/data/gallery.ts` +
+  `src/types/gallery.ts`: added a `Masonry` gallery category and retagged all 6 entries to `["Masonry"]`.
 
 ## Deferred from: story 8-3-umami-privacy-analytics (2026-07-10)
 
