@@ -36,11 +36,15 @@ You     → russellroofing.com/analytics       ──(rewrite)──▶ <umami>/
   team, create the Umami project in that **same** team. (Doesn't change the $0 DB cost.)
 
 ### 1. Create the database (Supabase — free tier)
-1. Create a Supabase project (any region near your users).
-2. Project Settings → Database → **Connection string**. Grab **both**:
-   - **Pooled** (Transaction, port `6543`) → for `DATABASE_URL`. Append `?pgbouncer=true&connection_limit=1`.
-   - **Direct** (Session, port `5432`) → for `DIRECT_DATABASE_URL` (used for migrations).
-   > ⚠️ Mismatched pooling is the #1 setup failure. Pooled for `DATABASE_URL`, direct for `DIRECT_DATABASE_URL`.
+1. Create a Supabase project (any region near your users); set + save a strong DB password.
+2. Click **Connect** → **Connection string** → **URI**, and copy the **Session pooler** string
+   (host `...pooler.supabase.com`, **port `5432`**). This one value is `DATABASE_URL`.
+   ```
+   postgresql://postgres.<ref>:<PASSWORD>@aws-0-<region>.pooler.supabase.com:5432/postgres
+   ```
+   > ⚠️ Use the **Session pooler (5432)** — it's IPv4 (works from Vercel) and supports Umami's Prisma
+   > migrations. Do **not** use the Direct connection (IPv6-only, fails from Vercel) or the Transaction
+   > pooler (6543, breaks `prisma migrate`). Single string, session pooler — this is the #1 gotcha.
    - Free-tier note: Supabase pauses a project after ~1 week of inactivity — a non-issue with live
      traffic, but if analytics ever go quiet, un-pause it in the dashboard.
 
@@ -48,11 +52,11 @@ You     → russellroofing.com/analytics       ──(rewrite)──▶ <umami>/
 1. Deploy from the official template/repo `umami-software/umami` (Vercel → New Project → import the repo,
    or use their "Deploy to Vercel" button).
 2. Set environment variables on **the Umami project**:
-   - `DATABASE_URL` = the **pooled** Supabase string (with `?pgbouncer=true&connection_limit=1`)
-   - `DIRECT_DATABASE_URL` = the **direct** Supabase string
+   - `DATABASE_URL` = the Supabase **Session pooler** string from step 1 (port 5432)
    - `APP_SECRET` = any long random string (e.g. `openssl rand -hex 32`)
    - **`BASE_PATH` = `/analytics`**  ← required so the dashboard's assets resolve under `/analytics`
-     when proxied from the main domain.
+     when proxied from the main domain. It also moves Umami's script + collector under `/analytics`,
+     which is why the main-site `/stats/*` rewrites target `${UMAMI_URL}/analytics/...`.
 3. Deploy. The first build runs the DB migration automatically. Note the Umami project's URL
    (e.g. `https://rr-analytics.vercel.app`).
 
