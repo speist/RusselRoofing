@@ -262,8 +262,8 @@ export default function HomePage() {
     <div className="min-h-screen bg-light-grey">
       {/* Dynamic Header */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || isMobileMenuOpen ? "bg-primary-red shadow-lg" : "bg-transparent"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-primary-red shadow-lg ${
+          isScrolled || isMobileMenuOpen ? "" : "md:bg-transparent md:shadow-none"
         }`}
       >
         <div className="max-w-[1280px] mx-auto px-8 sm:px-12 lg:px-16">
@@ -323,7 +323,7 @@ export default function HomePage() {
             </Link>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <button className="md:hidden text-white ml-auto" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
@@ -517,21 +517,35 @@ export default function HomePage() {
 
         {/* The Art of the Build - Video Section */}
         <section className="bg-cream py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <h2 className="font-skolar text-3xl md:text-4xl font-bold text-dark-grey text-center mb-8 md:mb-12">
               The Art of the Build
             </h2>
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-              <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl"
-                src="https://www.youtube.com/embed/YP0pArYDvaY?rel=0"
-                title="Russell Roofing - The Art of the Build"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl"
+                  src="https://www.youtube.com/embed/YP0pArYDvaY?rel=0"
+                  title="Russell Roofing - The Art of the Build"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-xl"
+                  src="https://www.youtube.com/embed/WcRdILSsMUA?rel=0"
+                  title="Russell Roofing - The Art of the Build (2)"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
             </div>
           </div>
         </section>
+
+        {/* Project of the Month Section */}
+        <ProjectOfTheMonth />
 
         {/* Why Choose Us Section */}
         <section id="about" className="bg-dark-grey py-12 md:py-16 px-4 sm:px-6 lg:px-8">
@@ -645,9 +659,6 @@ export default function HomePage() {
             )}
           </div>
         </section>
-
-        {/* Project of the Month Section */}
-        <ProjectOfTheMonth />
 
         {/* Quality Materials Section */}
         <QualityMaterialsSlider />

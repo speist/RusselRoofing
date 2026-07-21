@@ -18,7 +18,7 @@ export function EstimateLink({ children, className }: EstimateLinkProps) {
       {/* Mobile: phone call */}
       <a
         href="tel:+12158877800"
-        className={`${className || ''} md:hidden`}
+        className={`${className || ''} inline-flex md:hidden`}
       >
         {children}
       </a>
