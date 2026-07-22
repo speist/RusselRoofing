@@ -221,7 +221,7 @@ export function ServiceSchema({ name, description, image, url }: ServiceSchemaPr
   )
 }
 
-// Article Schema for blog posts
+// BlogPosting Schema for blog/news posts
 interface ArticleSchemaProps {
   title: string
   description: string
@@ -243,11 +243,15 @@ export function ArticleSchema({
 }: ArticleSchemaProps) {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: title,
     description,
     ...(image && { image }),
     url,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
     datePublished,
     dateModified: dateModified || datePublished,
     author: {

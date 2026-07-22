@@ -64,6 +64,35 @@ export const post = defineType({
       options: {layout: 'tags'},
     }),
     defineField({
+      name: 'faqs',
+      title: 'FAQ (optional)',
+      description:
+        'Optional Q&A shown at the bottom of the post. Also emits FAQ structured data for Google & AI search.',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          name: 'faq',
+          fields: [
+            {
+              name: 'question',
+              title: 'Question',
+              type: 'string',
+              validation: (r) => r.required(),
+            },
+            {
+              name: 'answer',
+              title: 'Answer',
+              type: 'text',
+              rows: 3,
+              validation: (r) => r.required(),
+            },
+          ],
+          preview: {select: {title: 'question'}},
+        },
+      ],
+    }),
+    defineField({
       name: 'metaDescription',
       title: 'SEO meta description',
       type: 'text',

@@ -14,8 +14,10 @@ export interface BlogPost {
   metaDescription?: string;
   htmlTitle?: string;
   publishDate: string;
+  updatedAt?: string;
   authorName?: string;
   tags?: string[];
+  faqs?: { question: string; answer: string }[];
   url: string;
 }
 
@@ -54,8 +56,10 @@ const POST_PROJECTION = `{
   "metaDescription": metaDescription,
   "htmlTitle": seoTitle,
   "publishDate": publishedAt,
+  "updatedAt": _updatedAt,
   "authorName": authorName,
   "tags": tags,
+  "faqs": faqs[]{question, answer},
   "originalUrl": originalUrl,
   body
 }`;
@@ -70,8 +74,10 @@ type RawPost = {
   metaDescription?: string;
   htmlTitle?: string;
   publishDate: string;
+  updatedAt?: string;
   authorName?: string;
   tags?: string[];
+  faqs?: { question: string; answer: string }[];
   originalUrl?: string;
   body?: unknown;
 };
@@ -88,8 +94,10 @@ function mapPost(raw: RawPost): BlogPost {
     metaDescription: raw.metaDescription,
     htmlTitle: raw.htmlTitle,
     publishDate: raw.publishDate,
+    updatedAt: raw.updatedAt,
     authorName: raw.authorName,
     tags: raw.tags || [],
+    faqs: raw.faqs || [],
     url: raw.originalUrl || `/news/${raw.slug}`,
   };
 }

@@ -53,9 +53,9 @@ async function getBlogPosts(): Promise<{ slug: string; updatedAt: string }[]> {
     const data = await response.json()
 
     if (data.success && data.data?.results) {
-      return data.data.results.map((post: { slug: string; updated?: string; publishDate?: string }) => ({
+      return data.data.results.map((post: { slug: string; updatedAt?: string; publishDate?: string }) => ({
         slug: post.slug,
-        updatedAt: post.updated || post.publishDate || new Date().toISOString(),
+        updatedAt: post.updatedAt || post.publishDate || new Date().toISOString(),
       }))
     }
 
